@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+<div class="content-heading text-center">
+    <!-- Input Your Home Content Here -->
+    <div class="row text-center" style="min-height:667px;">
+        <!-- contact form outer row with centered text-->
+        <h2>THUÊ XE VIỆT NAM</h2>
+        <div class="col-sm-12">
+            <div class="col-sm-12" id="dv1" style="background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;">
+                <h2 style="color:#337ab7;">ĐẶT THUÊ XE</h2>
+                <h4 style="color:#337ab7;">Khách thuê xe điền thông tin hoặc gọi <a href="tel:0964108688">0964 108 688</a> để đăng ký (bảng giá tham khảo)</h4>
+                <p style="text-align:left;margin-top:5px;">Tên *</p>
+                <input id="name" name="name" class="form-control" placeholder="Nhập tên" />
+                <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+                <input id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" />
+                <p style="text-align:left;margin-top:5px;">Email </p>
+                <input id="email" name="email" class="form-control" placeholder="Nhập email" />
+                <p style="text-align:left;margin-top:5px;">Thời gian *</p>
+                <input type="text" class="form-control" id=datetimepicker placeholder="Thời gian">
+                <p style="text-align:left;margin-top:5px;">Ghi chú (địa điểm, yêu cầu chi tiết...)*</p>
+                <textarea class="form-control" id=des name="des" placeholder="Mô tả yêu cầu chi tiết" rows="3"></textarea>
+                <input type="button" value="XÁC NHẬN" class="btn btn-primary btn-block" onclick="booking();" style="margin-bottom:5px;" id="btnregister1" />
+            </div>
+        </div><!-- end col 10 with offset 1 to centered -->
+    </div> <!-- end contact form outer row with centered text-->
+</div><!-- End Input Your Home Content Here -->
+<script>
+    $('#datetimepicker').datetimepicker({
+        dayOfWeekStart: 1,
+        lang: 'en',
+        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+    });
+    var d = new Date();
+    var s = d.toLocaleString();
+    $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+    function booking() {
+        var formdata = new FormData(); //FormData object
+        var datetimepicker = document.getElementById("datetimepicker").value;
+        if (document.getElementById("name").value == "") {
+            alert("Nhập tên!");
+            document.getElementById("name").focus();
+            return;
+        }
+        if (document.getElementById("phone").value == "") {
+            alert("Nhập số điện thoại!");
+            document.getElementById("phone").focus();
+            return;
+        }
+        if (document.getElementById("datetimepicker").value == "") {
+            alert("Nhập thời gian!");
+            document.getElementById("datetimepicker").focus();
+            return;
+        }
+        if (document.getElementById("des").value == "") {
+            alert("Nhập ghi chú!");
+            document.getElementById("des").focus();
+            return;
+        }
+        formdata.append("name", document.getElementById("name").value);
+        formdata.append("phone", document.getElementById("phone").value);
+        formdata.append("email", document.getElementById("email").value);
+        formdata.append("date_from", document.getElementById("datetimepicker").value);
+        formdata.append("des", document.getElementById("des").value);
+
+        document.getElementById("btnregister1").value = "Đang đăng ký xin chờ....";
+        document.getElementById("btnregister1").disabled = true;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/AddNew');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã đăng ký thành công! Chúng tôi sẽ liên hệ lại sớm nhất!");
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister1").value = "XÁC NHẬN";
+                document.getElementById("btnregister1").disabled = false;
+            }
+        }
+    }
+    
+</script>

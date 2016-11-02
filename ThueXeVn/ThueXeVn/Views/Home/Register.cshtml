@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+<div class="content-heading text-center">
+    <!-- Input Your Home Content Here -->
+    <div class="row text-center" style="min-height:667px;">
+        <!-- contact form outer row with centered text-->
+        <h2>THUÊ XE VIỆT NAM</h2>
+        <div class="col-sm-12">
+            <div class="col-sm-12" id="dv2" style="background-color:white;color:black;border-radius:25px;min-height:567px;">
+                <h2 style="color:#449d44;">ĐĂNG KÝ TÀI XẾ</h2>
+                <h4 style="color:#449d44;">Dành cho tài xế có xe riêng hoặc gọi <a href="tel:0964108688">0964 108 688</a> để đăng ký</h4>
+                <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
+                <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
+                <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+                <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
+                <p style="text-align:left;margin-top:5px;">Tỉnh thành *</p>
+                <select id="province" class="form-control" onchange="getQuanHuyen();"></select>
+                <p style="text-align:left;margin-top:5px;">Quận Huyện</p>
+                <select id="province2" class="form-control"></select>
+                <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
+                <select id="car_made" class="form-control"><option value="BMW">BMW</option><option value="Ford">Ford</option><option value="Mazda">Mazda</option><option value="Kia">Kia</option><option value="Honda">Honda</option><option value="Toyota">Toyota</option></select>
+                <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
+                <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." />
+                <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
+                <select id="car_size" class="form-control"><option value="4">4 chỗ</option><option value="7">7 chỗ</option><option value="16">16 chỗ</option><option value="24">24 chỗ</option></select>
+                <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
+                <select id="car_year" class="form-control"><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
+                <input type="button" value="ĐĂNG KÝ XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2" />
+            </div>
+        </div><!-- end col 10 with offset 1 to centered -->
+    </div> <!-- end contact form outer row with centered text-->
+</div><!-- End Input Your Home Content Here -->
+<script>
+  
+    
+    function register() {
+        var formdata = new FormData(); //FormData object
+       
+        if (document.getElementById("tname").value == "") {
+            alert("Nhập tên lái xe!");
+            document.getElementById("tname").focus();
+            return;
+        }
+        if (document.getElementById("tphone").value == "") {
+            alert("Nhập số điện thoại lái xe!");
+            document.getElementById("tphone").focus();
+            return;
+        }
+        if (document.getElementById("province").value == "") {
+            alert("Nhập tỉnh thành!");
+            document.getElementById("province").focus();
+            return;
+        }
+        if (document.getElementById("car_made").value == "") {
+            alert("Nhập hãng xe!");
+            document.getElementById("car_made").focus();
+            return;
+        }
+        if (document.getElementById("car_model").value == "") {
+            alert("Nhập loại xe model!");
+            document.getElementById("car_model").focus();
+            return;
+        }
+        if (document.getElementById("car_size").value == "") {
+            alert("Nhập số chỗ!");
+            document.getElementById("car_size").focus();
+            return;
+        }
+        if (document.getElementById("car_year").value == "") {
+            alert("Nhập năm sản xuất!");
+            document.getElementById("car_year").focus();
+            return;
+        }
+        formdata.append("name", document.getElementById("tname").value);
+        formdata.append("phone", document.getElementById("tphone").value);
+        formdata.append("province", document.getElementById("province").value);
+        formdata.append("car_made", document.getElementById("car_made").value);
+        formdata.append("car_model", document.getElementById("car_model").value);
+        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("car_year", document.getElementById("car_year").value);
+
+        document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
+        document.getElementById("btnregister2").disabled = true;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/Register');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã đăng ký thành công! Khi có khách chúng tôi sẽ liên hệ với bạn!");
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister2").value = "ĐĂNG KÝ XE";
+                document.getElementById("btnregister2").disabled = false;
+            }
+        }
+    }
+    $.ajax({
+        url: "/Home/getTinhThanh",
+        cache: false
+    }).done(function (html) {
+        $("#province").html("" + html);
+    });
+    function getQuanHuyen() {
+        $.ajax({
+            url: "/Home/getQuanHuyen?keyword=" + $("#province").val(),
+            cache: false
+        }).done(function (html) {
+            $("#province2").html("" + html);
+        });
+    }
+    
+</script>
+

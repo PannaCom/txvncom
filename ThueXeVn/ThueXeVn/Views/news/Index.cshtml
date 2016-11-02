@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.news>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Danh sách tin tức</h2>
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+@if (Model.PageCount > 1)
+{
+    <div class="col-md-12">
+        <ul class="pagination clearfix">
+            <li class="disabled"><a href="#">«</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i != ViewBag.page)
+                {
+                    <text>
+                        <li><a href="/news/Index?page=@i">@i</a></li></text>
+                }
+                else
+                {
+                    <text>
+                        <li><a href="/news/Index?page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                }
+            }
+        </ul>
+    </div>
+}
+<table width="100%">
+    <tr>
+        <th>
+            Tên bài viết
+        </th>
+        <th>
+            Tóm tắt
+        </th>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Ngày gửi
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td width="20%">
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td width="30%">
+                @Html.DisplayFor(modelItem => item.des)
+            </td>
+            <td>
+                <img src="@item.image" width="300" height="200">
+            </td>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.datetime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }, new { target = "_blank" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>
+@if (Model.PageCount > 1)
+{
+    <div class="col-md-12">
+        <ul class="pagination clearfix">
+            <li class="disabled"><a href="#">«</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i != ViewBag.page)
+                {
+                    <text>
+                        <li><a href="/news/Index?page=@i">@i</a></li></text>
+                }
+                else
+                {
+                    <text>
+                        <li><a href="/news/Index?page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                }
+            }
+        </ul>
+    </div>
+}

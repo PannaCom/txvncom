@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.news>
+@using PagedList.Mvc;
+@{
+    ViewBag.title = "Tin tức thuê xe Việt Nam ";
+    ViewBag.image = ThueXeVn.Config.domain + "" + Model[0].image;
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    string link = "";
+}
+
+    
+        <div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;">
+            @foreach (var item in Model)
+            {
+                link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
+                <div style="margin-bottom:25px;display:block;position:relative;float:left;" class="col-sm-12">
+                    <table>
+                        <tr>
+                            <td><a href="@link" class="col-sm-2" style="display:block;position:relative;float:left;"><img src="@item.image" alt="@item.title" class="imagenewslist" style="border:1px solid #808080;width:100px;height:100px;"></a></td>
+                            <td class="row rowimagenewslist">
+                                <div class="col-sm-11 col-xs-10 meta">
+                                    <h2 style="font-size:22px;margin-top:0px;"><a href="@link">@Html.Raw(@item.title)</a></h2>
+                                    <p style="color: #999;">&nbsp;Gửi ngày @item.datetime</p>
+                                    <p class="intro">@Html.Raw(@item.des)</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+            @if (Model.PageCount > 1)
+            {
+                <div class="col-sm-9" style="float:left;margin-left:10px;">
+                    <ul class="pagination clearfix">
+                        <li class="disabled"><a href="#">«</a></li>
+                        @for (int i = 1; i <= Model.PageCount; i++)
+                        {
+                            if (i != ViewBag.page)
+                            {
+                                <text>
+                                    <li><a href="/tin/page=@i">@i</a></li></text>
+                            }
+                            else
+                            {
+                                <text>
+                                    <li><a href="/tin/page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    
+    <div class="col-sm-2">
+        <!-- Widget: Categories -->
+        <div class="widget">
+            <h3>FANPAGE</h3>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FThu%25C3%25AA-Xe-Vi%25E1%25BB%2587t-Nam-1843483739215898%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1745887292346789" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+        </div>
+    </div>
+
+
+
+
