@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="/Scripts/jquery-ui.css">
 <script src="/Scripts/jquery.datetimepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
 <script src="/Scripts/jquery.geocomplete.js"></script> 
 <div class="map_canvas" style="display:none;"></div>
 @*<label for="autocomplete">Select a programming language: </label>
@@ -78,7 +79,7 @@
                 <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
                 <select id="car_year" class="form-control"><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
                 <p style="text-align:left;margin-top:5px;">Bảng giá</p>
-                <select id="car_year" class="form-control">
+                <select id="car_price" class="form-control">
                     <option value="-1">Thỏa thuận</option>
                     @for (int i = 5000; i < 30000; i += 500)
                     {
@@ -128,6 +129,7 @@
     var d = new Date();
     var s = d.toLocaleString();
     $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+    
     $(function () {
         var options = {
             map: ".map_canvas"
@@ -211,6 +213,11 @@
             document.getElementById("address").focus();
             return;
         }
+        if (document.getElementById("car_number").value == "") {
+            alert("Nhập biển số xe!");
+            document.getElementById("car_number").focus();
+            return;
+        }
         if (document.getElementById("car_made").value == "") {
             alert("Nhập hãng xe!");
             document.getElementById("car_made").focus();
@@ -231,17 +238,31 @@
             document.getElementById("car_year").focus();
             return;
         }
+        if (document.getElementById("car_type").value == "") {
+            alert("Nhập loại xe!");
+            document.getElementById("car_type").focus();
+            return;
+        }
+        if (document.getElementById("car_price").value == "") {
+            alert("Nhập bảng giá!");
+            document.getElementById("car_price").focus();
+            return;
+        }
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
-        formdata.append("province", document.getElementById("province").value);
+        //formdata.append("province", document.getElementById("province").value);
+        formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);
         formdata.append("car_model", document.getElementById("car_model").value);
         formdata.append("car_size", document.getElementById("car_size").value);
         formdata.append("car_year", document.getElementById("car_year").value);
-
+        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_price", document.getElementById("car_price").value);
+        formdata.append("address", document.getElementById("address").value);
+        formdata.append("lon", document.getElementById("lon").value);
+        formdata.append("lat", document.getElementById("lat").value);
         document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
         document.getElementById("btnregister2").disabled = true;
-
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/Home/Register');
         xhr.send(formdata);
@@ -309,3 +330,4 @@
         });
     }
 </script>
+

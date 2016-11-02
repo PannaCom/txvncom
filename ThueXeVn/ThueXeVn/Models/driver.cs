@@ -29,5 +29,6 @@ namespace ThueXeVn.Models
         public string province { get; set; }
         public Nullable<System.DateTime> date_time { get; set; }
         public string code { get; set; }
+        public string address { get; set; }
     }
 }

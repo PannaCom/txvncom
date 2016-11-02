@@ -39,6 +39,7 @@
           <Property Name="province" Type="nvarchar" MaxLength="150" />
           <Property Name="date_time" Type="datetime" />
           <Property Name="code" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="list_car">
           <Key>
@@ -234,6 +235,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -330,6 +332,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySetMapping Name="drivers">
             <EntityTypeMapping TypeName="thuexevnModel.driver">
               <MappingFragment StoreEntitySet="drivers">
+                <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="date_time" ColumnName="date_time" />
                 <ScalarProperty Name="province" ColumnName="province" />
