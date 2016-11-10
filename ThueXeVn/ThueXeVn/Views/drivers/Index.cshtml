@@ -1,0 +1,122 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.driver>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p style="margin-top:100px;">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Họ tên
+        </th>
+        <th>
+            Điện thoại
+        </th>
+        <th>
+            Tên xe
+        </th>
+        <th>
+            Hãng xe
+        </th>
+        <th>
+            Năm sản xuất
+        </th>
+        <th>
+            Loại xe
+        </th>
+        <th>
+            Biển số
+        </th>
+        <th>
+            Loại xe
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Ngày đăng ký
+        </th>
+        <th>
+            Mã kích hoạt
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.car_model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_made)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_years)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_size)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
+@if (Model.PageCount > 1)
+{
+    <div class="col-md-12">
+        <ul class="pagination clearfix">
+            <li class="disabled"><a href="#">«</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i != ViewBag.page)
+                {
+                    <text>
+                        <li><a href="/drivers/Index?page=@i">@i</a></li></text>
+                }
+                else
+                {
+                    <text>
+                        <li><a href="/drivers/Index?page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                }
+            }
+        </ul>
+    </div>
+}

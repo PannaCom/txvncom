@@ -14,8 +14,8 @@ namespace ThueXeVn.Controllers
         private thuexevnEntities db = new thuexevnEntities();
         public ActionResult Index()
         {
-            var p = (from q in db.news select q).OrderByDescending(o => o.id).Take(3);
-            ViewBag.news = p.ToList();
+            //var p = (from q in db.news select q).OrderByDescending(o => o.id).Take(3);
+            //ViewBag.news = p.ToList();
             return View();
         }
 

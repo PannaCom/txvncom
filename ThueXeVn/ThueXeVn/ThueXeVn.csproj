@@ -223,6 +223,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\driversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
@@ -1310,6 +1311,12 @@
     <Content Include="Views\Shared\_LayoutContent.cshtml" />
     <Content Include="Views\news\GetDetails.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
+    <Content Include="Views\drivers\Create.cshtml" />
+    <Content Include="Views\drivers\Delete.cshtml" />
+    <Content Include="Views\drivers\Details.cshtml" />
+    <Content Include="Views\drivers\Edit.cshtml" />
+    <Content Include="Views\drivers\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

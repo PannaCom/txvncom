@@ -88,7 +88,7 @@
                 </select>
                 <input type="button" value="ĐĂNG KÝ XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2"/>
             </div>
-            <div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;">
+            @*<div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;">
                 @foreach (var item in ViewBag.news)
                 {
                     link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
@@ -108,14 +108,14 @@
                     </div>
                 }
                 
-            </div>
-            <div class="col-sm-2">
-                <!-- Widget: Categories -->
+            </div>*@
+            @*<div class="col-sm-2">
+                 Widget: Categories 
                 <div class="widget">
                     <h3>FANPAGE</h3>
                     <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FThu%25C3%25AA-Xe-Vi%25E1%25BB%2587t-Nam-1843483739215898%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1745887292346789" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
                 </div>
-            </div>
+            </div>*@
         </div><!-- end col 10 with offset 1 to centered -->
     </div> <!-- end contact form outer row with centered text-->
 </div><!-- End Input Your Home Content Here -->
