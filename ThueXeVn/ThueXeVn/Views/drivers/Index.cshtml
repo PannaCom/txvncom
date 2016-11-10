@@ -4,13 +4,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <h2>Index</h2>
-
-<p style="margin-top:100px;">
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div style="width:100%;display:block;float:left;position:relative;">
+    <input type="text" id="keyword" class="form-control" placeholder="Từ khóa..." style="width:60%;display:block;float:left;position:relative;" value="@ViewBag.k"/><input type="button" value="Tìm Kiếm" class="btn-primary" style="height:40px;width:20%;display:block;float:left;position:relative;" onclick="search();" />
+</div>
+<table class="table marginbottom0">
     <tr>
         <th>
             Họ tên
@@ -51,52 +49,53 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.car_model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_made)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_years)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_number)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.car_model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_made)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_years)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.car_price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>
 @if (Model.PageCount > 1)
@@ -109,14 +108,19 @@
                 if (i != ViewBag.page)
                 {
                     <text>
-                        <li><a href="/drivers/Index?page=@i">@i</a></li></text>
+                        <li><a href="/drivers/Index?k=@ViewBag.k&page=@i">@i</a></li></text>
                 }
                 else
                 {
                     <text>
-                        <li><a href="/drivers/Index?page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                        <li><a href="/drivers/Index?k=@ViewBag.k&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
                 }
             }
         </ul>
     </div>
 }
+<script>
+    function search() {
+        window.location.href = "/drivers/index?k=" + document.getElementById("keyword").value;
+    }
+</script>

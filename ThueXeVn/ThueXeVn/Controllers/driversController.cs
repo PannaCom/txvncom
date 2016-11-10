@@ -23,6 +23,7 @@ namespace ThueXeVn.Controllers
             int pageSize = Config.PageSize;
             int pageNumber = (page ?? 1);
             ViewBag.page = page;
+            ViewBag.k = k;
             return View(p.ToPagedList(pageNumber, pageSize));
         }
 
