@@ -32,8 +32,8 @@ namespace ThueXeVn.Models
         public virtual DbSet<list_car_type> list_car_type { get; set; }
         public virtual DbSet<list_online> list_online { get; set; }
         public virtual DbSet<news> news { get; set; }
-        public virtual DbSet<tnotice> tnotices { get; set; }
-        public virtual DbSet<tnotify> tnotifies { get; set; }
+        public virtual DbSet<notice> notices { get; set; }
+        public virtual DbSet<notify> notifies { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
     }

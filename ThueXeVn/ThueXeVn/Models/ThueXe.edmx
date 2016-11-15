@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="booking">
           <Key>
             <PropertyRef Name="id" />
@@ -88,17 +88,7 @@
           <Property Name="datetime" Type="datetime" />
           <Property Name="keywords" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="TinhThanh">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="quanhuyen" Type="nvarchar" MaxLength="255" />
-          <Property Name="tinhthanhpho" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="tnotices">
+        <EntityType Name="notices">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -109,7 +99,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="title" Type="nvarchar" MaxLength="505" />
           <Property Name="body" Type="nvarchar" MaxLength="505" />
         </EntityType>
-        <EntityType Name="tnotifies">
+        <EntityType Name="notifies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -117,6 +107,16 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="tobject" Type="int" />
           <Property Name="reg_id" Type="nvarchar(max)" />
           <Property Name="os" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TinhThanh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="quanhuyen" Type="nvarchar" MaxLength="255" />
+          <Property Name="tinhthanhpho" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -134,8 +134,8 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="list_car_type" EntityType="Self.list_car_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_online" EntityType="Self.list_online" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tnotices" EntityType="Self.tnotices" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tnotifies" EntityType="Self.tnotifies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notices" EntityType="Self.notices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notifies" EntityType="Self.notifies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -145,11 +145,23 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
     FROM [dbo].[TinhThanh] AS [TinhThanh]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="thuexevnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="thuexevnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
+          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
+          <EntitySet Name="list_car" EntityType="thuexevnModel.list_car" />
+          <EntitySet Name="list_car_model" EntityType="thuexevnModel.list_car_model" />
+          <EntitySet Name="list_car_type" EntityType="thuexevnModel.list_car_type" />
+          <EntitySet Name="list_online" EntityType="thuexevnModel.list_online" />
+          <EntitySet Name="news" EntityType="thuexevnModel.news" />
+          <EntitySet Name="notices" EntityType="thuexevnModel.notice" />
+          <EntitySet Name="notifies" EntityType="thuexevnModel.notify" />
+          <EntitySet Name="users" EntityType="thuexevnModel.user" />
+          <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
+        </EntityContainer>
         <EntityType Name="booking">
           <Key>
             <PropertyRef Name="id" />
@@ -233,7 +245,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="datetime" Type="DateTime" Precision="3" />
           <Property Name="keywords" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tnotice">
+        <EntityType Name="notice">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -244,7 +256,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="title" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
           <Property Name="body" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tnotify">
+        <EntityType Name="notify">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -269,20 +281,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="quanhuyen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="thuexevnEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="bookings" EntityType="Self.booking" />
-          <EntitySet Name="drivers" EntityType="Self.driver" />
-          <EntitySet Name="list_car" EntityType="Self.list_car" />
-          <EntitySet Name="list_car_model" EntityType="Self.list_car_model" />
-          <EntitySet Name="list_car_type" EntityType="Self.list_car_type" />
-          <EntitySet Name="list_online" EntityType="Self.list_online" />
-          <EntitySet Name="news" EntityType="Self.news" />
-          <EntitySet Name="tnotices" EntityType="Self.tnotice" />
-          <EntitySet Name="tnotifies" EntityType="Self.tnotify" />
-          <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -291,130 +290,130 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="thuexevnModel.booking">
               <MappingFragment StoreEntitySet="booking">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="date_from" ColumnName="date_from" />
-                <ScalarProperty Name="date_to" ColumnName="date_to" />
-                <ScalarProperty Name="des" ColumnName="des" />
-                <ScalarProperty Name="driver_phone" ColumnName="driver_phone" />
-                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="driver_phone" ColumnName="driver_phone" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="date_to" ColumnName="date_to" />
+                <ScalarProperty Name="date_from" ColumnName="date_from" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="drivers">
             <EntityTypeMapping TypeName="thuexevnModel.driver">
               <MappingFragment StoreEntitySet="drivers">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="car_model" ColumnName="car_model" />
-                <ScalarProperty Name="car_made" ColumnName="car_made" />
-                <ScalarProperty Name="car_years" ColumnName="car_years" />
-                <ScalarProperty Name="car_size" ColumnName="car_size" />
-                <ScalarProperty Name="car_number" ColumnName="car_number" />
-                <ScalarProperty Name="car_type" ColumnName="car_type" />
-                <ScalarProperty Name="car_price" ColumnName="car_price" />
-                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
-                <ScalarProperty Name="province" ColumnName="province" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
+                <ScalarProperty Name="car_price" ColumnName="car_price" />
+                <ScalarProperty Name="car_type" ColumnName="car_type" />
+                <ScalarProperty Name="car_number" ColumnName="car_number" />
+                <ScalarProperty Name="car_size" ColumnName="car_size" />
+                <ScalarProperty Name="car_years" ColumnName="car_years" />
+                <ScalarProperty Name="car_made" ColumnName="car_made" />
+                <ScalarProperty Name="car_model" ColumnName="car_model" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="list_car">
             <EntityTypeMapping TypeName="thuexevnModel.list_car">
               <MappingFragment StoreEntitySet="list_car">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="list_car_model">
             <EntityTypeMapping TypeName="thuexevnModel.list_car_model">
               <MappingFragment StoreEntitySet="list_car_model">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="list_car_type">
             <EntityTypeMapping TypeName="thuexevnModel.list_car_type">
               <MappingFragment StoreEntitySet="list_car_type">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="list_online">
             <EntityTypeMapping TypeName="thuexevnModel.list_online">
               <MappingFragment StoreEntitySet="list_online">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="lon" ColumnName="lon" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
-                <ScalarProperty Name="geo" ColumnName="geo" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="car_number" ColumnName="car_number" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="car_number" ColumnName="car_number" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="geo" ColumnName="geo" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="news">
             <EntityTypeMapping TypeName="thuexevnModel.news">
               <MappingFragment StoreEntitySet="news">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="des" ColumnName="des" />
-                <ScalarProperty Name="fullcontent" ColumnName="fullcontent" />
-                <ScalarProperty Name="datetime" ColumnName="datetime" />
                 <ScalarProperty Name="keywords" ColumnName="keywords" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tnotices">
-            <EntityTypeMapping TypeName="thuexevnModel.tnotice">
-              <MappingFragment StoreEntitySet="tnotices">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="tobject" ColumnName="tobject" />
-                <ScalarProperty Name="regid" ColumnName="regid" />
-                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="fullcontent" ColumnName="fullcontent" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tnotifies">
-            <EntityTypeMapping TypeName="thuexevnModel.tnotify">
-              <MappingFragment StoreEntitySet="tnotifies">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="tobject" ColumnName="tobject" />
-                <ScalarProperty Name="reg_id" ColumnName="reg_id" />
+          <EntitySetMapping Name="notices">
+            <EntityTypeMapping TypeName="thuexevnModel.notice">
+              <MappingFragment StoreEntitySet="notices">
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="regid" ColumnName="regid" />
+                <ScalarProperty Name="tobject" ColumnName="tobject" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifies">
+            <EntityTypeMapping TypeName="thuexevnModel.notify">
+              <MappingFragment StoreEntitySet="notifies">
+                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="reg_id" ColumnName="reg_id" />
+                <ScalarProperty Name="tobject" ColumnName="tobject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
             <EntityTypeMapping TypeName="thuexevnModel.user">
               <MappingFragment StoreEntitySet="users">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TinhThanhs">
             <EntityTypeMapping TypeName="thuexevnModel.TinhThanh">
               <MappingFragment StoreEntitySet="TinhThanh">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
                 <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
+                <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

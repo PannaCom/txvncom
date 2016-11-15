@@ -261,14 +261,14 @@ namespace ThueXeVn.Controllers
             }
             try
             {
-                var _notifi = db.tnotifies.Where(x => x.reg_id == model.regid).FirstOrDefault();
+                var _notifi = db.notifies.Where(x => x.reg_id == model.regid).FirstOrDefault();
                 if (_notifi == null)
                 {
-                    tnotify newtnotify = new tnotify();
+                    notify newtnotify = new notify();
                     newtnotify.tobject = model.tobject ?? null;
                     newtnotify.reg_id = model.regid ?? null;
                     newtnotify.os = model.os ?? null;
-                    db.tnotifies.Add(newtnotify);
+                    db.notifies.Add(newtnotify);
                     db.SaveChanges();
                     sended = 1;
                 }

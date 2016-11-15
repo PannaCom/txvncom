@@ -229,54 +229,54 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\booking.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\driver.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\list_car.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_car_model.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_car_type.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_online.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\news.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXeVn.Context.cs">
+    <Compile Include="Models\notice.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\notify.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ThueXe.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXeVn.Context.tt</DependentUpon>
+      <DependentUpon>ThueXe.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXeVn.cs">
+    <Compile Include="Models\ThueXe.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXeVn.Designer.cs">
+    <Compile Include="Models\ThueXe.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXeVn.edmx</DependentUpon>
+      <DependentUpon>ThueXe.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TinhThanh.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tnotice.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tnotify.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>ThueXeVn.tt</DependentUpon>
+      <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -943,22 +943,22 @@
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\FontAwesome.otf" />
-    <EntityDeploy Include="Models\ThueXeVn.edmx">
+    <EntityDeploy Include="Models\ThueXe.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ThueXeVn.Designer.cs</LastGenOutput>
+      <LastGenOutput>ThueXe.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ThueXeVn.Context.tt">
+    <Content Include="Models\ThueXe.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ThueXeVn.edmx</DependentUpon>
-      <LastGenOutput>ThueXeVn.Context.cs</LastGenOutput>
+      <DependentUpon>ThueXe.edmx</DependentUpon>
+      <LastGenOutput>ThueXe.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ThueXeVn.edmx.diagram">
-      <DependentUpon>ThueXeVn.edmx</DependentUpon>
+    <Content Include="Models\ThueXe.edmx.diagram">
+      <DependentUpon>ThueXe.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\ThueXeVn.tt">
+    <Content Include="Models\ThueXe.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ThueXeVn.edmx</DependentUpon>
-      <LastGenOutput>ThueXeVn.cs</LastGenOutput>
+      <DependentUpon>ThueXe.edmx</DependentUpon>
+      <LastGenOutput>ThueXe.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
