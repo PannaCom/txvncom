@@ -68,6 +68,13 @@ namespace ThueXeVn.Controllers
             }
             return "0";
         }
+
+        public ActionResult LogOff()
+        {
+            Response.Cookies["logged"].Expires = DateTime.Now.AddDays(-1);   
+            return RedirectToAction("Index");            
+        }
+
         public ActionResult Login()
         {
             ViewBag.Message = "Your application description page.";

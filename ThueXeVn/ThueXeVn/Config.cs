@@ -121,7 +121,8 @@ namespace ThueXeVn
             MyCookie.Value = value;
             MyCookie.Expires = DateTime.Now.AddDays(365);
             HttpContext.Current.Response.Cookies.Add(MyCookie);
-            //Response.Cookies.Add(MyCookie);           
+            //Response.Cookies.Add(MyCookie);   
+            
         }
         public static string getCookie(string v)
         {

@@ -62,15 +62,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/admin">Trang quản trị</a>
+                <a class="navbar-brand" href="/admin">Trang quản trị</a>                
             </div>
             <!-- /.navbar-header -->
-
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Chào admin!</a></li>
+                <li><a href="#logout" id="logout">Đăng xuất</a></li>
+            </ul>
+            <script>
+                $(document).ready(function () {
+                    $('#logout').on('click', function (e) {
+                        e.preventDefault();
+                        location.href = "/Home/LogOff";
+                    })
+                })
+            </script>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="/CarPrice/Index"><i class="fa fa-product-hunt fa-fw"></i>Quản lý bảng giá</a>
+                        </li>
+                        <li>
+                            <a href="/drivers/Index"><i class="fa fa-product-hunt fa-fw"></i>Quản lý tài xế</a>
                         </li>
                         
                     </ul>

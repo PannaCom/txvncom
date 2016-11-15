@@ -7,6 +7,7 @@ using ThueXeVn.Models;
 using Newtonsoft.Json;
 using System.Data.Entity;
 using Twilio;
+using System.Threading.Tasks;
 namespace ThueXeVn.Controllers
 {
     public class ApiController : Controller
@@ -241,5 +242,50 @@ namespace ThueXeVn.Controllers
             var p = db.Database.SqlQuery<car_model_made>(query);
             return JsonConvert.SerializeObject(p.ToList());
         }
+
+        #region api/PostRegId
+        public class dnotifies {
+            public int? tobject { get; set; }
+            public string regid { get; set; }
+            public int? os { get; set; }
+        }
+
+        // nguyenvannam - date: 14/11/2016
+        [HttpPost]
+        public int PostRegId(dnotifies model)
+        {
+            int sended = 0;
+            if (!ModelState.IsValid)
+            {
+                sended = 0;
+            }
+            try
+            {
+                var _notifi = db.tnotifies.Where(x => x.reg_id == model.regid).FirstOrDefault();
+                if (_notifi == null)
+                {
+                    tnotify newtnotify = new tnotify();
+                    newtnotify.tobject = model.tobject ?? null;
+                    newtnotify.reg_id = model.regid ?? null;
+                    newtnotify.os = model.os ?? null;
+                    db.tnotifies.Add(newtnotify);
+                    db.SaveChanges();
+                    sended = 1;
+                }
+                else
+                {
+                    sended = 1;
+                }
+                return sended;
+            }
+            catch (Exception ex)
+            {
+               return sended;
+            }
+            
+        }
+
+        #endregion
+
     }
 }

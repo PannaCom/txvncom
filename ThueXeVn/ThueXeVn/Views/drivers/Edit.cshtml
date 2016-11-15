@@ -48,7 +48,7 @@
 <script>
     function register() {
         var formdata = new FormData(); //FormData object
-        var datetimepicker = document.getElementById("datetimepicker").value;
+        //var datetimepicker = document.getElementById("datetimepicker").value;
         if (document.getElementById("tname").value == "") {
             alert("Nhập tên lái xe!");
             document.getElementById("tname").focus();
@@ -131,6 +131,25 @@
             }
         }
     }
+
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#address").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon").val(result.geometry.location.lng());
+              $("#lat").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
+
     $.ajax({
         url: "/Home/getHangXe",
         cache: false

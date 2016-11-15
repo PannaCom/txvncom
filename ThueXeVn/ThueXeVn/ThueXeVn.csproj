@@ -52,9 +52,8 @@
     <Reference Include="PagedList.Mvc">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=105.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\..\Webconfig\thuexevnn\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>True</Private>
@@ -153,10 +152,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Twilio.Api.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Twilio.Api">
+      <HintPath>..\..\..\..\Webconfig\thuexevnn\Twilio.Api.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -232,48 +229,54 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\booking.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\driver.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\list_car.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_car_model.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_car_type.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\list_online.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\news.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXe.Context.cs">
+    <Compile Include="Models\ThueXeVn.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXe.Context.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXe.cs">
+    <Compile Include="Models\ThueXeVn.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ThueXe.Designer.cs">
+    <Compile Include="Models\ThueXeVn.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ThueXe.edmx</DependentUpon>
+      <DependentUpon>ThueXeVn.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\TinhThanh.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tnotice.cs">
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tnotify.cs">
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>ThueXe.tt</DependentUpon>
+      <DependentUpon>ThueXeVn.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -940,12 +943,22 @@
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\FontAwesome.otf" />
-    <EntityDeploy Include="Models\ThueXe.edmx">
+    <EntityDeploy Include="Models\ThueXeVn.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ThueXe.Designer.cs</LastGenOutput>
+      <LastGenOutput>ThueXeVn.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ThueXe.edmx.diagram">
-      <DependentUpon>ThueXe.edmx</DependentUpon>
+    <Content Include="Models\ThueXeVn.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ThueXeVn.edmx</DependentUpon>
+      <LastGenOutput>ThueXeVn.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ThueXeVn.edmx.diagram">
+      <DependentUpon>ThueXeVn.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ThueXeVn.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ThueXeVn.edmx</DependentUpon>
+      <LastGenOutput>ThueXeVn.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -960,16 +973,6 @@
     <Content Include="Scripts\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Scripts\ckeditor\skins\moono\readme.md" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
-    <Content Include="Models\ThueXe.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ThueXe.edmx</DependentUpon>
-      <LastGenOutput>ThueXe.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ThueXe.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ThueXe.edmx</DependentUpon>
-      <LastGenOutput>ThueXe.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
