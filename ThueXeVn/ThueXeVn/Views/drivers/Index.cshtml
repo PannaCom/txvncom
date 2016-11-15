@@ -41,27 +41,27 @@
                         <th>
                             Hãng xe
                         </th>
-                        <th>
-                            Năm sản xuất
-                        </th>
-                        <th>
-                            Loại xe
-                        </th>
-                        <th>
-                            Biển số
-                        </th>
-                        <th>
-                            Loại xe
-                        </th>
-                        <th>
-                            Giá
-                        </th>
-                        <th>
-                            Ngày đăng ký
-                        </th>
-                        <th>
-                            Mã kích hoạt
-                        </th>
+                        @*<th>
+                                Năm sản xuất
+                            </th>
+                            <th>
+                                Loại xe
+                            </th>
+                            <th>
+                                Biển số
+                            </th>
+                            <th>
+                                Loại xe
+                            </th>
+                            <th>
+                                Giá
+                            </th>
+                            <th>
+                                Ngày đăng ký
+                            </th>
+                            <th>
+                                Mã kích hoạt
+                            </th>*@
                         <th>
                             Địa chỉ
                         </th>
@@ -84,34 +84,34 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.car_made)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.car_years)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.car_size)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.car_number)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.car_type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.car_price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.date_time)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.code)
-                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.car_years)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.car_size)
+                                </td>*@
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.car_number)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.car_type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.car_price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.date_time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.code)
+                                </td>*@
                             <td>
                                 @Html.DisplayFor(modelItem => item.address)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-primary" })
+                                @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
                             </td>
                         </tr>
                     }
@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    
+
 </div>
 
 <div class="row">
