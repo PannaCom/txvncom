@@ -23,6 +23,8 @@
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone" />
     <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
     <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" value="@Model.address"/>
+    <input type="hidden" id="lon" name="lon" value="" />
+    <input type="hidden" id="lat" name="lat" value="" />
     <p style="text-align:left;margin-top:5px;">Biển số *</p>
     <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số" value="@Model.car_number" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
@@ -111,12 +113,12 @@
         formdata.append("car_type", document.getElementById("car_type").value);
         formdata.append("car_price", document.getElementById("car_price").value);
         formdata.append("address", document.getElementById("address").value);
-        formdata.append("lon", document.getElementById("lon").value);
-        formdata.append("lat", document.getElementById("lat").value);
-        document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
+        //formdata.append("lon", document.getElementById("lon").value);
+        //formdata.append("lat", document.getElementById("lat").value);
+        document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";
         document.getElementById("btnregister2").disabled = true;
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Home/Register');
+        xhr.open('POST', '/drivers/Edit');
         xhr.send(formdata);
         var content = "";
         xhr.onreadystatechange = function () {
