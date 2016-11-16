@@ -224,11 +224,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
+    <Compile Include="Controllers\NotifiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\activecode.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\booking.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\car_made_model.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\driver.cs">
@@ -960,6 +967,8 @@
       <DependentUpon>ThueXe.edmx</DependentUpon>
       <LastGenOutput>ThueXe.cs</LastGenOutput>
     </Content>
+    <Content Include="APNsNew.p12" />
+    <Content Include="APNs_PushNoti.pem" />
     <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
@@ -1320,6 +1329,7 @@
     <Content Include="Views\drivers\Edit.cshtml" />
     <Content Include="Views\drivers\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Notifies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

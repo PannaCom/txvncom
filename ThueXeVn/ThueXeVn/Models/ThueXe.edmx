@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activecode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" />
+          <Property Name="type_code" Type="int" />
+        </EntityType>
         <EntityType Name="booking">
           <Key>
             <PropertyRef Name="id" />
@@ -19,6 +28,14 @@
           <Property Name="driver_phone" Type="bigint" />
           <Property Name="status" Type="tinyint" />
           <Property Name="date_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="car_made_model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="made" Type="nvarchar" MaxLength="255" />
+          <Property Name="model" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="drivers">
           <Key>
@@ -127,7 +144,9 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="pass" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="thuexevnModelStoreContainer">
+          <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" Schema="dbo" store:Type="Tables" />
@@ -150,7 +169,9 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
     <edmx:ConceptualModels>
       <Schema Namespace="thuexevnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="thuexevnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="activecodes" EntityType="thuexevnModel.activecode" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
+          <EntitySet Name="car_made_model" EntityType="thuexevnModel.car_made_model" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="list_car" EntityType="thuexevnModel.list_car" />
           <EntitySet Name="list_car_model" EntityType="thuexevnModel.list_car_model" />
@@ -162,6 +183,15 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="users" EntityType="thuexevnModel.user" />
           <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
         </EntityContainer>
+        <EntityType Name="activecode">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type_code" Type="Int32" />
+        </EntityType>
         <EntityType Name="booking">
           <Key>
             <PropertyRef Name="id" />
@@ -176,6 +206,14 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="driver_phone" Type="Int64" />
           <Property Name="status" Type="Byte" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="car_made_model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="made" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="driver">
           <Key>
@@ -287,6 +325,16 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="thuexevnModelStoreContainer" CdmEntityContainer="thuexevnEntities">
+          <EntitySetMapping Name="activecodes">
+            <EntityTypeMapping TypeName="thuexevnModel.activecode">
+              <MappingFragment StoreEntitySet="activecode">
+                <ScalarProperty Name="type_code" ColumnName="type_code" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="thuexevnModel.booking">
               <MappingFragment StoreEntitySet="booking">
@@ -299,6 +347,15 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_made_model">
+            <EntityTypeMapping TypeName="thuexevnModel.car_made_model">
+              <MappingFragment StoreEntitySet="car_made_model">
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="made" ColumnName="made" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
