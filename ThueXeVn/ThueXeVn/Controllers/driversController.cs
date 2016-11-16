@@ -86,62 +86,62 @@ namespace ThueXeVn.Controllers
         // POST: drivers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "id,name,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address, lon, lat")] driver driver)
-        //{
-        //    if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(driver).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(driver);
-        //}
-
         [HttpPost]
-        public ActionResult Edit(string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price, string address, double lon, double lat)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "id,name,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address, lon, lat")] driver driver)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-            try
+            if (ModelState.IsValid)
             {
-                driver r = new driver();
-                r.name = name;
-                r.phone = phone;
-                r.car_number = car_number;
-                r.car_made = car_made;
-                r.car_model = car_model;
-                r.car_size = car_size;
-                r.car_years = car_year;
-                r.car_type = car_type;
-                r.car_price = car_price;
-                r.address = address;
-                //r.code = "1";
-                db.drivers.Add(r);
+                db.Entry(driver).State = EntityState.Modified;
                 db.SaveChanges();
-                list_online lo = new list_online();
-                lo.car_number = car_number;
-                lo.date_time = DateTime.Now;
-                lo.geo = Config.CreatePoint(lat, lon);
-                lo.lat = lat;
-                lo.lon = lon;
-                lo.phone = phone;
-                lo.status = 0;
-                db.list_online.Add(lo);
-                db.SaveChanges();
-                //lo.lon = lon;
-                //lo.lat = lat;
-                //lo.geo = Config.CreatePoint(lat, lon);
-                //Config.mail("muabanraovat63@gmail.com", "vnnvh80@gmail.com", "Tài xế đăng ký " + phone, "Huynguyenviet1", "Họ tên: " + name + ", số điện thoại " + phone + ", Biển số xe:" + car_number + ", Thông tin xe: " + car_made + "," + car_model + ", số chỗ " + car_size + ", năm sản xuất " + car_year + ", Địa chỉ " + address);
-
-                return "1";
+                return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
-                return "0";
-            }
+            return View(driver);
         }
+
+        //[HttpPost]
+        //public void Edit(string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price, string address, double lon, double lat)
+        //{
+        //    if (Config.getCookie("logged") == "") return Response.Redirect("/Home/Login");
+        //    try
+        //    {
+        //        driver r = new driver();
+        //        r.name = name;
+        //        r.phone = phone;
+        //        r.car_number = car_number;
+        //        r.car_made = car_made;
+        //        r.car_model = car_model;
+        //        r.car_size = car_size;
+        //        r.car_years = car_year;
+        //        r.car_type = car_type;
+        //        r.car_price = car_price;
+        //        r.address = address;
+        //        //r.code = "1";
+        //        db.drivers.Add(r);
+        //        db.SaveChanges();
+        //        list_online lo = new list_online();
+        //        lo.car_number = car_number;
+        //        lo.date_time = DateTime.Now;
+        //        lo.geo = Config.CreatePoint(lat, lon);
+        //        lo.lat = lat;
+        //        lo.lon = lon;
+        //        lo.phone = phone;
+        //        lo.status = 0;
+        //        db.list_online.Add(lo);
+        //        db.SaveChanges();
+        //        //lo.lon = lon;
+        //        //lo.lat = lat;
+        //        //lo.geo = Config.CreatePoint(lat, lon);
+        //        //Config.mail("muabanraovat63@gmail.com", "vnnvh80@gmail.com", "Tài xế đăng ký " + phone, "Huynguyenviet1", "Họ tên: " + name + ", số điện thoại " + phone + ", Biển số xe:" + car_number + ", Thông tin xe: " + car_made + "," + car_model + ", số chỗ " + car_size + ", năm sản xuất " + car_year + ", Địa chỉ " + address);
+
+        //        return "1";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "0";
+        //    }
+        //}
 
         // GET: drivers/Delete/5
         public ActionResult Delete(long? id)

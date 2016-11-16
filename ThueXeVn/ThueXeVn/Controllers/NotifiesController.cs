@@ -19,7 +19,6 @@ namespace ThueXeVn.Controllers
     {
         private thuexevnEntities db = new thuexevnEntities();
 
-        public const String certificateFile = System.Web.Hosting.HostingEnvironment.MapPath("/APNsNew.p12");
         public const String certificatePass = "txvn";
         public const String certificateHostName = "gateway.sandbox.push.apple.com";
         public const string fcmAppId = "AIzaSyAIGls7p_pw8titXZyIvECI3Vyj1NsL5TQ";
@@ -28,11 +27,16 @@ namespace ThueXeVn.Controllers
         // GET: Notifies
         public ActionResult Index()
         {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+
             return View();
         }
 
+       
+
         public int PushMessageForIOS(string deviceId, string title, string body)
         {
+            String certificateFile = System.Web.Hosting.HostingEnvironment.MapPath("/APNsNew.p12");
             int sended = 0;
             int port = 2195;
             
@@ -136,7 +140,7 @@ namespace ThueXeVn.Controllers
             }
             catch (Exception ex)
             {
-                return false;
+                return sended;
             }
         }
 

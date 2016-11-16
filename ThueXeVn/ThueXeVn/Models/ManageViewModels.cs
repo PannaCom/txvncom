@@ -83,4 +83,12 @@ namespace ThueXeVn.Models
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
     }
+
+    public class Notification
+    {
+        public int tobject { get; set; }
+        public string title { get; set; }
+        public string body { get; set; }
+    }
+
 }
