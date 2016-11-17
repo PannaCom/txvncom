@@ -20,11 +20,6 @@ namespace ThueXeVn.Controllers
     {
         private thuexevnEntities db = new thuexevnEntities();
 
-        public const String certificatePass = "txvn";
-        public const String certificateHostName = "gateway.sandbox.push.apple.com";
-        public const string fcmAppId = "AIzaSyAIGls7p_pw8titXZyIvECI3Vyj1NsL5TQ";
-        public const string fcmSenderId = "193430184784";
-
         // GET: Notifies
         public ActionResult Index()
         {
@@ -73,41 +68,46 @@ namespace ThueXeVn.Controllers
 
             try 
 	        {
-                // xử lý gửi thông báo
-                foreach (var item in nguoinhan)
-                {
-                    // Thêm thông báo vào bảng notices
-                    notice _log = new notice();
-                    _log.tobject = typeObject;
-                    _log.regid = item.reg_id;
-                    _log.os = item.os;
-                    _log.title = strTitle;
-                    _log.body = strBody;
-                    db.notices.Add(_log);
-                    if (item.os == 1)
-                    {
-                        if (PushMessageForAndroid(item.reg_id, strTitle, strBody) == 1)
-                        {
-                            TempData["Updated"] = "Đã gửi thông báo tới " + NameObject;
-                            db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
-                        }
-                    }
-                    else if(item.os == 2) 
-                    {
-                        if (PushMessageForIOS(item.reg_id, strTitle, strBody) == 1)
-                        {
-                            TempData["Updated"] = "Đã gửi thông báo tới " + NameObject;
-                            db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
-                        }
-                    }                   
+                InitAuthForIOS();
+                InitAuthForAndroid();
+                List<int> regid = new List<int>();
 
-                }
-                
+                // nguoi nhan android
+                var dsngnhan1 = nguoinhan.Where(x=>x.os == 1).Select(x=>x.reg_id).ToArray();
+                if (dsngnhan1.Count() > 0)
+	            {
+                    var _list = nguoinhan.Where(x=>x.os == 1).Select(x=>x.Id).ToList();
+		            regid.AddRange(_list);
+                    PushMessageForAndroid(dsngnhan1, strTitle, strBody);
+	            }
+                // nguoi nhan ios
+                var dsngnhan2 = nguoinhan.Where(x=>x.os == 2).Select(x=>x.reg_id).ToArray();
+                if (dsngnhan2.Count() > 0)
+	            {
+		            var _list = nguoinhan.Where(x=>x.os == 2).Select(x=>x.Id).ToList();
+                    regid.AddRange(_list);
+                    PushMessageForIOS(dsngnhan2, strTitle, strBody);
+	            }
+
+                string _dsid = string.Join(",", regid.ToArray());
+                // Thêm thông báo vào bảng notices
+                notice _log = new notice();
+                _log.tobject = typeObject;
+                _log.regid = _dsid;
+                _log.os = null;
+                _log.title = strTitle;
+                _log.body = strBody;
+                db.notices.Add(_log);
+                db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
+                TempData["Updated"] = "Gửi thông báo thành công cho " + NameObject;
                 return RedirectToAction("Index");
 	        }
 	        catch (Exception ex)
 	        {
 		        TempData["Error"] = "Có lỗi xảy ra khi gửi thông báo";
+                StreamWriter sw = new StreamWriter("log.txt");
+                sw.WriteLine(ex.ToString());
+                sw.Close();
                 return RedirectToAction("Index");
 	        }
 
@@ -122,79 +122,90 @@ namespace ThueXeVn.Controllers
             return newList;
         }
 
-       
-
-        public int PushMessageForIOS(string deviceId, string title, string body)
+        public const String certificatePass = "txvn";
+        public const String certificateHostName = "gateway.sandbox.push.apple.com";
+        public const string fcmAppId = "AIzaSyAIGls7p_pw8titXZyIvECI3Vyj1NsL5TQ";
+        public const string fcmSenderId = "193430184784";
+        public const Int32 port = 2195;
+        public X509Certificate2 clientCertificate;
+        public X509Certificate2Collection certificatesCollection;
+        public TcpClient client;
+        public WebRequest tRequest;
+        public SslStream sslStream;
+        public void InitAuthForIOS()
         {
             String certificateFile = System.Web.Hosting.HostingEnvironment.MapPath("/APNsNew.p12");
+            clientCertificate = new X509Certificate2(System.IO.File.ReadAllBytes(certificateFile), certificatePass);
+            certificatesCollection = new X509Certificate2Collection(clientCertificate);            
+        }
+
+        public void InitAuthForAndroid()
+        {
+            tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+            tRequest.Method = "POST";
+            tRequest.UseDefaultCredentials = true;
+            tRequest.PreAuthenticate = true;
+            tRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
+            //định dạng JSON
+            tRequest.ContentType = "application/json";
+            //tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
+            tRequest.Headers.Add(string.Format("Authorization: key={0}", fcmAppId));
+            tRequest.Headers.Add(string.Format("Sender: id={0}", fcmSenderId));
+        }
+
+        public int PushMessageForIOS(string[] deviceId, string title, string body)
+        {
             int sended = 0;
-            int port = 2195;
-            
-            X509Certificate2 clientCertificate = new X509Certificate2(System.IO.File.ReadAllBytes(certificateFile), certificatePass);
-
-            X509Certificate2Collection certificatesCollection = new X509Certificate2Collection(clientCertificate);
-
-
-            TcpClient client = new TcpClient(certificateHostName, port);
-            SslStream sslStream = new SslStream(client.GetStream(), false);
-
             try
             {
-                sslStream.AuthenticateAsClient(certificateHostName, certificatesCollection, SslProtocols.Tls, false);
-                MemoryStream memoryStream = new MemoryStream();
-                BinaryWriter writer = new BinaryWriter(memoryStream);
-                writer.Write((byte)0);
-                writer.Write((byte)0);
-                writer.Write((byte)32);
-
-                writer.Write(HexStringToByteArray(deviceId.ToUpper()));
-                //String payload = "{\"aps\":{\"alert\":\"" + messager + "\",\"badge\":1,\"sound\":\"default\"}}";
                 string payload = "{\"aps\" : {\"alert\" : {\"title\" :\"" + title + "\",\"body\" :\"" + body + "\", \"action-loc-key\" : \"PLAY\"}, \"badge\" : 1, \"sound\":\"default\"}}";
-                writer.Write((byte)0);
-                writer.Write((byte)payload.Length);
-                byte[] b1 = System.Text.Encoding.UTF8.GetBytes(payload);
-                writer.Write(b1);
-                writer.Flush();
-                byte[] array = memoryStream.ToArray();
-                sslStream.Write(array);
-                sslStream.Flush();
-                client.Close();
+
+                foreach (var item in deviceId)
+                {
+                    client = new TcpClient(certificateHostName, 2195);
+                    sslStream = new SslStream(client.GetStream(), false);
+                    sslStream.AuthenticateAsClient(certificateHostName, certificatesCollection, SslProtocols.Tls, false);
+
+                    MemoryStream memoryStream = new MemoryStream();
+                    BinaryWriter writer = new BinaryWriter(memoryStream);
+                    writer.Write((byte)0);
+                    writer.Write((byte)0);
+                    writer.Write((byte)32);
+
+                    writer.Write(HexStringToByteArray(item.ToUpper()));
+                    //String payload = "{\"aps\":{\"alert\":\"" + messager + "\",\"badge\":1,\"sound\":\"default\"}}";
+                    writer.Write((byte)0);
+                    writer.Write((byte)payload.Length);
+                    byte[] b1 = System.Text.Encoding.UTF8.GetBytes(payload);
+                    writer.Write(b1);
+                    writer.Flush();
+                    byte[] array = memoryStream.ToArray();
+                    sslStream.Write(array);
+                    sslStream.Flush();
+                    client.Close();
+                }
+                
                 sended = 1;
             }
             catch (System.Security.Authentication.AuthenticationException ex)
             {
                 client.Close();
             }
-            catch (Exception e)
-            {
-                client.Close();
-            }
+           
             return sended;
         }
 
-        public int PushMessageForAndroid(string regId, string title, string body)
+        public int PushMessageForAndroid(string[] regId, string title, string body)
         {
             int sended = 0;
             try
             {
-                if (regId != null && regId != "")
-                {
-                    //thiết lập GCM send
-                    WebRequest tRequest;
-                    tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
-                    tRequest.Method = "POST";
-                    tRequest.UseDefaultCredentials = true;
-                    tRequest.PreAuthenticate = true;
-                    tRequest.Credentials = CredentialCache.DefaultNetworkCredentials;
-                    //định dạng JSON
-                    tRequest.ContentType = "application/json";
-                    //tRequest.ContentType = " application/x-www-form-urlencoded;charset=UTF-8";
-                    tRequest.Headers.Add(string.Format("Authorization: key={0}", fcmAppId));
-
-                    tRequest.Headers.Add(string.Format("Sender: id={0}", fcmSenderId));
-
+                if (regId != null)
+                {                  
                     //string postData = "{ \"registration_ids\": [ \"" + RegArr + "\" ],\"data\": {\"message\": \"" + title + ";" + hinhanh + "\",\"id\":\"" + strhethongst + "\"}}"; //"\",\"dsanh\":\"" + dsanh +
-                    string postData = "{ \"registration_ids\": [ \"" + regId + "\" ],\"data\": {\"message\": \"" + title + "\",\"body\": \"" + body + "\",\"id\": \"" + "\",\"collapse_key\":\"" + "" + "\"}}";
+                    string RegArr = String.Empty;
+                    RegArr = string.Join("\",\"", regId);
+                    string postData = "{ \"registration_ids\": [ \"" + RegArr + "\" ],\"data\": {\"message\": \"" + title + "\",\"body\": \"" + body + "\",\"id\": \"" + "\",\"collapse_key\":\"" + "" + "\"}}";
 
                     //string postData = Convert.ToBase64String(fileBytes);
 
@@ -211,16 +222,14 @@ namespace ThueXeVn.Controllers
 
                     StreamReader tReader = new StreamReader(dataStream);
 
-
                     string sResponseFromServer = tReader.ReadToEnd();
 
                     tReader.Close();
                     dataStream.Close();
                     tResponse.Close();
 
-                    var json = JObject.Parse(sResponseFromServer);  //Turns your raw string into a key value lookup
+                    var json = JObject.Parse(sResponseFromServer);  
                     var xyz = json["success"].ToString();
-
                     if (xyz != "0")
                     {
                         sended = 1;
