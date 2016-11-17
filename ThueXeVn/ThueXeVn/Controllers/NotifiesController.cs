@@ -135,7 +135,10 @@ namespace ThueXeVn.Controllers
         public void InitAuthForIOS()
         {
             String certificateFile = System.Web.Hosting.HostingEnvironment.MapPath("/APNsNew.p12");
-            clientCertificate = new X509Certificate2(System.IO.File.ReadAllBytes(certificateFile), certificatePass);
+            //clientCertificate = new X509Certificate2(System.IO.File.ReadAllBytes(certificateFile), certificatePass);
+            clientCertificate = new X509Certificate2(certificateFile, certificatePass,
+X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet |
+X509KeyStorageFlags.PersistKeySet);
             certificatesCollection = new X509Certificate2Collection(clientCertificate);            
         }
 
