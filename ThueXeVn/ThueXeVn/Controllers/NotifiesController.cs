@@ -43,21 +43,34 @@ namespace ThueXeVn.Controllers
             int typeObject = model.tobject;
             string strTitle = model.title ?? "";
             string strBody = model.body ?? "";
-            
+            int _textlastid = 0;
+            int limitngnhan = 1000;
+            if (System.IO.File.Exists(HttpContext.Server.MapPath("../" + "lastid.txt")))
+            {
+                var x = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../" + "lastid.txt")).Trim();
+                _textlastid = Convert.ToInt32(x);
+            }
+           
+
             if (typeObject == 1)
             {
-                nguoinhan = db.notifies.Where(x => x.tobject == 1).ToList();
+                nguoinhan = db.notifies.Where(x => x.tobject == 1).Select(x=>x).Take(limitngnhan).ToList();
                 NameObject = "Tài xế.";
             }
             else if (typeObject == 2)
             {
-                nguoinhan = db.notifies.Where(x => x.tobject == 2).ToList();
+                nguoinhan = db.notifies.Where(x => x.tobject == 2).Take(limitngnhan).ToList();
                 NameObject = "Khách thuê xe.";
             }
             else
             {
-                nguoinhan = db.notifies.Where(x => x.tobject != null).ToList();
+                nguoinhan = db.notifies.Where(x => x.tobject != null).Take(limitngnhan).ToList();
                 NameObject = "Tài xế và khách thuê xe.";
+            }
+
+            if (_textlastid != 0)
+            {
+                nguoinhan = nguoinhan.Where(x => x.Id > _textlastid).ToList();
             }
 
             if (nguoinhan.Count == 0)
@@ -71,6 +84,7 @@ namespace ThueXeVn.Controllers
                 InitAuthForIOS();
                 InitAuthForAndroid();
                 List<int> regid = new List<int>();
+
 
                 // nguoi nhan android
                 var dsngnhan1 = nguoinhan.Where(x=>x.os == 1).Select(x=>x.reg_id).ToArray();
@@ -100,6 +114,12 @@ namespace ThueXeVn.Controllers
                 db.notices.Add(_log);
                 db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
                 TempData["Updated"] = "Gửi thông báo thành công cho " + NameObject;
+
+                // save lastid
+                var _lastid = nguoinhan.LastOrDefault().Id;
+                StreamWriter sw2 = new StreamWriter(HttpContext.Server.MapPath("../" + "lastid.txt"));
+                sw2.WriteLine(_lastid.ToString());
+
                 return RedirectToAction("Index");
 	        }
 	        catch (Exception ex)
