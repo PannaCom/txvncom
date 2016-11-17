@@ -105,7 +105,7 @@ namespace ThueXeVn.Controllers
 	        catch (Exception ex)
 	        {
 		        TempData["Error"] = "Có lỗi xảy ra khi gửi thông báo";
-                StreamWriter sw = new StreamWriter("log.txt");
+                StreamWriter sw = new StreamWriter(HttpContext.Server.MapPath("../" + "log.txt");
                 sw.WriteLine(ex.ToString());
                 sw.Close();
                 return RedirectToAction("Index");
