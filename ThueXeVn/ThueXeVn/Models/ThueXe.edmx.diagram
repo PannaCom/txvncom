@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0c53e4b4f6d44363af6958cf6e5bd226" Name="Diagram1">
-        <EntityTypeShape EntityType="thuexevnModel.activecode" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="thuexevnModel.booking" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="thuexevnModel.car_made_model" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="thuexevnModel.driver" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="thuexevnModel.list_car" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="thuexevnModel.list_car_model" Width="1.5" PointX="4.75" PointY="3.75" />
-        <EntityTypeShape EntityType="thuexevnModel.list_car_type" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="thuexevnModel.list_online" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="thuexevnModel.news" Width="1.5" PointX="2.75" PointY="7.75" />
-        <EntityTypeShape EntityType="thuexevnModel.notice" Width="1.5" PointX="4.75" PointY="7.75" />
-        <EntityTypeShape EntityType="thuexevnModel.notify" Width="1.5" PointX="6.75" PointY="7.75" />
-        <EntityTypeShape EntityType="thuexevnModel.user" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="thuexevnModel.TinhThanh" Width="1.5" PointX="8.75" PointY="3.75" />
+      <Diagram DiagramId="80b077da9079426d8e7184008f572ed8" Name="Diagram1">
+        <EntityTypeShape EntityType="thuexevnModel.activecode" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.booking" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.car_made_model" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.driver" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.list_car" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.list_car_model" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.list_car_type" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.list_online" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.news" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.notice" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.notify" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.user" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thuexevnModel.TinhThanh" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

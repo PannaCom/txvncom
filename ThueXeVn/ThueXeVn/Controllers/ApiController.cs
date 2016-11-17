@@ -224,6 +224,24 @@ namespace ThueXeVn.Controllers
             var p = (from q in db.list_car_model where q.name.Contains(keyword) orderby q.name ascending select q.name);
             return JsonConvert.SerializeObject(p.ToList());
         }
+        public string getCarModelListFromMade(string keyword)
+        {
+            if (keyword == null) keyword = "";
+            string query = "SELECT  distinct model as name FROM [thuexevn].[dbo].[car_made_model] where made is not null and made like N'%" + keyword + "%' order by model";
+            var p = db.Database.SqlQuery<car_model_made>(query);
+            return JsonConvert.SerializeObject(p.ToList());
+        }
+        public string activecode(string phone, string code)
+        {
+            try
+            {
+                var p=db.activecodes.Where(o=>o.code==code && (o.phone==null || o.phone=="")).FirstOrDefault();
+                db.Database.ExecuteSqlCommand("update activecode set phone=N'"+phone+"' where code=N'"+code+"'");
+                return p.type_code.ToString();
+            }catch(Exception ex){
+                return "-1";
+            }
+        }
         public string getCarMadeList()
         {
             string query = "SELECT  distinct car_made as name FROM [thuexevn].[dbo].[drivers] where car_made is not null order by car_made";
