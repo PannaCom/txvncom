@@ -86,8 +86,14 @@ namespace ThueXeVn.Models
 
     public class Notification
     {
+        [Required(ErrorMessage="Vui lòng chọn người gửi")]
+        [Display(Name = "Chọn người gửi")]
         public int tobject { get; set; }
+        [Required(ErrorMessage = "{0} không được để trống")]
+        [Display(Name = "Tiêu đề gửi")]
         public string title { get; set; }
+        [Required(ErrorMessage = "{0} không được để trống")]
+        [Display(Name = "Nội dung gửi")]
         public string body { get; set; }
     }
 

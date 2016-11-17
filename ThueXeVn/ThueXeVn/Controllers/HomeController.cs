@@ -66,9 +66,10 @@ namespace ThueXeVn.Controllers
             {
                 return "0";
             }
-            return "0";
+           // return "0";
         }
 
+        // LogOff
         public ActionResult LogOff()
         {
             Response.Cookies["logged"].Expires = DateTime.Now.AddDays(-1);   

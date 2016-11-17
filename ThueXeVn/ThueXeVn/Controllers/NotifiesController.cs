@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ThueXeVn.Models;
@@ -28,8 +29,97 @@ namespace ThueXeVn.Controllers
         public ActionResult Index()
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-
+            ViewBag.ListObject = ListObject();
             return View();
+        }
+
+        [HttpPost, ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult SendNotifies(Notification model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Vui lòng kiểm tra lại các trường.");
+                return View();
+            }
+
+            List<notify> nguoinhan = new List<notify>();
+            string NameObject = "";
+            int typeObject = model.tobject;
+            string strTitle = model.title ?? "";
+            string strBody = model.body ?? "";
+            
+            if (typeObject == 1)
+            {
+                nguoinhan = db.notifies.Where(x => x.tobject == 1).ToList();
+                NameObject = "Tài xế.";
+            }
+            else if (typeObject == 2)
+            {
+                nguoinhan = db.notifies.Where(x => x.tobject == 2).ToList();
+                NameObject = "Khách thuê xe.";
+            }
+            else
+            {
+                nguoinhan = db.notifies.Where(x => x.tobject != null).ToList();
+                NameObject = "Tài xế và khách thuê xe.";
+            }
+
+            if (nguoinhan.Count == 0)
+            {
+                TempData["Error"] = "Không có người nhận nào";
+                return RedirectToAction("Index");
+            }
+
+            try 
+	        {
+                // xử lý gửi thông báo
+                foreach (var item in nguoinhan)
+                {
+                    // Thêm thông báo vào bảng notices
+                    notice _log = new notice();
+                    _log.tobject = typeObject;
+                    _log.regid = item.reg_id;
+                    _log.os = item.os;
+                    _log.title = strTitle;
+                    _log.body = strBody;
+                    db.notices.Add(_log);
+                    if (item.os == 1)
+                    {
+                        if (PushMessageForAndroid(item.reg_id, strTitle, strBody) == 1)
+                        {
+                            TempData["Updated"] = "Đã gửi thông báo tới " + NameObject;
+                            db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
+                        }
+                    }
+                    else if(item.os == 2) 
+                    {
+                        if (PushMessageForIOS(item.reg_id, strTitle, strBody) == 1)
+                        {
+                            TempData["Updated"] = "Đã gửi thông báo tới " + NameObject;
+                            db.SaveChanges(); // Gửi thành công thì lưu lại vào bảng notices
+                        }
+                    }                   
+
+                }
+                
+                return RedirectToAction("Index");
+	        }
+	        catch (Exception ex)
+	        {
+		        TempData["Error"] = "Có lỗi xảy ra khi gửi thông báo";
+                return RedirectToAction("Index");
+	        }
+
+        }
+
+        public List<SelectListItem> ListObject()
+        {
+            List<SelectListItem> newList = new List<SelectListItem>();
+            newList.Add(new SelectListItem() { Value = "1", Text = "Gửi cho tài xế" });
+            newList.Add(new SelectListItem() { Value = "2", Text = "Gửi cho khách thuê xe" });
+            newList.Add(new SelectListItem() { Value = "3", Text = "Gửi cho cả tài xế và khách thuê xe" });
+            return newList;
         }
 
        
