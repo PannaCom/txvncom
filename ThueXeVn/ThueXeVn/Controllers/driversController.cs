@@ -19,7 +19,7 @@ namespace ThueXeVn.Controllers
         {
             if (k == null) k = "";
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-            var p = (from q in db.drivers where q.phone.Contains(k) || q.car_number.Contains(k) select q).OrderByDescending(o => o.id).Take(1000);
+            var p = (from q in db.drivers where q.name.Contains(k) || q.phone.Contains(k) || q.car_number.Contains(k) select q).OrderByDescending(o => o.id).Take(1000);
             int pageSize = Config.PageSize;
             int pageNumber = (page ?? 1);
             ViewBag.page = page;

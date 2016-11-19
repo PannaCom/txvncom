@@ -260,6 +260,20 @@ namespace ThueXeVn.Controllers
             var p = db.Database.SqlQuery<car_model_made>(query);
             return JsonConvert.SerializeObject(p.ToList());
         }
+        [HttpPost]
+        public string DelRegister(string id)
+        {
+            try { 
+                if (Config.getCookie("logged") == "") return "0";
+                db.Database.ExecuteSqlCommand("delete from drivers where id in " + id);
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+
+        }
 
         #region api/PostRegId
         public class dnotifies {

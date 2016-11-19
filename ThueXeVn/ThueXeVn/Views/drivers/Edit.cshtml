@@ -21,12 +21,6 @@
     <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" value="@Model.name"/>
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone" />
-    <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
-    <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" value="@Model.address"/>
-    <input type="hidden" id="lon" name="lon" value="" />
-    <input type="hidden" id="lat" name="lat" value="" />
-    <p style="text-align:left;margin-top:5px;">Biển số *</p>
-    <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số" value="@Model.car_number" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
     <select id="car_made" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
@@ -59,16 +53,6 @@
         if (document.getElementById("tphone").value == "") {
             alert("Nhập số điện thoại lái xe!");
             document.getElementById("tphone").focus();
-            return;
-        }
-        if (document.getElementById("address").value == "") {
-            alert("Nhập địa chỉ!");
-            document.getElementById("address").focus();
-            return;
-        }
-        if (document.getElementById("car_number").value == "") {
-            alert("Nhập biển số xe!");
-            document.getElementById("car_number").focus();
             return;
         }
         if (document.getElementById("car_made").value == "") {
@@ -104,27 +88,23 @@
         formdata.append("id", @Model.id);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
-        //formdata.append("province", document.getElementById("province").value);
-        formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);
         formdata.append("car_model", document.getElementById("car_model").value);
         formdata.append("car_size", document.getElementById("car_size").value);
         formdata.append("car_year", document.getElementById("car_year").value);
         formdata.append("car_type", document.getElementById("car_type").value);
         formdata.append("car_price", document.getElementById("car_price").value);
-        formdata.append("address", document.getElementById("address").value);
-        //formdata.append("lon", document.getElementById("lon").value);
-        //formdata.append("lat", document.getElementById("lat").value);
-        document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";
-        document.getElementById("btnregister2").disabled = true;
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/drivers/Edit');
+        xhr.open('POST', '/Api/Register');
         xhr.send(formdata);
         var content = "";
+        document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";
+        document.getElementById("btnregister2").disabled = true;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 if (xhr.responseText == "1") {
-                    alert("Bạn đã cập nhật thành công! Khi có khách chúng tôi sẽ liên hệ với bạn!");
+                    alert("Bạn đã cập nhật thành công!");
+                    window.location.href="/drivers/index";
                 } else {
                     alert("Chương trình đang cập nhật, xin quay lại sau!");
                 }
@@ -133,25 +113,6 @@
             }
         }
     }
-
-    $(function () {
-        var options = {
-            map: ".map_canvas"
-        };
-        $("#address").geocomplete(options)
-          .bind("geocode:result", function (event, result) {
-              $("#lon").val(result.geometry.location.lng());
-              $("#lat").val(result.geometry.location.lat());
-              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
-          })
-          .bind("geocode:error", function (event, status) {
-              $.log("ERROR: " + status);
-          })
-          .bind("geocode:multiple", function (event, results) {
-              $.log("Multiple: " + results.length + " results found");
-          });
-    });
-
     $.ajax({
         url: "/Home/getHangXe",
         cache: false
@@ -167,9 +128,9 @@
         $("#car_type").val("@Model.car_type");
     });
 
-
     $("#car_size").val("@Model.car_size");
     $("#car_year").val("@Model.car_years");
+    $("#car_price").val("@Model.car_price");
     function autosearchmodel() {
         //var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
         var keyword = document.getElementById("car_model").value;
