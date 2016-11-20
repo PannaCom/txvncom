@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="activecode">
           <Key>
             <PropertyRef Name="id" />
@@ -28,6 +28,14 @@
           <Property Name="driver_phone" Type="bigint" />
           <Property Name="status" Type="tinyint" />
           <Property Name="date_time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="call_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="calls" Type="int" />
         </EntityType>
         <EntityType Name="car_made_model">
           <Key>
@@ -146,6 +154,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
         <EntityContainer Name="thuexevnModelStoreContainer">
           <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="call_log" EntityType="Self.call_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
@@ -164,8 +173,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
     FROM [dbo].[TinhThanh] AS [TinhThanh]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="thuexevnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -319,7 +327,16 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="notifies" EntityType="Self.notify" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
+          <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
         </EntityContainer>
+        <EntityType Name="call_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="calls" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -472,6 +489,15 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
                 <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="call_log">
+            <EntityTypeMapping TypeName="thuexevnModel.call_log">
+              <MappingFragment StoreEntitySet="call_log">
+                <ScalarProperty Name="calls" ColumnName="calls" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

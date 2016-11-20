@@ -242,6 +242,29 @@ namespace ThueXeVn.Controllers
                 return "-1";
             }
         }
+        public string call(string phone)
+        {
+            try
+            {
+                var p = db.call_log.Any(o => o.phone == phone);
+                if (p) {
+                    db.Database.ExecuteSqlCommand("update call_log set calls=calls+1 where phone=N'" + phone + "'");
+                }
+                else
+                {
+                    call_log clg = new call_log();
+                    clg.calls = 1;
+                    clg.phone = phone;
+                    db.call_log.Add(clg);
+                    db.SaveChanges();
+                }
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "-1";
+            }
+        }
         public string getCarMadeList()
         {
             string query = "SELECT  distinct car_made as name FROM [thuexevn].[dbo].[drivers] where car_made is not null order by car_made";

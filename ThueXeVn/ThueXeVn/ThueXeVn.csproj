@@ -235,6 +235,9 @@
     <Compile Include="Models\booking.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\call_log.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\car_made_model.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
@@ -950,26 +953,26 @@
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="APNsNew.p12" />
+    <Content Include="APNs_PushNoti.pem" />
     <EntityDeploy Include="Models\ThueXe.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThueXe.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\ThueXe.edmx.diagram">
+      <DependentUpon>ThueXe.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Models\ThueXe.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ThueXe.edmx</DependentUpon>
       <LastGenOutput>ThueXe.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ThueXe.edmx.diagram">
-      <DependentUpon>ThueXe.edmx</DependentUpon>
     </Content>
     <Content Include="Models\ThueXe.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ThueXe.edmx</DependentUpon>
       <LastGenOutput>ThueXe.cs</LastGenOutput>
     </Content>
-    <Content Include="APNsNew.p12" />
-    <Content Include="APNs_PushNoti.pem" />
-    <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />

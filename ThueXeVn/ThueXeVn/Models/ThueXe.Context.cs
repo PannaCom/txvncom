@@ -38,5 +38,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<notify> notifies { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
+        public virtual DbSet<call_log> call_log { get; set; }
     }
 }
