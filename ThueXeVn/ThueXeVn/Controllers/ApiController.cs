@@ -236,7 +236,7 @@ namespace ThueXeVn.Controllers
             try
             {
                 var p=db.activecodes.Where(o=>o.code==code && (o.phone==null || o.phone=="")).FirstOrDefault();
-                db.Database.ExecuteSqlCommand("update activecode set phone=N'"+phone+"' where code=N'"+code+"'");
+                db.Database.ExecuteSqlCommand("update activecode set phone=N'" + phone + "' where code=N'" + code + "' and id=" + p.id);
                 return p.type_code.ToString();
             }catch(Exception ex){
                 return "-1";
@@ -297,7 +297,21 @@ namespace ThueXeVn.Controllers
             }
 
         }
+        [HttpPost]
+        public string activeDriver(int id)
+        {
+            try
+            {
+                if (Config.getCookie("logged") == "") return "0";
+                db.Database.ExecuteSqlCommand("update drivers set code=N'1' where id=" + id);
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
 
+        }
         #region api/PostRegId
         public class dnotifies {
             public int? tobject { get; set; }

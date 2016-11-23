@@ -43,6 +43,9 @@
                         <th>
                             Hãng xe
                         </th>
+                        <th>
+                            Trạng thái
+                        </th>
                         @*<th>
                                 Năm sản xuất
                             </th>
@@ -85,6 +88,16 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.car_made)
                             </td>
+                            <td>
+                                @if (item.code != "1")
+                                {
+                                    <span style="color:red;">Chưa kích hoạt</span>
+                                }
+                                else
+                                {
+                                    <span>Đang hoạt động</span>
+                                }
+                            </td>
                             @*<td>
                                     @Html.DisplayFor(modelItem => item.car_years)
                                 </td>
@@ -110,6 +123,7 @@
                                 @Html.ActionLink("Sửa", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-primary" })
                                 @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                                 @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
+                                <input type="button" value="Kích hoạt" class="btn btn-primary" onclick="Active(@item.id);" id="active_@item.id" />
                             </td>
                         </tr>
                     }
@@ -175,6 +189,31 @@
                     }
                     document.getElementById("btnregisterdel").value = "Xóa";
                     document.getElementById("btnregisterdel").disabled = false;
+                }
+            }
+        }
+        //alert(sThisVal);
+    }
+    function Active(id) {
+        if (confirm("Kích hoạt tài khoản tài xế này?")) {
+            
+            var formdata = new FormData();
+            formdata.append("id", id);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Api/activeDriver');
+            xhr.send(formdata);
+            document.getElementById("active_" + id).value = "Đang cập nhật xin chờ...";
+            document.getElementById("active_" + id).disabled = true;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == "1") {
+                        alert("Bạn đã kích hoạt thành công!");
+                        window.location.href = "/drivers/index";
+                    } else {
+                        alert("Chương trình đang cập nhật, xin quay lại sau!");
+                    }
+                    document.getElementById("active_" + id).value = "Kích hoạt";
+                    document.getElementById("active_" + id).disabled = false;
                 }
             }
         }
