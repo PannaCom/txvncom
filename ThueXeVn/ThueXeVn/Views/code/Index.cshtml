@@ -1,0 +1,151 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.activecode>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Danh mục code";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h3>Thống kê: Có tổng @ViewBag.total thẻ đã phát hành</h3>
+<p>- Loại thẻ 30 ngày: @ViewBag.c30</p>
+<p>- Loại thẻ 90 ngày: @ViewBag.c90</p>
+<p>- Loại thẻ 180 ngày: @ViewBag.c180</p>
+<p>- Loại thẻ 365 ngày: @ViewBag.c365</p>
+<h2>Danh sách mã code</h2>
+<div class="panel-heading">
+    <div class="form-inline">
+        <div class="form-group">
+            <input type="text" id="keyword" class="form-control" placeholder="Từ khóa..." value="@ViewBag.keyword" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Tìm Kiếm" class="btn btn-primary" onclick="search();" />
+            <input type="button" value="Phát hành thẻ mới" class="btn btn-primary" onclick="$('#detail').show();"/>
+        </div>
+    </div>
+</div>
+<div class="row" style="background:#808080;color:#000000;position:fixed;width:75%;top:25%;padding-left:5px;padding-right:5px;text-align:left;display:none;z-index:1001;" id="detail">
+    <div style="width:100%;text-align:center;color:#000000;" class="standardcss">
+        <h2>Chọn loại thẻ</h2>
+        <select id="typeCode" class="form-control">
+            <option value="" selected>Chọn</option>
+            <option value="30">30 ngày</option>
+            <option value="90">90 ngày</option>
+            <option value="180">180 ngày</option>
+            <option value="365">1 năm</option>
+            <option value="1825">5 năm</option>
+        </select>
+    </div>
+    <div style="text-align:center;padding-top:25px;" class="standardcss">
+        <input type="button" style="text-decoration:none;background-color:#4e612a;color:#c2bd3a;padding-left:15px;padding-bottom:5px;padding-top:5px;padding-right:15px;" onclick="generateCode();" id="generateCode" value="PHÁT HÀNH">
+        <input type="button" style="text-decoration:none;background-color:#4e612a;color:#c2bd3a;padding-left:15px;padding-bottom:5px;padding-top:5px;padding-right:15px;" onclick="$('#detail').hide();" id="hotlinephone3" value="THOÁT">
+    </div>
+</div> 
+@if (Model.PageCount > 1)
+{
+    <div class="col-md-12">
+        <ul class="pagination clearfix">
+            <li class="disabled"><a href="#">«</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i != ViewBag.page)
+                {
+                    <text>
+                        <li><a href="/code/Index?page=@i&k=@ViewBag.keyword">@i</a></li></text>
+                }
+                else
+                {
+                    <text>
+                        <li><a href="/code/Index?page=@i&k=@ViewBag.keyword" style="background-color:#8a6d3b;">@i</a></li></text>
+                }
+            }
+        </ul>
+    </div>
+}
+<table width="100%" class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Mã code
+        </th>
+        <th>
+            Số điện thoại đã dùng
+        </th>
+        <th>
+            Số ngày
+        </th>
+        <th>Ngày tháng kích hoạt</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td width="20%">
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+            <td width="30%">
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.type_code)
+            </td>
+            <td width="10%">
+                @Html.DisplayFor(modelItem => item.date_time)
+            </td>
+        </tr>
+    }
+
+</table>
+@if (Model.PageCount > 1)
+{
+    <div class="col-md-12">
+        <ul class="pagination clearfix">
+            <li class="disabled"><a href="#">«</a></li>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i != ViewBag.page)
+                {
+                    <text>
+                        <li><a href="/code/Index?page=@i&k=@ViewBag.keyword">@i</a></li></text>
+                }
+                else
+                {
+                    <text>
+                        <li><a href="/code/Index?page=@i&k=@ViewBag.keyword" style="background-color:#8a6d3b;">@i</a></li></text>
+                }
+            }
+        </ul>
+    </div>
+}
+<script>
+    function search() {
+        window.location.href = "/code/index?k=" + document.getElementById("keyword").value;
+    }
+    function generateCode() {
+        if (document.getElementById("typeCode").value == "") {
+            alert("Nhập loại thẻ!");
+            return;
+        }
+        if (confirm("Phát hành loại thẻ này?")) {
+
+            var formdata = new FormData();
+            formdata.append("type", document.getElementById("typeCode").value);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/code/generateCode');
+            xhr.send(formdata);
+            document.getElementById("generateCode").value = "Đang cập nhật xin chờ...";
+            document.getElementById("generateCode").disabled = true;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == "1") {
+                        alert("Bạn đã phát hành thành công!");
+                        window.location.href = "/code/index";
+                    } else {
+                        alert("Chương trình đang cập nhật, xin quay lại sau!");
+                    }
+                    document.getElementById("generateCode").value = "PHÁT HÀNH";
+                    document.getElementById("generateCode").disabled = false;
+                    $('#detail').hide();
+                }
+            }
+        }
+        //alert(sThisVal);
+    }
+</script>

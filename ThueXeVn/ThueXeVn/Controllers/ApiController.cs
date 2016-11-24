@@ -236,7 +236,7 @@ namespace ThueXeVn.Controllers
             try
             {
                 var p=db.activecodes.Where(o=>o.code==code && (o.phone==null || o.phone=="")).FirstOrDefault();
-                db.Database.ExecuteSqlCommand("update activecode set phone=N'" + phone + "' where code=N'" + code + "' and id=" + p.id);
+                db.Database.ExecuteSqlCommand("update activecode set phone=N'" + phone + "',date_time=getdate() where code=N'" + code + "' and id=" + p.id);
                 return p.type_code.ToString();
             }catch(Exception ex){
                 return "-1";

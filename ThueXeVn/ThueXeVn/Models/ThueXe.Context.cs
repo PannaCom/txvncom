@@ -25,7 +25,6 @@ namespace ThueXeVn.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<activecode> activecodes { get; set; }
         public virtual DbSet<booking> bookings { get; set; }
         public virtual DbSet<car_made_model> car_made_model { get; set; }
         public virtual DbSet<driver> drivers { get; set; }
@@ -39,5 +38,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
         public virtual DbSet<call_log> call_log { get; set; }
+        public virtual DbSet<activecode> activecodes { get; set; }
     }
 }

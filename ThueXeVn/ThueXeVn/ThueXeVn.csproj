@@ -220,6 +220,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\codeController.cs" />
     <Compile Include="Controllers\driversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1333,6 +1334,11 @@
     <Content Include="Views\drivers\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Notifies\Index.cshtml" />
+    <Content Include="Views\code\Create.cshtml" />
+    <Content Include="Views\code\Delete.cshtml" />
+    <Content Include="Views\code\Details.cshtml" />
+    <Content Include="Views\code\Edit.cshtml" />
+    <Content Include="Views\code\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

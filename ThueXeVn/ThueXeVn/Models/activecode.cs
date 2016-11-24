@@ -18,5 +18,6 @@ namespace ThueXeVn.Models
         public string phone { get; set; }
         public string code { get; set; }
         public Nullable<int> type_code { get; set; }
+        public Nullable<System.DateTime> date_time { get; set; }
     }
 }

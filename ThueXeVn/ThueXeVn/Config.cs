@@ -54,6 +54,11 @@ namespace ThueXeVn
             }
             return true;
         }
+        public static long randomcode()
+        {
+            Random random = new Random();
+            return random.Next(1000000000, int.MaxValue) + 1;
+        }
         public static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
