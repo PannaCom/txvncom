@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    string link = "";
+}
+
+<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
+<script src="/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="/Scripts/jquery-2.1.1.js"></script>
+<script src="/Scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="/Scripts/jquery-ui.css">
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+<script src="/Scripts/jquery.geocomplete.js"></script> 
+<div class="map_canvas" style="display:none;"></div>
+@*<label for="autocomplete">Select a programming language: </label>
+<input id="autocomplete">
+<script>
+    var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
+    $("#autocomplete").autocomplete({
+        source: function (request, response) {
+            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+            response($.grep(tags, function (item) {
+                return matcher.test(item);
+            }));
+        }
+    });
+</script>*@
+
+<div class="content-heading text-center">
+    <!-- Input Your Home Content Here -->
+    <div class="row text-center" style="min-height:667px;">
+        <!-- contact form outer row with centered text-->
+        <h2>THUÊ XE VIỆT NAM</h2>
+        @*<h2><input type="button" value="DÀNH CHO KHÁCH ĐẶT THUÊ XE" class="btn btn-primary btn-info" onclick="show(1);" style="margin-bottom:5px;width:300px;font-weight:bold;" /></h2>
+        <h2><input type="button" value="DÀNH CHO TÀI XẾ ĐĂNG KÝ XE" class="btn btn-primary btn-success" onclick="show(2);" style="margin-bottom:5px;width:300px;font-weight:bold;" /></h2>*@
+        <h2>
+            <a href='https://play.google.com/store/apps/details?id=com.quickcar.thuexe'>
+                <img alt='Tải nội dung trên Google Play' src='/images/vi_badge_web_generic.png' style="width:270px;height:80px;" />
+            </a>
+        </h2>
+        <h2>
+            <a href="https://itunes.apple.com/us/app/thue-xe/id1166862903?ls=1&mt=8">
+                <img src="/Images/appstore.svg" style="width:270px;height:80px;" />
+            </a>
+        </h2>
+        
+        <div class="col-sm-12">
+            <div class="col-sm-12" id="dv1" style="background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;display:none;">
+                <h2 style="color:#337ab7;">ĐẶT THUÊ XE</h2>
+                <h4 style="color:#337ab7;">Khách thuê xe điền thông tin hoặc gọi <a href="tel:0964108688">0964 108 688</a> để đăng ký (<a href="/Home/Price">bảng giá tham khảo</a>)</h4>
+                <p style="text-align:left;margin-top:5px;">Tên *</p>
+                <input id="name" name="name" class="form-control" placeholder="Nhập tên" />
+                <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+                <input id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" />
+                <p style="text-align:left;margin-top:5px;">Email </p>
+                <input id="email" name="email" class="form-control" placeholder="Nhập email" />
+                <p style="text-align:left;margin-top:5px;">Thời gian *</p>
+                <input type="text" class="form-control" id=datetimepicker placeholder="Thời gian">
+                <p style="text-align:left;margin-top:5px;">Ghi chú (địa điểm, yêu cầu chi tiết...)*</p>
+                <textarea class="form-control" id=des name="des" placeholder="Mô tả yêu cầu chi tiết" rows="3"></textarea>
+                <input type="button" value="XÁC NHẬN" class="btn btn-primary btn-block" onclick="booking();" style="margin-bottom:5px;" id="btnregister1" />
+            </div>
+            <div class="col-sm-12" id="dv2"style="background-color:white;color:black;border-radius:25px;min-height:567px;display:none;">
+                <h2 style="color:#449d44;">ĐĂNG KÝ TÀI XẾ</h2>
+                <h4 style="color:#449d44;">Dành cho nhà xe/tài xế có xe riêng</h4>
+                <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
+                <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
+                <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+                <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
+                <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
+                <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" />
+                <input type="hidden" id="lon" name="lon" value="" />
+                <input type="hidden" id="lat" name="lat" value="" />
+                <p style="text-align:left;margin-top:5px;">Biển số *</p>
+                <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số" />
+                @*<select id="province" class="form-control" onchange="getQuanHuyen();"></select>
+                <p style="text-align:left;margin-top:5px;">Quận Huyện</p>
+                <select id="province2" class="form-control"></select>*@
+                <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
+                <select id="car_made" class="form-control"></select>
+                <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
+                <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." onkeyup="autosearchmodel();" />
+                <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
+                <select id="car_size" class="form-control"><option value="4">4 chỗ</option><option value="5">5 chỗ</option><option value="7">7 chỗ</option><option value="12">12 chỗ</option><option value="16">16 chỗ</option><option value="24">24 chỗ</option><option value="40">40 chỗ</option><option value="50">50 chỗ</option></select>
+                <p style="text-align:left;margin-top:5px;">Loại xe *</p>
+                <select id="car_type" class="form-control"></select>
+                <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
+                <select id="car_year" class="form-control"><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
+                <p style="text-align:left;margin-top:5px;">Bảng giá</p>
+                <select id="car_price" class="form-control">
+                    <option value="-1">Thỏa thuận</option>
+                    @for (int i = 5000; i < 30000; i += 500)
+                    {
+                        <option value="@i">@i đồng/km</option>
+                    }
+                </select>
+                <input type="button" value="ĐĂNG KÝ XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2"/>
+            </div>
+            @*<div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;">
+                @foreach (var item in ViewBag.news)
+                {
+                    link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
+                    <div style="margin-bottom:25px;display:block;position:relative;float:left;" class="col-sm-12">
+                        <table>
+                            <tr>
+                                <td><a href="@link" class="col-sm-2" style="display:block;position:relative;float:left;"><img src="@item.image" alt="@item.title" class="imagenewslist" style="border:1px solid #808080;width:100px;height:100px;"></a></td>
+                                <td class="row rowimagenewslist">
+                                    <div class="col-sm-11 col-xs-10 meta">
+                                        <h2 style="font-size:22px;margin-top:0px;"><a href="@link">@Html.Raw(@item.title)</a></h2>
+                                        <p style="color: #999;">&nbsp;Gửi ngày @item.datetime</p>
+                                        <p class="intro">@Html.Raw(@item.des)</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                }
+                
+            </div>*@
+            @*<div class="col-sm-2">
+                 Widget: Categories 
+                <div class="widget">
+                    <h3>FANPAGE</h3>
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FThu%25C3%25AA-Xe-Vi%25E1%25BB%2587t-Nam-1843483739215898%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1745887292346789" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+            </div>*@
+        </div><!-- end col 10 with offset 1 to centered -->
+    </div> <!-- end contact form outer row with centered text-->
+</div><!-- End Input Your Home Content Here -->
+<script>
+    $('#datetimepicker').datetimepicker({
+        dayOfWeekStart: 1,
+        lang: 'en',
+        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+    });
+    var d = new Date();
+    var s = d.toLocaleString();
+    $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+    
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#address").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon").val(result.geometry.location.lng());
+              $("#lat").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
+    function booking() {
+        var formdata = new FormData(); //FormData object
+        var datetimepicker = document.getElementById("datetimepicker").value;
+        if (document.getElementById("name").value == "") {
+            alert("Nhập tên!");
+            document.getElementById("name").focus();
+            return;
+        }
+        if (document.getElementById("phone").value == "") {
+            alert("Nhập số điện thoại!");
+            document.getElementById("phone").focus();
+            return;
+        }
+        if (document.getElementById("datetimepicker").value == "") {
+            alert("Nhập thời gian!");
+            document.getElementById("datetimepicker").focus();
+            return;
+        }
+        if (document.getElementById("des").value == "") {
+            alert("Nhập ghi chú!");
+            document.getElementById("des").focus();
+            return;
+        }
+        formdata.append("name", document.getElementById("name").value);
+        formdata.append("phone", document.getElementById("phone").value);
+        formdata.append("email", document.getElementById("email").value);
+        formdata.append("date_from", document.getElementById("datetimepicker").value);
+        formdata.append("des", document.getElementById("des").value);
+
+        document.getElementById("btnregister1").value = "Đang đăng ký xin chờ....";
+        document.getElementById("btnregister1").disabled = true;
+       
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/AddNew');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã đăng ký thành công! Chúng tôi sẽ liên hệ lại sớm nhất!");
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister1").value = "XÁC NHẬN";
+                document.getElementById("btnregister1").disabled = false;
+            }
+        }
+    }
+    function register() {
+        var formdata = new FormData(); //FormData object
+        var datetimepicker = document.getElementById("datetimepicker").value;
+        if (document.getElementById("tname").value == "") {
+            alert("Nhập tên lái xe!");
+            document.getElementById("tname").focus();
+            return;
+        }
+        if (document.getElementById("tphone").value == "") {
+            alert("Nhập số điện thoại lái xe!");
+            document.getElementById("tphone").focus();
+            return;
+        }
+        if (document.getElementById("address").value == "") {
+            alert("Nhập địa chỉ!");
+            document.getElementById("address").focus();
+            return;
+        }
+        if (document.getElementById("car_number").value == "") {
+            alert("Nhập biển số xe!");
+            document.getElementById("car_number").focus();
+            return;
+        }
+        if (document.getElementById("car_made").value == "") {
+            alert("Nhập hãng xe!");
+            document.getElementById("car_made").focus();
+            return;
+        }
+        if (document.getElementById("car_model").value == "") {
+            alert("Nhập loại xe model!");
+            document.getElementById("car_model").focus();
+            return;
+        }
+        if (document.getElementById("car_size").value == "") {
+            alert("Nhập số chỗ!");
+            document.getElementById("car_size").focus();
+            return;
+        }
+        if (document.getElementById("car_year").value == "") {
+            alert("Nhập năm sản xuất!");
+            document.getElementById("car_year").focus();
+            return;
+        }
+        if (document.getElementById("car_type").value == "") {
+            alert("Nhập loại xe!");
+            document.getElementById("car_type").focus();
+            return;
+        }
+        if (document.getElementById("car_price").value == "") {
+            alert("Nhập bảng giá!");
+            document.getElementById("car_price").focus();
+            return;
+        }
+        formdata.append("name", document.getElementById("tname").value);
+        formdata.append("phone", document.getElementById("tphone").value);
+        //formdata.append("province", document.getElementById("province").value);
+        formdata.append("car_number", document.getElementById("car_number").value);
+        formdata.append("car_made", document.getElementById("car_made").value);
+        formdata.append("car_model", document.getElementById("car_model").value);
+        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("car_year", document.getElementById("car_year").value);
+        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_price", document.getElementById("car_price").value);
+        formdata.append("address", document.getElementById("address").value);
+        formdata.append("lon", document.getElementById("lon").value);
+        formdata.append("lat", document.getElementById("lat").value);
+        document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
+        document.getElementById("btnregister2").disabled = true;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/Register');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã đăng ký thành công! Khi có khách chúng tôi sẽ liên hệ với bạn!");
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister2").value = "ĐĂNG KÝ XE";
+                document.getElementById("btnregister2").disabled = false;
+            }
+        }
+    }
+    $.ajax({
+        url: "/Home/getTinhThanh",
+        cache: false
+    }).done(function (html) {
+        $("#province").html("" + html);
+    });
+    $.ajax({
+        url: "/Home/getHangXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_made").html("" + html);
+    });
+    $.ajax({
+        url: "/Home/getLoaiXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_type").html("" + html);
+    });
+    function getQuanHuyen() {
+        $.ajax({
+            url: "/Home/getQuanHuyen?keyword=" + $("#province").val(),
+            cache: false
+        }).done(function (html) {
+            $("#province2").html("" + html);
+        });
+    }
+    function show(id) {
+        if (id==1){
+            $("#dv1").show();
+            $("#dv2").hide();
+        } else {
+            $("#dv2").show();
+            $("#dv1").hide();
+        }
+    }
+    function autosearchmodel() {
+        //var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
+        var keyword = document.getElementById("car_model").value;
+        var urlSearch = '/Api/getCarModelList2?keyword=';
+        $('#car_model').autocomplete({
+            source: urlSearch + keyword,
+            select: function (event, ui) {
+                //alert(ui.item.value);
+                //console.log(ui.item.value);
+                $(event.target).val(ui.item.value);
+                return false;
+            },
+            minLength: 1
+        });
+    }
+</script>
+
