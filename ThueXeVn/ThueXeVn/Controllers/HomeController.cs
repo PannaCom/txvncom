@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -7,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using ThueXeVn.Models;
+using PagedList;
 namespace ThueXeVn.Controllers
 {
     public class HomeController : Controller
@@ -25,7 +27,16 @@ namespace ThueXeVn.Controllers
 
             return View();
         }
-       
+        public ActionResult Customer()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+        public ActionResult Driver()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
         public ActionResult Price()
         {
             ViewBag.Message = "Your application description page.";
@@ -248,6 +259,53 @@ namespace ThueXeVn.Controllers
                 //StreamWriter sw = new StreamWriter();
             }
             return "ok";
+        }
+        public class glol
+        {
+            public double lon { get; set; }
+            public double lat { get; set; }
+            public string name { get; set; }
+            public string phone { get; set; }
+            public string car_model { get; set; }
+            public int? car_size { get; set; }
+            public string car_type { get; set; }
+            public string car_made { get; set; }
+            public int? car_price { get; set; }
+            public double D { get; set; }
+        }
+        public ActionResult Search(double lon, double lat, string car_type, string car_made, string car_model, int? car_size, int? order)
+        {
+            string query = "select top 20 lon,lat,name,phone,car_model,car_size,car_type,car_made,car_price,GETDATE() as datetime,D from ";
+            query += " (select name,phone,car_model,car_size,car_type,car_made,car_price from drivers where code=N'1') as A left join (select phone as phone2,lon,lat,status,ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D from list_online where status=0) as B on A.phone=B.phone2 where D<1000 ";
+
+            if (car_type != null && car_type != "" && car_type != "\"\"")
+            {
+                query += " and (car_type=N'" + car_type + "') ";
+            }
+            if (car_made != null && car_made != "" && car_made != "\"\"")
+            {
+                query += " and (car_made=N'" + car_made + "') ";
+            }
+            if (car_model != null && car_model != "" && car_model != "\"\"")
+            {
+                query += " and (car_model like N'%" + car_model + "%') ";
+            }
+            if (car_size != null && car_size > 0)
+            {
+                query += " and (car_size=" + car_size + ") ";
+            }
+            if (order == null || order == 0)
+            {
+                query += " order by d";
+            }
+            else
+            {
+                query += " order by car_price";
+            }
+            var p = db.Database.SqlQuery<glol>(query);
+            int pageSize = 25;
+            int pageNumber = 1;
+            return View(p.ToPagedList(pageNumber, pageSize)); 
         }
     }
 }
