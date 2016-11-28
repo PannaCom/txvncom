@@ -56,6 +56,13 @@
           <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="calls" Type="int" />
         </EntityType>
+        <EntityType Name="car_hire_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
         <EntityType Name="car_made_model">
           <Key>
             <PropertyRef Name="id" />
@@ -63,6 +70,13 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="made" Type="nvarchar" MaxLength="255" />
           <Property Name="model" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="car_size">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="drivers">
           <Key>
@@ -177,7 +191,9 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_driver_log" EntityType="Self.call_driver_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_log" EntityType="Self.call_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_hire_type" EntityType="Self.car_hire_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" Schema="dbo" store:Type="Tables" />
@@ -306,6 +322,8 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="call_driver_log" EntityType="thuexevnModel.call_driver_log" />
+          <EntitySet Name="car_hire_type" EntityType="thuexevnModel.car_hire_type" />
+          <EntitySet Name="car_size" EntityType="thuexevnModel.car_size" />
         </EntityContainer>
         <EntityType Name="call_log">
           <Key>
@@ -380,6 +398,20 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="from_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="to_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="car_hire_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="car_size">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -563,6 +595,22 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="date_time" ColumnName="date_time" />
                 <ScalarProperty Name="to_number" ColumnName="to_number" />
                 <ScalarProperty Name="from_number" ColumnName="from_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_hire_type">
+            <EntityTypeMapping TypeName="thuexevnModel.car_hire_type">
+              <MappingFragment StoreEntitySet="car_hire_type">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_size">
+            <EntityTypeMapping TypeName="thuexevnModel.car_size">
+              <MappingFragment StoreEntitySet="car_size">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

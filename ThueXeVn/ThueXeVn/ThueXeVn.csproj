@@ -236,10 +236,19 @@
     <Compile Include="Models\booking.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\call_driver_log.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\call_log.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\car_hire_type.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\car_made_model.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\car_size.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\driver.cs">
@@ -1339,6 +1348,10 @@
     <Content Include="Views\code\Details.cshtml" />
     <Content Include="Views\code\Edit.cshtml" />
     <Content Include="Views\code\Index.cshtml" />
+    <Content Include="Views\Home\Customer.cshtml" />
+    <Content Include="Views\Home\Driver.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\CarRental.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

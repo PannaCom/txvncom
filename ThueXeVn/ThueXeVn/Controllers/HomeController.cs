@@ -92,6 +92,11 @@ namespace ThueXeVn.Controllers
             ViewBag.Message = "Your application description page.";
             return View();
         }
+        public ActionResult CarRental()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
         [HttpPost]
         public string AddNew(string name,string phone,string email,DateTime? date_from,string des)
         {
