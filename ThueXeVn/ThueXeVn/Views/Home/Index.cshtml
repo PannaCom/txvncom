@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     string link = "";
 }
 
@@ -46,7 +46,16 @@
                 <img src="/Images/appstore.svg" style="width:270px;height:80px;" />
             </a>
         </h2>
-        
+        <div class="col-sm-12">
+            <div class="col-sm-9" >
+                <input id="address" name="address" class="form-control" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
+                <input type="hidden" id="lon" name="lon" value="" />
+                <input type="hidden" id="lat" name="lat" value="" />
+            </div>
+            <div class="col-sm-3" >
+                <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+            </div>
+        </div>
         <div class="col-sm-12">
             <div class="col-sm-12" id="dv1" style="background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;display:none;">
                 <h2 style="color:#337ab7;">ĐẶT THUÊ XE</h2>
@@ -71,9 +80,9 @@
                 <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
                 <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
                 <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
-                <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" />
+                @*<input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" />
                 <input type="hidden" id="lon" name="lon" value="" />
-                <input type="hidden" id="lat" name="lat" value="" />
+                <input type="hidden" id="lat" name="lat" value="" />*@
                 <p style="text-align:left;margin-top:5px;">Biển số *</p>
                 <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số" />
                 @*<select id="province" class="form-control" onchange="getQuanHuyen();"></select>
@@ -206,90 +215,90 @@
             }
         }
     }
-    function register() {
-        var formdata = new FormData(); //FormData object
-        var datetimepicker = document.getElementById("datetimepicker").value;
-        if (document.getElementById("tname").value == "") {
-            alert("Nhập tên lái xe!");
-            document.getElementById("tname").focus();
-            return;
-        }
-        if (document.getElementById("tphone").value == "") {
-            alert("Nhập số điện thoại lái xe!");
-            document.getElementById("tphone").focus();
-            return;
-        }
-        if (document.getElementById("address").value == "") {
-            alert("Nhập địa chỉ!");
-            document.getElementById("address").focus();
-            return;
-        }
-        if (document.getElementById("car_number").value == "") {
-            alert("Nhập biển số xe!");
-            document.getElementById("car_number").focus();
-            return;
-        }
-        if (document.getElementById("car_made").value == "") {
-            alert("Nhập hãng xe!");
-            document.getElementById("car_made").focus();
-            return;
-        }
-        if (document.getElementById("car_model").value == "") {
-            alert("Nhập loại xe model!");
-            document.getElementById("car_model").focus();
-            return;
-        }
-        if (document.getElementById("car_size").value == "") {
-            alert("Nhập số chỗ!");
-            document.getElementById("car_size").focus();
-            return;
-        }
-        if (document.getElementById("car_year").value == "") {
-            alert("Nhập năm sản xuất!");
-            document.getElementById("car_year").focus();
-            return;
-        }
-        if (document.getElementById("car_type").value == "") {
-            alert("Nhập loại xe!");
-            document.getElementById("car_type").focus();
-            return;
-        }
-        if (document.getElementById("car_price").value == "") {
-            alert("Nhập bảng giá!");
-            document.getElementById("car_price").focus();
-            return;
-        }
-        formdata.append("name", document.getElementById("tname").value);
-        formdata.append("phone", document.getElementById("tphone").value);
-        //formdata.append("province", document.getElementById("province").value);
-        formdata.append("car_number", document.getElementById("car_number").value);
-        formdata.append("car_made", document.getElementById("car_made").value);
-        formdata.append("car_model", document.getElementById("car_model").value);
-        formdata.append("car_size", document.getElementById("car_size").value);
-        formdata.append("car_year", document.getElementById("car_year").value);
-        formdata.append("car_type", document.getElementById("car_type").value);
-        formdata.append("car_price", document.getElementById("car_price").value);
-        formdata.append("address", document.getElementById("address").value);
-        formdata.append("lon", document.getElementById("lon").value);
-        formdata.append("lat", document.getElementById("lat").value);
-        document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
-        document.getElementById("btnregister2").disabled = true;
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Home/Register');
-        xhr.send(formdata);
-        var content = "";
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                if (xhr.responseText == "1") {
-                    alert("Bạn đã đăng ký thành công! Khi có khách chúng tôi sẽ liên hệ với bạn!");
-                } else {
-                    alert("Chương trình đang cập nhật, xin quay lại sau!");
-                }
-                document.getElementById("btnregister2").value = "ĐĂNG KÝ XE";
-                document.getElementById("btnregister2").disabled = false;
-            }
-        }
-    }
+    //function register() {
+    //    var formdata = new FormData(); //FormData object
+    //    var datetimepicker = document.getElementById("datetimepicker").value;
+    //    if (document.getElementById("tname").value == "") {
+    //        alert("Nhập tên lái xe!");
+    //        document.getElementById("tname").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("tphone").value == "") {
+    //        alert("Nhập số điện thoại lái xe!");
+    //        document.getElementById("tphone").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("address").value == "") {
+    //        alert("Nhập địa chỉ!");
+    //        document.getElementById("address").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_number").value == "") {
+    //        alert("Nhập biển số xe!");
+    //        document.getElementById("car_number").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_made").value == "") {
+    //        alert("Nhập hãng xe!");
+    //        document.getElementById("car_made").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_model").value == "") {
+    //        alert("Nhập loại xe model!");
+    //        document.getElementById("car_model").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_size").value == "") {
+    //        alert("Nhập số chỗ!");
+    //        document.getElementById("car_size").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_year").value == "") {
+    //        alert("Nhập năm sản xuất!");
+    //        document.getElementById("car_year").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_type").value == "") {
+    //        alert("Nhập loại xe!");
+    //        document.getElementById("car_type").focus();
+    //        return;
+    //    }
+    //    if (document.getElementById("car_price").value == "") {
+    //        alert("Nhập bảng giá!");
+    //        document.getElementById("car_price").focus();
+    //        return;
+    //    }
+    //    formdata.append("name", document.getElementById("tname").value);
+    //    formdata.append("phone", document.getElementById("tphone").value);
+    //    //formdata.append("province", document.getElementById("province").value);
+    //    formdata.append("car_number", document.getElementById("car_number").value);
+    //    formdata.append("car_made", document.getElementById("car_made").value);
+    //    formdata.append("car_model", document.getElementById("car_model").value);
+    //    formdata.append("car_size", document.getElementById("car_size").value);
+    //    formdata.append("car_year", document.getElementById("car_year").value);
+    //    formdata.append("car_type", document.getElementById("car_type").value);
+    //    formdata.append("car_price", document.getElementById("car_price").value);
+    //    formdata.append("address", document.getElementById("address").value);
+    //    formdata.append("lon", document.getElementById("lon").value);
+    //    formdata.append("lat", document.getElementById("lat").value);
+    //    document.getElementById("btnregister2").value = "Đang đăng ký xin chờ...";
+    //    document.getElementById("btnregister2").disabled = true;
+    //    var xhr = new XMLHttpRequest();
+    //    xhr.open('POST', '/Home/Register');
+    //    xhr.send(formdata);
+    //    var content = "";
+    //    xhr.onreadystatechange = function () {
+    //        if (xhr.readyState == 4 && xhr.status == 200) {
+    //            if (xhr.responseText == "1") {
+    //                alert("Bạn đã đăng ký thành công! Khi có khách chúng tôi sẽ liên hệ với bạn!");
+    //            } else {
+    //                alert("Chương trình đang cập nhật, xin quay lại sau!");
+    //            }
+    //            document.getElementById("btnregister2").value = "ĐĂNG KÝ XE";
+    //            document.getElementById("btnregister2").disabled = false;
+    //        }
+    //    }
+    //}
     $.ajax({
         url: "/Home/getTinhThanh",
         cache: false
@@ -339,6 +348,14 @@
             },
             minLength: 1
         });
+    }
+    function search() {
+        if (document.getElementById("lon").value == "") {
+                    alert("Nhập địa chỉ muốn đón!");
+                    document.getElementById("address").focus();
+                    return;
+        }
+        window.location.href="/Home/Search?lon="+document.getElementById("lon").value+"&lat="+document.getElementById("lat").value;
     }
 </script>
 

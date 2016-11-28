@@ -24,5 +24,14 @@ namespace ThueXeVn.Models
         public Nullable<long> driver_phone { get; set; }
         public Nullable<byte> status { get; set; }
         public Nullable<System.DateTime> date_time { get; set; }
+        public string car_from { get; set; }
+        public string car_to { get; set; }
+        public string car_type { get; set; }
+        public string car_hire_type { get; set; }
+        public Nullable<int> car_size { get; set; }
+        public Nullable<double> lon1 { get; set; }
+        public Nullable<double> lat1 { get; set; }
+        public Nullable<double> lon2 { get; set; }
+        public Nullable<double> lat2 { get; set; }
     }
 }

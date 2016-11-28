@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Controllers.HomeController.glol>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    string dts = "";
+    int kmf = 0;
+    int stt = 0;
+}
+<style>
+    table,td{
+        color:#000000;
+        background-color:#ffffff;
+        border:1px solid #cccccc;
+    }
+    th{
+        color:#ffffff;
+        background-color:#ff6a00;
+    }
+</style>
+<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
+<script src="/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="/Scripts/jquery-2.1.1.js"></script>
+<script src="/Scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="/Scripts/jquery-ui.css">
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+<script src="/Scripts/jquery.geocomplete.js"></script>
+<div class="map_canvas" style="display:none;"></div>
+<div class="col-sm-12" style="margin-top:100px;display:block;float:left;position:relative;color:#000000;">
+    <div class="col-sm-9">
+        <input id="address" name="address" class="form-control" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
+        <input type="hidden" id="lon" name="lon" value="" />
+        <input type="hidden" id="lat" name="lat" value="" />
+    </div>
+    <div class="col-sm-3">
+        <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+    </div>
+</div>
+<h2 style="margin-top:20px;display:block;float:left;position:relative;color:#000000;">Danh sách lái xe đang gần bạn</h2>
+<div class="container" style="background-color:#ffffff;color:#cccccc;">
+    <!-- container -->
+    <div class="row">
+        <!-- row -->
+        <table class="table filter-table table-noborder mb0" style="width:100%;">
+            <tr style="width:100%;"><th>Tên lái xe</th><th>Hãng xe</th><th>Loại xe</th><th>Số chỗ</th><th>Khoảng cách</th><th>Điện thoại</th></tr>
+            @foreach (var item in Model)
+            {
+                stt++;
+                double km = item.D;
+                if (km < 1) { 
+                    km = km * 1000;
+                    dts = km.ToString("0") + " m gần bạn";
+                }
+                else {
+
+                    dts = km.ToString("0.00") + " km gần bạn";
+                }
+                <tr style="width:100%;">
+                    <td>@item.name</td>
+                    <td>@item.car_made</td>
+                    <td>@item.car_model</td>
+                    <td>@item.car_size</td>
+                    <td>@dts</td>
+                    <td><a href="tel:@item.phone" class="btn btn-primary btn-success" id="@stt" onclick="call(@stt,'@item.phone');">Gọi điện</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#address").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon").val(result.geometry.location.lng());
+              $("#lat").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
+    function search() {
+        if (document.getElementById("lon").value == "") {
+            alert("Nhập địa chỉ muốn đón!");
+            document.getElementById("address").focus();
+            return;
+        }
+        window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value;
+    }
+    function call(id,n){
+        $("#"+id).html(n);
+    }
+</script>

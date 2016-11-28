@@ -30,5 +30,7 @@ namespace ThueXeVn.Models
         public Nullable<System.DateTime> date_time { get; set; }
         public string code { get; set; }
         public string address { get; set; }
+        public string regId { get; set; }
+        public Nullable<int> os { get; set; }
     }
 }
