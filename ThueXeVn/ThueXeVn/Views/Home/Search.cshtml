@@ -118,7 +118,7 @@
                 $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
             }
         }
-        document.getElementById("car_type").value = "@ViewBag.cartype";
+        document.getElementById("car_type").value = "@Html.Raw(ViewBag.cartype)";
     });
     $.ajax({
         url: "/Api/getCarSize",
