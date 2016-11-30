@@ -1,136 +1,180 @@
-﻿@model IEnumerable<ThueXeVn.Models.booking>
-
+﻿@model PagedList.IPagedList<ThueXeVn.Models.booking>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách đặt xe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+    </div>
+</div>
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box">
+            <div class="panel-heading">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="text" id="keyword" class="form-control" placeholder="Từ khóa..." value="@ViewBag.k" />
+                    </div>
+                    <div class="form-group">
+                        <input type="button" value="Tìm Kiếm" class="btn btn-primary" onclick="search();" />
+                    </div>
+                </div>
+            </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date_from)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date_to)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.des)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.driver_phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date_time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.car_from)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.car_to)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.car_type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.car_hire_type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.car_size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lon1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lat1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lon2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lat2)
-        </th>
-        <th></th>
-    </tr>
+            <div class="panel-body">
+                <input type="button" value="Xóa" class="btn btn-primary" onclick="deleteSome();" id="btnregisterdel" />
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Chọn</th>
+                        <th>
+                            Họ tên
+                        </th>
+                        <th>
+                            Điện thoại
+                        </th>
+                        <th>
+                            Điểm đi/Đến
+                        </th>
+                        <th>
+                            Giờ đón
+                        </th>
+                        <th>
+                            Hình thức đi
+                        </th>
+                        <th>
+                            Trạng thái
+                        </th>
+                        <th></th>
+                    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_from)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_to)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.des)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.driver_phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_time)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_from)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_to)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_hire_type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.car_size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lon1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lat1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lon2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lat2)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="chk" id="@item.id"></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
 
-</table>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.car_hire_type)-->@Html.DisplayFor(modelItem => item.car_to)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date_from)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.car_hire_type)
+                            </td>
+                            <td>
+                                @if (item.status != 0)
+                                {
+                                    <span style="color:red;">Đã đặt</span>
+                                }
+                                else
+                                {
+                                    <span>Đang đợi tài xế</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
+                                <input type="button" value="Hủy" class="btn btn-primary" onclick="Active(@item.id);" id="active_@item.id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    @if (Model.PageCount > 1)
+    {
+        <div class="col-md-12">
+            <ul class="pagination clearfix">
+                <li class="disabled"><a href="#">«</a></li>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    if (i != ViewBag.page)
+                    {
+                        <text>
+                            <li><a href="/bookings/Index?k=@ViewBag.k&page=@i">@i</a></li></text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li><a href="/bookings/Index?k=@ViewBag.k&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+
+<script>
+    function search() {
+        window.location.href = "/bookings/index?k=" + document.getElementById("keyword").value;
+    }
+    function deleteSome() {
+        if (confirm("Chắc chắn xóa những đặt xe này?")){
+            var sThisVal = "(-1";
+            $('input[type=checkbox]').each(function () {
+                if (this.checked) sThisVal += "," + $(this).attr("id");
+            });
+            sThisVal += ")";
+            var formdata = new FormData();
+            formdata.append("id", sThisVal);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Api/DelBooking');
+            xhr.send(formdata);
+            document.getElementById("btnregisterdel").value = "Đang cập nhật xin chờ...";
+            document.getElementById("btnregisterdel").disabled = true;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.responseText == "1") {
+                        alert("Bạn đã xóa thành công!");
+                        window.location.href = "/drivers/index";
+                    } else {
+                        alert("Chương trình đang cập nhật, xin quay lại sau!");
+                    }
+                    document.getElementById("btnregisterdel").value = "Xóa";
+                    document.getElementById("btnregisterdel").disabled = false;
+                }
+            }
+        }
+        //alert(sThisVal);
+    }
+    function Active(id) {
+        if (confirm("Hủy chuyến xe này?")) {
+            document.getElementById("active_" + id).value = "Đang cập nhật xin chờ...";
+            document.getElementById("active_" + id).disabled = true;
+            $.ajax({
+                url: "/Api/updateBooking?id_booking=" + id,
+                cache: false
+            }).done(function (html) {
+                if (html == "1") {
+                    alert("Bạn đã hủy thành công!");
+                    window.location.href = "/bookings/index";
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("active_" + id).value = "Kích hoạt";
+                document.getElementById("active_" + id).disabled = false;
+            });
+            
+        }
+        //alert(sThisVal);
+    }
+</script>
