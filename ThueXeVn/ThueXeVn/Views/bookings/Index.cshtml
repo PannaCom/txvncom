@@ -1,0 +1,136 @@
+﻿@model IEnumerable<ThueXeVn.Models.booking>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_from)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_to)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.des)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.driver_phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.car_from)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.car_to)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.car_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.car_hire_type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.car_size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lon1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lat1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lon2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lat2)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_from)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_to)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.des)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.driver_phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_from)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_to)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_hire_type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.car_size)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lon1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lat1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lon2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lat2)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

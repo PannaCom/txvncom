@@ -98,7 +98,7 @@
           <Property Name="date_time" Type="datetime" />
           <Property Name="code" Type="nvarchar" MaxLength="50" />
           <Property Name="address" Type="nvarchar" MaxLength="250" />
-          <Property Name="regId" Type="nvarchar" MaxLength="150" />
+          <Property Name="regId" Type="nvarchar" MaxLength="350" />
           <Property Name="os" Type="int" />
         </EntityType>
         <EntityType Name="list_car">
@@ -319,11 +319,11 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
           <EntitySet Name="activecodes" EntityType="thuexevnModel.activecode" />
-          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="call_driver_log" EntityType="thuexevnModel.call_driver_log" />
           <EntitySet Name="car_hire_type" EntityType="thuexevnModel.car_hire_type" />
           <EntitySet Name="car_size" EntityType="thuexevnModel.car_size" />
+          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
         </EntityContainer>
         <EntityType Name="call_log">
           <Key>
@@ -342,29 +342,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="type_code" Type="Int32" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="driver">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_years" Type="Int32" />
-          <Property Name="car_size" Type="Int32" />
-          <Property Name="car_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="car_price" Type="Int32" />
-          <Property Name="total_moneys" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="date_time" Type="DateTime" Precision="3" />
-          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="regId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="os" Type="Int32" />
         </EntityType>
         <EntityType Name="booking">
           <Key>
@@ -412,6 +389,29 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="driver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_years" Type="Int32" />
+          <Property Name="car_size" Type="Int32" />
+          <Property Name="car_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="car_price" Type="Int32" />
+          <Property Name="total_moneys" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_time" Type="DateTime" Precision="3" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="regId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="os" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -540,30 +540,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="drivers">
-            <EntityTypeMapping TypeName="thuexevnModel.driver">
-              <MappingFragment StoreEntitySet="drivers">
-                <ScalarProperty Name="os" ColumnName="os" />
-                <ScalarProperty Name="regId" ColumnName="regId" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="province" ColumnName="province" />
-                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
-                <ScalarProperty Name="car_price" ColumnName="car_price" />
-                <ScalarProperty Name="car_type" ColumnName="car_type" />
-                <ScalarProperty Name="car_number" ColumnName="car_number" />
-                <ScalarProperty Name="car_size" ColumnName="car_size" />
-                <ScalarProperty Name="car_years" ColumnName="car_years" />
-                <ScalarProperty Name="car_made" ColumnName="car_made" />
-                <ScalarProperty Name="car_model" ColumnName="car_model" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="bookings">
             <EntityTypeMapping TypeName="thuexevnModel.booking">
               <MappingFragment StoreEntitySet="booking">
@@ -610,6 +586,30 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySetMapping Name="car_size">
             <EntityTypeMapping TypeName="thuexevnModel.car_size">
               <MappingFragment StoreEntitySet="car_size">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drivers">
+            <EntityTypeMapping TypeName="thuexevnModel.driver">
+              <MappingFragment StoreEntitySet="drivers">
+                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
+                <ScalarProperty Name="car_price" ColumnName="car_price" />
+                <ScalarProperty Name="car_type" ColumnName="car_type" />
+                <ScalarProperty Name="car_number" ColumnName="car_number" />
+                <ScalarProperty Name="car_size" ColumnName="car_size" />
+                <ScalarProperty Name="car_years" ColumnName="car_years" />
+                <ScalarProperty Name="car_made" ColumnName="car_made" />
+                <ScalarProperty Name="car_model" ColumnName="car_model" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

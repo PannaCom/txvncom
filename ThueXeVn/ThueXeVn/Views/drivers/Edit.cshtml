@@ -118,14 +118,14 @@
         cache: false
     }).done(function (html) {
         $("#car_made").html("" + html);
-        $("#car_made").val("@Model.car_made");
+        $("#car_made").val("@Html.Raw(Model.car_made)");
     });
     $.ajax({
         url: "/Home/getLoaiXe",
         cache: false
     }).done(function (html) {
         $("#car_type").html("" + html);
-        $("#car_type").val("@Model.car_type");
+        $("#car_type").val("@Html.Raw(Model.car_type)");
     });
     $.ajax({
         url: "/Api/getCarSize",
@@ -142,7 +142,7 @@
         }
         $("#car_size").val("@Model.car_size");
     });
-   
+
     $("#car_year").val("@Model.car_years");
     $("#car_price").val("@Model.car_price");
     function autosearchmodel() {

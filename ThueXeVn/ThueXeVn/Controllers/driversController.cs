@@ -164,6 +164,7 @@ namespace ThueXeVn.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
             driver driver = db.drivers.Find(id);
             db.drivers.Remove(driver);
             db.SaveChanges();

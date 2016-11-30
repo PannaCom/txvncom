@@ -1,148 +1,162 @@
 ﻿@model ThueXeVn.Models.driver
-
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>driver</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_model, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_model, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_model, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_made, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_made, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_made, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_years, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_years, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_years, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_size, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_size, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_size, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_number, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_number, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_type, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.car_price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.car_price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.car_price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.total_moneys, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.total_moneys, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.total_moneys, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.province, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.province, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.province, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.date_time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.date_time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date_time, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
+<script src="/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="/Scripts/jquery-2.1.1.js"></script>
+<script src="/Scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="/Scripts/jquery-ui.css">
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+<script src="/Scripts/jquery.geocomplete.js"></script>
+<div class="map_canvas" style="display:none;"></div>
+<div class="col-sm-12" id="dv2" style="background-color:white;color:black;border-radius:25px;min-height:567px;display:block;">
+    <h2 style="color:#449d44;">THÊM TÀI XẾ</h2>
+    <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
+    <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
+    <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+    <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
+    <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
+    <select id="car_made" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
+    <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." onkeyup="autosearchmodel();" value="@Model.car_model" />
+    <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
+    <select id="car_size" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Loại xe *</p>
+    <select id="car_type" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
+    <select id="car_year" class="form-control"><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
+    <p style="text-align:left;margin-top:5px;">Bảng giá</p>
+    <select id="car_price" class="form-control">
+        <option value="-1">Thỏa thuận</option>
+        @for (int i = 5000; i < 30000; i += 500)
+        {
+            <option value="@i">@i đồng/km</option>
+        }
+    </select>
+    <input type="button" value="CẬP NHẬT XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2" />
 </div>
+<script>
+    function register() {
+        var formdata = new FormData(); //FormData object
+        //var datetimepicker = document.getElementById("datetimepicker").value;
+        if (document.getElementById("tname").value == "") {
+            alert("Nhập tên lái xe!");
+            document.getElementById("tname").focus();
+            return;
+        }
+        if (document.getElementById("tphone").value == "") {
+            alert("Nhập số điện thoại lái xe!");
+            document.getElementById("tphone").focus();
+            return;
+        }
+        if (document.getElementById("car_made").value == "") {
+            alert("Nhập hãng xe!");
+            document.getElementById("car_made").focus();
+            return;
+        }
+        if (document.getElementById("car_model").value == "") {
+            alert("Nhập loại xe model!");
+            document.getElementById("car_model").focus();
+            return;
+        }
+        if (document.getElementById("car_size").value == "") {
+            alert("Nhập số chỗ!");
+            document.getElementById("car_size").focus();
+            return;
+        }
+        if (document.getElementById("car_year").value == "") {
+            alert("Nhập năm sản xuất!");
+            document.getElementById("car_year").focus();
+            return;
+        }
+        if (document.getElementById("car_type").value == "") {
+            alert("Nhập loại xe!");
+            document.getElementById("car_type").focus();
+            return;
+        }
+        if (document.getElementById("car_price").value == "") {
+            alert("Nhập bảng giá!");
+            document.getElementById("car_price").focus();
+            return;
+        }
+        
+        formdata.append("name", document.getElementById("tname").value);
+        formdata.append("phone", document.getElementById("tphone").value);
+        formdata.append("car_made", document.getElementById("car_made").value);
+        formdata.append("car_model", document.getElementById("car_model").value);
+        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("car_year", document.getElementById("car_year").value);
+        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_price", document.getElementById("car_price").value);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Api/Register');
+        xhr.send(formdata);
+        var content = "";
+        document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";
+        document.getElementById("btnregister2").disabled = true;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã cập nhật thành công!");
+                    window.location.href="/drivers/index";
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister2").value = "CẬP NHẬT XE";
+                document.getElementById("btnregister2").disabled = false;
+            }
+        }
+    }
+    $.ajax({
+        url: "/Home/getHangXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_made").html("" + html);
+        $("#car_made").val("@Html.Raw(Model.car_made)");
+    });
+    $.ajax({
+        url: "/Home/getLoaiXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_type").html("" + html);
+        $("#car_type").val("@Html.Raw(Model.car_type)");
+    });
+    $.ajax({
+        url: "/Api/getCarSize",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_size").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+        $("#car_size").val("@Model.car_size");
+    });
+
+    $("#car_year").val("@Model.car_years");
+    $("#car_price").val("@Model.car_price");
+    function autosearchmodel() {
+        //var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
+        var keyword = document.getElementById("car_model").value;
+        var urlSearch = '/Api/getCarModelList2?keyword=';
+        $('#car_model').autocomplete({
+            source: urlSearch + keyword,
+            select: function (event, ui) {
+                //alert(ui.item.value);
+                //console.log(ui.item.value);
+                $(event.target).val(ui.item.value);
+                return false;
+            },
+            minLength: 1
+        });
+    }
+</script>
