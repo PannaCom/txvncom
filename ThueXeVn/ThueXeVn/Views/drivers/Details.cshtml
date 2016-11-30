@@ -1,139 +1,29 @@
 ﻿@model ThueXeVn.Models.driver
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = Model.name + ", " + Model.car_made + ", " + Model.car_model + ", " + Model.car_size + " chỗ, " + Model.car_type;
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    string price = "thỏa thuận";
+    if (Model.car_price != -1) {price = Model.car_price.ToString() + " đ/km";}
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>driver</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_model)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_model)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_made)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_made)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_years)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_years)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_size)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_size)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.car_price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.car_price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.total_moneys)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.total_moneys)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.province)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.province)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.date_time)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.date_time)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.code)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.code)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
-
-    </dl>
+<div class="col-sm-12" style="padding-top:80px;background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;display:block;">
+    <h1 style="margin-top:20px;display:block;float:left;position:relative;color:#000000;width:100%;">Lái xe @Model.name</h1>
+    <p style="text-align:left;margin-top:5px;"><b>Hãng xe: </b>@Model.car_made</p>
+    <p style="text-align:left;margin-top:5px;"><b>Mẫu xe: </b>@Model.car_model</p>
+    <p style="text-align:left;margin-top:5px;"><b>Loại xe: </b>@Model.car_type</p>
+    <p style="text-align:left;margin-top:5px;"><b>Số chỗ: </b>@Model.car_size</p>
+    <p style="text-align:left;margin-top:5px;"><b>Năm sản xuất: </b>@Model.car_years</p>
+    <p style="text-align:left;margin-top:5px;"><b>Bảng giá: </b>@price</p>
+    <p style="text-align:left;margin-top:5px;"><b>Số điện thoại: </b><a href="tel:@Model.phone" class="btn btn-primary btn-success" id="1" onclick="call(1,'@Model.phone');">Gọi điện</a></p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    function call(id, n) {
+        $("#" + id).html(n);
+        $.ajax({
+            url: "/Api/call?phone=" + n,
+            cache: false
+        }).done(function (html) {
+        });
+    }
+</script>

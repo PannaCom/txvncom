@@ -119,6 +119,7 @@
 	h1 {font-size: 26px}
 	#tf-home.slider{ display: none;}
 	#tf-intro.slider{ margin-top: 70px !important}
+    .carmade{ display: none;}
 	.ipad-wrapper .app-wrap {display: none;}
 	a.goto-btn {
 	    margin-right: auto;
@@ -140,4 +141,5 @@
 	.post-tab .nav-tabs > li > a {
 	    padding: 5px 10px;
 	}
+    .carmade{ display: none;}
 }

@@ -26,7 +26,7 @@
     <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
     <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." onkeyup="autosearchmodel();" value="@Model.car_model"/>
     <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
-    <select id="car_size" class="form-control"><option value="5">5 chỗ</option><option value="8">8 chỗ</option><option value="16">16 chỗ</option><option value="30">30 chỗ</option><option value="45">45 chỗ</option></select>
+    <select id="car_size" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Loại xe *</p>
     <select id="car_type" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
@@ -127,8 +127,22 @@
         $("#car_type").html("" + html);
         $("#car_type").val("@Model.car_type");
     });
-
-    $("#car_size").val("@Model.car_size");
+    $.ajax({
+        url: "/Api/getCarSize",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_size").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+        $("#car_size").val("@Model.car_size");
+    });
+   
     $("#car_year").val("@Model.car_years");
     $("#car_price").val("@Model.car_price");
     function autosearchmodel() {

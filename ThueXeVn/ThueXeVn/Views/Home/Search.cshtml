@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<ThueXeVn.Controllers.HomeController.glol>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Search";
+    ViewBag.title = ViewBag.address + ", " + ViewBag.cartype + ", " + ViewBag.carsize+" chỗ";
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     string dts = "";
     int kmf = 0;
@@ -28,15 +28,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
 <script src="/Scripts/jquery.geocomplete.js"></script>
 <div class="map_canvas" style="display:none;"></div>
-<div class="col-sm-12" style="margin-top:100px;display:block;float:left;position:relative;color:#000000;">
-    <div class="col-sm-9">
-        <input id="address" name="address" class="form-control" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
-        <input type="hidden" id="lon" name="lon" value="" />
-        <input type="hidden" id="lat" name="lat" value="" />
-    </div>
-    <div class="col-sm-3">
-        <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
-    </div>
+<div class="col-sm-12" style="padding-top:80px;">
+    <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" value="@ViewBag.address"/>
+    <input type="hidden" id="lon" name="lon" value="@ViewBag.lon" />
+    <input type="hidden" id="lat" name="lat" value="@ViewBag.lat" />
+    <select id="car_type" class="form-control col-sm-3">
+        <option value="">Chọn loại xe</option>
+    </select>
+    <select id="car_size" class="form-control col-sm-3">
+        <option value="">Chọn số chỗ</option>
+    </select>
+    <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+
 </div>
 <h2 style="margin-top:20px;display:block;float:left;position:relative;color:#000000;">Danh sách lái xe đang gần bạn</h2>
 <div class="container" style="background-color:#ffffff;color:#cccccc;">
@@ -44,7 +47,7 @@
     <div class="row">
         <!-- row -->
         <table class="table filter-table table-noborder mb0" style="width:100%;">
-            <tr style="width:100%;"><th>Tên lái xe</th><th>Hãng xe</th><th>Loại xe</th><th>Số chỗ</th><th>Khoảng cách</th><th>Điện thoại</th></tr>
+            <tr style="width:100%;"><th>Tên lái xe</th><th class="carmade">Hãng xe</th><th>Loại xe</th><th>Số chỗ</th><th>Khoảng cách</th><th>Điện thoại</th></tr>
             @foreach (var item in Model)
             {
                 stt++;
@@ -58,8 +61,8 @@
                     dts = km.ToString("0.00") + " km gần bạn";
                 }
                 <tr style="width:100%;">
-                    <td>@item.name</td>
-                    <td>@item.car_made</td>
+                    <td><a href="/Drivers/Details?id=@item.id">@item.name</a></td>
+                    <td class="carmade">@item.car_made</td>
                     <td>@item.car_model</td>
                     <td>@item.car_size</td>
                     <td>@dts</td>
@@ -93,9 +96,42 @@
             document.getElementById("address").focus();
             return;
         }
-        window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value;
+        window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value + "&address=" + document.getElementById("address").value + "&car_type=" + document.getElementById("car_type").value + "&car_size=" + document.getElementById("car_size").value;
     }
     function call(id,n){
         $("#"+id).html(n);
+        $.ajax({
+            url: "/Api/call?phone="+n,
+            cache: false
+        }).done(function (html) {
+        });
     }
+    $.ajax({
+        url: "/Api/getListCarType",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+        document.getElementById("car_type").value = "@ViewBag.cartype";
+    });
+    $.ajax({
+        url: "/Api/getCarSize",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+        document.getElementById("car_size").value = "@ViewBag.carsize";
+    });
 </script>

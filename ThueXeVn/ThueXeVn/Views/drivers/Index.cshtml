@@ -44,6 +44,9 @@
                             Hãng xe
                         </th>
                         <th>
+                            Loại xe
+                        </th>
+                        <th>
                             Trạng thái
                         </th>
                         @*<th>
@@ -87,6 +90,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.car_made)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.car_type)
                             </td>
                             <td>
                                 @if (item.code != "1")

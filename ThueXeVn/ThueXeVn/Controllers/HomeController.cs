@@ -226,15 +226,34 @@ namespace ThueXeVn.Controllers
                     writer.WriteElementString("changefreq", "always");
                     writer.WriteElementString("priority", "1");
                     writer.WriteEndElement();
-                    writer.WriteStartElement("url");
-                    writer.WriteElementString("loc", "http://thuexevn.com/Home/Price");
-                    writer.WriteElementString("changefreq", "always");
-                    writer.WriteElementString("priority", "0.99");
-                    writer.WriteEndElement();
+            
+                    //tài xế
+                   
+                    var p4= (from q in db.drivers select q).OrderByDescending(o => o.id).ToList();
+                    for (int i = 0; i < p4.Count; i++)
+                    {
+                        try
+                        {
+
+                            writer.WriteStartElement("url");
+                            urllink = "http://thuexevn.com/Drivers/Details?id=" + p4[i].id;
+                            writer.WriteElementString("loc", urllink);
+                            writer.WriteElementString("changefreq", "hourly");
+                            percent = 0.70f;
+                            writer.WriteElementString("priority", "0.98");
+                            writer.WriteEndElement();
+                        }
+                        catch (Exception ex4)
+                        {
+                        }
+                    }
+                   
+
+                    //tin tức
                     writer.WriteStartElement("url");
                     writer.WriteElementString("loc", "http://thuexevn.com/tin/page=1");
                     writer.WriteElementString("changefreq", "always");
-                    writer.WriteElementString("priority", "0.98");
+                    writer.WriteElementString("priority", "0.97");
                     writer.WriteEndElement();
                     var p3 = (from q in db.news select q).OrderByDescending(o => o.id).ToList();
                     for (int i = 0; i < p3.Count; i++)
@@ -267,6 +286,7 @@ namespace ThueXeVn.Controllers
         }
         public class glol
         {
+            public long id { get; set; }
             public double lon { get; set; }
             public double lat { get; set; }
             public string name { get; set; }
@@ -278,10 +298,10 @@ namespace ThueXeVn.Controllers
             public int? car_price { get; set; }
             public double D { get; set; }
         }
-        public ActionResult Search(double lon, double lat, string car_type, string car_made, string car_model, int? car_size, int? order)
+        public ActionResult Search(double lon, double lat, string address,string car_type, string car_made, string car_model, int? car_size, int? order)
         {
-            string query = "select top 20 lon,lat,name,phone,car_model,car_size,car_type,car_made,car_price,GETDATE() as datetime,D from ";
-            query += " (select name,phone,car_model,car_size,car_type,car_made,car_price from drivers where code=N'1') as A left join (select phone as phone2,lon,lat,status,ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D from list_online where status=0) as B on A.phone=B.phone2 where D<1000 ";
+            string query = "select top 20 id,lon,lat,name,phone,car_model,car_size,car_type,car_made,car_price,GETDATE() as datetime,D from ";
+            query += " (select id,name,phone,car_model,car_size,car_type,car_made,car_price from drivers where code=N'1') as A left join (select phone as phone2,lon,lat,status,ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D from list_online where status=0) as B on A.phone=B.phone2 where D<1000 ";
 
             if (car_type != null && car_type != "" && car_type != "\"\"")
             {
@@ -307,6 +327,11 @@ namespace ThueXeVn.Controllers
             {
                 query += " order by car_price";
             }
+            ViewBag.lon = lon;
+            ViewBag.lat = lat;
+            ViewBag.cartype = car_type;
+            ViewBag.carsize= car_size;
+            ViewBag.address=address;
             var p = db.Database.SqlQuery<glol>(query);
             int pageSize = 25;
             int pageNumber = 1;
