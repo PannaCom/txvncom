@@ -20,6 +20,8 @@
     <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
+    <p style="text-align:left;margin-top:5px;">Biển số xe *</p>
+    <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số xe" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
     <select id="car_made" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
@@ -108,14 +110,18 @@
         
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
+        formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);
         formdata.append("car_model", document.getElementById("car_model").value);
         formdata.append("car_size", document.getElementById("car_size").value);
         formdata.append("car_year", document.getElementById("car_year").value);
         formdata.append("car_type", document.getElementById("car_type").value);
         formdata.append("car_price", document.getElementById("car_price").value);
+        formdata.append("address", document.getElementById("address").value);
+        formdata.append("lon", document.getElementById("lon").value);
+        formdata.append("lat", document.getElementById("lat").value);
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Api/Register');
+        xhr.open('POST', '/Home/Register');
         xhr.send(formdata);
         var content = "";
         document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";

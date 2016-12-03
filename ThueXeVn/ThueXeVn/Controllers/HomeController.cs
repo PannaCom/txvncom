@@ -119,7 +119,7 @@ namespace ThueXeVn.Controllers
             }
         }
         [HttpPost]
-        public string Register(string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price,string address, double lon, double lat)
+        public string Register(int? id,string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price,string address, double lon, double lat)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace ThueXeVn.Controllers
                 //lo.lon = lon;
                 //lo.lat = lat;
                 //lo.geo = Config.CreatePoint(lat, lon);
-                Config.mail("muabanraovat63@gmail.com", "vnnvh80@gmail.com", "Tài xế đăng ký " + phone, "Huynguyenviet1", "Họ tên: " + name + ", số điện thoại " + phone + ", Biển số xe:" + car_number + ", Thông tin xe: " + car_made + "," + car_model + ", số chỗ " + car_size + ", năm sản xuất " + car_year+", Địa chỉ "+address);
+                //Config.mail("muabanraovat63@gmail.com", "vnnvh80@gmail.com", "Tài xế đăng ký " + phone, "Huynguyenviet1", "Họ tên: " + name + ", số điện thoại " + phone + ", Biển số xe:" + car_number + ", Thông tin xe: " + car_made + "," + car_model + ", số chỗ " + car_size + ", năm sản xuất " + car_year+", Địa chỉ "+address);
 
                 return "1";
             }
