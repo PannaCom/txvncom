@@ -221,12 +221,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
+    <Compile Include="Controllers\calllogController.cs" />
     <Compile Include="Controllers\codeController.cs" />
     <Compile Include="Controllers\driversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
     <Compile Include="Controllers\NotifiesController.cs" />
+    <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1358,6 +1360,16 @@
     <Content Include="Views\bookings\Details.cshtml" />
     <Content Include="Views\bookings\Edit.cshtml" />
     <Content Include="Views\bookings\Index.cshtml" />
+    <Content Include="Views\calllog\Create.cshtml" />
+    <Content Include="Views\calllog\Delete.cshtml" />
+    <Content Include="Views\calllog\Details.cshtml" />
+    <Content Include="Views\calllog\Edit.cshtml" />
+    <Content Include="Views\calllog\Index.cshtml" />
+    <Content Include="Views\users\Create.cshtml" />
+    <Content Include="Views\users\Delete.cshtml" />
+    <Content Include="Views\users\Details.cshtml" />
+    <Content Include="Views\users\Edit.cshtml" />
+    <Content Include="Views\users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

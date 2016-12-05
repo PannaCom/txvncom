@@ -23,9 +23,9 @@
     <p style="text-align:left;margin-top:5px;">Biển số xe *</p>
     <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số xe" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
-    <select id="car_made" class="form-control"></select>
+    <select id="car_made" class="form-control" onchange="autosearchmodel();"></select>
     <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
-    <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." onkeyup="autosearchmodel();" value="@Model.car_model" />
+    <select id="car_model" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
     <select id="car_size" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Loại xe *</p>
@@ -77,6 +77,11 @@
             document.getElementById("tphone").focus();
             return;
         }
+        if (document.getElementById("car_number").value == "") {
+            alert("Nhập biển số!");
+            document.getElementById("car_number").focus();
+            return;
+        }
         if (document.getElementById("car_made").value == "") {
             alert("Nhập hãng xe!");
             document.getElementById("car_made").focus();
@@ -107,7 +112,12 @@
             document.getElementById("car_price").focus();
             return;
         }
-        
+        if (document.getElementById("address").value == "" || document.getElementById("lon").value == "") {
+            alert("Nhập địa chỉ!");
+            document.getElementById("address").focus();
+            return;
+        }
+        formdata.append("id", -1);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
         formdata.append("car_number", document.getElementById("car_number").value);
@@ -143,15 +153,16 @@
         url: "/Home/getHangXe",
         cache: false
     }).done(function (html) {
-        $("#car_made").html("" + html);
-        $("#car_made").val("@Html.Raw(Model.car_made)");
+        $("#car_made").html("<option value=\"\">Chọn hãng xe</option>");
+        $("#car_made").append("" + html);
+        @*$("#car_made").val("@Html.Raw(Model.car_made)");*@
     });
     $.ajax({
         url: "/Home/getLoaiXe",
         cache: false
     }).done(function (html) {
         $("#car_type").html("" + html);
-        $("#car_type").val("@Html.Raw(Model.car_type)");
+        @*$("#car_type").val("@Html.Raw(Model.car_type)");*@
     });
     $.ajax({
         url: "/Api/getCarSize",
@@ -166,24 +177,31 @@
                 $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
             }
         }
-        $("#car_size").val("@Model.car_size");
+        @*$("#car_size").val("@Model.car_size");*@
     });
 
-    $("#car_year").val("@Model.car_years");
-    $("#car_price").val("@Model.car_price");
+    @*$("#car_year").val("@Model.car_years");
+    $("#car_price").val("@Model.car_price");*@
     function autosearchmodel() {
-        //var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
         var keyword = document.getElementById("car_model").value;
-        var urlSearch = '/Api/getCarModelList2?keyword=';
-        $('#car_model').autocomplete({
-            source: urlSearch + keyword,
-            select: function (event, ui) {
-                //alert(ui.item.value);
-                //console.log(ui.item.value);
-                $(event.target).val(ui.item.value);
-                return false;
-            },
-            minLength: 1
+        var made = document.getElementById("car_made").value;
+        var urlSearch = '/Api/getCarModelListFromMade2?keyword=' + keyword + "&made=" + made;
+        
+        $.ajax({
+            url: urlSearch,
+            cache: false
+        }).done(function (html) {
+           
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+           
+            $("#car_model").html("");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_model").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
         });
     }
 </script>

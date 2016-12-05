@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Xml;
 using ThueXeVn.Models;
 using PagedList;
+using System.Data.Entity;
 namespace ThueXeVn.Controllers
 {
     public class HomeController : Controller
@@ -123,30 +124,51 @@ namespace ThueXeVn.Controllers
         {
             try
             {
-                driver r = new driver();
-                r.name = name;
-                r.phone = phone;
-                r.car_number = car_number;
-                r.car_made = car_made;
-                r.car_model = car_model;
-                r.car_size = car_size;
-                r.car_years = car_year;
-                r.car_type = car_type;
-                r.car_price = car_price;
-                r.address = address;
-                //r.code = "1";
-                db.drivers.Add(r);
-                db.SaveChanges();
-                list_online lo = new list_online();
-                lo.car_number = car_number;
-                lo.date_time = DateTime.Now;
-                lo.geo=Config.CreatePoint(lat, lon);
-                lo.lat = lat;
-                lo.lon = lon;
-                lo.phone = phone;
-                lo.status = 0;
-                db.list_online.Add(lo);
-                db.SaveChanges();
+                if (id == null || id==-1)
+                { 
+                    driver r = new driver();
+                    r.name = name;
+                    r.phone = phone;
+                    r.car_number = car_number;
+                    r.car_made = car_made;
+                    r.car_model = car_model;
+                    r.car_size = car_size;
+                    r.car_years = car_year;
+                    r.car_type = car_type;
+                    r.car_price = car_price;
+                    r.address = address;
+                    r.code = "1";
+                    //r.code = "1";
+                    db.drivers.Add(r);
+                    db.SaveChanges();
+                    list_online lo = new list_online();
+                    lo.car_number = car_number;
+                    lo.date_time = DateTime.Now;
+                    lo.geo=Config.CreatePoint(lat, lon);
+                    lo.lat = lat;
+                    lo.lon = lon;
+                    lo.phone = phone;
+                    lo.status = 0;
+                    db.list_online.Add(lo);
+                    db.SaveChanges();
+                }
+                else {
+                    driver r = db.drivers.Find(id);
+                    db.Entry(r).State = EntityState.Modified;
+                    r.name = name;
+                    r.phone = phone;
+                    r.car_number = car_number;
+                    r.car_made = car_made;
+                    r.car_model = car_model;
+                    r.car_size = car_size;
+                    r.car_years = car_year;
+                    r.car_type = car_type;
+                    r.car_price = car_price;
+                    r.address = address;
+                    r.date_time = DateTime.Now;
+                    db.SaveChanges();
+                    db.Database.ExecuteSqlCommand("update list_online set lon=" + lon + ",lat=" + lat + " where phone=N'" + phone + "' and car_number=N'" + car_number + "'");
+                }
                 //lo.lon = lon;
                 //lo.lat = lat;
                 //lo.geo = Config.CreatePoint(lat, lon);

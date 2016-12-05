@@ -24,9 +24,9 @@
     <p style="text-align:left;margin-top:5px;">Biển số xe *</p>
     <input id="car_number" name="car_number" value="@Model.car_number" class="form-control" placeholder="Nhập biển số xe" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
-    <select id="car_made" class="form-control"></select>
+    <select id="car_made" class="form-control" onchange="autosearchmodel();"></select>
     <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
-    <input id="car_model" name="car_model" class="form-control" placeholder="Vios hay Fotuner hay Mazda, Morning..." onkeyup="autosearchmodel();" value="@Model.car_model"/>
+    <select id="car_model" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
     <select id="car_size" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Loại xe *</p>
@@ -41,9 +41,30 @@
             <option value="@i">@i đồng/km</option>
         }
     </select>
+    <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
+    <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" value="@Model.address" />
+    <input type="hidden" id="lon" name="lon" value="@ViewBag.lon" />
+    <input type="hidden" id="lat" name="lat" value="@ViewBag.lat" />
     <input type="button" value="CẬP NHẬT XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2" />
 </div>
 <script>
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#address").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon").val(result.geometry.location.lng());
+              $("#lat").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
     function register() {
         var formdata = new FormData(); //FormData object
         //var datetimepicker = document.getElementById("datetimepicker").value;
@@ -87,6 +108,11 @@
             document.getElementById("car_price").focus();
             return;
         }
+        if (document.getElementById("address").value == "" || document.getElementById("lon").value == "") {
+            alert("Nhập địa chỉ!");
+            document.getElementById("address").focus();
+            return;
+        }
         formdata.append("id", @Model.id);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
@@ -125,6 +151,7 @@
     }).done(function (html) {
         $("#car_made").html("" + html);
         $("#car_made").val("@Html.Raw(Model.car_made)");
+        autosearchmodel();
     });
     $.ajax({
         url: "/Home/getLoaiXe",
@@ -152,18 +179,26 @@
     $("#car_year").val("@Model.car_years");
     $("#car_price").val("@Model.car_price");
     function autosearchmodel() {
-        //var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
         var keyword = document.getElementById("car_model").value;
-        var urlSearch = '/Api/getCarModelList2?keyword=';
-        $('#car_model').autocomplete({
-            source: urlSearch + keyword,
-            select: function (event, ui) {
-                //alert(ui.item.value);
-                //console.log(ui.item.value);
-                $(event.target).val(ui.item.value);
-                return false;
-            },
-            minLength: 1
+        var made = document.getElementById("car_made").value;
+        var urlSearch = '/Api/getCarModelListFromMade2?keyword=' + keyword + "&made=" + made;
+
+        $.ajax({
+            url: urlSearch,
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+
+            $("#car_model").html("");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_model").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+            $("#car_model").val("@Html.Raw(Model.car_model)");
         });
     }
+    
 </script>

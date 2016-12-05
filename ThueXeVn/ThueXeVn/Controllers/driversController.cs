@@ -71,11 +71,17 @@ namespace ThueXeVn.Controllers
         public ActionResult Edit(long? id)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             driver driver = db.drivers.Find(id);
+            string phone=driver.phone;
+            string car_number=driver.car_number;
+            var p = db.list_online.Where(o => o.phone == phone && o.car_number == car_number).FirstOrDefault();
+            ViewBag.lon = p.lon;
+            ViewBag.lat = p.lat;
             if (driver == null)
             {
                 return HttpNotFound();
