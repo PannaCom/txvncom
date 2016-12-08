@@ -129,6 +129,8 @@
 	    display: inline-block;
 	}
 	.blog .post-meta {min-height: 55px;}
+    #headerct{ margin-top: 80px}
+    #headerct2{ margin-top: 180px}
 }
 @media (max-width: 320px) { 
 	.post-wrap .post .media-body p {display: none;}
