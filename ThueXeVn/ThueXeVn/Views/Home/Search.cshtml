@@ -101,7 +101,7 @@
     function call(id,n){
         $("#"+id).html(n);
         $.ajax({
-            url: "/Api/call?phone="+n,
+            url: "/Api/callWeb?phone=" + n,
             cache: false
         }).done(function (html) {
         });

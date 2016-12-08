@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ThueXeVn.Models.call_log>
+﻿@model IEnumerable<ThueXeVn.Models.list_car>
 
 @{
     ViewBag.Title = "Index";
@@ -13,16 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.phone)
+            @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.calls)
-        </th>
-        <th>
-            from Web
-        </th>
-        <th>
-            from App
+            @Html.DisplayNameFor(model => model.no)
         </th>
         <th></th>
     </tr>
@@ -30,16 +24,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.phone)
+            @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.calls)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.web)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.app)
+            @Html.DisplayFor(modelItem => item.no)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

@@ -8,47 +8,49 @@
 }
 
     
-        <div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;">
-            @foreach (var item in Model)
-            {
-                link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
-                <div style="margin-bottom:25px;display:block;position:relative;float:left;" class="col-sm-12">
-                    <table>
-                        <tr>
-                            <td><a href="@link" class="col-sm-2" style="display:block;position:relative;float:left;"><img src="@item.image" alt="@item.title" class="imagenewslist" style="border:1px solid #808080;width:100px;height:100px;"></a></td>
-                            <td class="row rowimagenewslist">
-                                <div class="col-sm-11 col-xs-10 meta">
-                                    <h2 style="font-size:22px;margin-top:0px;"><a href="@link">@Html.Raw(@item.title)</a></h2>
-                                    <p style="color: #999;">&nbsp;Gửi ngày @item.datetime</p>
-                                    <p class="intro">@Html.Raw(@item.des)</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            }
-            @if (Model.PageCount > 1)
-            {
-                <div class="col-sm-9" style="float:left;margin-left:10px;">
-                    <ul class="pagination clearfix">
-                        <li class="disabled"><a href="#">«</a></li>
-                        @for (int i = 1; i <= Model.PageCount; i++)
-                        {
-                            if (i != ViewBag.page)
-                            {
-                                <text>
-                                    <li><a href="/tin/page=@i">@i</a></li></text>
-                            }
-                            else
-                            {
-                                <text>
-                                    <li><a href="/tin/page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
-                            }
-                        }
-                    </ul>
-                </div>
-            }
+        <div class="col-sm-9" style="border-right: 1px solid #ff0000;float:left;margin-left:10px;margin-top:10px;background-color:white;color:black;border-radius:25px;min-height:567px;" id="headerct2">
+    @foreach (var item in Model)
+    {
+        link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
+        <div style="margin-bottom:25px;display:block;position:relative;float:left;" class="col-sm-12">
+            <table>
+                <tr>
+                    <td><a href="@link" class="col-sm-2" style="display:block;position:relative;float:left;"><img src="@item.image" alt="@item.title" class="imagenewslist" style="border:1px solid #808080;width:100px;height:100px;"></a></td>
+                    <td class="row rowimagenewslist">
+                        <div class="col-sm-11 col-xs-10 meta">
+                            <h2 style="font-size:22px;margin-top:0px;"><a href="@link">@Html.Raw(@item.title)</a></h2>
+                            <p style="color: #999;">&nbsp;Gửi ngày @item.datetime</p>
+                            <p class="intro">@Html.Raw(@item.des)</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
+    }
+    @if (Model.PageCount > 1)
+    {
+        <div class="col-sm-9" style="float:left;margin-left:10px;">
+            <ul class="pagination clearfix">
+                <li class="disabled"><a href="#">«</a></li>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    if (i != ViewBag.page)
+                    {
+                        <text>
+                            <li><a href="/tin/page=@i">@i</a></li></text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li><a href="/tin/page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+
     
     <div class="col-sm-2">
         <!-- Widget: Categories -->
