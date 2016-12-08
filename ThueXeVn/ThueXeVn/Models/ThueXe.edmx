@@ -55,6 +55,8 @@
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="calls" Type="int" />
+          <Property Name="app" Type="int" />
+          <Property Name="web" Type="int" />
         </EntityType>
         <EntityType Name="car_hire_type">
           <Key>
@@ -317,22 +319,14 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="notifies" EntityType="Self.notify" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
-          <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
           <EntitySet Name="activecodes" EntityType="thuexevnModel.activecode" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="call_driver_log" EntityType="thuexevnModel.call_driver_log" />
           <EntitySet Name="car_hire_type" EntityType="thuexevnModel.car_hire_type" />
           <EntitySet Name="car_size" EntityType="thuexevnModel.car_size" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
+          <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
         </EntityContainer>
-        <EntityType Name="call_log">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="calls" Type="Int32" />
-        </EntityType>
         <EntityType Name="activecode">
           <Key>
             <PropertyRef Name="id" />
@@ -412,6 +406,16 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="regId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="os" Type="Int32" />
+        </EntityType>
+        <EntityType Name="call_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="calls" Type="Int32" />
+          <Property Name="app" Type="Int32" />
+          <Property Name="web" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -520,15 +524,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="call_log">
-            <EntityTypeMapping TypeName="thuexevnModel.call_log">
-              <MappingFragment StoreEntitySet="call_log">
-                <ScalarProperty Name="calls" ColumnName="calls" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="activecodes">
             <EntityTypeMapping TypeName="thuexevnModel.activecode">
               <MappingFragment StoreEntitySet="activecode">
@@ -611,6 +606,17 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="call_log">
+            <EntityTypeMapping TypeName="thuexevnModel.call_log">
+              <MappingFragment StoreEntitySet="call_log">
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="app" ColumnName="app" />
+                <ScalarProperty Name="calls" ColumnName="calls" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

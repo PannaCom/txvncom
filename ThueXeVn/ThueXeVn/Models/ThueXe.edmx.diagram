@@ -15,13 +15,13 @@
         <EntityTypeShape EntityType="thuexevnModel.notify" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="thuexevnModel.user" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="thuexevnModel.TinhThanh" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="thuexevnModel.call_log" Width="1.5" PointX="9.375" PointY="6.75" />
         <EntityTypeShape EntityType="thuexevnModel.activecode" Width="1.5" PointX="9.375" PointY="9.75" />
         <EntityTypeShape EntityType="thuexevnModel.booking" Width="1.5" PointX="11.75" PointY="0.75" />
         <EntityTypeShape EntityType="thuexevnModel.call_driver_log" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="thuexevnModel.car_hire_type" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="thuexevnModel.car_size" Width="1.5" PointX="11.375" PointY="6.75" />
         <EntityTypeShape EntityType="thuexevnModel.driver" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="thuexevnModel.call_log" Width="1.5" PointX="11.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

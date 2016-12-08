@@ -17,5 +17,7 @@ namespace ThueXeVn.Models
         public long id { get; set; }
         public string phone { get; set; }
         public Nullable<int> calls { get; set; }
+        public Nullable<int> app { get; set; }
+        public Nullable<int> web { get; set; }
     }
 }
