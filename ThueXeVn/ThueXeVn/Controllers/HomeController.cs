@@ -323,7 +323,7 @@ namespace ThueXeVn.Controllers
         public ActionResult Search(double lon, double lat, string address,string car_type, string car_made, string car_model, int? car_size, int? order)
         {
             string query = "select top 20 id,lon,lat,name,phone,car_model,car_size,car_type,car_made,car_price,GETDATE() as datetime,D from ";
-            query += " (select id,name,phone,car_model,car_size,car_type,car_made,car_price from drivers where code=N'1') as A left join (select phone as phone2,lon,lat,status,ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D from list_online where status=0) as B on A.phone=B.phone2 where D<1000 ";
+            query += " (select id,name,phone,car_model,car_size,car_type,car_made,car_price,car_number from drivers where code=N'1') as A left join (select car_number,phone as phone2,lon,lat,status,ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D from list_online where status=0) as B on A.phone=B.phone2 and A.car_number=B.car_number where D<1000 ";
 
             if (car_type != null && car_type != "" && car_type != "\"\"")
             {
@@ -358,6 +358,15 @@ namespace ThueXeVn.Controllers
             int pageSize = 25;
             int pageNumber = 1;
             return View(p.ToPagedList(pageNumber, pageSize)); 
+        }
+        public string updateCarNumber()
+        {
+            var p = (from q in db.list_online select q).ToList();
+            for (int i = 0; i < p.Count; i++)
+            {
+                db.Database.ExecuteSqlCommand("update drivers set car_number=N'" + p[i].car_number + "' where phone=N'" + p[i].phone + "'");
+            }
+            return "1";
         }
     }
 }

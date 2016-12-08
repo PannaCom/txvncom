@@ -79,9 +79,16 @@ namespace ThueXeVn.Controllers
             driver driver = db.drivers.Find(id);
             string phone=driver.phone;
             string car_number=driver.car_number;
-            var p = db.list_online.Where(o => o.phone == phone && o.car_number == car_number).FirstOrDefault();
-            ViewBag.lon = p.lon;
-            ViewBag.lat = p.lat;
+            var p = db.list_online.Where(o => o.phone == phone).FirstOrDefault();
+            try { 
+                ViewBag.lon = p.lon;
+                ViewBag.lat = p.lat;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.lon = 105.3724793;
+                ViewBag.lat = 20.9740874;
+            }
             if (driver == null)
             {
                 return HttpNotFound();
