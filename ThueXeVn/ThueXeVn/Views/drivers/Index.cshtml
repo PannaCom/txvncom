@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Danh sách tài xế";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 0;
+    int page = int.Parse(ViewBag.page.ToString());
+    count = (page - 1) * Config.PageSize;
 }
 <div class="row">
     <div class="col-lg-12">
@@ -30,6 +33,7 @@
                 <input type="button" value="Xóa" class="btn btn-primary" onclick="deleteSome();" id="btnregisterdel" />
                 <table class="table table-bordered table-striped">
                     <tr>
+                        <th>Stt</th>
                         <th>Chọn</th>
                         <th>
                             Họ tên
@@ -76,7 +80,9 @@
 
                     @foreach (var item in Model)
                     {
+                        count++;
                         <tr>
+                            <td>@count</td>
                             <td><input type="checkbox" name="chk" id="@item.id"></td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.name)

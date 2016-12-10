@@ -22,6 +22,7 @@ namespace ThueXeVn.Controllers
             var p = (from q in db.drivers where q.name.Contains(k) || q.phone.Contains(k) || q.car_number.Contains(k) select q).OrderByDescending(o => o.id).Take(1000);
             int pageSize = Config.PageSize;
             int pageNumber = (page ?? 1);
+            if (page == null || page==0) page = 1;
             ViewBag.page = page;
             ViewBag.k = k;
             return View(p.ToPagedList(pageNumber, pageSize));
