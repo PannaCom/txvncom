@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thuê xe Việt Nam giá rẻ nhất</title>
+    <title>Thuê xe Việt Nam</title>
     <meta name="description" content="Cho thuê xe đi đường dài, ngoại tỉnh, sân bay, xe tải, tài xế lịch sự, xe đẹp mới">
     <meta name="keywords" content="xe sân bay, xe tải, taxi sân bay, taxi Nội Bài, taxi Tân Sơn Nhất, xe đường dài, xe ngoại tỉnh">
     <meta name="author" content="ThueXeVn.Com">
@@ -40,15 +40,15 @@
     <!-- Google Fonts
     ==================================================
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'> -->
-    @RenderSection("Styles", false)
+
     <script type="text/javascript" src="~/Content/Theme/1a/js/modernizr.custom.js"></script>
     <!-- js -->
-    @*<script type="text/javascript" src="~/Content/Theme/1a/js/jquery-1.11.2.min.js"></script>
-        <script src="~/Content/Theme/1a/js/jquery-ui-1.8.24.js"></script>
-        <script src="~/Content/Theme/1a/js/jquery.1.11.1.js"></script>
-        <script src="~/Content/Theme/1a/js/jquery-ui.js"></script>
-        <link rel="stylesheet" href="~/Content/Theme/1a/js/jquery-ui.css">
-        <script src="~/Content/Theme/1a/Plugin/bootstrap-tagsinput.min.js"></script>*@
+    <script type="text/javascript" src="~/Content/Theme/1a/js/jquery-1.11.2.min.js"></script>
+    <script src="~/Content/Theme/1a/js/jquery-ui-1.8.24.js"></script>
+    <script src="~/Content/Theme/1a/js/jquery.1.11.1.js"></script>
+    <script src="~/Content/Theme/1a/js/jquery-ui.js"></script>
+    <link rel="stylesheet" href="~/Content/Theme/1a/js/jquery-ui.css">
+    <script src="~/Content/Theme/1a/Plugin/bootstrap-tagsinput.min.js"></script>
     <script src="/Scripts/core.js"></script>
     @*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
     @*<script src="js/jquery.geocomplete.js"></script>*@
@@ -97,25 +97,29 @@
                     <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    @*<li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                     <li><a href="/tin/page=1">Tin tức</a></li>
                     <li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
-
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 
-    <!-- slider Section
-    ================================================== -->
-    @RenderSection("sliderHome", false)
-
     <!-- Home Section
     ================================================== -->
-    @RenderBody()
+    <div id="tf-home">
+        <div class="overlay">
+            <!-- Overlay Color -->
+            <div class="container">
+                <!-- container -->
+                @RenderBody()
+            </div> <!-- end container -->
+        </div><!-- End Overlay Color -->
+    </div>
 
     <!-- Footer
     ================================================== -->
@@ -128,18 +132,18 @@
                 <li><a href="#"><i class="fa fa-twitter"></i></a></li> <!-- Change # With your Twitter Link -->
                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li> <!-- Change # With your Google Plus Link -->
                 <li><a href="#"><i class="fa fa-youtube"></i></a></li> <!-- Change # With your Youtube Link -->
-                <li>
-                    <a href="http://www.dmca.com/Protection/Status.aspx?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" title="DMCA.com Protection Status" class="dmca-badge"> <img src="//images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" alt="DMCA.com Protection Status"></a>
-
+                <li><a href="http://www.dmca.com/Protection/Status.aspx?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" title="DMCA.com Protection Status" class="dmca-badge"> <img src="//images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" alt="DMCA.com Protection Status"></a>
+                   
                 </li>
             </ul>
         </div><!-- end container -->
     </div>
-    @*<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+    <script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery.1.11.1.js"></script>-->
-    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="~/Content/Theme/1a/js/bootstrap.js"></script>
 
     <script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
 
@@ -161,13 +165,13 @@
     <!-- Contact page-->
     <script type="text/javascript" src="~/Content/Theme/1a/js/jqBootstrapValidation.js"></script>
     <script type="text/javascript" src="~/Content/Theme/1a/js/contact.js"></script>
-    
+
+    @RenderSection("scripts", required: false)
 
     <!-- Javascripts
     ================================================== -->
-    <script type="text/javascript" src="~/Content/Theme/1a/js/main.js"></script>*@
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="~/Content/Theme/1a/js/bootstrap.js"></script>
-    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/Content/Theme/1a/js/main.js"></script>
+
+
 </body>
 </html>
