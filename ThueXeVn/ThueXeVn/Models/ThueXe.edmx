@@ -57,6 +57,7 @@
           <Property Name="calls" Type="int" />
           <Property Name="app" Type="int" />
           <Property Name="web" Type="int" />
+          <Property Name="date_time" Type="datetime" />
         </EntityType>
         <EntityType Name="car_hire_type">
           <Key>
@@ -416,6 +417,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="calls" Type="Int32" />
           <Property Name="app" Type="Int32" />
           <Property Name="web" Type="Int32" />
+          <Property Name="date_time" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -613,6 +615,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySetMapping Name="call_log">
             <EntityTypeMapping TypeName="thuexevnModel.call_log">
               <MappingFragment StoreEntitySet="call_log">
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
                 <ScalarProperty Name="web" ColumnName="web" />
                 <ScalarProperty Name="app" ColumnName="app" />
                 <ScalarProperty Name="calls" ColumnName="calls" />

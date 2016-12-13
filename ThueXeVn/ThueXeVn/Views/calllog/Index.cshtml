@@ -24,6 +24,9 @@
         <th>
             from App
         </th>
+        <th>
+            Last Date Call
+        </th>
         <th></th>
     </tr>
 
@@ -40,6 +43,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.app)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date_time)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |

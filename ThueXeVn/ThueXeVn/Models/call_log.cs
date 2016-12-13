@@ -19,5 +19,6 @@ namespace ThueXeVn.Models
         public Nullable<int> calls { get; set; }
         public Nullable<int> app { get; set; }
         public Nullable<int> web { get; set; }
+        public Nullable<System.DateTime> date_time { get; set; }
     }
 }

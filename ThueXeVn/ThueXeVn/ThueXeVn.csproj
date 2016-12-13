@@ -222,9 +222,11 @@
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\calllogController.cs" />
+    <Compile Include="Controllers\carmademodelController.cs" />
     <Compile Include="Controllers\codeController.cs" />
     <Compile Include="Controllers\driversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\listcarController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
     <Compile Include="Controllers\NotifiesController.cs" />
@@ -1370,6 +1372,16 @@
     <Content Include="Views\users\Details.cshtml" />
     <Content Include="Views\users\Edit.cshtml" />
     <Content Include="Views\users\Index.cshtml" />
+    <Content Include="Views\carmademodel\Create.cshtml" />
+    <Content Include="Views\carmademodel\Delete.cshtml" />
+    <Content Include="Views\carmademodel\Details.cshtml" />
+    <Content Include="Views\carmademodel\Edit.cshtml" />
+    <Content Include="Views\carmademodel\Index.cshtml" />
+    <Content Include="Views\listcar\Create.cshtml" />
+    <Content Include="Views\listcar\Delete.cshtml" />
+    <Content Include="Views\listcar\Details.cshtml" />
+    <Content Include="Views\listcar\Edit.cshtml" />
+    <Content Include="Views\listcar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
