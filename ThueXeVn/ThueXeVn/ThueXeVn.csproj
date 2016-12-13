@@ -969,7 +969,6 @@
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\Theme\admin\vendor\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="APNsNew.p12" />
-    <Content Include="APNs_PushNoti.pem" />
     <EntityDeploy Include="Models\ThueXe.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThueXe.Designer.cs</LastGenOutput>
