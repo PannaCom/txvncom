@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
     string link = "";
 }
 
@@ -13,55 +13,180 @@
 <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
 @*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-<script src="/Scripts/jquery.geocomplete.js"></script> 
+<script src="/Scripts/jquery.geocomplete.js"></script>
 <div class="map_canvas" style="display:none;"></div>
 @*<label for="autocomplete">Select a programming language: </label>
-<input id="autocomplete">
-<script>
-    var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
-    $("#autocomplete").autocomplete({
-        source: function (request, response) {
-            var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-            response($.grep(tags, function (item) {
-                return matcher.test(item);
-            }));
-        }
-    });
-</script>*@
+    <input id="autocomplete">
+    <script>
+        var tags = ["c++", "java", "php", "coldfusion", "javascript", "asp", "ruby"];
+        $("#autocomplete").autocomplete({
+            source: function (request, response) {
+                var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+                response($.grep(tags, function (item) {
+                    return matcher.test(item);
+                }));
+            }
+        });
+    </script>*@
 
-<div class="content-heading text-center">
-    <!-- Input Your Home Content Here -->
-    <div class="row text-center" style="min-height:667px;">
-        <!-- contact form outer row with centered text-->
-        <h2>THUÊ XE VIỆT NAM</h2>
-        @*<h2><input type="button" value="DÀNH CHO KHÁCH ĐẶT THUÊ XE" class="btn btn-primary btn-info" onclick="show(1);" style="margin-bottom:5px;width:300px;font-weight:bold;" /></h2>
-        <h2><input type="button" value="DÀNH CHO TÀI XẾ ĐĂNG KÝ XE" class="btn btn-primary btn-success" onclick="show(2);" style="margin-bottom:5px;width:300px;font-weight:bold;" /></h2>*@
-        <h2>
-            <a href='https://play.google.com/store/apps/details?id=com.quickcar.thuexe'>
-                <img alt='Tải nội dung trên Google Play' src='/images/vi_badge_web_generic.png' style="width:270px;height:80px;" />
-            </a>
-        </h2>
-        <h2>
-            <a href="https://itunes.apple.com/us/app/thue-xe/id1166862903?ls=1&mt=8">
-                <img src="/Images/appstore.svg" style="width:270px;height:80px;" />
-            </a>
-        </h2>
-        <div class="col-sm-12">
-                <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
-                <input type="hidden" id="lon" name="lon" value="" />
-                <input type="hidden" id="lat" name="lat" value="" />
-                <select id="car_type" class="form-control col-sm-3">
-                    <option value="">Chọn loại xe</option>
-                </select>
-                <select id="car_size" class="form-control col-sm-3">
-                    <option value="">Chọn số chỗ</option>
-                </select>
-                <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
-            
+@section Styles {
+
+    <style>
+        .home-banner {
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: rgba(0,0,0,0);
+            background-image: url(../Images/Ts-website-banner-test1.jpg);
+            background-origin: padding-box;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .highlight-1 {
+            font-size: 3em;
+            color: #fff;
+            background: rgba(72, 69, 124, 0.76);
+            border: 1px solid rgba(72, 69, 124, 0.76);
+            line-height: 1.2em;
+        }
+
+        #form_timxe {
+            margin-top: 19px;
+            padding: 9px;
+            margin-bottom: 20px;
+            background: rgba(235, 65, 75, 0.58);
+            -moz-border-radius: 10px;
+            -o-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+            #form_timxe > input {
+                color: #fff;
+            }
+
+            #form_timxe > input, #form_timxe > select {
+                background: transparent;
+                margin-bottom: 5px;
+            }
+
+                #form_timxe > input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                    color: #fff;
+                }
+
+                #form_timxe > input::-moz-placeholder { /* Firefox 19+ */
+                    color: #fff;
+                }
+
+                #form_timxe > input:-ms-input-placeholder { /* IE 10+ */
+                    color: #fff;
+                }
+
+                #form_timxe > input:-moz-placeholder { /* Firefox 18- */
+                    color: #fff;
+                }
+
+        select option {
+            color: #333;
+        }
+    </style>
+
+
+}
+
+
+@section sliderHome {
+
+    <div id="divMainContent" style="height: auto; margin-top: 78px;">
+        <div id="divContentBody" class="container-fluid" style="min-height: 304px; padding: 0;">
+            <div id="divBannerImages" class="home-banner" style="background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-push-6">
+                            <div id="form_timxe">
+                                <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
+                                <input type="hidden" id="lon" name="lon" value="" />
+                                <input type="hidden" id="lat" name="lat" value="" />
+                                <select id="car_type" class="form-control col-sm-3" style="color: #fff;">
+                                    <option value="">Chọn loại xe</option>
+                                </select>
+                                <select id="car_size" class="form-control col-sm-3" style="color: #fff;">
+                                    <option value="">Chọn số chỗ</option>
+                                </select>
+                                <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-pull-6">
+                            <div class="span5 about-carousel">
+                                <div id="divBannerTextCarousel" class="carousel slide">
+                                    <div id="divBannerTexts" class="carousel-inner custom_slider" style="margin-top: 19px; margin-bottom: 19px;">
+                                        <div class="item active">
+                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Post your <strong>Truck/Load</strong> Requirements using App</a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Get your <strong>truck loaded</strong> with a single <strong>click</strong></a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Increase your <strong>business</strong> with a single  <strong>click </strong></a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Download <strong>TruckSuvidha App</strong></a>
+                                        </div>
+                                        <div class="item">
+                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">India's first portal for <strong>Transport Industry</strong>.</a>
+                                        </div>
+                                    </div>
+
+                                    <ul id="download" style="padding-left: 0; display: block;">
+                                        <li style="margin-bottom: 5px;">
+                                            <a href='https://play.google.com/store/apps/details?id=com.quickcar.thuexe'>
+                                                <img alt='Tải nội dung trên Google Play' src='/images/vi_badge_web_generic.png' style="width:270px;height:80px;" />
+                                            </a>
+                                        </li>
+                                        <li style="margin-bottom: 5px;">
+                                            <a href="https://itunes.apple.com/us/app/thue-xe/id1166862903?ls=1&mt=8">
+                                                <img src="/Images/appstore.svg" style="width:270px;height:80px;" />
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-    </div> <!-- end contact form outer row with centered text-->
-</div><!-- End Input Your Home Content Here -->
+    </div>
+
+}
+
+@*<div class="content-heading text-center">
+        <!-- Input Your Home Content Here -->
+        <div class="row text-center" style="min-height:667px;">
+            <!-- contact form outer row with centered text-->
+            <h2>THUÊ XE VIỆT NAM</h2>
+            <h2>
+                <a href='https://play.google.com/store/apps/details?id=com.quickcar.thuexe'>
+                    <img alt='Tải nội dung trên Google Play' src='/images/vi_badge_web_generic.png' style="width:270px;height:80px;" />
+                </a>
+            </h2>
+            <h2>
+                <a href="https://itunes.apple.com/us/app/thue-xe/id1166862903?ls=1&mt=8">
+                    <img src="/Images/appstore.svg" style="width:270px;height:80px;" />
+                </a>
+            </h2>
+            <div class="col-sm-12">
+
+            </div>
+
+        </div> <!-- end contact form outer row with centered text-->
+    </div><!-- End Input Your Home Content Here -->*@
+
+
+
 <script>
     $('#datetimepicker').datetimepicker({
         dayOfWeekStart: 1,
@@ -72,7 +197,7 @@
     var d = new Date();
     var s = d.toLocaleString();
     $('#datetimepicker').datetimepicker({ value: s, step: 10 });
-    
+
     $(function () {
         var options = {
             map: ".map_canvas"
@@ -90,14 +215,14 @@
               $.log("Multiple: " + results.length + " results found");
           });
     });
-   
-    
-  
+
+
+
     function search() {
         if (document.getElementById("lon").value == "") {
-                    alert("Nhập địa chỉ muốn đón!");
-                    document.getElementById("address").focus();
-                    return;
+            alert("Nhập địa chỉ muốn đón!");
+            document.getElementById("address").focus();
+            return;
         }
         window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value + "&address=" + document.getElementById("address").value + "&car_type=" + document.getElementById("car_type").value + "&car_size=" + document.getElementById("car_size").value;
     }
@@ -128,4 +253,10 @@
         }
     });
 </script>
+
+@section Scripts {
+    <script>
+        $('.carousel').carousel()
+    </script>
+}
 
