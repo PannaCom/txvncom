@@ -1,0 +1,63 @@
+﻿<nav id="tf-menu" class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/" style="width: 83px; height: 77px; padding: 0;">
+                <img src="~/Content/Images/logo.jpg" />
+            </a>
+            @*<img src="~/Content/Images/logo-tmdt.png">@Html.ActionLink("Thương mại Điện tử cho người Lạng Sơn", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+        </div>
+        <ul class="nav navbar-nav navbar-right disable_hover">
+
+            <li>
+                <a href="tel:0964108688">Hỗ trợ kỹ thuật: <span class="btn btn-primary btn-success">096 410 8688</span></a>
+            </li>
+            <li class="hidden-xs"><a href="tel:0466533377"><span class="btn btn-primary btn-success">04 665 333 77</span></a></li>
+            <li class="hidden-xs"><a href="mailto:thuexevn.com@gmail.com" style="padding:11px;">Email:thuexevn.com@gmail.com</a></li>
+        </ul>
+
+        <div class="visible-xs">
+            <ul class="collapse navbar-collapse nav navbar-nav" id="bs-example-navbar-collapse-1">
+                <li>@*@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })*@</li>
+                @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                <li><a href="/tin/page=1">Tin tức</a></li>
+                @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
+            </ul>
+        </div>
+
+        <!-- /.container-fluid -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+<div id="menu" class="navbar navbar-default hidden-xs">
+    <div class="container">
+        <ul class="nav navbar-nav">
+            <li>@*@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })*@</li>
+            @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+            <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+            <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
+            <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
+            @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+            <li><a href="/tin/page=1">Tin tức</a></li>
+            @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+            @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
+        </ul>
+    </div>
+</div>

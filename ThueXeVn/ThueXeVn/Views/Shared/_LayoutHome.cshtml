@@ -80,41 +80,7 @@
 
     <!-- Main Navigation
     ================================================== -->
-    <nav id="tf-menu" class="navbar navbar-default">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/" style="font-size: 14px; margin-top: -4px;"><img style="display: inline;margin-right: 10px;" src="~/Content/Images/logo.jpg" /></a><span>Hỗ trợ kỹ thuật: <a href="tel:096 410 8688" class="btn btn-primary btn-success">096 410 8688</a></span>
-                @*<img src="~/Content/Images/logo-tmdt.png">@Html.ActionLink("Thương mại Điện tử cho người Lạng Sơn", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
-                    <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
-                    <li><a href="/tin/page=1">Tin tức</a></li>
-                    <li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
-
-                </ul>
-            </div><!-- /.navbar-collapse -->
-
-        </div><!-- /.container-fluid -->
-    </nav>
+    @Html.Partial("_mainNavigation")
 
 
     <!-- slider Section
@@ -127,22 +93,8 @@
 
     <!-- Footer
     ================================================== -->
-    <div id="tf-footer">
-        <div class="container">
-            <!-- container -->
-            <p class="pull-left">© 2016 ThuexeVn.Com - email:<a href="mailto:thuexevn.com@gmail.com">thuexevn.com@gmail.com</a> - Điện thoại: <a href="tel:096 410 8688" class="btn btn-primary btn-success">096 410 8688</a> - <a href="tel:0466533377" class="btn btn-primary btn-info">04 665 333 77</a> </p> <!-- copyright text here-->
-            <ul class="list-inline social pull-right">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li> <!-- Change # With your FB Link -->
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li> <!-- Change # With your Twitter Link -->
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li> <!-- Change # With your Google Plus Link -->
-                <li><a href="#"><i class="fa fa-youtube"></i></a></li> <!-- Change # With your Youtube Link -->
-                <li>
-                    <a href="http://www.dmca.com/Protection/Status.aspx?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" title="DMCA.com Protection Status" class="dmca-badge"> <img src="//images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=d4baeb59-4468-4cbf-96f5-3061230d7d0e" alt="DMCA.com Protection Status"></a>
-
-                </li>
-            </ul>
-        </div><!-- end container -->
-    </div>
+    @Html.Partial("_Footer")
+    
     @*<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

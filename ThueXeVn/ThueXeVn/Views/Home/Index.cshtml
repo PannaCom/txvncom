@@ -29,7 +29,7 @@
 
 @section sliderHome {
 
-    <div id="divMainContent" style="height: auto; margin-top: 78px;">
+    <div id="divMainContent" style="height: auto;">
         <div id="divContentBody" class="container-fluid" style="min-height: 304px; padding: 0;">
             <div id="divBannerImages" class="home-banner" style="background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);">
                 <div class="container">
@@ -148,7 +148,7 @@
 
 @*@{Html.RenderAction("LoadNewTop");}*@
 
-@*@{Html.RenderAction("LoadBooking");}*@
+@{Html.RenderAction("LoadBooking");}
 
 @*@Html.Partial("_LoadBooking")*@
 
@@ -268,6 +268,32 @@
 <script>
     $('.carousel').carousel({
         interval: 1000 * 2
+    });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        if ($('#menu').length) {
+            $('#menu').affix({
+                offset: {
+                    top: $('#tf-menu').outerHeight()
+                }
+            });
+            // This event fires immediately before the element has been affixed
+            $('#menu').on('affix.bs.affix', function () {
+                $('#menu').addClass('navbar-fixed-top');
+                $('#tf-menu').css('margin-top', '49px');
+                $('#menu').children('div').children('ul').append("<li class='disable_hover' id='hotlineadd'><a href='tel:0964108688' style='margin: 2px; '>Hỗ trợ kỹ thuật: <span class='btn btn-primary btn-success'>096 410 8688</span></a></li>");
+            });
+
+            // This event fires immediately before the element has been affixed-top.
+            $('#menu').on('affix-top.bs.affix', function () {
+                $('#menu').removeClass('navbar-fixed-top');
+                $('#tf-menu').css('margin-top', '0');
+                $('#menu').children('div').children('ul').find('#hotlineadd').remove();
+            });
+        }
     });
 </script>
 
