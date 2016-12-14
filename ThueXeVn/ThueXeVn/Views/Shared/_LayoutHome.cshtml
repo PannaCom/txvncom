@@ -18,6 +18,12 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/fonts/font-awesome/css/font-awesome.css">
 
+    <!-- Jquery UI style
+    ================================================== -->
+    <link rel="stylesheet" href="/Scripts/jquery-ui.css">
+    <!-- datetimepicker style
+    ================================================== -->
+    <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
     <!-- Nivo Lightbox
     ================================================== -->
     <link rel="stylesheet" href="~/Content/Theme/1a/css/nivo-lightbox.css">
@@ -89,25 +95,31 @@
 
             </div>
 
+            
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="menu">
+        <div class="container">
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    <li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                     <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                    <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                     <li><a href="/tin/page=1">Tin tức</a></li>
                     <li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
 
                 </ul>
             </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+        </div>
+    </div>
 
     <!-- slider Section
     ================================================== -->
@@ -138,11 +150,9 @@
     @*<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.1.11.1.js"></script>-->
+    <script type="text/javascript" src="js/jquery.1.11.1.js"></script>-->    
+
     
-
-    <script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
-
     <script type="text/javascript" src="~/Content/Theme/1a/js/SmoothScroll.js"></script>
 
     <!-- Google Map
@@ -166,8 +176,19 @@
     <!-- Javascripts
     ================================================== -->
     <script type="text/javascript" src="~/Content/Theme/1a/js/main.js"></script>*@
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="~/Content/Theme/1a/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
+    <script src="/Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script src="/Scripts/jquery-ui.js"></script>
+    <script src="/Scripts/jquery.datetimepicker.js"></script>
+    <script type="text/javascript" src="~/Content/Theme/1a/js/bootstrap.js"></script>    
+    @*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+    <script src="/Scripts/jquery.geocomplete.js"></script>
+
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
