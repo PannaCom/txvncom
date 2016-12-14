@@ -4,16 +4,7 @@
     string link = "";
 }
 
-<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
-<script src="/Scripts/jquery-ui-1.8.24.js"></script>
-<script src="/Scripts/jquery-2.1.1.js"></script>
-<script src="/Scripts/jquery-ui.js"></script>
-<link rel="stylesheet" href="/Scripts/jquery-ui.css">
-<script src="/Scripts/jquery.datetimepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
-@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-<script src="/Scripts/jquery.geocomplete.js"></script>
+
 <div class="map_canvas" style="display:none;"></div>
 @*<label for="autocomplete">Select a programming language: </label>
     <input id="autocomplete">
@@ -30,68 +21,8 @@
     </script>*@
 
 @section Styles {
-
-    <style>
-        .home-banner {
-            background-attachment: scroll;
-            background-clip: border-box;
-            background-color: rgba(0,0,0,0);
-            background-image: url(../Images/Ts-website-banner-test1.jpg);
-            background-origin: padding-box;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .highlight-1 {
-            font-size: 3em;
-            color: #fff;
-            background: rgba(72, 69, 124, 0.76);
-            border: 1px solid rgba(72, 69, 124, 0.76);
-            line-height: 1.2em;
-        }
-
-        #form_timxe {
-            margin-top: 19px;
-            padding: 9px;
-            margin-bottom: 20px;
-            background: rgba(235, 65, 75, 0.58);
-            -moz-border-radius: 10px;
-            -o-border-radius: 10px;
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
-        }
-
-            #form_timxe > input {
-                color: #fff;
-            }
-
-            #form_timxe > input, #form_timxe > select {
-                background: transparent;
-                margin-bottom: 5px;
-            }
-
-                #form_timxe > input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-                    color: #fff;
-                }
-
-                #form_timxe > input::-moz-placeholder { /* Firefox 19+ */
-                    color: #fff;
-                }
-
-                #form_timxe > input:-ms-input-placeholder { /* IE 10+ */
-                    color: #fff;
-                }
-
-                #form_timxe > input:-moz-placeholder { /* Firefox 18- */
-                    color: #fff;
-                }
-
-        select option {
-            color: #333;
-        }
-    </style>
-
+    <link href="~/Content/stylemh.css" rel="stylesheet" />
+    <link href="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 }
 
@@ -108,10 +39,10 @@
                                 <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
                                 <input type="hidden" id="lon" name="lon" value="" />
                                 <input type="hidden" id="lat" name="lat" value="" />
-                                <select id="car_type" class="form-control col-sm-3" style="color: #fff;">
+                                <select id="car_type" class="form-control col-sm-3 bg-white" style="color: #fff;">
                                     <option value="">Chọn loại xe</option>
                                 </select>
-                                <select id="car_size" class="form-control col-sm-3" style="color: #fff;">
+                                <select id="car_size" class="form-control col-sm-3 bg-white" style="color: #fff;">
                                     <option value="">Chọn số chỗ</option>
                                 </select>
                                 <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
@@ -163,6 +94,36 @@
 
 }
 
+<section class="mh_show_customer_best">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-car"></i>                    
+                    <a href="#"><h2 class="counter">10,456</h2> Số tài xế</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-phone"></i>                    
+                    <a href="#"><h2 class="counter">12,756</h2> Số cuộc gọi</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-users"></i>
+                    <a href="#"><h2 class="counter">22,004</h2> Số khách hàng
+                        
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
 @*<div class="content-heading text-center">
         <!-- Input Your Home Content Here -->
         <div class="row text-center" style="min-height:667px;">
@@ -185,18 +146,94 @@
         </div> <!-- end contact form outer row with centered text-->
     </div><!-- End Input Your Home Content Here -->*@
 
+@*@{Html.RenderAction("LoadNewTop");}*@
+
+@{Html.RenderAction("LoadBooking");}
+
+@*@Html.Partial("_LoadBooking")*@
 
 
+
+@section Scripts {
+@*<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>*@
+<script src="~/Scripts/waypoints.min.js"></script>
+<script src="~/Scripts/jquery.counterup.min.js"></script>
+<script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
+<script src="~/Content/Theme/admin/vendor/datatable/jquery.dataTables.min.js"></script>
+<script src="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.js"></script>
 <script>
-    $('#datetimepicker').datetimepicker({
-        dayOfWeekStart: 1,
-        lang: 'en',
-        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
-    });
-    var d = new Date();
-    var s = d.toLocaleString();
-    $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+    $(document).ready(function () {
+        "use strict";
+        $('#datetimepicker').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+        });
+        var d = new Date();
+        var s = d.toLocaleString();
+        $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+
+        //load listcartype & listcarsize
+        $.ajax({
+            url: "/Api/getListCarType",
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+        });
+        $.ajax({
+            url: "/Api/getCarSize",
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+        });
+
+        //counter
+        if ($('.counter').length) {
+            $('.counter').counterUp({
+                delay: 10,
+                time: 1000
+            });
+        }
+        
+        //show_news_slider
+        //if ($('#show_news_slider').length) {
+        //    var owl = $("#show_news_slider");
+        //    owl.owlCarousel({
+        //        autoPlay: 3000, //Set AutoPlay to 3 seconds
+        //        slideSpeed : 300,
+        //        paginationSpeed : 400,
+        //        singleItem:true,
+        //        navigation: true,
+        //        items: 1,
+        //        lazyLoad: true,
+        //        pagination: false,
+        //        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+        //    });
+        //}
+
+        //ds dat xe
+        if ($('#booking').length) {
+            $('#booking').dataTable({
+                
+            });
+        }
+
+    })    
 
     $(function () {
         var options = {
@@ -217,7 +254,6 @@
     });
 
 
-
     function search() {
         if (document.getElementById("lon").value == "") {
             alert("Nhập địa chỉ muốn đón!");
@@ -226,37 +262,14 @@
         }
         window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value + "&address=" + document.getElementById("address").value + "&car_type=" + document.getElementById("car_type").value + "&car_size=" + document.getElementById("car_size").value;
     }
-    $.ajax({
-        url: "/Api/getListCarType",
-        cache: false
-    }).done(function (html) {
-        var news = '{"news":' + html + '}';
-        var json_parsed = $.parseJSON(news);
-        for (var i = 0; i < json_parsed.news.length; i++) {
-            if (json_parsed.news[i]) {
-                var name = json_parsed.news[i].name;
-                $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
-            }
-        }
-    });
-    $.ajax({
-        url: "/Api/getCarSize",
-        cache: false
-    }).done(function (html) {
-        var news = '{"news":' + html + '}';
-        var json_parsed = $.parseJSON(news);
-        for (var i = 0; i < json_parsed.news.length; i++) {
-            if (json_parsed.news[i]) {
-                var name = json_parsed.news[i].name;
-                $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
-            }
-        }
+
+    
+</script>
+<script>
+    $('.carousel').carousel({
+        interval: 1000 * 2
     });
 </script>
 
-@section Scripts {
-    <script>
-        $('.carousel').carousel()
-    </script>
 }
 

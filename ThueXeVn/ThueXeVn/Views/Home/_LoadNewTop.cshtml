@@ -1,0 +1,36 @@
+﻿@using ThueXeVn.Models;
+@model List<news>
+<section id="mh_show_gioithieu_new">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h3 style="color: #333;">Thuê xe Việt Nam</h3>
+                <div class="lead" style="font-size: 14px;">
+                    Cho thuê xe Việt Nam với chất lượng cao nhất và chi phí hợp lý nhất
+                    Tài xế lịch sự, xe chất lượng cao
+                    Website, ứng dụng gọi xe là kênh trung gian giúp khách hàng kết nối với những tài xế có xe riêng, nhà xe, với đầy đủ các loại xe chất lượng cao
+                </div>
+            </div>
+            <div class="col-md-5">
+                <h3 style="color: #333;">Tin tức</h3>
+                <div id="show_news_slider" class="owl-carousel owl-theme">
+                    @{string link = "";}
+                    @foreach (var item in @Model)
+                    {
+                        link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
+                        <div class="item">
+                            <div class="kf_blog_post_wrap">
+                                <h4><a href="@link">@item.title</a></h4>
+                                <date>@item.datetime</date>
+                                <div class="kf_blog_des">
+                                    <div>@Html.Raw(@item.des)</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

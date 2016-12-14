@@ -1,0 +1,54 @@
+﻿@using ThueXeVn.Models
+@model List<booking>
+
+<section class="mh_show_booking">
+    <div class="container">
+        <div class="row">
+            <h3 style="text-align: center; color: #333;">Dánh sách đặt xe</h3>
+            <div class="table-responsive">
+                <table id="booking" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Điểm đi</th>
+                            <th>Điểm đến</th>
+                            <th>Loại xe</th>
+                            <th>Hình thức</th>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Thời gian đi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if (Model != null)
+                        {
+                            foreach (var item in @Model)
+                            {
+                                <tr>
+                                    <td>@item.car_from</td>
+                                    <td>@item.car_to</td>
+                                    <td>@item.car_type</td>
+                                    <td>@item.car_hire_type</td>
+                                    <td>@item.name</td>
+                                    <td><span class="btn btn-primary">@item.phone</span></td>
+                                    <td>@string.Format("{0:dd-MM-yyyy HH:mm}", @item.date_from)</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7">
+                                    Chưa có khách hàng.
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
