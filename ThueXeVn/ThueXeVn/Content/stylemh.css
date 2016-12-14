@@ -132,7 +132,6 @@ section {
 
 .kf_blog_post_wrap .kf_blog_des {
     padding: 5px;
-
 }
 
 .kf_blog_post_wrap date {
@@ -145,4 +144,24 @@ section {
 
 #booking {
     font-size: 11px;
+}
+
+#menu {
+    background-color: #26aaea;
+    border-color: #fff;
+    height: 51px;
+    border-radius: 0;
+    margin-bottom: 0;
+    transition: top 0.5s ease 0s;
+    -webkit-transition: top 0.5s ease 0s;
+    -moz-transition: top 0.5s ease 0s;
+    -o-transition: top 0.5s ease 0s;
+}
+
+#menu .navbar-nav > li > a {
+    color: #fff;
+}
+
+.disable_hover a:hover {
+    border-bottom: 0!important;
 }
