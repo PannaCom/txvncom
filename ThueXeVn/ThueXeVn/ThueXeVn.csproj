@@ -260,7 +260,6 @@
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\list_car.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
@@ -1388,6 +1387,8 @@
     <Content Include="Views\listcar\Index.cshtml" />
     <Content Include="Views\Home\_LoadNewTop.cshtml" />
     <Content Include="Views\Home\_LoadBooking.cshtml" />
+    <Content Include="Views\Shared\_mainNavigation.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
