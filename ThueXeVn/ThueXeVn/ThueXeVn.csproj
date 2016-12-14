@@ -260,6 +260,7 @@
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\jQueryDataTableParamModel.cs" />
     <Compile Include="Models\list_car.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
@@ -328,6 +329,7 @@
     <Content Include="Content\jsTree\themes\default\style.min.css" />
     <Content Include="Content\jsTree\themes\default\throbber.gif" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\stylemh.css" />
     <Content Include="Content\tags\examples.css" />
     <Content Include="Content\tags\jquery.tagit.css" />
     <Content Include="Content\tags\master.css" />
@@ -1271,6 +1273,8 @@
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.counterup.js" />
+    <Content Include="Scripts\jquery.counterup.min.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1293,6 +1297,7 @@
     <Content Include="Scripts\tag\_static\reset.css" />
     <Content Include="Scripts\tag\_static\screenshot.png" />
     <Content Include="Scripts\tag\_static\subpage.css" />
+    <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1381,6 +1386,8 @@
     <Content Include="Views\listcar\Details.cshtml" />
     <Content Include="Views\listcar\Edit.cshtml" />
     <Content Include="Views\listcar\Index.cshtml" />
+    <Content Include="Views\Home\_LoadNewTop.cshtml" />
+    <Content Include="Views\Home\_LoadBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
