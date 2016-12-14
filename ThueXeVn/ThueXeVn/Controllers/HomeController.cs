@@ -368,5 +368,52 @@ namespace ThueXeVn.Controllers
             }
             return "1";
         }
+
+        // List gioi thieu new
+        public ActionResult LoadNewTop()
+        {
+            var data = (from s in db.news orderby s.datetime descending select s).ToList().Take(10).ToList();
+            return PartialView("_LoadNewTop", data);
+        }
+
+        public ActionResult LoadBooking()
+        {
+            var taixe = "";
+            var query = "select * from booking";
+
+            var data = db.Database.SqlQuery<booking>(query).ToList();
+            
+            if (taixe == "")
+            {
+                data = data.Select(x => new booking()
+                {
+                    id = x.id,
+                    car_from = x.car_from,
+                    car_to = x.car_to,
+                    car_type = x.car_type,
+                    car_hire_type = x.car_hire_type,
+                    name = x.name,
+                    date_from = x.date_from,
+                    phone = "Số điện thoại"
+                }).ToList().OrderByDescending(s=>s.id).ToList();
+            }
+            else
+            {
+                data = data.Select(x => new booking()
+                {
+                    id = x.id,
+                    car_from = x.car_from,
+                    car_to = x.car_to,
+                    car_type = x.car_type,
+                    car_hire_type = x.car_hire_type,
+                    name = x.name,
+                    date_from = x.date_from,
+                    phone = "<a href='tel:'" + x.phone + "'>" + x.phone + "</a>"
+                }).ToList().OrderByDescending(s => s.id).ToList();    
+            }
+
+            return PartialView("_LoadBooking", data);
+        }
+
     }
 }
