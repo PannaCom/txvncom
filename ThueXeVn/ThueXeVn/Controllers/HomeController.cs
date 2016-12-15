@@ -378,7 +378,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult LoadBooking()
         {
-            var taixe = "";
+            var taixe = Config.getCookie("taixelogged");
             var query = "select * from booking";
 
             var data = db.Database.SqlQuery<booking>(query).ToList();
@@ -394,7 +394,8 @@ namespace ThueXeVn.Controllers
                     car_hire_type = x.car_hire_type,
                     name = x.name,
                     date_from = x.date_from,
-                    phone = "Số điện thoại"
+                    date_to = x.date_to,
+                    phone = "<a class='show_pn' href='#'>Số điện thoại</a>"
                 }).ToList().OrderByDescending(s=>s.id).ToList();
             }
             else
@@ -408,11 +409,70 @@ namespace ThueXeVn.Controllers
                     car_hire_type = x.car_hire_type,
                     name = x.name,
                     date_from = x.date_from,
-                    phone = "<a href='tel:'" + x.phone + "'>" + x.phone + "</a>"
+                    date_to = x.date_to,
+                    phone = "<a class='phone' href='tel:" + x.phone + "'>" + x.phone + "</a>"
                 }).ToList().OrderByDescending(s => s.id).ToList();    
             }
 
             return PartialView("_LoadBooking", data);
+        }
+
+        public ActionResult Taixe()
+        {
+            if (Config.getCookie("taixelogged") != "") return RedirectToAction("Index", "Home");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Taixe(string phone, string car_number)
+        {
+            try
+            {
+                MD5 md5Hash = MD5.Create();
+                var p = (from q in db.drivers where q.phone.Contains(phone) && q.car_number.Contains(car_number) select q).FirstOrDefault();
+                if (p != null)
+                {
+                    var _tx = Config.GetMd5Hash(md5Hash, p.phone);
+                    //Ghi ra cookie
+                    Config.setCookie("taixelogged", _tx+","+p.id);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Sai thông tin đăng nhập");
+                    return View();
+                }
+
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Sai thông tin đăng nhập");
+                return View();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public string getcarnumber(string keyword)
+        {
+            if (keyword == null) keyword = "";
+            var p = (from q in db.drivers where q.car_number.Contains(keyword) orderby q.car_number ascending select q.car_number).ToList().Distinct();
+            return JsonConvert.SerializeObject(p);
+        }
+
+        public ActionResult logouttaixe()
+        {
+            Config.RemoveCookie("taixelogged");
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult InfoTaixelogin()
+        {
+            var d = Config.getCookie("taixelogged") != "" ? Config.getCookie("taixelogged").Split(',')[1] : "";
+            var idtx = Convert.ToInt32(d);
+            string strtx = "";
+            var tx = (from s in db.drivers where s.id == idtx select s.name).FirstOrDefault();
+            if (tx != null) strtx = tx;            
+            return PartialView("_menuLoginTaiXe", strtx);
         }
 
     }
