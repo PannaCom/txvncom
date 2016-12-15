@@ -140,6 +140,17 @@ namespace ThueXeVn
                 return "";
             }
         }
+
+        public static void RemoveCookie(string v)
+        {
+            if (HttpContext.Current.Request.Cookies[v] != null)
+            {
+                var c = new HttpCookie(v);
+                c.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(c);
+            }
+        }
+
         //convert tieng viet thanh khong dau va them dau -
         public static string unicodeToNoMark(string input)
         {
