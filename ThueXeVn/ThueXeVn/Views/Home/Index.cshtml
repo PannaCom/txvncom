@@ -122,8 +122,6 @@
     </div>
 </section>
 
-
-
 @*<div class="content-heading text-center">
         <!-- Input Your Home Content Here -->
         <div class="row text-center" style="min-height:667px;">
@@ -149,6 +147,8 @@
 @*@{Html.RenderAction("LoadNewTop");}*@
 
 @{Html.RenderAction("LoadBooking");}
+
+@Html.Partial("_mh_show_carrental")
 
 @*@Html.Partial("_LoadBooking")*@
 
@@ -250,16 +250,16 @@
                 var row_hidden = [];
                 var row_show = [];
 
-                $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut();
+                $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut().fadeIn();
                 row_hidden.push(row_random);
 
                 if (row_hidden.length > 3) {
                     clearInterval(timer);
-                    console.log(row_hidden);
+                    //console.log(row_hidden);
                     for (var i = 0; i < row_hidden.length;i++){
                         var timer2 = setInterval(function () {
                             $('#booking > tbody > tr:eq(' + i + ')').fadeIn();
-                        }, 5000)
+                        }, 4000)
                     }
                 }
 
@@ -324,6 +324,184 @@
         });
     })
     
+</script>
+
+<script>
+    $('#from_datetime').datetimepicker({
+        dayOfWeekStart: 1,
+        lang: 'en',
+        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+    });
+    $('#to_datetime').datetimepicker({
+        dayOfWeekStart: 1,
+        lang: 'en',
+        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+    });
+    var d = new Date();
+    var s = d.toLocaleString();
+    $('#from_datetime').datetimepicker({ value: s, step: 10 });
+    $('#to_datetime').datetimepicker({ value: s, step: 10 });
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#car_from").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon1").val(result.geometry.location.lng());
+              $("#lat1").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+        $("#car_to").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon2").val(result.geometry.location.lng());
+              $("#lat2").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
+    function booking() {
+        var formdata = new FormData(); //FormData object
+        var from_datetime = document.getElementById("from_datetime").value;
+
+        if (document.getElementById("car_from").value == "" || document.getElementById("lon1").value == "") {
+            alert("Nhập điểm đi!");
+            document.getElementById("car_from").focus();
+            return;
+        }
+
+        if (document.getElementById("car_to").value == "" || document.getElementById("lon2").value == "") {
+            alert("Nhập điểm đến!");
+            document.getElementById("car_to").focus();
+            return;
+        }
+        if (document.getElementById("car_type").value == "") {
+            alert("Nhập loại xe!");
+            document.getElementById("car_type").focus();
+            return;
+        }
+        if (document.getElementById("car_hire_type").value == "") {
+            alert("Nhập hình thức đi!");
+            document.getElementById("car_hire_type").focus();
+            return;
+        }
+        if (document.getElementById("car_size").value == "") {
+            alert("Nhập số chỗ!");
+            document.getElementById("car_size").focus();
+            return;
+        }
+        if (document.getElementById("from_datetime").value == "") {
+            alert("Ngày giờ đi!");
+            document.getElementById("from_datetime").focus();
+            return;
+        }
+        if (document.getElementById("to_datetime").value == "") {
+            alert("Ngày giờ về!");
+            document.getElementById("to_datetime").focus();
+            return;
+        }
+        if (document.getElementById("name").value == "") {
+            alert("Nhập họ tên!");
+            document.getElementById("name").focus();
+            return;
+        }
+        if (document.getElementById("phone").value == "") {
+            alert("Nhập số điện thoại!");
+            document.getElementById("phone").focus();
+            return;
+        }
+
+        formdata.append("car_from", document.getElementById("car_from").value);
+        formdata.append("car_to", document.getElementById("car_to").value);
+        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_hire_type", document.getElementById("car_hire_type").value);
+        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("from_datetime", document.getElementById("from_datetime").value);
+        formdata.append("to_datetime", document.getElementById("to_datetime").value);
+        formdata.append("lat1", document.getElementById("lat1").value);
+        formdata.append("lon1", document.getElementById("lon1").value);
+        formdata.append("lat2", document.getElementById("lat2").value);
+        formdata.append("lon2", document.getElementById("lon2").value);
+        formdata.append("name", document.getElementById("name").value);
+        formdata.append("phone", document.getElementById("phone").value);
+        document.getElementById("btnregister111").value = "Đang đặt xe xin chờ....";
+        document.getElementById("btnregister111").disabled = true;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Api/booking');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã đặt xe thành công! Tài xế sẽ liên hệ lại sớm nhất với bạn!");
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister111").value = "XÁC NHẬN";
+                document.getElementById("btnregister111").disabled = false;
+            }
+        }
+    }
+
+    $.ajax({
+        url: "/Api/getListCarType",
+        cache: false
+    }).done(function (html) {
+
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_type").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+    });
+
+    //$.ajax({
+    //    url: "/Api/getCarHireType",
+    //    cache: false
+    //}).done(function (html) {
+    //    var news = '{"news":' + html + '}';
+    //    var json_parsed = $.parseJSON(news);
+    //    $("#car_hire_type").html("");
+    //    for (var i = 0; i < json_parsed.news.length; i++) {
+    //        if (json_parsed.news[i]) {
+    //            var name = json_parsed.news[i].name;
+    //            $("#car_hire_type").append("<option value='" + name + "'>" + name + "</option>");
+    //        }
+    //    }
+    //});
+
+    //$.ajax({
+    //    url: "/Api/getCarSize",
+    //    cache: false
+    //}).done(function (html) {
+    //    var news = '{"news":' + html + '}';
+    //    var json_parsed = $.parseJSON(news);
+    //    $("#car_size").html("");
+    //    for (var i = 0; i < json_parsed.news.length; i++) {
+    //        if (json_parsed.news[i]) {
+    //            var name = json_parsed.news[i].name;
+    //            $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+    //        }
+    //    }
+    //});
+
 </script>
 
 }
