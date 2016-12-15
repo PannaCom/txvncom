@@ -98,7 +98,7 @@ a {
 #tf-menu {
     margin-bottom: 0;
     background-color: #ffffff;
-    padding: 10px 0;
+    padding: 5px 0;
     height: auto;
 }
 
@@ -176,6 +176,7 @@ a {
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: #cfcfcf;
+    background-position: 0px 117px;
 }
 
     #tf-home .overlay {
@@ -2133,4 +2134,15 @@ ul.img-product-n > li > a > img {
     display: block;
     height: 29px;
     padding: 5px 22px;
+}
+
+.totop {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
 }

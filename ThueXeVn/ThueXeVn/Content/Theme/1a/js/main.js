@@ -1,8 +1,6 @@
-﻿// Hello.
-//
-// This is The Scripts used for ___________ Theme
-//
-//
+﻿$(window).on('load', function () {
+    $('html,body').animate({ scrollTop: 0 });
+});
 
 function main() {
 
@@ -91,41 +89,41 @@ function main() {
         /*====================================
         Portfolio Isotope Filter
         ======================================*/
-        $(window).load(function () {
-            var $container = $('#itemsWork , #itemsWorkTwo, #itemsWorkThree');
-            $container.isotope({
-                filter: '* , all',
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false
-                }
-            });
-            $('.cat a').click(function () {
-                $('.cat .active').removeClass('active');
-                $(this).addClass('active');
-                var selector = $(this).attr('data-filter');
-                $container.isotope({
-                    filter: selector,
-                    animationOptions: {
-                        duration: 750,
-                        easing: 'linear',
-                        queue: false
-                    }
-                });
-                return false;
-            });
+        //$(window).load(function () {
+        //    var $container = $('#itemsWork , #itemsWorkTwo, #itemsWorkThree');
+        //    $container.isotope({
+        //        filter: '* , all',
+        //        animationOptions: {
+        //            duration: 750,
+        //            easing: 'linear',
+        //            queue: false
+        //        }
+        //    });
+        //    $('.cat a').click(function () {
+        //        $('.cat .active').removeClass('active');
+        //        $(this).addClass('active');
+        //        var selector = $(this).attr('data-filter');
+        //        $container.isotope({
+        //            filter: selector,
+        //            animationOptions: {
+        //                duration: 750,
+        //                easing: 'linear',
+        //                queue: false
+        //            }
+        //        });
+        //        return false;
+        //    });
 
-        });
+        //});
 
         /*====================================
         Nivo Lightbox 
         ======================================*/
         // Agency Portfolio Popup
-        $('#itemsWork a , #itemsWorkTwo a , #itemsWorkThree a , #popup a').nivoLightbox({
-            effect: 'slideDown',
-            keyboardNav: true,
-        });
+        //$('#itemsWork a , #itemsWorkTwo a , #itemsWorkThree a , #popup a').nivoLightbox({
+        //    effect: 'slideDown',
+        //    keyboardNav: true,
+        //});
 
         $(document).ready(function () {
 
@@ -165,6 +163,7 @@ function main() {
                 $('#menu').on('affix.bs.affix', function () {
                     $('#menu').addClass('navbar-fixed-top');
                     $('#tf-menu').css('margin-top', '49px');
+                    $('#tf-home').css('background-position', '0px 0px');
                     $('#menu').children('div').children('ul').append("<li class='disable_hover' id='hotlineadd'><a href='tel:0964108688' style='margin: 2px; '>Hỗ trợ kỹ thuật: <span class='btn btn-primary btn-success'>096 410 8688</span></a></li>");
                 });
 
@@ -172,9 +171,29 @@ function main() {
                 $('#menu').on('affix-top.bs.affix', function () {
                     $('#menu').removeClass('navbar-fixed-top');
                     $('#tf-menu').css('margin-top', '0');
+                    $('#tf-home').css('background-position', '0 117px');
                     $('#menu').children('div').children('ul').find('#hotlineadd').remove();
                 });
             }
+
+            if ($('.phone').length) {
+                $('.phone').text(function (i, text) {
+                    return text.replace(/(\d\d\d\d)(\d\d\d)(\d\d\d)/, '$1.$2.$3');
+                });
+            }
+
+            // scroll top
+            //==========================================    
+            $(window).scroll(function () {
+                $(this).scrollTop() > 500 ? $('.totop').fadeIn() : $('.totop').fadeOut();
+            });
+            if ($('.totop').length) {
+                $('.totop').click(function () {
+                    $('html,body').animate({ scrollTop: 0 }, 500);
+                    return false;
+                })
+            }
+            
 
         });
 
@@ -186,6 +205,11 @@ function main() {
 
 }
 main();
+
+function logout() {
+    window.location.href = "/Home/logouttaixe";
+}
+
 
 // sửa lỗi call back facebook location hash
 function facebookCallback() {
