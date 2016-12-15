@@ -54,19 +54,19 @@
                                 <div id="divBannerTextCarousel" class="carousel slide">
                                     <div id="divBannerTexts" class="carousel-inner custom_slider" style="margin-top: 19px; margin-bottom: 19px;">
                                         <div class="item active">
-                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Post your <strong>Truck/Load</strong> Requirements using App</a>
+                                            <a class="highlight-1" target="_blank" href="#">Post your <strong>Truck/Load</strong> Requirements using App</a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Get your <strong>truck loaded</strong> with a single <strong>click</strong></a>
+                                            <a class="highlight-1" target="_blank" href="#">Get your <strong>truck loaded</strong> with a single <strong>click</strong></a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Increase your <strong>business</strong> with a single  <strong>click </strong></a>
+                                            <a class="highlight-1" target="_blank" href="#">Increase your <strong>business</strong> with a single  <strong>click </strong></a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">Download <strong>TruckSuvidha App</strong></a>
+                                            <a class="highlight-1" target="_blank" href="#">Download <strong>TruckSuvidha App</strong></a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="https://goo.gl/Mk3Uth">India's first portal for <strong>Transport Industry</strong>.</a>
+                                            <a class="highlight-1" target="_blank" href="#">India's first portal for <strong>Transport Industry</strong>.</a>
                                         </div>
                                     </div>
 
@@ -229,9 +229,36 @@
         //ds dat xe
         if ($('#booking').length) {
             $('#booking').dataTable({
-                
+                "bFilter": false,
+                scrollY: '50vh',
+                scrollCollapse: false,
+                paging: false,
+                "bLengthChange": false,
+                "bInfo": false,
+                "bAutoWidth": false
             });
+            $("#booking").on("click", ".bdx-x", function () {
+                $(this).remove(); 
+                
+            })
+
+
+
         }
+
+        //dangnhap taixe
+        if ($('.show_pn').length) {
+            $('.show_pn').on('click', function (e) {
+                window.location.href = "/Home/Taixe";
+                e.preventDefault();
+            })
+        }
+
+        //if ($('.bdx-x').length) {
+        //    $('.bdx-x').on('click', function () {
+        //        $(this).remove();
+        //    })
+        //}
 
     })    
 
@@ -266,35 +293,12 @@
     
 </script>
 <script>
-    $('.carousel').carousel({
-        interval: 1000 * 2
-    });
-</script>
-
-<script>
-
     $(document).ready(function () {
-        if ($('#menu').length) {
-            $('#menu').affix({
-                offset: {
-                    top: $('#tf-menu').outerHeight()
-                }
-            });
-            // This event fires immediately before the element has been affixed
-            $('#menu').on('affix.bs.affix', function () {
-                $('#menu').addClass('navbar-fixed-top');
-                $('#tf-menu').css('margin-top', '49px');
-                $('#menu').children('div').children('ul').append("<li class='disable_hover' id='hotlineadd'><a href='tel:0964108688' style='margin: 2px; '>Hỗ trợ kỹ thuật: <span class='btn btn-primary btn-success'>096 410 8688</span></a></li>");
-            });
-
-            // This event fires immediately before the element has been affixed-top.
-            $('#menu').on('affix-top.bs.affix', function () {
-                $('#menu').removeClass('navbar-fixed-top');
-                $('#tf-menu').css('margin-top', '0');
-                $('#menu').children('div').children('ul').find('#hotlineadd').remove();
-            });
-        }
-    });
+        $('.carousel').carousel({
+            interval: 1000 * 2
+        });
+    })
+    
 </script>
 
 }

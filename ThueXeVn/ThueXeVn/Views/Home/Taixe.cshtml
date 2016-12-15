@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập dành cho tài xế";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("Taixe", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_taixe" }))
+        {
+            @Html.AntiForgeryToken()
+            
+
+            <h4 style="text-align: center; border-bottom: 1px solid;padding: 10px 0;">Nhập số điện thoại và biển số xe của tài xế để đăng nhập</h4>
+
+            <div class="form-group">
+                <label for="phone" class="control-label col-md-4">Số điện thoại</label>
+                <div class="col-md-8">
+                    <input type="text" name="phone" id="phone" placeholder="Nhập số điện thoại của tài xế" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="car_number" class="control-label col-md-4">Biển số xe</label>
+                <div class="col-md-8">
+                    <input type="text" name="car_number" id="car_number" placeholder="Nhập biển số xe của bạn" class="form-control" required onkeyup="autosearchcarnumber();" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Đăng nhập</button>
+                </div>
+            </div>
+            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        }
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function autosearchcarnumber() {
+            var keyword = document.getElementById("car_number").value;
+            var urlSearch = '/Home/getcarnumber?keyword=';
+            $('#car_number').autocomplete({
+                source: urlSearch + keyword,
+                select: function (event, ui) {
+                    //alert(ui.item.value);
+                    console.log(ui.item.value);
+                    $(event.target).val(ui.item.value);
+                    return false;
+                },
+                minLength: 1
+            });
+        }
+    </script>    
+}

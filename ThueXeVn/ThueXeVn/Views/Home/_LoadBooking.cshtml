@@ -6,16 +6,15 @@
         <div class="row">
             <h3 style="text-align: center; color: #333;">Dánh sách khách hàng đặt xe</h3>
             <div class="table-responsive">
-                <table id="booking" class="table table-bordered">
+                <table id="booking" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Điểm đi</th>
-                            <th>Điểm đến</th>
-                            <th>Loại xe</th>
-                            <th>Hình thức</th>
                             <th>Tên khách hàng</th>
                             <th>Số điện thoại</th>
-                            <th>Thời gian đi</th>
+                            <th>Thời gian đi-đến</th>
+                            <th>Điểm đi-đến</th>
+                            <th>Loại xe</th>
+                            <th>Hình thức</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -25,13 +24,12 @@
                             foreach (var item in @Model)
                             {
                                 <tr>
-                                    <td>@item.car_from</td>
-                                    <td>@item.car_to</td>
+                                    <td>@item.name</td> 
+                                    <td style="text-align: center; position: relative;"><span class="btn btn-primary bdx-x">Bấm để xem</span><span class="btn btn-primary">@Html.Raw(@item.phone)</span></td>
+                                    <td>@string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_from) <i class="fa fa-long-arrow-right"></i> @string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_to)</td>
+                                    <td>@item.car_from <i class="fa fa-long-arrow-right"></i> @item.car_to</td>                                
                                     <td>@item.car_type</td>
-                                    <td>@item.car_hire_type</td>
-                                    <td>@item.name</td>
-                                    <td><span class="btn btn-primary">@item.phone</span></td>
-                                    <td>@string.Format("{0:dd-MM-yyyy HH:mm}", @item.date_from)</td>
+                                    <td>@item.car_hire_type</td>                                   
                                 </tr>
                             }
                         }

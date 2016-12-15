@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="width: 83px; height: 77px; padding: 0;">
+            <a class="navbar-brand" href="/" style="width: 121px; height: 77px; padding: 0;">
                 <img src="~/Content/Images/logo.jpg" />
             </a>
             @*<img src="~/Content/Images/logo-tmdt.png">@Html.ActionLink("Thương mại Điện tử cho người Lạng Sơn", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
@@ -35,6 +35,11 @@
                 <li><a href="/tin/page=1">Tin tức</a></li>
                 @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
+
+                @if (Config.getCookie("taixelogged") != "")
+                {
+                    { Html.RenderAction("InfoTaixelogin", "Home"); } 
+                }
             </ul>
         </div>
 
@@ -58,6 +63,10 @@
             <li><a href="/tin/page=1">Tin tức</a></li>
             @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
             @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
+            @if (Config.getCookie("taixelogged") != "")
+            {
+                { Html.RenderAction("InfoTaixelogin", "Home"); }
+            }
         </ul>
     </div>
 </div>
