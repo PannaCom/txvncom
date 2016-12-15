@@ -254,6 +254,7 @@
                 row_hidden.push(row_random);
 
                 if (row_hidden.length > 3) {
+                    clearInterval(timer);
                     for (var i = 0; i < row_hidden.length;i++){
                         var timer2 = setInterval(function () {
                             $('#booking > tbody > tr:eq(' + i + ')').fadeIn();
