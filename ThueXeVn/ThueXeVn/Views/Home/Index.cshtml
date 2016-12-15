@@ -242,7 +242,26 @@
                 
             })
 
+            var length_booking = $('#booking > tbody > tr').length - 1;
 
+            var timer = setInterval(function () {
+                var row_random = getRandomInt(0, length_booking);
+                //console.log(row_random);
+                var row_hidden = [];
+                var row_show = [];
+
+                $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut();
+                row_hidden.push(row_random);
+
+                if (row_hidden.length > 3) {
+                    for (var i = 0; i < row_hidden.length;i++){
+                        var timer2 = setInterval(function () {
+                            $('#booking > tbody > tr:eq(' + i + ')').fadeIn();
+                        }, 2000)
+                    }
+                }
+
+            }, 3000);
 
         }
 
@@ -260,7 +279,11 @@
         //    })
         //}
 
-    })    
+    })
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
     $(function () {
         var options = {
