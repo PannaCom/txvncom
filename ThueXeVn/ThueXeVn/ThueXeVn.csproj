@@ -1391,6 +1391,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\Taixe.cshtml" />
     <Content Include="Views\Shared\_menuLoginTaiXe.cshtml" />
+    <Content Include="Views\Home\_mh_show_carrental.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
