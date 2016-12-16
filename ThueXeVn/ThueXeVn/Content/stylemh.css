@@ -183,3 +183,13 @@ section {
 #dv1 .form-group .col-sm-6{
     padding: 0 5px;
 }
+
+@media (min-width: 763px) {
+    #divBannerImages {
+        height: 313px;
+    }
+}
+
+#divBannerImages {
+    background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);
+}
