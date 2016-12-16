@@ -179,3 +179,7 @@ section {
     width: 100%;
     left: 0;
 }
+
+#dv1 .form-group .col-sm-6{
+    padding: 0 5px;
+}

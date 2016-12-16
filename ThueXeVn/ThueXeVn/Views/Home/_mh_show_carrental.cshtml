@@ -1,46 +1,76 @@
-﻿<section class="mh_show_carrental" style="background: #f9f9f9;">
+﻿<section class="mh_show_carrental" style="background: #f9f9f9;padding-bottom: 25px;">
     <div class="container">
         <div class="row">
             <h3 style="text-align: center; color: #333;">Đặt thuê xe</h3>
 
-            <div class="content-heading text-center">
-                <!-- Input Your Home Content Here -->
-                <div class="row text-center" style="min-height:667px;">
-                    <div class="col-sm-12">
-                        <div class="col-sm-12" id="dv1" style="background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;display:block;">
-                            <div class="form-group">
-                                <div class="col-md-6">
-
-                                </div>
-                                <div class="col-md-6"></div>
+            <div class="row text-center">
+                <div class="col-sm-12">
+                    <div class="col-sm-12" id="dv1" style="background-color:white;color:black;border-radius:25px;border-right:1px solid #808080;display:block;padding-top: 10px;padding-bottom: 10px;">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Điểm đi*</p>
+                                <input id="car_from" name="car_from" class="form-control" placeholder="Điểm đi" autocomplete="on" />
                             </div>
-                            <p style="text-align:left;margin-top:5px;">Điểm đi*</p>
-                            <input id="car_from" name="car_from" class="form-control" placeholder="Điểm đi" autocomplete="on" />
-                            <input type="hidden" id="lon1" name="lon1" value="" />
-                            <input type="hidden" id="lat1" name="lat1" value="" />
-                            <p style="text-align:left;margin-top:5px;">Điểm đến*</p>
-                            <input id="car_to" name="car_to" class="form-control" placeholder="Điểm đến" autocomplete="on" />
-                            <input type="hidden" id="lon2" name="lon2" value="" />
-                            <input type="hidden" id="lat2" name="lat2" value="" />
-                            <p style="text-align:left;margin-top:5px;">Loại xe *</p>
-                            <select id="car_type" class="form-control"></select>
-                            <p style="text-align:left;margin-top:5px;">Hình thức đi *</p>
-                            <select id="car_hire_type" class="form-control"></select>
-                            <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
-                            <select id="car_size" class="form-control"></select>
-                            <p style="text-align:left;margin-top:5px;">Tên khách hàng*</p>
-                            <input id="name" name="name" class="form-control" placeholder="Nhập tên" />
-                            <p style="text-align:left;margin-top:5px;">Số điện thoại liên hệ(lái xe sẽ gọi cho bạn)*</p>
-                            <input id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" />
-                            <p style="text-align:left;margin-top:5px;">Thời gian đi*</p>
-                            <input type="text" class="form-control" id=from_datetime placeholder="Thời gian đi">
-                            <p style="text-align:left;margin-top:5px;">Thời gian về*</p>
-                            <input type="text" class="form-control" id=to_datetime placeholder="Thời gian đi">
-                            <input type="button" value="XÁC NHẬN ĐẶT XE" class="btn btn-primary btn-block" onclick="booking();" style="margin-bottom:5px;" id="btnregister111" />
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Điểm đến*</p>
+                                <input id="car_to" name="car_to" class="form-control" placeholder="Điểm đến" autocomplete="on" />
+                            </div>
+                        </div>                     
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Loại xe *</p>
+                                <select id="car_type2" class="form-control"></select>
+                            </div>
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Hình thức đi *</p>
+                                <select id="car_hire_type" class="form-control"></select>
+                            </div>
                         </div>
-                    </div><!-- end col 10 with offset 1 to centered -->
-                </div> <!-- end contact form outer row with centered text-->
-            </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
+                                <select id="car_size2" class="form-control"></select>
+                            </div>              
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Tên khách hàng*</p>
+                                <input id="name" name="name" class="form-control" placeholder="Nhập tên" />
+                            </div>              
+                        </div>
+
+                        <div class="form-group">                            
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Số điện thoại liên hệ(lái xe sẽ gọi cho bạn)*</p>
+                                <input id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" />
+                            </div>
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Thời gian đi*</p>
+                                <input type="text" class="form-control" id=from_datetime placeholder="Thời gian đi">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">                            
+                            <div class="col-sm-6">
+                                <p style="text-align:left;margin-top:5px;">Thời gian về*</p>
+                                <input type="text" class="form-control" id=to_datetime placeholder="Thời gian đi">
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="button" value="XÁC NHẬN ĐẶT XE" class="btn btn-primary btn-block" onclick="booking();" id="btnregister111" style="margin-top: 36px;" />
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="lon1" name="lon1" value="" />
+                        <input type="hidden" id="lat1" name="lat1" value="" />
+
+                        <input type="hidden" id="lon2" name="lon2" value="" />
+                        <input type="hidden" id="lat2" name="lat2" value="" />
+                        
+                        
+                    </div>
+                </div><!-- end col 10 with offset 1 to centered -->
+            </div> <!-- end contact form outer row with centered text-->
+
 
         </div>
     </div>

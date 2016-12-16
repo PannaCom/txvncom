@@ -31,7 +31,7 @@
 
     <div id="divMainContent" style="height: auto;">
         <div id="divContentBody" class="container-fluid" style="min-height: 304px; padding: 0;">
-            <div id="divBannerImages" class="home-banner" style="background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);">
+            <div id="divBannerImages" class="home-banner" style="background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);height: 313px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6 col-sm-push-6">
@@ -51,22 +51,22 @@
                         </div>
                         <div class="col-md-6 col-sm-pull-6">
                             <div class="span5 about-carousel">
-                                <div id="divBannerTextCarousel" class="carousel slide">
+                                <div id="divBannerTextCarousel" class="carousel slide" style="height: 313px;">
                                     <div id="divBannerTexts" class="carousel-inner custom_slider" style="margin-top: 19px; margin-bottom: 19px;">
                                         <div class="item active">
-                                            <a class="highlight-1" target="_blank" href="#">Post your <strong>Truck/Load</strong> Requirements using App</a>
+                                            <a class="highlight-1" target="_blank" href="#">Post your <strong>Time/Load</strong> Requirements using App</a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="#">Get your <strong>truck loaded</strong> with a single <strong>click</strong></a>
+                                            <a class="highlight-1" target="_blank" href="#">Get your <strong>Time loaded</strong> with a single <strong>click</strong></a>
                                         </div>
                                         <div class="item">
                                             <a class="highlight-1" target="_blank" href="#">Increase your <strong>business</strong> with a single  <strong>click </strong></a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="#">Download <strong>TruckSuvidha App</strong></a>
+                                            <a class="highlight-1" target="_blank" href="#">Download <strong>thuexevn App</strong></a>
                                         </div>
                                         <div class="item">
-                                            <a class="highlight-1" target="_blank" href="#">India's first portal for <strong>Transport Industry</strong>.</a>
+                                            <a class="highlight-1" target="_blank" href="#">Thue xe vnn <strong>best quality</strong>.</a>
                                         </div>
                                     </div>
 
@@ -231,40 +231,37 @@
             $('#booking').dataTable({
                 "bFilter": false,
                 scrollY: '50vh',
-                scrollCollapse: false,
+                scrollCollapse: true,
                 paging: false,
                 "bLengthChange": false,
                 "bInfo": false,
-                "bAutoWidth": false
+                "bAutoWidth": true,
+                "bSort": true,
             });
             $("#booking").on("click", ".bdx-x", function () {
                 $(this).remove(); 
                 
             })
 
-            var length_booking = $('#booking > tbody > tr').length - 1;
+            //var cycleTimer;
+            //function startCycle() {
+            //    cycleTimer = setInterval(function () {
+            //        $scroll.trigger('next');
+            //    }, 450);
+            //}
 
-            var timer = setInterval(function () {
-                var row_random = getRandomInt(0, length_booking);
-                //console.log(row_random);
-                var row_hidden = [];
-                var row_show = [];
+            //// start to automatically cycle slides
+            //startCycle();
 
-                $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut().fadeIn();
-                row_hidden.push(row_random);
+            //// set next/previous buttons as clearInterval triggers 
+            //var $stopTriggers = $('img.right').add('img.left'); // left right
 
-                if (row_hidden.length > 3) {
-                    clearInterval(timer);
-                    //console.log(row_hidden);
-                    for (var i = 0; i < row_hidden.length;i++){
-                        var timer2 = setInterval(function () {
-                            $('#booking > tbody > tr:eq(' + i + ')').fadeIn();
-                        }, 4000)
-                    }
-                }
-
-            }, 5000);
-
+            //// function to stop auto-cycle
+            //function stopCycle() {
+            //    clearInterval(cycleTimer);
+            //    setTimeout(startCycle, 5000); // restart after 5 seconds
+            //}
+                        
         }
 
         //dangnhap taixe
@@ -282,6 +279,28 @@
         //}
 
     })
+
+    var length_booking = $('#booking > tbody > tr').length - 1;
+    var row_hidden = [];
+    var cycleTimer;
+    function startCycle() {
+        cycleTimer = setInterval(function () {
+            var row_random = getRandomInt(0, length_booking);
+            $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut();
+            row_hidden.push(row_random);
+            //console.log(row_hidden.length);
+            if (row_hidden.length > 3) {
+                clearInterval(cycleTimer);
+                row_hidden.forEach(function (entry) {
+                    $('#booking > tbody > tr:eq(' + entry + ')').fadeIn();
+                });
+                row_hidden = [];
+                setTimeout(startCycle, 3000); // restart after 5 seconds
+            }
+        }, 5000);
+    }
+    //// start to automatically cycle slides
+    startCycle();
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -387,9 +406,9 @@
             document.getElementById("car_to").focus();
             return;
         }
-        if (document.getElementById("car_type").value == "") {
+        if (document.getElementById("car_type2").value == "") {
             alert("Nhập loại xe!");
-            document.getElementById("car_type").focus();
+            document.getElementById("car_type2").focus();
             return;
         }
         if (document.getElementById("car_hire_type").value == "") {
@@ -397,9 +416,9 @@
             document.getElementById("car_hire_type").focus();
             return;
         }
-        if (document.getElementById("car_size").value == "") {
+        if (document.getElementById("car_size2").value == "") {
             alert("Nhập số chỗ!");
-            document.getElementById("car_size").focus();
+            document.getElementById("car_size2").focus();
             return;
         }
         if (document.getElementById("from_datetime").value == "") {
@@ -425,9 +444,9 @@
 
         formdata.append("car_from", document.getElementById("car_from").value);
         formdata.append("car_to", document.getElementById("car_to").value);
-        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_type", document.getElementById("car_type2").value);
         formdata.append("car_hire_type", document.getElementById("car_hire_type").value);
-        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("car_size", document.getElementById("car_size2").value);
         formdata.append("from_datetime", document.getElementById("from_datetime").value);
         formdata.append("to_datetime", document.getElementById("to_datetime").value);
         formdata.append("lat1", document.getElementById("lat1").value);
@@ -463,44 +482,44 @@
 
         var news = '{"news":' + html + '}';
         var json_parsed = $.parseJSON(news);
-        $("#car_type").html("");
+        $("#car_type2").html("");
         for (var i = 0; i < json_parsed.news.length; i++) {
             if (json_parsed.news[i]) {
                 var name = json_parsed.news[i].name;
-                $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
+                $("#car_type2").append("<option value='" + name + "'>" + name + "</option>");
             }
         }
     });
 
-    //$.ajax({
-    //    url: "/Api/getCarHireType",
-    //    cache: false
-    //}).done(function (html) {
-    //    var news = '{"news":' + html + '}';
-    //    var json_parsed = $.parseJSON(news);
-    //    $("#car_hire_type").html("");
-    //    for (var i = 0; i < json_parsed.news.length; i++) {
-    //        if (json_parsed.news[i]) {
-    //            var name = json_parsed.news[i].name;
-    //            $("#car_hire_type").append("<option value='" + name + "'>" + name + "</option>");
-    //        }
-    //    }
-    //});
+    $.ajax({
+        url: "/Api/getCarHireType",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_hire_type").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_hire_type").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+    });
 
-    //$.ajax({
-    //    url: "/Api/getCarSize",
-    //    cache: false
-    //}).done(function (html) {
-    //    var news = '{"news":' + html + '}';
-    //    var json_parsed = $.parseJSON(news);
-    //    $("#car_size").html("");
-    //    for (var i = 0; i < json_parsed.news.length; i++) {
-    //        if (json_parsed.news[i]) {
-    //            var name = json_parsed.news[i].name;
-    //            $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
-    //        }
-    //    }
-    //});
+    $.ajax({
+        url: "/Api/getCarSize",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_size2").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_size2").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+    });
 
 </script>
 
