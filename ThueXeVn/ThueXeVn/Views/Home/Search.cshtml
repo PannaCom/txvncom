@@ -7,6 +7,7 @@
     int kmf = 0;
     int stt = 0;
 }
+<link href="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
 <style>
     table,td{
         color:#000000;
@@ -27,51 +28,68 @@
 <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
 <script src="/Scripts/jquery.geocomplete.js"></script>
-<div class="map_canvas" style="display:none;"></div>
-<div class="col-sm-12" style="padding-top:80px;">
-    <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" value="@ViewBag.address"/>
-    <input type="hidden" id="lon" name="lon" value="@ViewBag.lon" />
-    <input type="hidden" id="lat" name="lat" value="@ViewBag.lat" />
-    <select id="car_type" class="form-control col-sm-3">
-        <option value="">Chọn loại xe</option>
-    </select>
-    <select id="car_size" class="form-control col-sm-3">
-        <option value="">Chọn số chỗ</option>
-    </select>
-    <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
 
-</div>
-<h2 style="margin-top:20px;display:block;float:left;position:relative;color:#000000;">Danh sách lái xe đang gần bạn</h2>
+<div class="map_canvas" style="display:none;"></div>
 <div class="container" style="background-color:#ffffff;color:#cccccc;">
+    <div class="row">
+        <div class="col-sm-12" style="padding-top:80px;">
+            <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" value="@ViewBag.address" />
+            <input type="hidden" id="lon" name="lon" value="@ViewBag.lon" />
+            <input type="hidden" id="lat" name="lat" value="@ViewBag.lat" />
+            <select id="car_type" class="form-control col-sm-3">
+                <option value="">Chọn loại xe</option>
+            </select>
+            <select id="car_size" class="form-control col-sm-3">
+                <option value="">Chọn số chỗ</option>
+            </select>
+            <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+
+        </div>
+        <h2 style="margin-top:20px;display:block;float:left;position:relative;color:#000000;">Danh sách lái xe đang gần bạn</h2>
+    </div>
+</div>
+
+<div class="container" style="background-color:#ffffff;color:#cccccc;padding-bottom: 10px;">
     <!-- container -->
     <div class="row">
         <!-- row -->
-        <table class="table filter-table table-noborder mb0" style="width:100%;">
-            <tr style="width:100%;"><th>Tên lái xe</th><th class="carmade">Hãng xe</th><th>Loại xe</th><th>Số chỗ</th><th>Khoảng cách</th><th>Điện thoại</th></tr>
-            @foreach (var item in Model)
-            {
-                stt++;
-                double km = item.D;
-                if (km < 1) { 
-                    km = km * 1000;
-                    dts = km.ToString("0") + " m gần bạn";
-                }
-                else {
+        <div class="table-responsive">
+            <table class="table filter-table table-noborder mb0" style="width:100%;" id="result_search">
+                <thead>
+                    <tr style="width:100%;"><th>Tên lái xe</th><th class="carmade">Thông tin xe</th><th>Số chỗ</th><th>Khoảng cách</th><th>Điện thoại</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                {
+                    stt++;
+                    double km = item.D;
+                    if (km < 1)
+                    {
+                        km = km * 1000;
+                        dts = km.ToString("0") + " m gần bạn";
+                    }
+                    else
+                    {
 
-                    dts = km.ToString("0.00") + " km gần bạn";
+                        dts = km.ToString("0.00") + " km gần bạn";
+                    }
+                        <tr style="width:100%;">
+                            <td><a href="/Drivers/Details?id=@item.id">@item.name</a></td>
+                            <td class="carmade"><b>Hãng xe: </b>@item.car_made<br/><b>Loại xe: </b>@item.car_model</td>
+                            @*<td>@item.car_model</td>*@
+                            <td>@item.car_size</td>
+                            <td>@dts</td>
+                            <td><a href="tel:@item.phone" class="btn btn-primary btn-success" id="@stt" onclick="call(@stt,'@item.phone');">Gọi điện</a></td>
+                        </tr>
                 }
-                <tr style="width:100%;">
-                    <td><a href="/Drivers/Details?id=@item.id">@item.name</a></td>
-                    <td class="carmade">@item.car_made</td>
-                    <td>@item.car_model</td>
-                    <td>@item.car_size</td>
-                    <td>@dts</td>
-                    <td><a href="tel:@item.phone" class="btn btn-primary btn-success" id="@stt" onclick="call(@stt,'@item.phone');">Gọi điện</a></td>
-                </tr>
-            }
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<script src="~/Content/Theme/admin/vendor/datatable/jquery.dataTables.min.js"></script>
+<script src="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.js"></script>
 <script>
     $(function () {
         var options = {
@@ -133,5 +151,16 @@
             }
         }
         document.getElementById("car_size").value = "@ViewBag.carsize";
+    });
+
+    $('#result_search').dataTable({
+        "bFilter": false,
+        scrollY: '50vh',
+        scrollCollapse: true,
+        paging: false,
+        "bLengthChange": false,
+        "bInfo": false,
+        "bAutoWidth": true,
+        "bSort": false,
     });
 </script>
