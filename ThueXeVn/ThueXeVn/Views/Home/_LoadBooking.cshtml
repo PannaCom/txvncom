@@ -9,7 +9,7 @@
                 <table id="booking" class="table table-bordered table-striped">
                     <thead>
                         <tr style="font-size: 12px;">
-                            <th>Tên khách hàng</th>
+                            <th>Mã khách hàng</th>
                             <th>Số điện thoại</th>
                             <th>Thời gian đi-đến</th>
                             <th>Thông tin chuyến xe</th>
@@ -22,8 +22,8 @@
                             foreach (var item in @Model)
                             {
                                 <tr>
-                                    <td>@item.name</td> 
-                                    <td style="text-align: center; position: relative;"><span class="btn btn-primary bdx-x">Bấm để xem</span><span class="btn btn-primary">@Html.Raw(@item.phone)</span></td>
+                                    <td>@item.id</td> 
+                                    <td style="text-align: center; position: relative;"><span class="bdx-x">Bấm để xem</span>@Html.Raw(@item.phone)</td>
                                     <td>@string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_from) <i class="fa fa-long-arrow-right"></i> @string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_to)</td>
                                     <td>
                                         @item.car_from <i class="fa fa-long-arrow-right"></i> @item.car_to <br />

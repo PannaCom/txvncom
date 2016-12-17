@@ -175,9 +175,14 @@ section {
 }
 
 .bdx-x {
-        position: absolute;
-    width: 100%;
+    position: absolute;
+    width: 94%;
     left: 0;
+    padding: 10px;
+    background: #26aaea;
+    margin-left: 5px;
+    color: #fff;
+    cursor: pointer;
 }
 
 #dv1 .form-group .col-sm-6{

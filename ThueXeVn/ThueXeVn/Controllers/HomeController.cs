@@ -395,7 +395,7 @@ namespace ThueXeVn.Controllers
                     name = x.name,
                     date_from = x.date_from,
                     date_to = x.date_to,
-                    phone = "<a class='show_pn' href='#'>Số điện thoại</a>"
+                    phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='show_pn' href='#'>Số điện thoại</a>"
                 }).ToList().OrderByDescending(s=>s.id).ToList();
             }
             else
@@ -410,7 +410,7 @@ namespace ThueXeVn.Controllers
                     name = x.name,
                     date_from = x.date_from,
                     date_to = x.date_to,
-                    phone = "<a class='phone' href='tel:" + x.phone + "'>" + x.phone + "</a>"
+                    phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='phone' href='tel:" + x.phone + "'>" + x.phone + "</a>"
                 }).ToList().OrderByDescending(s => s.id).ToList();    
             }
 
