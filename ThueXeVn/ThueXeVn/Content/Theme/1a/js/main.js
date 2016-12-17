@@ -7,6 +7,11 @@ function main() {
     (function () {
         'use strict';
 
+        if ($('#tf-home').length) {
+        	$('#tf-home').filter(function(index) {
+        		return $("img", this ).length === 1;
+        	}).addClass("img-responsive");
+        }
 
         // Smooth Scrolling
         //==========================================
