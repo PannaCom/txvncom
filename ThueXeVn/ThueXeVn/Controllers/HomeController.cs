@@ -475,5 +475,10 @@ namespace ThueXeVn.Controllers
             return PartialView("_menuLoginTaiXe", strtx);
         }
 
+        public ActionResult banggiaxe()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,223 @@
+﻿@{
+    string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+    }
+    else
+    {
+        url = "http://" + url;
+    }
+}
+
+@{
+    ViewBag.title = "Bảng giá xe";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    ViewBag.des = "Bảng giá thuê xe vn.com";
+    ViewBag.keywords = "";
+    ViewBag.url = @url;
+}
+
+
+<div class="row" id="bangiaxe" style="background: #fff; color: #333;">
+
+    <div id="page_header">
+        <div class="col-md-2" id="bg_logo"><img src="~/Content/Images/logo_mv_e1.png" /></div>
+        <div class="col-md-offset-1 col-md-5" id="bg_h1" style="display: block; text-align: center;">
+            <h3>ThueXeVn.Com</h3>
+            <p style="color: #5BB75B;">HotLine: 096 410 8688 - 097 977 6427</p>
+        </div>
+        <div class="col-md-4" id="bg_right">
+            <h3 style="font-size: 11px; font-weight: bold;">Công ty cổ phần Đầu tư Thương mại và Dịch vụ Minh Việt</h3>
+            <p style="font-size: 11px;"><b>Địa chỉ: </b>78 Duy Tân, Kim Ánh Building, Cầu Giấy, Hà Nội</p>
+            <p style="font-size: 11px;"><b>Điện thoại: </b>04 66533377</p>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="table_baogia" style="margin-top: 15px;">
+                <caption>BẢNG BÁO GIÁ XE</caption>
+                <thead>
+                    <tr style="text-align: center;">
+                        <th rowspan="3">Loại xe (số chỗ)</th>
+                        <th rowspan="3">1 ngày trong TP (100km/10h)</th>
+                        <th rowspan="3">1/2 ngày trong TP (50km/5h)</th>
+                        <th rowspan="3">Hà Nội - Nội Bài</th>
+                        <th rowspan="3">Nội Bài - Hà Nội</th>
+                        <th rowspan="3">Khứ hồi Nội Bài</th>
+                        <th colspan="3" class="bg_yellow" style="border-bottom: 0;">Ngoài Tp 1 chiều</th>
+                        <th colspan="3" class="bg_2" style="border-bottom: 0;">Ngoài Tp 2 chiều</th>
+                        <th rowspan="3">Lưu đêm (đồng/đêm)</th>
+                    </tr>
+                    <tr style="text-align: center;">
+                        <th colspan="1" rowspan="2" class="bg_yellow">(&lt;100km)</th>
+                        <th colspan="1" rowspan="2" class="bg_yellow">100-200km</th>
+                        <th colspan="1" rowspan="2" class="bg_yellow">&gt;200km</th>
+                        <th colspan="1" rowspan="2" class="bg_2">(&lt;100km)</th>
+                        <th colspan="1" rowspan="2" class="bg_2">100-200km</th>
+                        <th colspan="1" rowspan="2" class="bg_2">&gt;200km</th>
+                    </tr>
+                    <tr style="text-align: center;"></tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="bg_fw1">Xe 4 chỗ</td>
+                        <td>1,000,000</td>
+                        <td>
+                            700,000
+                        </td>
+                        <td>
+                            200,000
+                        </td>
+                        <td>
+                            300,000
+                        </td>
+                        <td>
+                            480,000
+                        </td>
+                        <td>
+                            10,000
+                        </td>
+                        <td>
+                            9,000
+                        </td>
+                        <td>
+                            8,500
+                        </td>
+                        <td>
+                            7,000
+                        </td>
+                        <td>
+                            8,500
+                        </td>
+                        <td>
+                            9,000
+                        </td>
+                        <td>
+                            500,000
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bg_fw1">Xe 7 chỗ</td>
+                        <td>
+                            1,200,000
+                        </td>
+                        <td>
+                            750,000
+                        </td>
+                        <td>
+                            220,000
+                        </td>
+                        <td>
+                            320,000
+                        </td>
+                        <td>
+                            500,000
+                        </td>
+                        <td>
+                            12,000
+                        </td>
+                        <td>
+                            11,000
+                        </td>
+                        <td>10,500</td>
+                        <td>9,000</td>
+                        <td>10,500</td>
+                        <td>11,000</td>
+                        <td>700,000</td>
+                    </tr>
+                    <tr>
+                        <td class="bg_fw1">Xe 16 chỗ</td>
+                        <td>
+                            1,400,000
+                        </td>
+                        <td>900,000</td>
+                        <td>350,000</td>
+                        <td>450,000</td>
+                        <td>750,000</td>
+                        <td>12,000</td>
+                        <td>11,000</td>
+                        <td>10,500</td>
+                        <td>9,000</td>
+                        <td>10,500</td>
+                        <td>11,000</td>
+                        <td>700,000</td>
+                    </tr>
+                    <tr>
+                        <td class="bg_fw1">Xe 29 chỗ</td>
+                        <td>
+                            1,800,000
+                        </td>
+                        <td>1,300,000</td>
+                        <td>900,000</td>
+                        <td>900,000</td>
+                        <td>1,700,000</td>
+                        <td>15,000</td>
+                        <td>14,000</td>
+                        <td>13,500</td>
+                        <td>12,000</td>
+                        <td>13,500</td>
+                        <td>14,000</td>
+                        <td>500,000</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: right;" colspan="6">Cao tốc: 1 chiều</td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="6">Đường thường: lái xe chịu</td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="6">Trọn gói</td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="6">Vé 2 chiều</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="6">Vé 1 chiều</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><i class="fa fa-check"></i></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+

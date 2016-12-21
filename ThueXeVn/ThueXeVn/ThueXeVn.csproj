@@ -314,6 +314,7 @@
     <Content Include="Content\Images\iphone-home-button-white-md.png" />
     <Content Include="Content\Images\logo-tmdt.png" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logo_mv_e1.png" />
     <Content Include="Content\Images\Products\TextFile1.txt" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jsTree\jstree.js" />
@@ -1393,6 +1394,7 @@
     <Content Include="Views\Home\Taixe.cshtml" />
     <Content Include="Views\Shared\_menuLoginTaiXe.cshtml" />
     <Content Include="Views\Home\_mh_show_carrental.cshtml" />
+    <Content Include="Views\Home\banggiaxe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

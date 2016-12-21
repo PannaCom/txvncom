@@ -198,3 +198,39 @@ section {
 #divBannerImages {
     background-image: url(/Content/Theme/1a/img/bg/bg2.jpg);
 }
+
+#table_baogia > caption {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: #333;
+}
+
+.bg_yellow {
+    background:#f5ff00;
+}
+
+.bg_2 {
+    background:#ebad95;
+}
+
+.bg_fw1 {
+    font-weight: 700;
+    text-align: left!important;
+    width: 84px!important;
+}
+
+#table_baogia > tbody > tr > td {
+    text-align: right;
+    width: 80px;
+}
+
+#table_baogia > thead > tr > th {
+    vertical-align: middle;
+    text-align: center;
+    border-bottom: 0;
+}
+
+#table_baogia > tfoot > tr > td {
+    text-align: center;
+}
