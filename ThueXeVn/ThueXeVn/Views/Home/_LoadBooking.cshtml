@@ -1,5 +1,10 @@
 ﻿@using ThueXeVn.Models
+@using ThueXeVn
 @model List<booking>
+@{
+     var taixe = Config.getCookie("taixelogged");
+     string sodienthoai = "";
+}
 
 <section class="mh_show_booking">
     <div class="container">
@@ -22,8 +27,25 @@
                             foreach (var item in @Model)
                             {
                                 <tr>
-                                    <td>@item.id</td> 
-                                    <td style="text-align: center; position: relative;"><span class="bdx-x">Bấm để xem</span>@Html.Raw(@item.phone)</td>
+                                    <td>@Config.encodePhone(item.phone)@item.id</td> 
+                                    <td style="text-align: center; position: relative;"><span class="bdx-x">Bấm để xem</span>
+                                        @if (item.status == 1)
+                                        {
+                                            sodienthoai = "<span>Khách đã đặt thành công</span>";
+                                        }
+                                        else
+                                        {
+                                            if (taixe == "")
+                                            {
+                                                sodienthoai = "<a class='show_pn' href='#'>Số điện thoại</a>";
+                                            }
+                                            else
+                                            {
+                                                sodienthoai = "<a class='phone' href='tel:" + item.phone + "'>" + item.phone + "</a>";
+                                            }
+                                        }                                        
+                                        @Html.Raw(sodienthoai)
+                                    </td>
                                     <td>@string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_from) <i class="fa fa-long-arrow-right"></i> @string.Format("{0:dd-MM-yyyy, HH:mm}", @item.date_to)</td>
                                     <td>
                                         @item.car_from <i class="fa fa-long-arrow-right"></i> @item.car_to <br />

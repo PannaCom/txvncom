@@ -2146,3 +2146,15 @@ ul.img-product-n > li > a > img {
     text-align: center;
     cursor: pointer;
 }
+
+@media (min-width: 763px) {
+    .img-c1 {
+        width: 270px;
+    }
+}
+
+@media (max-width: 512px) {
+    .img-c1 {
+        width: 200px;
+    }
+}

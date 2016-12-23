@@ -380,39 +380,37 @@ namespace ThueXeVn.Controllers
         {
             var taixe = Config.getCookie("taixelogged");
             var query = "select * from booking";
-
-            var data = db.Database.SqlQuery<booking>(query).ToList();
-            
-            if (taixe == "")
-            {
-                data = data.Select(x => new booking()
-                {
-                    id = x.id,
-                    car_from = x.car_from,
-                    car_to = x.car_to,
-                    car_type = x.car_type,
-                    car_hire_type = x.car_hire_type,
-                    name = x.name,
-                    date_from = x.date_from,
-                    date_to = x.date_to,
-                    phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='show_pn' href='#'>Số điện thoại</a>"
-                }).ToList().OrderByDescending(s=>s.id).ToList();
-            }
-            else
-            {
-                data = data.Select(x => new booking()
-                {
-                    id = x.id,
-                    car_from = x.car_from,
-                    car_to = x.car_to,
-                    car_type = x.car_type,
-                    car_hire_type = x.car_hire_type,
-                    name = x.name,
-                    date_from = x.date_from,
-                    date_to = x.date_to,
-                    phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='phone' href='tel:" + x.phone + "'>" + x.phone + "</a>"
-                }).ToList().OrderByDescending(s => s.id).ToList();    
-            }
+            var data = db.Database.SqlQuery<booking>(query).ToList();            
+            //if (taixe == "")
+            //{
+            //    data = data.Select(x => new booking()
+            //    {
+            //        id = x.id,
+            //        car_from = x.car_from,
+            //        car_to = x.car_to,
+            //        car_type = x.car_type,
+            //        car_hire_type = x.car_hire_type,
+            //        name = x.name,
+            //        date_from = x.date_from,
+            //        date_to = x.date_to,
+            //        phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='show_pn' href='#'>Số điện thoại</a>"
+            //    }).ToList().OrderByDescending(s=>s.id).ToList();
+            //}
+            //else
+            //{
+            //    data = data.Select(x => new booking()
+            //    {
+            //        id = x.id,
+            //        car_from = x.car_from,
+            //        car_to = x.car_to,
+            //        car_type = x.car_type,
+            //        car_hire_type = x.car_hire_type,
+            //        name = x.name,
+            //        date_from = x.date_from,
+            //        date_to = x.date_to,
+            //        phone = x.status == 1 ? "<span>Khách đã đặt thành công</span>" : "<a class='phone' href='tel:" + x.phone + "'>" + x.phone + "</a>"
+            //    }).ToList().OrderByDescending(s => s.id).ToList();    
+            //}
 
             return PartialView("_LoadBooking", data);
         }

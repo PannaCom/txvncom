@@ -171,6 +171,26 @@ namespace ThueXeVn
             input = input.Replace("--", "-");
             return input;
         }
+
+        public static string encodePhone(string input)
+        {
+            if (input == null)
+            {
+                input = "00000";
+            }
+            string noMark = "a,b,c,d,e,f,g,h,i,j";
+            string number = "0,1,2,3,4,5,6,7,8,9";
+            string[] a_n = noMark.Split(',');
+            string[] a_n2 = number.Split(',');
+            for (int i = 0; i < a_n.Length; i++)
+            {
+                input = input.Replace(a_n2[i], a_n[i]);
+            }
+            input = input.Substring(0, 5);
+            input = input.ToUpper();
+            return input;
+        }
+
         public static string removeSpecialChar(string input)
         {
             input = input.Replace("-", "").Replace(":", "").Replace(",", "").Replace("_", "").Replace("'", "").Replace("\"", "").Replace(";", "").Replace("”", "").Replace(".", "").Replace("%", "");
