@@ -17,5 +17,6 @@ namespace ThueXeVn.Models
         public int id { get; set; }
         public string made { get; set; }
         public string model { get; set; }
+        public string image { get; set; }
     }
 }

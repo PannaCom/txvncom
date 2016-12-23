@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<link href="~/Scripts/dropzone/dropzone.min.css" rel="stylesheet" />
+
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
@@ -34,6 +36,25 @@
         </div>
 
         <div class="form-group">
+            <label for="image" class="control-label col-md-2">Hình ảnh</label>
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.image)
+                @if (Model.image != null)
+                {
+                    <div id="img_div">
+                        <img style="width: 100px; height: 100px" src="@Model.image" /><a href="#" id="remove_img">Xóa ảnh</a>
+                    </div>
+                }
+                <div id="dzupanh1" class="dropzone">
+                    <div class="dz-default dz-message" data-dz-message>
+                        <span><i class="fa fa-plus fa-2x"></i> Chọn hoặc kéo ảnh muốn tải lên.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -46,3 +67,81 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section Scripts {
+
+    <script src="~/Scripts/dropzone/dropzone.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            Dropzone.autoDiscover = false;
+            var hinhanhne = [];
+            var myUpAnh = new Dropzone("div#dzupanh1", {
+                url: "/carmademodel/upanh",
+                addRemoveLinks: true,
+                maxFiles: 1,
+                maxFilesize: 5,
+                uploadMultiple: true,
+                acceptedFiles: "image/*",
+                dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo thả tệp để tải lên.",
+                dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+                dictFileTooBig: "Tệp có dung lượng quá lớn ({{filesize}}MiB). Dung lượng cho phép: {{maxFilesize}}MiB.",
+                dictInvalidFileType: "Tệp bạn chọn không được phép tải lên.",
+                dictResponseError: "Máy chủ xảy ra lỗi: {{statusCode}}.",
+                dictCancelUpload: "Hủy tải lên",
+                dictCancelUploadConfirmation: "Bạn chắc chắn muốn hủy tải lên?",
+                dictRemoveFile: "Loại bỏ tệp tin",
+                success: function (file, response) {
+                    var imgPath = response.Message;
+                    if (imgPath !== "") {
+                        $("#image").val(imgPath);
+                        if ($('#img_div').length) {
+                            $('#img_div').find('img').attr('src', imgPath);
+                        }
+                        file.previewElement.classList.add("dz-success");
+                    }
+
+                },
+                init: function () {
+                    this.on("thumbnail", function (file) {
+                        var w = file.width;
+                        var h = file.height;
+                        if (file.accepted !== false) {
+                            // Do the dimension checks you want to do
+                            if (w >= 100 && h >= 100) {
+                                file.acceptDimensions();
+                            }
+                            else {
+                                file.rejectDimensions();
+                            }
+                        }
+                    })
+
+                },
+                accept: function (file, done) {
+                    file.rejectDimensions = function () {
+                        done("vui lòng ảnh có kích thước tối thiểu 100x100 px");
+                    };
+                    file.acceptDimensions = done;
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                    $(file.previewElement).find('.dz-error-message').text(response);
+                    //alert(response);
+                    //this.removeFile(file);
+                },
+                HiddenFilesPath: 'body'
+            });
+           
+            if ($('#remove_img').length) {
+                $('#remove_img').on('click', function (e) {
+                    $('#image').val('');
+                    $('#img_div').remove();
+                    e.preventDefault();
+                })
+            }
+
+        })
+    </script>
+
+}

@@ -73,6 +73,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="made" Type="nvarchar" MaxLength="255" />
           <Property Name="model" Type="nvarchar" MaxLength="255" />
+          <Property Name="image" Type="nvarchar" MaxLength="505" />
         </EntityType>
         <EntityType Name="car_size">
           <Key>
@@ -218,14 +219,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="thuexevnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="car_made_model">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="made" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="list_car">
           <Key>
             <PropertyRef Name="id" />
@@ -310,7 +303,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="thuexevnEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="car_made_model" EntityType="Self.car_made_model" />
           <EntitySet Name="list_car" EntityType="Self.list_car" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" />
           <EntitySet Name="list_car_type" EntityType="Self.list_car_type" />
@@ -327,6 +319,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="car_size" EntityType="thuexevnModel.car_size" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
+          <EntitySet Name="car_made_model" EntityType="thuexevnModel.car_made_model" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -419,21 +412,21 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="web" Type="Int32" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="car_made_model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="made" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="thuexevnModelStoreContainer" CdmEntityContainer="thuexevnEntities">
-          <EntitySetMapping Name="car_made_model">
-            <EntityTypeMapping TypeName="thuexevnModel.car_made_model">
-              <MappingFragment StoreEntitySet="car_made_model">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="made" ColumnName="made" />
-                <ScalarProperty Name="model" ColumnName="model" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="list_car">
             <EntityTypeMapping TypeName="thuexevnModel.list_car">
               <MappingFragment StoreEntitySet="list_car">
@@ -620,6 +613,16 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="app" ColumnName="app" />
                 <ScalarProperty Name="calls" ColumnName="calls" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_made_model">
+            <EntityTypeMapping TypeName="thuexevnModel.car_made_model">
+              <MappingFragment StoreEntitySet="car_made_model">
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="made" ColumnName="made" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

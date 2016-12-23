@@ -176,5 +176,13 @@ namespace ThueXeVn
             input = input.Replace("-", "").Replace(":", "").Replace(",", "").Replace("_", "").Replace("'", "").Replace("\"", "").Replace(";", "").Replace("”", "").Replace(".", "").Replace("%", "");
             return input;
         }
+        public static void SaveTolog(string log)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.Hosting.HostingEnvironment.MapPath("~/" + "log.txt"), true))
+            {
+                sw.WriteLine(DateTime.Now.ToString() + ": " + log);
+                sw.Close();
+            }
+        }
     }
 }

@@ -18,6 +18,9 @@
         <th>
             @Html.DisplayNameFor(model => model.model)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
         <th></th>
     </tr>
 
@@ -28,6 +31,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.model)
+        </td>
+        <td>
+            @if (item.image != null)
+            {
+                <img style="width: 100px; height: 100px;" src="@item.image" />
+            }            
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
