@@ -508,7 +508,7 @@ namespace ThueXeVn.Controllers
 
                     link = "/tin/" + Config.unicodeToNoMark(mn[i].title) + "-" + mn[i].id;
                     string style = "style=\"display:block;\"";
-                    menuleft += "<div " + style + ">&nbsp;&nbsp;-<a href=\"" + link + "\">" + mn[i].title.ToUpperInvariant() + "</a></div>";
+                    menuleft += "<div " + style + ">&nbsp;&nbsp;-<a href=\"" + link + "\">" + mn[i].title + "</a></div>";
                 }
             }
             catch (Exception ex)

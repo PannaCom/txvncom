@@ -26,7 +26,7 @@ namespace ThueXeVn
 
             routes.MapRoute(
                 "ViewXetaxinoibai",
-                "xe-taxi-noi-bai",
+                "taxi-noi-bai-gia-re-taxi-san-bay-gia-re",
                 new { controller = "Home", action = "XeTaxiNoiBai" }
             );
             
