@@ -976,6 +976,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ThueXe.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\bang_gia_xe.png" />
+    <Content Include="Images\taxi-noibai-gia-re-taxi-san-bay-giare-taxi-noibai-hannoi-uy-tin1.jpg" />
+    <Content Include="Images\taxi-noibai-gia-re-taxi-san-bay-giare-taxi-noibai-hannoi-uy-tin2.jpg" />
     <Content Include="Models\ThueXe.edmx.diagram">
       <DependentUpon>ThueXe.edmx</DependentUpon>
     </Content>
@@ -1403,6 +1406,7 @@
     <Content Include="Views\Shared\_menuLoginTaiXe.cshtml" />
     <Content Include="Views\Home\_mh_show_carrental.cshtml" />
     <Content Include="Views\Home\banggiaxe.cshtml" />
+    <Content Include="Views\Home\XeTaxiNoiBai.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

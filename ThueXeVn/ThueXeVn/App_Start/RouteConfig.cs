@@ -23,6 +23,12 @@ namespace ThueXeVn
                 "tin/page={page}",
                 new { controller = "news", action = "List", page = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                "ViewXetaxinoibai",
+                "xe-taxi-noi-bai",
+                new { controller = "Home", action = "XeTaxiNoiBai" }
+            );
             
             routes.MapRoute(
                 name: "Default",

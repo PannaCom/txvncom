@@ -1,0 +1,88 @@
+﻿@{
+    string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    string host = Request.Url.Authority;
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+        host = "https://" + host;
+    }
+    else
+    {
+        url = "http://" + url;
+        host = "http://" + host;
+    }
+}
+
+@{
+    ViewBag.title = "Xe taxi nội bài";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    ViewBag.des = "Xe taxi nội bài";
+    ViewBag.keywords = "";
+    ViewBag.url = @url;
+    ViewBag.image = host + "/Images/Taxi Nội Bài Giá Rẻ%2c Taxi Sân Bay Giá Rẻ%2c Taxi Nội Bài Hà Nội Uy Tín1.jpg";
+}
+
+<div class="row" id="taxinoibai" style="background: #fff; color: #333;">
+
+    <div class="col-md-9" style="border-right: 1px solid #e7e7e7;">
+        <h1 style="color: #333;">Taxi Nội Bài Giá Rẻ, Taxi Sân Bay Giá Rẻ, Taxi Nội Bài Hà Nội Uy Tín</h1>
+        <div style="text-align: justify;">
+            <p>
+                Quý khách cần di chuyển tới Nội Bài hay từ Nội Bài về nhà, hãy gọi cho chúng tôi.
+                Công ty vận tải hành khách tại Hà Nội cung cấp <strong>dịch vụ taxi Nội Bài giá rẻ</strong>,
+                <strong>Taxi sân bay giá rẻ</strong>, chất lượng cao, đảm bảo an toàn cho hành khách trong quá trình di chuyển.
+                Hãy gọi cho chúng tôi, ngay khi Quý khách có nhu cầu để tận hưởng những cảm giác tuyệt vời nhất
+                trong hành trình di chuyển của mình do công ty chúng tôi cung cấp.
+            </p>
+            <img class="img-responsive img-c2" src="~/Images/taxi-noibai-gia-re-taxi-san-bay-giare-taxi-noibai-hannoi-uy-tin1.jpg">
+
+            <h3 class="color_green">
+                Cam kết chất lượng Taxi sân bay Nội Bài uy tín số 1 tại Việt Nam
+            </h3>
+            <h4 class="color_green">Dịch vụ taxi Hà Nội Nội Bài tiện lợi, nhanh chóng</h4>
+
+            <p>
+                Quý khách thường mất hàng giờ đồng hồ ngồi đợi taxi đi qua ngoài đường để gọi vào. Tuy nhiên, có những ngày, dù đã tiêu tốn bao nhiêu thời gian ngồi đợi nhưng Quý khách vẫn chưa thấy bóng dáng một chiếc xe bus Nội Bài nào đi qua, nhất là vào những ngày trời mưa bão. Điều này mang lại cho Quý khách không ít phiền phức. Chúng tôi nhận thấy và thấu hiểu được tâm lý của hành khách khi ngồi đợi xe. <strong>Taxi đi Nội Bài</strong> tại Thuexevn.com sẽ giúp Quý khách đáp ứng tất cả điều ấy.
+            </p>
+            <p>
+                Quý khách không phải mất thời gian chờ xe như trước. Thay vào đó, chỉ cần đặt xe Nội Bài trược tuyến tại đây, hoặc gọi trực tiếp cho đường dây nóng tổng đài taxi Nội Bài trên website. Nhân viên sẽ điều xe đến địa chỉ Quý khách cung cấp trong vòng 10 phút. Điều đó giúp Quý khách tiết kiệm được thời gian.
+            </p>
+
+            <h4 class="color_green">
+                Hành trình xe Nội Bài an toàn, dịch vụ Nội Bài taxi chất lượng
+            </h4>
+            <h5 class="color_green"><i>Tiết kiệm tối đa thời gian và chi phí của khách hàng</i></h5>
+
+            <p>Quý khách sẽ không khỏi bất ngờ với mức giá công ty đưa ra. So với các đơn vị vận chuyển hành khách khác, Quý khách sẽ tiết kiệm được 30% chi phí khi lựa chọn công ty chúng tôi.</p>
+            <p>Nếu tính ra, so với việc quý khách sử dụng xe bus đi Nội Bài (Xe buýt Nội Bài) hay các phương tiện vận tải khác thì đây là sự lựa chọn hoàn toàn thông thái.</p>
+
+            <figure>
+                <img class="img-responsive" src="~/Images/bang_gia_xe.png" />
+                <figcaption style="text-align: center;">
+                    <i>Bảng giá cước Taxi Nội Bài Hà Nội giá rẻ</i>
+                </figcaption>
+            </figure>
+
+            <h3 class="color_green">Phục vụ chu đáo, đến tận nơi, đón tại chỗ</h3>
+            <p>
+                Công ty chúng tôi phục vụ hành khách 24/7. Bất kể khi nào Quý khách cần hãy nhấc máy lên và gọi hotline số taxi Hà Nội Nội Bài tại Thuexevn.com.
+                Bất kể ngày lễ tết nào, khi muốn di chuyển, nhân viên dịch vụ <strong>Taxi Nội Bài giá</strong> rẻ sẵn sàng đón tiếp Quý khách.
+            </p>
+            <img class="img-responsive img-c2" src="~/Images/taxi-noibai-gia-re-taxi-san-bay-giare-taxi-noibai-hannoi-uy-tin2.jpg">
+
+            <h3 class="color_green">Thái độ lịch sự, lễ phép</h3>
+            <p>Trước khi trở thành nhân viên chính thức của công ty, họ phải trải qua quá trình kiểm tra và đào tạo hết sức gay gắt. Nếu đáp ứng được về trình độ tay nghề và phẩm chất đạo đức, chúng tôi tiến hành nhận. Tuy nhiên trong thời gian làm việc, bất cứ nhân viên nào có hành vi sai phạm quy định, ảnh hưởng tới uy tín công ty chúng tôi tiến hành đào thải. Do đó, khách hàng có thể yên tâm khi lựa chọn Taxi sân bay Nội Bài giá rẻ tại đây.</p>
+            <p>Thái độ lễ phép, đi đứng nhẹ nhàng, tiếp đón khách hàng chu đáo từ đội ngũ nhân viên sẽ không bao giờ làm Quý khách thất vọng. hãy đăng ký ngay đi taxi Nội Bài Hà Nội giá rẻ, để trải nghiệm hành trình đầy thú vị Quý khách nhé.</p>
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <!-- Widget: Categories -->
+        <div class="widget" style="padding: 0;">
+            <h3>TIN KHÁC</h3>
+            @Html.Raw(ViewBag.menuleft)
+        </div>
+    </div>
+
+</div>

@@ -478,5 +478,45 @@ namespace ThueXeVn.Controllers
             return View();
         }
 
+        public ActionResult XeTaxiNoiBai()
+        {
+            ViewBag.menuleft = getProjectMenu();
+            return View();
+        }
+
+        public string getProjectMenu()
+        {
+            string menuleft = "";
+            try
+            {
+                //Lấy ra menu bên trái
+                var mn = (from p in db.news
+                          select new
+                          {
+                              image = p.image,
+                              title = p.title,
+                              des = p.des,
+                              id = p.id,
+                              datetime = p.datetime,
+                          }).OrderByDescending(o => o.id).Take(10).ToList();
+
+
+                string link = "";
+
+                for (int i = 0; i < mn.Count; i++)
+                {
+
+                    link = "/tin/" + Config.unicodeToNoMark(mn[i].title) + "-" + mn[i].id;
+                    string style = "style=\"display:block;\"";
+                    menuleft += "<div " + style + ">&nbsp;&nbsp;-<a href=\"" + link + "\">" + mn[i].title.ToUpperInvariant() + "</a></div>";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+            return menuleft;
+        }
+
     }
 }

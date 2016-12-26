@@ -24,15 +24,23 @@
 
         <div class="visible-xs">
             <ul class="collapse navbar-collapse nav navbar-nav" id="bs-example-navbar-collapse-1">
-                <li>@*@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })*@</li>
+                <li>@Html.ActionLink("Đặt thuê xe", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>
                 @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
-                <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hướng dẫn <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                        <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    </ul>
+                </li>
+                @*<li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
                 <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
-                <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
                     <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 <li><a href="/tin/page=1">Tin tức</a></li>
+                <li><a href="/xe-taxi-noi-bai">Xe taxi nội bài</a></li>
                 @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
                 <li><a href="/home/banggiaxe">Bảng giá xe</a></li>
@@ -52,15 +60,21 @@
 <div id="menu" class="navbar navbar-default hidden-xs">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li>@*@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })*@</li>
+            <li>@Html.ActionLink("Đặt thuê xe", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>
             @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
-            <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
-            <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
-            <li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hướng dẫn <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                </ul>
+            </li>
+            @*<li>@Html.ActionLink("Đặt xe qua web", "CarRental", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
             @*li>@Html.ActionLink("Bảng giá", "Price", "Home", new { area = "" }, new { @class = "scroll" })</li>
                 <li>@Html.ActionLink("Đặt xe", "Booking", "Home", new { area = "" }, new { @class = "scroll" })</li>
                 <li>@Html.ActionLink("Tài xế đăng ký", "Register", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
             <li><a href="/tin/page=1">Tin tức</a></li>
+            <li><a href="/xe-taxi-noi-bai">Xe taxi nội bài</a></li>
             @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
             @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
             <li><a href="/home/banggiaxe">Bảng giá xe</a></li>
@@ -71,3 +85,4 @@
         </ul>
     </div>
 </div>
+
