@@ -11,6 +11,11 @@ namespace ThueXeVn.Controllers
     {
         private thuexevnEntities db = new thuexevnEntities();
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: List
         public ActionResult bangke()
         {
@@ -18,5 +23,7 @@ namespace ThueXeVn.Controllers
 
             return View();
         }
+
+
     }
 }
