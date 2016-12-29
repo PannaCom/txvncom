@@ -105,6 +105,27 @@
           <Property Name="regId" Type="nvarchar" MaxLength="350" />
           <Property Name="os" Type="int" />
         </EntityType>
+        <EntityType Name="invoices">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="sex" Type="nvarchar" MaxLength="250" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="time_to_pick" Type="datetime" />
+          <Property Name="time_to_pay" Type="datetime" />
+          <Property Name="pickup" Type="nvarchar" MaxLength="505" />
+          <Property Name="paypoints" Type="nvarchar" MaxLength="505" />
+          <Property Name="so_cho" Type="int" />
+          <Property Name="form" Type="nvarchar" MaxLength="505" />
+          <Property Name="driver" Type="nvarchar" MaxLength="505" />
+          <Property Name="price" Type="float" />
+          <Property Name="vat" Type="float" />
+          <Property Name="sum" Type="float" />
+          <Property Name="note" Type="nvarchar" MaxLength="505" />
+        </EntityType>
         <EntityType Name="list_car">
           <Key>
             <PropertyRef Name="id" />
@@ -199,6 +220,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="invoices" EntityType="Self.invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car_type" EntityType="Self.list_car_type" Schema="dbo" store:Type="Tables" />
@@ -320,6 +342,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
           <EntitySet Name="car_made_model" EntityType="thuexevnModel.car_made_model" />
+          <EntitySet Name="invoices" EntityType="thuexevnModel.invoice" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -420,6 +443,27 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="made" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="image" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="invoice">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="customer_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="sex" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="time_to_pick" Type="DateTime" Precision="3" />
+          <Property Name="time_to_pay" Type="DateTime" Precision="3" />
+          <Property Name="pickup" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="paypoints" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="so_cho" Type="Int32" />
+          <Property Name="form" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="driver" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Double" />
+          <Property Name="vat" Type="Double" />
+          <Property Name="sum" Type="Double" />
+          <Property Name="note" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -623,6 +667,28 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="made" ColumnName="made" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="invoices">
+            <EntityTypeMapping TypeName="thuexevnModel.invoice">
+              <MappingFragment StoreEntitySet="invoices">
+                <ScalarProperty Name="note" ColumnName="note" />
+                <ScalarProperty Name="sum" ColumnName="sum" />
+                <ScalarProperty Name="vat" ColumnName="vat" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="driver" ColumnName="driver" />
+                <ScalarProperty Name="form" ColumnName="form" />
+                <ScalarProperty Name="so_cho" ColumnName="so_cho" />
+                <ScalarProperty Name="paypoints" ColumnName="paypoints" />
+                <ScalarProperty Name="pickup" ColumnName="pickup" />
+                <ScalarProperty Name="time_to_pay" ColumnName="time_to_pay" />
+                <ScalarProperty Name="time_to_pick" ColumnName="time_to_pick" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
