@@ -2219,3 +2219,7 @@ ul.img-product-n > li > a > img {
     color: #26aaea;
 }
 
+.list_tintuc {
+    list-style-type: none;
+    padding-left: 0;
+}
