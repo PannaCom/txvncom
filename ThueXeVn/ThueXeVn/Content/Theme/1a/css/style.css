@@ -2222,4 +2222,24 @@ ul.img-product-n > li > a > img {
 .list_tintuc {
     list-style-type: none;
     padding-left: 0;
+    background: #fff;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
+
+    .list_tintuc .items {
+        margin: 10px 10px 20px;
+        position: relative;
+        /*border-bottom: 1px solid #d2d2d2;*/
+            padding-top: 10px;
+    }
+
+    .list_tintuc .items img{
+       height: 100px;
+       width: 100%;
+    }
+
+    .list_tintuc .items h3 {
+        margin-top: 0;
+    }

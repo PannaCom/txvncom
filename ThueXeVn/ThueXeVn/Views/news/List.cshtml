@@ -56,18 +56,18 @@
 </div>*@
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-9" style="padding: 0 5px;">
         <ul class="list_tintuc">
             @foreach (var item in Model)
             {
                 link = "/tin/" + ThueXeVn.Config.unicodeToNoMark(@item.title) + "-" + @item.id;
                 <li class="items row">
                     <div class="col-md-9 col-md-push-3">
-                        <h3><a href="@link" class="btn btn-primary" role="button">Button</a> <a href="#">@Html.Raw(@item.title)</a></h3>
+                        <h3><a href="@link">@Html.Raw(@item.title)</a></h3>
                         <p>Gửi ngày @item.datetime</p>
                         <p class="intro">@Html.Raw(@item.des)</p>
                     </div>
-                    <a href="@link" class="img_a"><img class="col-md-3 col-md-pull-9" src="@item.image" alt="@Html.Raw(@item.title)"></a>
+                    <a class="col-md-3 col-md-pull-9" href="@link" class="img_a"><img class="img-responsive" src="@item.image" alt="@Html.Raw(@item.title)"></a>
                 </li>
             }
 
