@@ -16,7 +16,7 @@ namespace ThueXeVn
                 "view detail news",
                 "tin/{name}-{id}",
                 new { controller = "news", action = "GetDetails", name = UrlParameter.Optional, id = UrlParameter.Optional }
-            );
+            );            
 
             routes.MapRoute(
                 "view news",
