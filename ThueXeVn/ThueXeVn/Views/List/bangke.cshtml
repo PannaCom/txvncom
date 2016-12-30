@@ -1,7 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Quản lý bảng kê";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles {
+
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
 }
 
 <div class="row">
@@ -37,7 +41,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default box box-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Chọn tệp tin excel để import <span class="color-red">(*)</span></h3>
+                <h3 class="panel-title">Nhập dữ liệu từ tệp tin excel <span class="color-red">(*)</span></h3>
             </div>
             <div class="panel-body">
                 @using (Html.BeginForm("ImportToExcel", "List", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "bangke", enctype = "multipart/form-data" }))
@@ -50,7 +54,7 @@
                             <input type="file" name="fileImport" required id="fileImport" class="form-control" />
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="col-md-6">
                             <button class="btn btn-primary">
@@ -64,6 +68,176 @@
 
             </div>
         </div>
+
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Nhập dữ liệu thủ công</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("bangke", "List", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "nhap_bangke" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label for="date" class="control-label col-md-4">
+                            Ngày/tháng
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="date" name="date" placeholder="Ngày/tháng">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer_name" class="control-label col-md-4">
+                            Tên khách hàng
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Tên khách hàng">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sex" class="control-label col-md-4">
+                            Giới tính
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="sex" name="sex" placeholder="Giới tính">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="control-label col-md-4">
+                            Số điện thoại
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time_to_pick" class="control-label col-md-4">
+                            Thời gian đón
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="time_to_pick" name="time_to_pick" placeholder="Thời gian đón">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time_to_pay" class="control-label col-md-4">
+                            Thời gian trả
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="time_to_pay" name="time_to_pay" placeholder="Thời gian trả">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pickup" class="control-label col-md-4">
+                            Điểm đón
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="pickup" name="pickup" placeholder="Điểm đón">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paypoints" class="control-label col-md-4">
+                            Điểm trả
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="paypoints" name="paypoints" placeholder="Điểm trả">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="so_cho" class="control-label col-md-4">
+                            Loại xe
+                            (Số chỗ)
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="so_cho" name="so_cho" placeholder="Loại xe/Số chỗ">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form" class="control-label col-md-4">
+                            Hình thức
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="form" name="form" placeholder="Hình thức">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="driver" class="control-label col-md-4">
+                            Tài xế
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="driver" name="driver" placeholder="Tài xế">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price" class="control-label col-md-4">
+                            Giá
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="Giá">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="invoise_date" class="control-label col-md-4">
+                            VAT
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="invoise_date" placeholder="Ngày/tháng">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vat" class="control-label col-md-4">
+                            VAT
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="vat" name="vat" placeholder="VAT">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sum" class="control-label col-md-4">
+                            Tổng tiền
+                        </label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" id="sum" name="sum" placeholder="Tổng tiền">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note" class="control-label col-md-4">
+                            Ghi chú
+                        </label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" id="note" name="note" placeholder="Ghi chú" rows="10"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary">
+                                <i class="fa fa-plus"></i> Thêm dữ liệu
+                            </button>
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -72,4 +246,10 @@
 @section Scripts {
 
     @Scripts.Render("~/bundles/jqueryval");
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+
+        })
+    </script>
 }
