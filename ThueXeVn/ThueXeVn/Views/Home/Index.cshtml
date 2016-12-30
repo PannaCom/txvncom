@@ -149,6 +149,8 @@
 
 @*@{Html.RenderAction("LoadNewTop");}*@
 
+
+
 @{Html.RenderAction("LoadBooking");}
 
 @Html.Partial("_mh_show_carrental")
@@ -158,7 +160,24 @@
 <div id="comment-customers" class="clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6 lead text-justify">
+                <div id="gioithieu" style="padding: 15px; color: #333; border-radius: 11px;">
+                    <p style="text-indent: 15px;">
+                        Tự hào là đơn vị cung cấp dịch vụ <strong>cho thuê xe</strong> uy tín chất lượng hàng đầu tại Việt Nam trong nhiều năm qua.
+                        Chúng tôi luôn cam kết với khách hàng dịch vụ thuê xe bảo đảm cả về 3 yếu tố: Chất lượng, giá cả và dịch vụ.
+                    </p>
+                    <p>
+                        <strong>Về chất lượng: </strong>Công ty cam kết chất lượng về xe và tài xế lái xe. Nhân viên lái xe được đào tạo và thực hành bài bản kỹ thuật lái xe cũng như thái độ nhã nhặn, chu đáo đối với khách hàng.
+                    </p>
+                    <p>
+                        <strong>Về giá cả: </strong>Bảo đảm giá cho thuê xe rẻ nhất, xe không mào, không dán logo.
+                    </p>
+                    <p>
+                        <strong>Về dịch vụ: </strong>Cam kết dịch vụ chu đáo, nhanh chóng, tận tình. Chúng tôi đáp ứng yêu cầu cho khách hàng ở mọi nơi với đa dạng tất cả các loại xe như: Cho thuê xe du lịch, taxi đường dài giá rẻ, cho thuê xe 4 chỗ, 7 chỗ, 9 chỗ, 16 chỗ, 29 chỗ,… sang trọng mới mẻ. Dịch vụ 24/7 kể cả ngày nghỉ, ngày lễ.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div id="owl-demo" class="owl-carousel owl-theme">
                     <div class="item">
                         <div class="col-md-8 col-md-push-2">
@@ -192,6 +211,7 @@
         </div>
     </div>
 </div>
+
 
     @section Scripts {
         @*<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>*@
