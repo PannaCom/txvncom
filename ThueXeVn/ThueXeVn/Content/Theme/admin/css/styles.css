@@ -267,3 +267,25 @@
         .loading {
     background-image: url('ajax-loader.gif');
 }
+
+        /* Color of invalid field */
+.has-error .control-label,
+.has-error .help-block,
+.has-error .form-control-feedback {
+    color: #a94442;
+}
+
+/* Color of valid field */
+.has-success .control-label,
+.has-success .help-block,
+.has-success .form-control-feedback {
+    color: #3c763d;
+}
+
+.error {
+        color: #9c0d0d;
+}
+
+.error .form-control {
+    border-color: #9c0d0d;
+}
