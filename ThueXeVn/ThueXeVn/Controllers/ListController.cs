@@ -121,7 +121,7 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("bangke");
         }
 
-        
+
         public ActionResult Edit(long? id)
         {
             if (id == null || id == 0)
@@ -277,7 +277,22 @@ namespace ThueXeVn.Controllers
                                                         }
                                                         catch
                                                         {
-                                                            c5 = "";
+                                                            try
+                                                            {
+                                                                c5 = DateTime.ParseExact(_date2.ToString(), "d/M/yyyy h:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+                                                            }
+                                                            catch 
+                                                            {
+                                                                try
+                                                                {
+                                                                    c5 = DateTime.ParseExact(_date2.ToString(), "d/M/yyyy HH:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                                }
+                                                                catch
+                                                                {
+                                                                    c5 = "";
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -285,19 +300,19 @@ namespace ThueXeVn.Controllers
                                         }
                                     }
                                 }
-                                if (Convert.ToDateTime(c5).Month < 10 || Convert.ToDateTime(c5).Day < 10)
+                                if (c5 != "")
                                 {
-                                    c5 = DateTime.ParseExact(c5, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                    if (Convert.ToDateTime(c5).Month < 10 || Convert.ToDateTime(c5).Day < 10)
+                                    {
+                                        c5 = DateTime.ParseExact(c5, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                    }
                                 }
+
 
                                 var _date3 = ds.Tables[0].Rows[i][5] != null ? ds.Tables[0].Rows[i][5] : null;
                                 if (_date3 != null)
                                 {
-                                    if (DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Month < 10 || DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Day < 10)
-                                    {
-                                        _date3 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 
-                                    }
                                     try
                                     {
                                         c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy HH:mm:ss", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
@@ -334,7 +349,22 @@ namespace ThueXeVn.Controllers
                                                         }
                                                         catch
                                                         {
-                                                            c6 = "";
+                                                            try
+                                                            {
+                                                                c6 = DateTime.ParseExact(_date3.ToString(), "d/M/yyyy h:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+
+                                                            }
+                                                            catch
+                                                            {
+                                                                try
+                                                                {
+                                                                    c6 = DateTime.ParseExact(_date3.ToString(), "d/M/yyyy HH:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                                }
+                                                                catch
+                                                                {
+                                                                    c6 = "";
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -343,6 +373,14 @@ namespace ThueXeVn.Controllers
                                     }
 
                                 }
+                                if (c6 != "")
+                                {
+                                    if (Convert.ToDateTime(c6).Month < 10 || Convert.ToDateTime(c6).Day < 10)
+                                    {
+                                        c6 = DateTime.ParseExact(c6, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                    }
+                                }
+
 
                                 c7 = ds.Tables[0].Rows[i][6] != null ? ds.Tables[0].Rows[i][6].ToString() : null;
                                 c8 = ds.Tables[0].Rows[i][7] != null ? ds.Tables[0].Rows[i][7].ToString() : null;
