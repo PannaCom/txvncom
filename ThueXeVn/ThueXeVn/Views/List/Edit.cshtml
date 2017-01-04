@@ -1,8 +1,322 @@
-﻿
+﻿@model ThueXeVn.Models.invoice
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa bảng kê";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Edit</h2>
+@section Styles {
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+}
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        @if (Model != null)
+        {
+            <div class="panel panel-default box box-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cập Nhật dữ liệu bảng kê</h3>
+                </div>
+                <div class="panel-body">
+
+                    @using (Html.BeginForm("Edit", "List", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "nhap_bangke" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.id)
+                        <div class="form-group">
+                            <label for="date" class="control-label col-md-4">
+                                Ngày/tháng
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.date, htmlAttributes: new { @class = "form-control", placeholder = "Ngày/tháng" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customer_name" class="control-label col-md-4">
+                                Tên khách hàng
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.customer_name, htmlAttributes: new { @class = "form-control", placeholder = "Tên khách hàng" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sex" class="control-label col-md-4">
+                                Giới tính
+                            </label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="sex" name="sex">
+                                    <option value="">Chọn giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Giới tính khác">Giới tính khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        if (Model.sex != null)
+                        {
+                            <script>
+                                $(window).load(function () {
+                                    $('#sex').val('@Model.sex');
+                                })
+                            </script>
+                        }
+
+                        <div class="form-group">
+                            <label for="phone" class="control-label col-md-4">
+                                Số điện thoại
+                            </label>
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.phone, htmlAttributes: new { @class = "form-control", placeholder = "Số điện thoại" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time_to_pick" class="control-label col-md-4">
+                                Thời gian đón
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="time_to_pick" name="time_to_pick" placeholder="Thời gian đón">*@
+                                @Html.TextBoxFor(model => model.time_to_pick, htmlAttributes: new { @class = "form-control", placeholder = "Thời gian đón" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time_to_pay" class="control-label col-md-4">
+                                Thời gian trả
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="time_to_pay" name="time_to_pay" placeholder="Thời gian trả">*@
+                                @Html.TextBoxFor(model => model.time_to_pay, htmlAttributes: new { @class = "form-control", placeholder = "Thời gian trả" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pickup" class="control-label col-md-4">
+                                Điểm đón
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="pickup" name="pickup" placeholder="Điểm đón">*@
+                                @Html.TextBoxFor(model => model.pickup, htmlAttributes: new { @class = "form-control", placeholder = "Điểm đón" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="paypoints" class="control-label col-md-4">
+                                Điểm trả
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="paypoints" name="paypoints" placeholder="Điểm trả">*@
+                                @Html.TextBoxFor(model => model.paypoints, htmlAttributes: new { @class = "form-control", placeholder = "Điểm trả" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="so_cho" class="control-label col-md-4">
+                                Loại xe
+                                (Số chỗ)
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="so_cho" name="so_cho" placeholder="Loại xe/Số chỗ">*@
+                                @Html.TextBoxFor(model => model.so_cho, htmlAttributes: new { @class = "form-control", placeholder = "Loại xe/Số chỗ", type="number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form" class="control-label col-md-4">
+                                Hình thức
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="form" name="form" placeholder="Hình thức">*@
+                                @Html.TextBoxFor(model => model.form, htmlAttributes: new { @class = "form-control", placeholder = "Hình thức" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="driver" class="control-label col-md-4">
+                                Tài xế
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="driver" name="driver" placeholder="Tài xế">*@
+                                @Html.TextBoxFor(model => model.driver, htmlAttributes: new { @class = "form-control", placeholder = "Tài xế" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price" class="control-label col-md-4">
+                                Giá
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="price" name="price" placeholder="Giá">*@
+                                @Html.TextBoxFor(model => model.price, htmlAttributes: new { @class = "form-control", placeholder = "Giá", type = "number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vat" class="control-label col-md-4">
+                                VAT
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="vat" name="vat" placeholder="VAT">*@
+                                @Html.TextBoxFor(model => model.vat, htmlAttributes: new { @class = "form-control", placeholder = "VAT", type = "number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sum" class="control-label col-md-4">
+                                Tổng tiền
+                            </label>
+                            <div class="col-md-6">
+                                @*<input type="text" class="form-control" id="sum" name="sum" placeholder="Tổng tiền">*@
+                                @Html.TextBoxFor(model => model.sum, htmlAttributes: new { @class = "form-control", placeholder = "Tổng tiền", type = "number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note" class="control-label col-md-4">
+                                Ghi chú
+                            </label>
+                            <div class="col-md-6">
+                                @*<textarea class="form-control" id="note" name="note" placeholder="Ghi chú" rows="10"></textarea>*@
+                                @Html.TextAreaFor(model => model.note, htmlAttributes: new { @class = "form-control", placeholder = "Ghi chú", rows = 10 })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary">
+                                    <i class="fa fa-plus"></i> Cập nhật
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval");
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+    <script>
+    $(document).ready(function () {
+        var validator = $("#nhap_bangke").validate({
+            ignore: [],
+            rules: {
+                date: "required",
+                customer_name: "required",
+                sex: "required",
+                phone: "required",
+                time_to_pick: "required",
+                time_to_pay: "required",
+                pickup: "required",
+                paypoints: "required",
+                so_cho: "required",
+                form: "required",
+                driver: "required",
+                price: "required",
+                vat: "required",
+                sum: "required"
+            },
+            messages: {
+                date: "Vui lòng nhập ngày/tháng/năm giờ",
+                customer_name: "Vui lòng nhập tên khách hàng",
+                sex: "Vui lòng nhập giới tính",
+                phone: "Vui lòng nhập số điện thoại",
+                time_to_pick: "Vui lòng nhập thời gian đón",
+                time_to_pay: "Vui lòng nhập thời gian trả",
+                pickup: "Vui lòng nhập điểm đón",
+                paypoints: "Vui lòng nhập điểm trả",
+                so_cho: "Vui lòng nhập số chỗ",
+                form: "Vui lòng nhập hình thức",
+                driver: "Vui lòng nhập tên tài xế",
+                price: "Vui lòng nhập giá",
+                vat: "Vui lòng nhập VAT",
+                sum: "Vui lòng nhập tổng tiền",
+            },
+            errorClass: 'error help-inline',
+            validClass: 'success',
+            errorElement: 'span',
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents("div.form-group").addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+            }
+        });
+
+        $('#time_to_pick').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+
+        });
+        $('#time_to_pick').datetimepicker('setDate', '@Model.time_to_pick');
+
+        $('#time_to_pay').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            ampm: true
+
+        });
+        $('#time_to_pay').datetimepicker('setDate', '@Model.time_to_pay');
+
+        $('#date').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+
+        });
+
+        var date = new Date(
+            Date.parse(
+               $('#date').val(),
+                "yyyy-mm-dd hh:MM tt"
+            )
+        );
+        $('#date').datetimepicker('setDate', date);
+
+
+    })
+
+</script>
+}
