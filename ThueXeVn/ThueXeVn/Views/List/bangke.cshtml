@@ -115,6 +115,7 @@
                                 <th>Số điện thoại</th>
                                 <th>Điểm đón</th>
                                 <th>Điểm trả</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,6 +131,10 @@
                                             <td>@item.phone</td>
                                             <td>@item.pickup</td>
                                             <td>@item.paypoints</td>
+                                            <td>
+                                                <a href="/List/Edit/@item.id" class="btn btn-primary" ><i class="fa fa-edit"></i> Sửa</a>
+                                                <a href="/List/Delete/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Xóa</a>
+                                            </td>
                                         </tr>
                                     }
                                 }
