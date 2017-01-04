@@ -187,12 +187,17 @@ namespace ThueXeVn.Controllers
 
                         if (fileExtension == ".xls" || fileExtension == ".xlsx")
                         {
-                            string fileLocation = Server.MapPath("~/Content/") + file.FileName;
-                            if (System.IO.File.Exists(fileLocation))
-                            {
-                                System.IO.File.Delete(fileLocation);
-                            }
-                            file.SaveAs(fileLocation);
+                            string fileLocation = Server.MapPath("~/App_Data/");
+
+                            //if (System.IO.File.Exists(fileLocation))
+                            //{
+                            //    System.IO.File.Delete(fileLocation);
+                            //}
+
+                            string strDay = string.Format("{0}_{1}", DateTime.Now.ToString("yyyyMMddHHmmss"), file.FileName);
+                            string pathString = System.IO.Path.Combine(fileLocation, strDay);
+
+                            file.SaveAs(pathString);
 
                             // đọc file excel tại đây
                             FileStream stream = System.IO.File.Open(fileLocation, FileMode.Open, FileAccess.Read);
