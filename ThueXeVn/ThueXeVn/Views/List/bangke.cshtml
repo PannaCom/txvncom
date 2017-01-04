@@ -344,7 +344,7 @@
 <script src="~/Scripts/jquery.datetimepicker.js"></script>
 <script>
     $(document).ready(function () {
-        var validator = $("#nhap_bangke").validate({
+        var validator = $("#nhap_bangke").validate({           
             rules: {
                 date: "required",
                 customer_name: "required",
@@ -399,14 +399,12 @@
             dayOfWeekStart: 1,
             lang: 'en',
             disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
         });
 
         $('#date').datetimepicker({
             dayOfWeekStart: 1,
             lang: 'en',
             disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
         });
 
         
