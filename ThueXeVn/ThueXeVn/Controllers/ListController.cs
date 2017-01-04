@@ -81,10 +81,18 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("bangke");
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(long? id)
         {
-            return View();
+            if (id == null || id == 0)
+            {
+                return RedirectToAction("bangke");
+            }
+            var model = (from s in db.invoices where s.id == id select s).FirstOrDefault();
+            
+            return View(model);
         }
+
+
 
         //[HttpPost]
         //public ActionResult ImportToExcel()
