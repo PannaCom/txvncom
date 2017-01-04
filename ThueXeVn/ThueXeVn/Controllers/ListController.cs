@@ -10,6 +10,7 @@ using System.IO;
 using System.Globalization;
 using PagedList;
 using PagedList.Mvc;
+using System.Threading.Tasks;
 
 namespace ThueXeVn.Controllers
 {
@@ -81,6 +82,46 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("bangke");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(long? id, DateTime date, string customer_name, string sex, string phone, DateTime time_to_pick, DateTime time_to_pay, string pickup, string paypoints, int so_cho, string form, string driver, float? price, float? vat, float? sum, string note)
+        {
+            if (id == null || id == 0)
+            {
+                return RedirectToAction("bangke");
+            }
+            var model = (from s in db.invoices where s.id == id select s).FirstOrDefault();
+            if (model != null)
+            {
+                try
+                {
+                    model.date = date != null ? (DateTime?)Convert.ToDateTime(date) : null;
+                    model.customer_name = customer_name ?? null;
+                    model.sex = sex ?? null;
+                    model.phone = phone ?? null;
+                    model.time_to_pick = time_to_pick != null ? (DateTime?)Convert.ToDateTime(time_to_pick) : null;
+                    model.time_to_pay = time_to_pay != null ? (DateTime?)Convert.ToDateTime(time_to_pay) : null;
+                    model.pickup = pickup ?? null;
+                    model.paypoints = paypoints ?? null;
+                    model.so_cho = (int?)so_cho ?? null;
+                    model.form = form ?? null;
+                    model.driver = driver ?? null;
+                    model.price = (Double?)price ?? null;
+                    model.vat = (Double?)vat ?? null;
+                    model.sum = (Double?)sum ?? null;
+                    model.note = note ?? null;
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = "Đã xảy ra lỗi khi thêm mới. " + ex.ToString();
+                }
+            }
+            TempData["Updated"] = "Cập nhật dữ liệu thành công";
+            return RedirectToAction("bangke");
+        }
+
+        
         public ActionResult Edit(long? id)
         {
             if (id == null || id == 0)
@@ -88,11 +129,48 @@ namespace ThueXeVn.Controllers
                 return RedirectToAction("bangke");
             }
             var model = (from s in db.invoices where s.id == id select s).FirstOrDefault();
-            
+
+            return View(model);
+        }
+
+        //DeleteBuild
+        public ActionResult Delete(long? id)
+        {
+            if (id == null || id == 0)
+            {
+                return RedirectToRoute("bangke");
+            }
+            invoice model = db.invoices.Find(id);
+            if (model == null)
+            {
+                return View();
+            }
             return View(model);
         }
 
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(long? id)
+        {
+            invoice model = await db.invoices.FindAsync(id);
+            if (model == null)
+            {
+                return View();
+            }
+
+            try
+            {
+                db.invoices.Remove(model);
+                await db.SaveChangesAsync();
+                TempData["Deleted"] = "Dữ liệu đã được xóa.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Có lỗi xảy ra khi xóa " + ex.ToString();
+            }
+            return RedirectToAction("bangke");
+        }
 
         //[HttpPost]
         //public ActionResult ImportToExcel()
