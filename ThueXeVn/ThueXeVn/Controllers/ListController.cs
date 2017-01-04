@@ -200,7 +200,7 @@ namespace ThueXeVn.Controllers
                             file.SaveAs(pathString);
 
                             // đọc file excel tại đây
-                            FileStream stream = System.IO.File.Open(fileLocation, FileMode.Open, FileAccess.Read);
+                            FileStream stream = System.IO.File.Open(pathString, FileMode.Open, FileAccess.Read);
 
                             //1. Reading from a binary Excel file ('97-2003 format; *.xls)
                             //IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
@@ -287,8 +287,7 @@ namespace ThueXeVn.Controllers
                                 }
                                 if (Convert.ToDateTime(c5).Month < 10 || Convert.ToDateTime(c5).Day < 10)
                                 {
-                                    c5 = DateTime.ParseExact(c5, "dd/MM/yyyy", CultureInfo.InvariantCulture)
-                        .ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                    c5 = DateTime.ParseExact(c5, "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
                                 }
 
                                 var _date3 = ds.Tables[0].Rows[i][5] != null ? ds.Tables[0].Rows[i][5] : null;
@@ -296,8 +295,7 @@ namespace ThueXeVn.Controllers
                                 {
                                     if (DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Month < 10 || DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Day < 10)
                                     {
-                                        _date3 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture)
-                            .ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                        _date3 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
 
                                     }
                                     try
