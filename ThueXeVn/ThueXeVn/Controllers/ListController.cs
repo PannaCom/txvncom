@@ -7,6 +7,9 @@ using ThueXeVn.Models;
 using Excel;
 using System.Data;
 using System.IO;
+using System.Globalization;
+using PagedList;
+using PagedList.Mvc;
 
 namespace ThueXeVn.Controllers
 {
@@ -16,15 +19,33 @@ namespace ThueXeVn.Controllers
 
         public ActionResult Index()
         {
+
             return View();
         }
 
         // GET: List
-        public ActionResult bangke()
+        public ActionResult bangke(int? pg, string search)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+            var data = (from q in db.invoices select q);
+            if (data == null)
+            {
+                return View(data);
+            }
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim();
+                data = data.Where(x => x.customer_name.Contains(search));
+                ViewBag.search = search;
+            }
 
-            return View();
+            data = data.OrderBy(x => x.id);
+
+            return View(data.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
@@ -112,20 +133,123 @@ namespace ThueXeVn.Controllers
                                 //    strngathang = "01.01." + ds.Tables[0].Rows[i][2].ToString().Substring(2, 2);
                                 //}
                                 //var ngaythang = strngathang == "" ? (DateTime?)null : DateTime.FromOADate(double.Parse(strngathang));
-                                var c1 = ""; string c2 = null; string c3 = ""; string c4 = ""; string c5 = ""; string c6, c7,c8; string c9 = ""; string c10 = ""; string c11 = ""; string c12 = ""; string c13 = ""; string c14 = ""; string c15 = "";
+                                var c1 = ""; string c2 = null; string c3 = ""; string c4 = ""; string c5 = ""; string c6 = ""; string c7 = ""; string c8 = ""; string c9 = ""; string c10 = ""; string c11 = ""; string c12 = ""; string c13 = ""; string c14 = ""; string c15 = "";
 
-                                var _date = ds.Tables[0].Rows[i][0];
-                                DateTime dt = Convert.ToDateTime(_date);
-                                c1 = dt.ToString();
+                                var _date = ds.Tables[0].Rows[i][0].ToString();
+                                var dt = DateTime.ParseExact(_date, "dd/MM/yyyy", null);
+                                c1 = dt.ToString("yyyy-MM-dd HH:mm:ss.fff");
                                 c2 = ds.Tables[0].Rows[i][1] != null ? ds.Tables[0].Rows[i][1].ToString() : null;
                                 c3 = ds.Tables[0].Rows[i][2] != null ? ds.Tables[0].Rows[i][2].ToString() : null;
                                 c4 = ds.Tables[0].Rows[i][3] != null ? ds.Tables[0].Rows[i][3].ToString() : null;
                                 var _date2 = ds.Tables[0].Rows[i][4] != null ? ds.Tables[0].Rows[i][4] : null;
-                                DateTime dt2 = Convert.ToDateTime(_date2);
-                                c5 = _date2 != null ? dt2.ToString() : null;
+                                if (_date2 != null)
+                                {
+                                    
+                                    try
+                                    {
+                                        c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy HH:mm:ss", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                    }
+                                    catch
+                                    {
+                                        try
+                                        {
+                                            c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy HH:mm", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                        }
+                                        catch
+                                        {
+                                            try
+                                            {
+                                                c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy h:mm:ss", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                            }
+                                            catch
+                                            {
+                                                try
+                                                {
+                                                    c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy h:mm", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                }
+                                                catch
+                                                {
+                                                    try
+                                                    {
+                                                        c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy HH:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                    }
+                                                    catch
+                                                    {
+                                                        try
+                                                        {
+                                                            c5 = DateTime.ParseExact(_date2.ToString(), "dd/MM/yyyy h:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                        }
+                                                        catch
+                                                        {
+                                                            c5 = "";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Convert.ToDateTime(c5).Month < 10 || Convert.ToDateTime(c5).Day < 10)
+                                {
+                                    c5 = DateTime.ParseExact(c5, "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                        .ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+                                }
+
                                 var _date3 = ds.Tables[0].Rows[i][5] != null ? ds.Tables[0].Rows[i][5] : null;
-                                DateTime dt3 = Convert.ToDateTime(_date3);
-                                c6 = _date3 != null ? dt3.ToString() : null;
+                                if (_date3 != null)
+                                {
+                                    if (DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Month < 10 || DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", null).Day < 10)
+                                    {
+                                        _date3 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture)
+                            .ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                                    }
+                                    try
+                                    {
+                                        c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy HH:mm:ss", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                    }
+                                    catch
+                                    {
+                                        try
+                                        {
+                                            c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy HH:mm", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                        }
+                                        catch
+                                        {
+                                            try
+                                            {
+                                                c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy h:mm:ss", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                            }
+                                            catch
+                                            {
+                                                try
+                                                {
+                                                    c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy h:mm", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                }
+                                                catch
+                                                {
+                                                    try
+                                                    {
+                                                        c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy HH:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                    }
+                                                    catch
+                                                    {
+                                                        try
+                                                        {
+                                                            c6 = DateTime.ParseExact(_date3.ToString(), "dd/MM/yyyy h:mm:ss T", null).ToString("yyyy-MM-dd HH:mm:ss.fff");
+                                                        }
+                                                        catch
+                                                        {
+                                                            c6 = "";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+
                                 c7 = ds.Tables[0].Rows[i][6] != null ? ds.Tables[0].Rows[i][6].ToString() : null;
                                 c8 = ds.Tables[0].Rows[i][7] != null ? ds.Tables[0].Rows[i][7].ToString() : null;
                                 c9 = ds.Tables[0].Rows[i][8] != null ? ds.Tables[0].Rows[i][8].ToString() : null;
@@ -141,7 +265,7 @@ namespace ThueXeVn.Controllers
                                 var bcheckempty = c1 == null && c2 == null && c3 == null && c4 == null && c5 == null && c6 == null && c7 == null && c8 == null && c9 == null && c10 == null && c11 == null && c12 == null && c13 == null && c14 == null && c15 == null;
                                 if (!bcheckempty)
                                 {
-                                    string sql2 = @"INSERT INTO invoices(date, customer_name, sex, phone, time_to_pick, time_to_pay, pickup, paypoints, so_cho, form, driver, price, vat, sum, note) SELECT '" + c1 + "',N'" + c2 + "','" + c3 + "','" + c4 + "','" + c5 + "','" + c6 + "','" + c7 + "','" + c8 + "','" + c9 + "','" + c10 + "','" + c11 + "','" + c12 + "','" + c13 + "','" + c14 + "','" + c15 + "' WHERE NOT EXISTS (SELECT date, customer_name, sex, phone FROM invoices WHERE date = '" + c1 + "' AND customer_name = N'" + c2 + "' AND sex = '" + c3 + "' AND phone = '" + c4 + "')";
+                                    string sql2 = @"INSERT INTO invoices(date, customer_name, sex, phone, time_to_pick, time_to_pay, pickup, paypoints, so_cho, form, driver, price, vat, sum, note) SELECT '" + c1 + "',N'" + c2 + "','" + c3 + "','" + c4 + "','" + c5 + "','" + c6 + "','" + c7 + "','" + c8 + "','" + c9 + "','" + c10 + "','" + c11 + "'," + c12 + "," + c13 + "," + c14 + ",'" + c15 + "' WHERE NOT EXISTS (SELECT date, customer_name, sex, phone FROM invoices WHERE date = '" + c1 + "' AND customer_name = N'" + c2 + "' AND sex = '" + c3 + "' AND phone = '" + c4 + "')";
 
                                     int noOfRowInserted = db.Database.ExecuteSqlCommand(sql2);
                                 }                              
