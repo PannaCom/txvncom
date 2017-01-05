@@ -120,7 +120,7 @@ namespace ThueXeVn.Controllers
             }
         }
         [HttpPost]
-        public string Register(int? id,string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price,string address, double lon, double lat)
+        public string Register(int? id, string name, string phone, string car_number, string car_made, string car_model, int? car_size, int car_year, string car_type, int? car_price, string address, double lon, double lat, string password_tx)
         {
             try
             {
@@ -139,6 +139,14 @@ namespace ThueXeVn.Controllers
                     r.address = address;
                     r.code = "1";
                     //r.code = "1";
+                    MD5 md5Hash = MD5.Create();
+                    if (password_tx == null || password_tx == "")
+                    {
+                        password_tx = "chanhniem";
+                    }
+                    var pass = Config.GetMd5Hash(md5Hash, password_tx);
+                    r.pass = pass;
+
                     db.drivers.Add(r);
                     db.SaveChanges();
                     list_online lo = new list_online();
@@ -149,6 +157,9 @@ namespace ThueXeVn.Controllers
                     lo.lon = lon;
                     lo.phone = phone;
                     lo.status = 0;
+
+                    
+                    
                     db.list_online.Add(lo);
                     db.SaveChanges();
                 }

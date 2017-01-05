@@ -44,6 +44,8 @@
     <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" />
     <input type="hidden" id="lon" name="lon" value="" />
     <input type="hidden" id="lat" name="lat" value="" />
+    <p style="text-align:left;margin-top:5px;">Mật khẩu (Dùng để đăng nhập quản trị dành riêng cho tài xế) *</p>
+    <input id="password_tx" name="password_tx" type="password" class="form-control" placeholder="Nhập mật khẩu dùng để đăng nhập cho tài xế" />
     <input type="button" value="CẬP NHẬT XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2" />
 </div>
 <script>
@@ -117,6 +119,11 @@
             document.getElementById("address").focus();
             return;
         }
+        if (document.getElementById("password_tx").value == "") {
+            alert("Nhập mật khẩu đăng nhập!");
+            document.getElementById("password_tx").focus();
+            return;
+        }
         formdata.append("id", -1);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("phone", document.getElementById("tphone").value);
@@ -130,6 +137,7 @@
         formdata.append("address", document.getElementById("address").value);
         formdata.append("lon", document.getElementById("lon").value);
         formdata.append("lat", document.getElementById("lat").value);
+        formdata.append("password_tx", document.getElementById("password_tx").value);
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '/Home/Register');
         xhr.send(formdata);

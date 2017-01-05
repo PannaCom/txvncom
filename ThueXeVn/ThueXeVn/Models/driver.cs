@@ -32,5 +32,6 @@ namespace ThueXeVn.Models
         public string address { get; set; }
         public string regId { get; set; }
         public Nullable<int> os { get; set; }
+        public string pass { get; set; }
     }
 }

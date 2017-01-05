@@ -39,9 +39,9 @@ namespace ThueXeVn.Models
         public virtual DbSet<call_driver_log> call_driver_log { get; set; }
         public virtual DbSet<car_hire_type> car_hire_type { get; set; }
         public virtual DbSet<car_size> car_size { get; set; }
-        public virtual DbSet<driver> drivers { get; set; }
         public virtual DbSet<call_log> call_log { get; set; }
         public virtual DbSet<car_made_model> car_made_model { get; set; }
         public virtual DbSet<invoice> invoices { get; set; }
+        public virtual DbSet<driver> drivers { get; set; }
     }
 }
