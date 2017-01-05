@@ -228,16 +228,16 @@ namespace ThueXeVn.Controllers
                                 var _date = ds.Tables[0].Rows[i][0] != null ? ds.Tables[0].Rows[i][0].ToString() : "";
                                 try
                                 {
-                                    c1 = _date != "" ? DateTime.ParseExact(_date, "dd/MM/yyyy", null).ToString("yyyy-MM-dd HH:mm") : null;
+                                    c1 = _date != "" ? DateTime.ParseExact(_date, "dd/MM/yyyy", null).ToString("yyyy-MM-dd HH:mm") : "";
                                 }
                                 catch
                                 {
                                     c1 = "";
                                 }
                                 
-                                c2 = ds.Tables[0].Rows[i][1] != null ? ds.Tables[0].Rows[i][1].ToString() : null;
-                                c3 = ds.Tables[0].Rows[i][2] != null ? ds.Tables[0].Rows[i][2].ToString() : null;
-                                c4 = ds.Tables[0].Rows[i][3] != null ? ds.Tables[0].Rows[i][3].ToString() : null;
+                                c2 = ds.Tables[0].Rows[i][1] != null ? ds.Tables[0].Rows[i][1].ToString() : "";
+                                c3 = ds.Tables[0].Rows[i][2] != null ? ds.Tables[0].Rows[i][2].ToString() : "";
+                                c4 = ds.Tables[0].Rows[i][3] != null ? ds.Tables[0].Rows[i][3].ToString() : "";
                                 var _date2 = ds.Tables[0].Rows[i][4] != null ? ds.Tables[0].Rows[i][4] : null;
                                 if (_date2 != null)
                                 {
@@ -275,7 +275,7 @@ namespace ThueXeVn.Controllers
                                 c14 = ds.Tables[0].Rows[i][13] != null ? ds.Tables[0].Rows[i][13].ToString() : null;
                                 c15 = ds.Tables[0].Rows[i][14] != null ? ds.Tables[0].Rows[i][14].ToString() : null;
                                
-                                var bcheckempty = c1 == null && c2 == null && c3 == null && c4 == null;
+                                var bcheckempty = c1 == "" && c2 == "" && c3 == "" && c4 == "";
                                 if (!bcheckempty)
                                 {
                                     try
