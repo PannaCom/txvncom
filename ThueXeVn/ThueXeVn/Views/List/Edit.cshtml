@@ -211,7 +211,7 @@
     <script>
     $(document).ready(function () {
         $('#date').val('@string.Format("{0:yyyy/MM/dd HH:mm}", @Model.date)');
-        $('#customer_name').val('@Model.customer_name');
+        $('#customer_name').val('@Html.Raw(Model.customer_name)');
         $('#sex').val('@Model.sex');
         $('#phone').val('@Model.phone');
         $('#time_to_pick').val('@string.Format("{0:yyyy/MM/dd HH:mm}", @Model.time_to_pick)');
@@ -219,14 +219,14 @@
         $('#pickup').val('@Html.Raw(Model.pickup)');
         $('#paypoints').val('@Html.Raw(Model.paypoints)');
         $('#so_cho').val('@Model.so_cho');
-        $('#form').val('@Model.form');
+        $('#form').val('@Html.Raw(Model.form)');
         $('#driver').val('@Model.driver');
         $('#price').val('@Model.price');
         $('#vat').val('@Model.vat');
         $('#sum').val('@Model.sum');
-        $('#note').val('@Model.note');
+        $('#note').val('@Html.Raw(Model.note)');
     })
-</script>
+    </script>
 
         }
 
