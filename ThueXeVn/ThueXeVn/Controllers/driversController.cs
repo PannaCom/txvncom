@@ -79,7 +79,7 @@ namespace ThueXeVn.Controllers
             }
             driver driver = db.drivers.Find(id);
             string phone=driver.phone;
-            string car_number=driver.car_number;
+            //string car_number=driver.car_number;
             var p = db.list_online.Where(o => o.phone == phone).FirstOrDefault();
             try { 
                 ViewBag.lon = p.lon;

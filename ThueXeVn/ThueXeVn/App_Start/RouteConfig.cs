@@ -29,6 +29,12 @@ namespace ThueXeVn
                 "taxi-noi-bai-gia-re-taxi-san-bay-gia-re",
                 new { controller = "Home", action = "XeTaxiNoiBai" }
             );
+
+            routes.MapRoute(
+                "quanlybanggia",
+                "tai_xe/quan_ly_bang_gia",
+                new { controller = "TaiXeBangGia", action = "Index" }
+            );
             
             routes.MapRoute(
                 name: "Default",

@@ -88,11 +88,11 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("Index");            
         }
 
-        public ActionResult Login()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
+        //public ActionResult Login()
+        //{
+        //    ViewBag.Message = "Your application description page.";
+        //    return View();
+        //}
         public ActionResult CarRental()
         {
             ViewBag.Message = "Your application description page.";
@@ -156,9 +156,7 @@ namespace ThueXeVn.Controllers
                     lo.lat = lat;
                     lo.lon = lon;
                     lo.phone = phone;
-                    lo.status = 0;
-
-                    
+                    lo.status = 0;                    
                     
                     db.list_online.Add(lo);
                     db.SaveChanges();
@@ -177,7 +175,22 @@ namespace ThueXeVn.Controllers
                     r.car_price = car_price;
                     r.address = address;
                     r.date_time = DateTime.Now;
-                    db.SaveChanges();
+                    
+                    if (r.pass == password_tx)
+                    {
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        MD5 md5Hash = MD5.Create();
+                        if (password_tx == null || password_tx == "")
+                        {
+                            password_tx = "chanhniem";
+                        }
+                        var pass = Config.GetMd5Hash(md5Hash, password_tx);
+                        r.pass = pass;
+                        db.SaveChanges();
+                    }                    
                     db.Database.ExecuteSqlCommand("update list_online set lon=" + lon + ",lat=" + lat + " where phone=N'" + phone + "' and car_number=N'" + car_number + "'");
                 }
                 //lo.lon = lon;
@@ -432,10 +445,42 @@ namespace ThueXeVn.Controllers
             return View();
         }
 
+        // Đăng nhập bằng mật khẩu
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(string phone, string pass)
+        {
+            try
+            {
+                MD5 md5Hash = MD5.Create();
+                var epass = Config.GetMd5Hash(md5Hash, pass);
+                var login = (from t in db.drivers where t.phone == phone && t.pass == epass select t).FirstOrDefault();
+                if (login == null)
+	            {
+                    ModelState.AddModelError("", "Sai thông tin đăng nhập.");
+		            return View();
+	            }
+                var name_login = login.phone+login.id+login.name;
+                Config.setCookie("taixelogged", Config.GetMd5Hash(md5Hash, name_login));
+            }
+            catch 
+            {
+                ModelState.AddModelError("", "Có lỗi xảy ra khi đăng nhập.");
+                return View();
+            }
+            return RedirectToRoute("quanlybanggia");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Taixe(string phone, string car_number)
         {
+            if (Config.getCookie("taixelogged") != "") return RedirectToAction("Index", "Home");
             try
             {
                 MD5 md5Hash = MD5.Create();
