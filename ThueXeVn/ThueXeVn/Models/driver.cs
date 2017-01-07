@@ -33,5 +33,8 @@ namespace ThueXeVn.Models
         public string regId { get; set; }
         public Nullable<int> os { get; set; }
         public string pass { get; set; }
+        public Nullable<double> lon { get; set; }
+        public Nullable<double> lat { get; set; }
+        public System.Data.Entity.Spatial.DbGeography geo { get; set; }
     }
 }

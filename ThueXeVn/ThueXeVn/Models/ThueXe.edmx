@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008">
+    <Schema Namespace="thuexevnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="activecode">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
-          <Property Name="code" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" />
           <Property Name="type_code" Type="int" />
           <Property Name="date_time" Type="datetime" />
         </EntityType>
@@ -19,20 +19,20 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="name" MaxLength="250" Type="nvarchar" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
-          <Property Name="email" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="date_from" Type="datetime" />
           <Property Name="date_to" Type="datetime" />
           <Property Name="des" Type="ntext" />
           <Property Name="driver_phone" Type="bigint" />
           <Property Name="status" Type="tinyint" />
           <Property Name="date_time" Type="datetime" />
-          <Property Name="car_from" MaxLength="150" Type="nvarchar" />
-          <Property Name="car_to" MaxLength="150" Type="nvarchar" />
-          <Property Name="car_type" MaxLength="50" Type="nvarchar" />
-          <Property Name="car_hire_type" MaxLength="50" Type="nvarchar" />
+          <Property Name="car_from" Type="nvarchar" MaxLength="150" />
+          <Property Name="car_to" Type="nvarchar" MaxLength="150" />
+          <Property Name="car_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="car_hire_type" Type="nvarchar" MaxLength="50" />
           <Property Name="car_size" Type="int" />
           <Property Name="lon1" Type="float" />
           <Property Name="lat1" Type="float" />
@@ -43,17 +43,17 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="from_number" MaxLength="50" Type="nvarchar" />
-          <Property Name="to_number" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="from_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="to_number" Type="nvarchar" MaxLength="50" />
           <Property Name="date_time" Type="datetime" />
         </EntityType>
         <EntityType Name="call_log">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="calls" Type="int" />
           <Property Name="app" Type="int" />
           <Property Name="web" Type="int" />
@@ -63,154 +63,155 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="150" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="car_made_model">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="made" MaxLength="255" Type="nvarchar" />
-          <Property Name="model" MaxLength="255" Type="nvarchar" />
-          <Property Name="image" MaxLength="505" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="made" Type="nvarchar" MaxLength="255" />
+          <Property Name="model" Type="nvarchar" MaxLength="255" />
+          <Property Name="image" Type="nvarchar" MaxLength="505" />
         </EntityType>
         <EntityType Name="car_size">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="drivers">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
-          <Property Name="name" MaxLength="250" Type="nvarchar" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
-          <Property Name="email" MaxLength="50" Type="nvarchar" />
-          <Property Name="car_model" MaxLength="50" Type="nvarchar" />
-          <Property Name="car_made" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="car_model" Type="nvarchar" MaxLength="50" />
+          <Property Name="car_made" Type="nvarchar" MaxLength="50" />
           <Property Name="car_years" Type="int" />
           <Property Name="car_size" Type="int" />
-          <Property Name="car_number" MaxLength="50" Type="nvarchar" />
-          <Property Name="car_type" MaxLength="150" Type="nvarchar" />
+          <Property Name="car_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="car_type" Type="nvarchar" MaxLength="150" />
           <Property Name="car_price" Type="int" />
-          <Property Name="total_moneys" Precision="18" Scale="0" Type="numeric" />
-          <Property Name="province" MaxLength="150" Type="nvarchar" />
+          <Property Name="total_moneys" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="province" Type="nvarchar" MaxLength="150" />
           <Property Name="date_time" Type="datetime" />
-          <Property Name="code" MaxLength="50" Type="nvarchar" />
-          <Property Name="address" MaxLength="250" Type="nvarchar" />
-          <Property Name="regId" MaxLength="350" Type="nvarchar" />
+          <Property Name="code" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="250" />
+          <Property Name="regId" Type="nvarchar" MaxLength="350" />
           <Property Name="os" Type="int" />
           <Property Name="pass" Type="nvarchar(max)" />
+          <Property Name="lon" Type="float" />
+          <Property Name="lat" Type="float" />
+          <Property Name="geo" Type="geography" />
         </EntityType>
         <EntityType Name="invoices">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="datetime" />
-          <Property Name="customer_name" MaxLength="250" Type="nvarchar" />
-          <Property Name="sex" MaxLength="250" Type="nvarchar" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
+          <Property Name="customer_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="sex" Type="nvarchar" MaxLength="250" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
           <Property Name="time_to_pick" Type="datetime" />
           <Property Name="time_to_pay" Type="datetime" />
-          <Property Name="pickup" MaxLength="505" Type="nvarchar" />
-          <Property Name="paypoints" MaxLength="505" Type="nvarchar" />
+          <Property Name="pickup" Type="nvarchar" MaxLength="505" />
+          <Property Name="paypoints" Type="nvarchar" MaxLength="505" />
           <Property Name="so_cho" Type="int" />
-          <Property Name="form" MaxLength="505" Type="nvarchar" />
-          <Property Name="driver" MaxLength="505" Type="nvarchar" />
+          <Property Name="form" Type="nvarchar" MaxLength="505" />
+          <Property Name="driver" Type="nvarchar" MaxLength="505" />
           <Property Name="price" Type="float" />
           <Property Name="vat" Type="float" />
           <Property Name="sum" Type="float" />
-          <Property Name="note" MaxLength="505" Type="nvarchar" />
+          <Property Name="note" Type="nvarchar" MaxLength="505" />
         </EntityType>
         <EntityType Name="list_car">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="no" Type="int" />
         </EntityType>
         <EntityType Name="list_car_model">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="150" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="list_car_type">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="list_online">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="bigint" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date_time" Type="datetime" />
           <Property Name="lon" Type="float" />
           <Property Name="lat" Type="float" />
           <Property Name="geo" Type="geography" />
-          <Property Name="phone" MaxLength="50" Type="nvarchar" />
-          <Property Name="car_number" MaxLength="50" Type="nvarchar" />
+          <Property Name="phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="car_number" Type="nvarchar" MaxLength="50" />
           <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="news">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="title" MaxLength="250" Type="nvarchar" />
-          <Property Name="image" MaxLength="150" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="250" />
+          <Property Name="image" Type="nvarchar" MaxLength="150" />
           <Property Name="des" Type="ntext" />
           <Property Name="fullcontent" Type="ntext" />
           <Property Name="datetime" Type="datetime" />
-          <Property Name="keywords" MaxLength="256" Type="nvarchar" />
+          <Property Name="keywords" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="notices">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tobject" Type="int" />
           <Property Name="regid" Type="nvarchar(max)" />
           <Property Name="os" Type="int" />
-          <Property Name="title" MaxLength="505" Type="nvarchar" />
-          <Property Name="body" MaxLength="505" Type="nvarchar" />
+          <Property Name="title" Type="nvarchar" MaxLength="505" />
+          <Property Name="body" Type="nvarchar" MaxLength="505" />
         </EntityType>
         <EntityType Name="notifies">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tobject" Type="int" />
           <Property Name="reg_id" Type="nvarchar(max)" />
           <Property Name="os" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TinhThanh">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" Type="int" />
-          <Property Name="quanhuyen" MaxLength="255" Type="nvarchar" />
-          <Property Name="tinhthanhpho" MaxLength="255" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quanhuyen" Type="nvarchar" MaxLength="255" />
+          <Property Name="tinhthanhpho" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="users">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="name" MaxLength="50" Type="nvarchar" />
-          <Property Name="pass" MaxLength="50" Type="nvarchar" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="thuexevnModelStoreContainer">
           <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
@@ -229,14 +230,8 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notices" EntityType="Self.notices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notifies" EntityType="Self.notifies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TinhThanh].[id] AS [id], 
-    [TinhThanh].[quanhuyen] AS [quanhuyen], 
-    [TinhThanh].[tinhthanhpho] AS [tinhthanhpho]
-    FROM [dbo].[TinhThanh] AS [TinhThanh]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -317,14 +312,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TinhThanh">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="quanhuyen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityContainer Name="thuexevnEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="list_car" EntityType="Self.list_car" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" />
@@ -334,7 +321,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="notices" EntityType="Self.notice" />
           <EntitySet Name="notifies" EntityType="Self.notify" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="TinhThanhs" EntityType="Self.TinhThanh" />
           <EntitySet Name="activecodes" EntityType="thuexevnModel.activecode" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="call_driver_log" EntityType="thuexevnModel.call_driver_log" />
@@ -344,6 +330,7 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySet Name="car_made_model" EntityType="thuexevnModel.car_made_model" />
           <EntitySet Name="invoices" EntityType="thuexevnModel.invoice" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
+          <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -466,6 +453,17 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <Property Name="regId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
           <Property Name="os" Type="Int32" />
           <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lon" Type="Double" />
+          <Property Name="lat" Type="Double" />
+          <Property Name="geo" Type="Geography" />
+        </EntityType>
+        <EntityType Name="TinhThanh">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quanhuyen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -553,15 +551,6 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="pass" ColumnName="pass" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TinhThanhs">
-            <EntityTypeMapping TypeName="thuexevnModel.TinhThanh">
-              <MappingFragment StoreEntitySet="TinhThanh">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
-                <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -674,6 +663,9 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
           <EntitySetMapping Name="drivers">
             <EntityTypeMapping TypeName="thuexevnModel.driver">
               <MappingFragment StoreEntitySet="drivers">
+                <ScalarProperty Name="geo" ColumnName="geo" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
                 <ScalarProperty Name="pass" ColumnName="pass" />
                 <ScalarProperty Name="os" ColumnName="os" />
                 <ScalarProperty Name="regId" ColumnName="regId" />
@@ -692,6 +684,15 @@ warning 6002: The table/view 'thuexevn.dbo.TinhThanh' does not have a primary ke
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TinhThanhs">
+            <EntityTypeMapping TypeName="thuexevnModel.TinhThanh">
+              <MappingFragment StoreEntitySet="TinhThanh">
+                <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
+                <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
