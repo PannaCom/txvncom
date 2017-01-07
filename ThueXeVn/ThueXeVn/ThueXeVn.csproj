@@ -237,6 +237,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
     <Compile Include="Controllers\NotifiesController.cs" />
+    <Compile Include="Controllers\TaiXeBangGiaController.cs" />
     <Compile Include="Controllers\usersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
