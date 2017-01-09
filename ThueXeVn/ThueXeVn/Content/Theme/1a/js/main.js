@@ -73,23 +73,23 @@ function main() {
         /*====================================
         Portfolio Carousel 
         ======================================*/
-        $(document).ready(function () {
-            var owl = $("#team");
-            owl.owlCarousel({
+        //$(document).ready(function () {
+        //    var owl = $("#team");
+        //    owl.owlCarousel({
 
-                itemsCustom: [
-                  [0, 1],
-                  [450, 1],
-                  [660, 2],
-                  [700, 2],
-                  [1200, 3],
-                  [1600, 3]
-                ],
-                navigation: false,
-                pagination: true,
-            });
+        //        itemsCustom: [
+        //          [0, 1],
+        //          [450, 1],
+        //          [660, 2],
+        //          [700, 2],
+        //          [1200, 3],
+        //          [1600, 3]
+        //        ],
+        //        navigation: false,
+        //        pagination: true,
+        //    });
 
-        });
+        //});
 
         /*====================================
         Portfolio Isotope Filter
@@ -132,21 +132,21 @@ function main() {
 
         $(document).ready(function () {
 
-            $("#owl-demo").owlCarousel({
+            //$("#owl-demo").owlCarousel({
 
-                navigation: false, // Show next and prev buttons
-                slideSpeed: 300,
-                paginationSpeed: 400,
-                singleItem: true
+            //    navigation: false, // Show next and prev buttons
+            //    slideSpeed: 300,
+            //    paginationSpeed: 400,
+            //    singleItem: true
 
-                // "singleItem:true" is a shortcut for:
-                // items : 1, 
-                // itemsDesktop : false,
-                // itemsDesktopSmall : false,
-                // itemsTablet: false,
-                // itemsMobile : false
+            //    // "singleItem:true" is a shortcut for:
+            //    // items : 1, 
+            //    // itemsDesktop : false,
+            //    // itemsDesktopSmall : false,
+            //    // itemsTablet: false,
+            //    // itemsMobile : false
 
-            });
+            //});
 
             //$.ajaxSetup({
             //    beforeSend: function (jqXHR, options) {

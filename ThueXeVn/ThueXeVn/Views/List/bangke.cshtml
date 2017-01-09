@@ -113,8 +113,9 @@
                                 <th style="width: 50px; text-align: center;">Id</th>
                                 <th>Tên khách hàng</th>
                                 <th>Số điện thoại</th>
-                                <th>Điểm đón</th>
-                                <th>Điểm trả</th>
+                                <th>Điểm đón=>Điểm trả</th>
+                                <th>Tổng tiền</th>
+                                <th>Ghi chú</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -129,8 +130,9 @@
                                             <td style="text-align: center;">@item.id</td>
                                             <td>@item.customer_name</td>
                                             <td>@item.phone</td>
-                                            <td>@item.pickup</td>
-                                            <td>@item.paypoints</td>
+                                            <td>@item.pickup => @item.paypoints</td>
+                                            <td>@item.sum</td>
+                                            <td>@item.note</td>
                                             <td>
                                                 <a href="/List/Edit/@item.id" class="btn btn-primary" ><i class="fa fa-edit"></i> Sửa</a>
                                                 <a href="/List/Delete/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Xóa</a>

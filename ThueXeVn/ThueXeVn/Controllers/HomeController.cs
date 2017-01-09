@@ -613,5 +613,11 @@ namespace ThueXeVn.Controllers
             return menuleft;
         }
 
+        // Đăng ký cộng tác viên
+        public ActionResult DangKyCongTacVien()
+        {
+            return View();
+        }
+
     }
 }

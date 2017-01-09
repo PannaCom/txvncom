@@ -43,5 +43,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<invoice> invoices { get; set; }
         public virtual DbSet<driver> drivers { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
+        public virtual DbSet<ctv_tiepthi> ctv_tiepthi { get; set; }
     }
 }

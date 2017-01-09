@@ -82,6 +82,21 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ctv_tiepthi">
+          <Key>
+            <PropertyRef Name="ctv_id" />
+          </Key>
+          <Property Name="ctv_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ctv_fullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="ctv_sex" Type="nvarchar" MaxLength="50" />
+          <Property Name="ctv_date" Type="date" />
+          <Property Name="ctv_phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ctv_email" Type="nvarchar" MaxLength="250" />
+          <Property Name="ctv_pass" Type="nvarchar(max)" />
+          <Property Name="point_share" Type="int" />
+          <Property Name="date_create" Type="datetime" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
         <EntityType Name="drivers">
           <Key>
             <PropertyRef Name="id" />
@@ -221,6 +236,7 @@
           <EntitySet Name="car_hire_type" EntityType="Self.car_hire_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
@@ -331,6 +347,7 @@
           <EntitySet Name="invoices" EntityType="thuexevnModel.invoice" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
+          <EntitySet Name="ctv_tiepthi" EntityType="thuexevnModel.ctv_tiepthi" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -464,6 +481,21 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="quanhuyen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ctv_tiepthi">
+          <Key>
+            <PropertyRef Name="ctv_id" />
+          </Key>
+          <Property Name="ctv_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ctv_fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ctv_sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ctv_date" Type="DateTime" Precision="0" />
+          <Property Name="ctv_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ctv_email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ctv_pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="point_share" Type="Int32" />
+          <Property Name="date_create" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -694,6 +726,22 @@
                 <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
                 <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ctv_tiepthi">
+            <EntityTypeMapping TypeName="thuexevnModel.ctv_tiepthi">
+              <MappingFragment StoreEntitySet="ctv_tiepthi">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date_create" ColumnName="date_create" />
+                <ScalarProperty Name="point_share" ColumnName="point_share" />
+                <ScalarProperty Name="ctv_pass" ColumnName="ctv_pass" />
+                <ScalarProperty Name="ctv_email" ColumnName="ctv_email" />
+                <ScalarProperty Name="ctv_phone" ColumnName="ctv_phone" />
+                <ScalarProperty Name="ctv_date" ColumnName="ctv_date" />
+                <ScalarProperty Name="ctv_sex" ColumnName="ctv_sex" />
+                <ScalarProperty Name="ctv_fullname" ColumnName="ctv_fullname" />
+                <ScalarProperty Name="ctv_id" ColumnName="ctv_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

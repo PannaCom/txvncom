@@ -112,5 +112,4 @@ namespace ThueXeVn.Models
         public string ConfirmPassword { get; set; }
     }
 
-
 }

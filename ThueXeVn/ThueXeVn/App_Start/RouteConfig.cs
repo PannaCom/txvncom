@@ -47,6 +47,12 @@ namespace ThueXeVn
                 "tai_xe/dang_nhap",
                 new { controller = "Home", action = "Login" }
             );
+
+            routes.MapRoute(
+                "congtacviendangky",
+                "dang_ky_cong_tac_vien",
+                new { controller = "Home", action = "DangKyCongTacVien" }
+            );
             
             routes.MapRoute(
                 name: "Default",
