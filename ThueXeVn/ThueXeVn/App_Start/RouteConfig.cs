@@ -35,6 +35,18 @@ namespace ThueXeVn
                 "tai_xe/quan_ly_bang_gia",
                 new { controller = "TaiXeBangGia", action = "Index" }
             );
+
+            routes.MapRoute(
+                "taixedoipass",
+                "tai_xe/doi_pass",
+                new { controller = "Home", action = "UpdatePass" }
+            );
+
+            routes.MapRoute(
+                "taixedangnhap",
+                "tai_xe/dang_nhap",
+                new { controller = "Home", action = "Login" }
+            );
             
             routes.MapRoute(
                 name: "Default",

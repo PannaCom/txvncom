@@ -97,5 +97,20 @@ namespace ThueXeVn.Models
         public string body { get; set; }
     }
 
+    public class UpdatePassTaiXe
+    {
+        public long id_taixe { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} phải ít nhất {2} ký tự độ dài.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu mới")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Xác nhận mật khẩu")]
+        [Compare("NewPassword", ErrorMessage = "Mật khẩu xác nhận không khớp.")]
+        public string ConfirmPassword { get; set; }
+    }
+
 
 }

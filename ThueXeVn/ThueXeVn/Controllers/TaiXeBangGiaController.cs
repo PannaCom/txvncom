@@ -12,7 +12,7 @@ namespace ThueXeVn.Controllers
         // GET: TaiXeBangGia
         public ActionResult Index()
         {
-
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
             return View();
         }
     }

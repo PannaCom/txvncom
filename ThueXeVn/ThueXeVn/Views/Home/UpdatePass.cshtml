@@ -1,0 +1,49 @@
+﻿@model ThueXeVn.Models.UpdatePassTaiXe
+@{
+    ViewBag.Title = "Tài xế xe cập nhật mật khẩu";
+}
+@{
+    long id_taixe = 0;
+    if (ViewBag.idtaixe != null)
+    {
+        id_taixe = ViewBag.idtaixe;
+    }
+}
+
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm("UpdatePass", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_update_pass" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Cập nhật mật khẩu</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.HiddenFor(m=>m.id_taixe, @id_taixe )
+            <div class="form-group">
+                @Html.LabelFor(m => m.NewPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Cập nhật" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    
+    <script>
+        $.validator.setDefaults({ ignore: '' });
+    </script>
+}

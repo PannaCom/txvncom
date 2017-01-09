@@ -441,13 +441,14 @@ namespace ThueXeVn.Controllers
 
         public ActionResult Taixe()
         {
-            if (Config.getCookie("taixelogged") != "") return RedirectToAction("Index", "Home");
+            if (Config.getCookie("taixeupdatepass") != "") return RedirectToRoute("taixedoipass");
             return View();
         }
 
         // Đăng nhập bằng mật khẩu
         public ActionResult Login()
         {
+            if (Config.getCookie("taixelogged") != "") return RedirectToRoute("quanlybanggia");
             return View();
         }
 
@@ -471,7 +472,7 @@ namespace ThueXeVn.Controllers
             catch 
             {
                 ModelState.AddModelError("", "Có lỗi xảy ra khi đăng nhập.");
-                return View();
+                return View(); 
             }
             return RedirectToRoute("quanlybanggia");
         }
@@ -480,7 +481,7 @@ namespace ThueXeVn.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Taixe(string phone, string car_number)
         {
-            if (Config.getCookie("taixelogged") != "") return RedirectToAction("Index", "Home");
+            //if (Config.getCookie("taixeupdatepass") != "") return RedirectToRoute("taixedoipass");
             try
             {
                 MD5 md5Hash = MD5.Create();
@@ -489,7 +490,8 @@ namespace ThueXeVn.Controllers
                 {
                     var _tx = Config.GetMd5Hash(md5Hash, p.phone);
                     //Ghi ra cookie
-                    Config.setCookie("taixelogged", _tx+","+p.id);
+                    Config.setCookie("taixeupdatepass", _tx + "," + p.id);
+                    ViewBag.idtaixe = p.id;
                 }
                 else
                 {
@@ -503,7 +505,44 @@ namespace ThueXeVn.Controllers
                 ModelState.AddModelError("", "Sai thông tin đăng nhập");
                 return View();
             }
-            return RedirectToAction("Index");
+            return RedirectToRoute("taixedoipass");
+        }
+
+        public ActionResult UpdatePass()
+        {
+            if (Config.getCookie("taixeupdatepass") != "") return RedirectToRoute("taixedoipass");
+            
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdatePass(UpdatePassTaiXe model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Có lỗi xảy ra khi đổi mật khẩu.");
+                return View(model);
+            }
+            var taixeupdate = db.drivers.Find(model.id_taixe);
+            if (taixeupdate == null)
+            {
+                return View(taixeupdate);
+            }
+            try
+            {
+                db.Entry(taixeupdate).State = EntityState.Modified;
+                string epass = model.NewPassword ?? "chanhniem";
+                MD5 md5Hash = MD5.Create();
+                var newpass = Config.GetMd5Hash(md5Hash, epass);
+                taixeupdate.pass = newpass;
+                db.SaveChanges();
+            }
+            catch 
+            {
+                return View(taixeupdate);
+            }
+            return RedirectToAction("Login");
         }
 
         public string getcarnumber(string keyword)
