@@ -34,7 +34,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<notify> notifies { get; set; }
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<activecode> activecodes { get; set; }
-        public virtual DbSet<booking> bookings { get; set; }
         public virtual DbSet<call_driver_log> call_driver_log { get; set; }
         public virtual DbSet<car_hire_type> car_hire_type { get; set; }
         public virtual DbSet<car_size> car_size { get; set; }
@@ -43,6 +42,8 @@ namespace ThueXeVn.Models
         public virtual DbSet<invoice> invoices { get; set; }
         public virtual DbSet<driver> drivers { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
+        public virtual DbSet<booking> bookings { get; set; }
+        public virtual DbSet<booking_ctv_tiepthi> booking_ctv_tiepthi { get; set; }
         public virtual DbSet<ctv_tiepthi> ctv_tiepthi { get; set; }
     }
 }

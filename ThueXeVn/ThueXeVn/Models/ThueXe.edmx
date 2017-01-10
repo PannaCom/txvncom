@@ -38,6 +38,16 @@
           <Property Name="lat1" Type="float" />
           <Property Name="lon2" Type="float" />
           <Property Name="lat2" Type="float" />
+          <Property Name="status2" Type="int" />
+        </EntityType>
+        <EntityType Name="booking_ctv_tiepthi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="booking_id" Type="bigint" />
+          <Property Name="ctv_id" Type="bigint" />
+          <Property Name="utm_code" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="call_driver_log">
           <Key>
@@ -231,6 +241,7 @@
         <EntityContainer Name="thuexevnModelStoreContainer">
           <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="booking_ctv_tiepthi" EntityType="Self.booking_ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_driver_log" EntityType="Self.call_driver_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_log" EntityType="Self.call_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_hire_type" EntityType="Self.car_hire_type" Schema="dbo" store:Type="Tables" />
@@ -338,7 +349,6 @@
           <EntitySet Name="notifies" EntityType="Self.notify" />
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="activecodes" EntityType="thuexevnModel.activecode" />
-          <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="call_driver_log" EntityType="thuexevnModel.call_driver_log" />
           <EntitySet Name="car_hire_type" EntityType="thuexevnModel.car_hire_type" />
           <EntitySet Name="car_size" EntityType="thuexevnModel.car_size" />
@@ -347,6 +357,8 @@
           <EntitySet Name="invoices" EntityType="thuexevnModel.invoice" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
+          <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
+          <EntitySet Name="booking_ctv_tiepthi" EntityType="thuexevnModel.booking_ctv_tiepthi" />
           <EntitySet Name="ctv_tiepthi" EntityType="thuexevnModel.ctv_tiepthi" />
         </EntityContainer>
         <EntityType Name="activecode">
@@ -358,30 +370,6 @@
           <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="type_code" Type="Int32" />
           <Property Name="date_time" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="booking">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="date_from" Type="DateTime" Precision="3" />
-          <Property Name="date_to" Type="DateTime" Precision="3" />
-          <Property Name="des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="driver_phone" Type="Int64" />
-          <Property Name="status" Type="Byte" />
-          <Property Name="date_time" Type="DateTime" Precision="3" />
-          <Property Name="car_from" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="car_to" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="car_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_hire_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_size" Type="Int32" />
-          <Property Name="lon1" Type="Double" />
-          <Property Name="lat1" Type="Double" />
-          <Property Name="lon2" Type="Double" />
-          <Property Name="lat2" Type="Double" />
         </EntityType>
         <EntityType Name="call_driver_log">
           <Key>
@@ -481,6 +469,40 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="quanhuyen" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="tinhthanhpho" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_from" Type="DateTime" Precision="3" />
+          <Property Name="date_to" Type="DateTime" Precision="3" />
+          <Property Name="des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="driver_phone" Type="Int64" />
+          <Property Name="status" Type="Byte" />
+          <Property Name="date_time" Type="DateTime" Precision="3" />
+          <Property Name="car_from" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="car_to" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="car_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_hire_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_size" Type="Int32" />
+          <Property Name="lon1" Type="Double" />
+          <Property Name="lat1" Type="Double" />
+          <Property Name="lon2" Type="Double" />
+          <Property Name="lat2" Type="Double" />
+          <Property Name="status2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="booking_ctv_tiepthi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="booking_id" Type="Int64" />
+          <Property Name="ctv_id" Type="Int64" />
+          <Property Name="utm_code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ctv_tiepthi">
           <Key>
@@ -597,31 +619,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="bookings">
-            <EntityTypeMapping TypeName="thuexevnModel.booking">
-              <MappingFragment StoreEntitySet="booking">
-                <ScalarProperty Name="lat2" ColumnName="lat2" />
-                <ScalarProperty Name="lon2" ColumnName="lon2" />
-                <ScalarProperty Name="lat1" ColumnName="lat1" />
-                <ScalarProperty Name="lon1" ColumnName="lon1" />
-                <ScalarProperty Name="car_size" ColumnName="car_size" />
-                <ScalarProperty Name="car_hire_type" ColumnName="car_hire_type" />
-                <ScalarProperty Name="car_type" ColumnName="car_type" />
-                <ScalarProperty Name="car_to" ColumnName="car_to" />
-                <ScalarProperty Name="car_from" ColumnName="car_from" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="driver_phone" ColumnName="driver_phone" />
-                <ScalarProperty Name="des" ColumnName="des" />
-                <ScalarProperty Name="date_to" ColumnName="date_to" />
-                <ScalarProperty Name="date_from" ColumnName="date_from" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="call_driver_log">
             <EntityTypeMapping TypeName="thuexevnModel.call_driver_log">
               <MappingFragment StoreEntitySet="call_driver_log">
@@ -725,6 +722,42 @@
               <MappingFragment StoreEntitySet="TinhThanh">
                 <ScalarProperty Name="tinhthanhpho" ColumnName="tinhthanhpho" />
                 <ScalarProperty Name="quanhuyen" ColumnName="quanhuyen" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bookings">
+            <EntityTypeMapping TypeName="thuexevnModel.booking">
+              <MappingFragment StoreEntitySet="booking">
+                <ScalarProperty Name="status2" ColumnName="status2" />
+                <ScalarProperty Name="lat2" ColumnName="lat2" />
+                <ScalarProperty Name="lon2" ColumnName="lon2" />
+                <ScalarProperty Name="lat1" ColumnName="lat1" />
+                <ScalarProperty Name="lon1" ColumnName="lon1" />
+                <ScalarProperty Name="car_size" ColumnName="car_size" />
+                <ScalarProperty Name="car_hire_type" ColumnName="car_hire_type" />
+                <ScalarProperty Name="car_type" ColumnName="car_type" />
+                <ScalarProperty Name="car_to" ColumnName="car_to" />
+                <ScalarProperty Name="car_from" ColumnName="car_from" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="driver_phone" ColumnName="driver_phone" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="date_to" ColumnName="date_to" />
+                <ScalarProperty Name="date_from" ColumnName="date_from" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="booking_ctv_tiepthi">
+            <EntityTypeMapping TypeName="thuexevnModel.booking_ctv_tiepthi">
+              <MappingFragment StoreEntitySet="booking_ctv_tiepthi">
+                <ScalarProperty Name="utm_code" ColumnName="utm_code" />
+                <ScalarProperty Name="ctv_id" ColumnName="ctv_id" />
+                <ScalarProperty Name="booking_id" ColumnName="booking_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

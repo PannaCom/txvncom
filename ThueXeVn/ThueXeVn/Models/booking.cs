@@ -33,5 +33,6 @@ namespace ThueXeVn.Models
         public Nullable<double> lat1 { get; set; }
         public Nullable<double> lon2 { get; set; }
         public Nullable<double> lat2 { get; set; }
+        public Nullable<int> status2 { get; set; }
     }
 }
