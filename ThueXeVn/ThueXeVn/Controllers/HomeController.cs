@@ -651,11 +651,11 @@ namespace ThueXeVn.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult DangNhapCongTacVien()
-        {
-            return View();
-        }
+        //[HttpPost]
+        //public ActionResult DangNhapCongTacVien()
+        //{
+        //    return View();
+        //}
 
     }
 }
