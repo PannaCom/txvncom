@@ -61,7 +61,7 @@ namespace ThueXeVn
         }
         public static string GetMd5Hash(MD5 md5Hash, string input)
         {
-
+            if (input == "" || input == null) input = "chanhniem";
             // Convert the input string to a byte array and compute the hash. 
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
