@@ -48,7 +48,23 @@
                 {
                     { Html.RenderAction("InfoTaixelogin", "Home"); } 
                 }
-                <li><a href="/dang_ky_cong_tac_vien" data-toggle="tooltip" data-placement="bottom" title="Đăng ký cộng tác viên tiếp thị liên kết"><i class="fa fa-user-plus"></i> Đăng ký cộng tác viên</a></li>
+                @if (Config.getCookie("ctvlogged") != "")
+                {
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown">Cộng tác viên</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/cong_tac_vien">Liên kết tiếp thị</a></li>
+                            <li><a href="#" onclick="ctv_dangxuat();">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li><a href="/dang_ky_cong_tac_vien" data-toggle="tooltip" data-placement="bottom" title="Đăng ký cộng tác viên tiếp thị liên kết"><i class="fa fa-user-plus"></i> Đăng ký cộng tác viên</a></li>
+                }
+                
+
+                
             </ul>
 
         </div>

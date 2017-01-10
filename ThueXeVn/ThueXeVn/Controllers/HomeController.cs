@@ -616,6 +616,43 @@ namespace ThueXeVn.Controllers
         // Đăng ký cộng tác viên
         public ActionResult DangKyCongTacVien()
         {
+            if (Config.getCookie("ctvlogged") != "") return RedirectToRoute("congtacvienquantri");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DangKyCongTacVien(string fullname, string ctv_email, string ctv_phone, string ctv_pass)
+        {
+            try
+            {
+                ctv_tiepthi _newCTV = new ctv_tiepthi();
+                _newCTV.ctv_fullname = fullname ?? null;
+                _newCTV.ctv_email = ctv_email ?? null;
+                _newCTV.ctv_phone = ctv_phone ?? null;
+                string epass = ctv_pass ?? "chanhniem";
+                MD5 md5Hash = MD5.Create();
+                var newpass = Config.GetMd5Hash(md5Hash, epass);
+                _newCTV.ctv_pass = newpass;
+                db.ctv_tiepthi.Add(_newCTV);
+                db.SaveChanges();
+            }
+            catch 
+            {
+                ModelState.AddModelError("", "Máy chủ quá tải, vui lòng chờ 15 phút sau quay lại đăng ký.");
+                return View();
+            }
+            return RedirectToRoute("congtacviendangnhap");
+        }
+
+        public ActionResult DangNhapCongTacVien()
+        {
+            if (Config.getCookie("ctvlogged") != "") return RedirectToRoute("congtacvienquantri");
+            return View();
+        }
+
+        public ActionResult DangNhapCongTacVien()
+        {
             return View();
         }
 
