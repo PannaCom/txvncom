@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Đăng nhập cộng tác viên tiếp thị trực tuyến";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    string link = "";
+}
+
+@section Styles {
+    <link href="~/Content/stylemh.css" rel="stylesheet" />
+    <style>
+        #form_dangnhap_ctv {
+            padding: 10px;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+    </style>
+}
+
+<section id="dangnhap_cong_tac_vien">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @using (Html.BeginForm("DangNhapCongTacVien", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_dangnhap_ctv" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h3>Đăng nhập cộng tác viên tiếp thị liên kết</h3>
+                    
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="ctv_email" class="control-label">Địa chỉ email:</label>
+                            <input type="email" name="ctv_email" id="ctv_email" class="form-control" placeholder="Địa chỉ email" required />
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="ctv_pass" class="control-label">Mật khẩu:</label>
+                            <input type="password" name="ctv_pass" id="ctv_pass" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary">Đăng nhập</button>
+                            <a href="/cong_tac_vien/dang_ky">Đăng ký nếu chưa có tài khoản?</a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+            <div class="col-md-6 hidden-xs">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval");
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        var validator = $("#form_dangnhap_ctv").validate({
+            rules: {
+                ctv_email: "required",
+                ctv_pass: "required"
+            },
+            messages: {
+                ctv_email: "Vui lòng nhập vào email của bạn.",
+                ctv_pass: "Vui lòng nhập vào mật khẩu."
+            },
+            errorClass: 'error help-inline',
+            validClass: 'success',
+            errorElement: 'span',
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents("div.form-group").addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+            }
+        });
+
+
+
+
+
+    })
+
+
+    </script>
+
+
+
+}

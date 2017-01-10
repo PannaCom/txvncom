@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewBag.Title = "Đăng ký cộng tác viên tiếp thị trực tuyến";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    string link = "";
+}
+
+@section Styles {
+    <link href="~/Content/stylemh.css" rel="stylesheet" />
+    <style>
+    #form_dangky_ctv {
+        padding: 10px;
+        border: 1px solid #ddd;
+        color: #333;
+    }
+</style>
+}
+
+<section id="dangky_cong_tac_vien">
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-6">
+                @using (Html.BeginForm("DangKyCongTacVien", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_dangky_ctv" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h3>Đăng ký cộng tác viên tiếp thị liên kết</h3>
+                    <div class="form-group">   
+                        @*<div class="col-md-3">
+                            <label for="gioitinh" class="control-label">Giới tính:</label>
+                            <select name="gioitinh" id="gioitinh" class="form-control">
+                                <option>Anh</option>
+                                <option>Chị</option>
+                            </select>
+                        </div>*@
+                        <div class="col-md-12">     
+                            <label for="fullname" class="control-label">Họ và tên:</label>                       
+                            <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Họ và tên" required />
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        <div class="col-md-12">
+                            <label for="ctv_date" class="control-label">Ngày sinh:</label>
+                            <input type="text" name="ctv_date" id="ctv_date" class="form-control" required />
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="ctv_email" class="control-label">Địa chỉ email:</label>
+                            <input type="email" name="ctv_email" id="ctv_email" class="form-control" placeholder="Địa chỉ email" required onblur="checkemailctv();" />
+                            <span id="emailexist"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="ctv_phone" class="control-label">Số điện thoại:</label>
+                            <input type="text" name="ctv_phone" id="ctv_phone" class="form-control" required onblur="checkphonectv();" />
+                            <span id="phoneexist"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">                            
+                            <label for="ctv_pass" class="control-label">Mật khẩu:</label>
+                            <input type="password" name="ctv_pass" id="ctv_pass" class="form-control" required />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" id="dang_ky_btn">Đăng ký</button>
+                            <a href="/cong_tac_vien/dang_nhap">Đăng nhập nếu có tài khoản?</a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+            <div class="col-md-6 hidden-xs">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval");
+    <script src="~/Scripts/jquery.datetimepicker.js"></script> 
+
+<script>
+    $(document).ready(function () {
+        var validator = $("#form_dangky_ctv").validate({
+            rules: {
+                fullname: "required",
+                ctv_email: "required",
+                ctv_phone: "required",
+                ctv_pass: "required"
+            },
+            messages: {
+                fullname: "Vui lòng nhập vào tên của bạn.",
+                ctv_email: "Vui lòng nhập vào email của bạn.",
+                ctv_phone: "Vui lòng nhập vào số điện thoại của bạn",
+                ctv_pass: "Vui lòng nhập vào mật khẩu."
+            },
+            errorClass: 'error help-inline',
+            validClass: 'success',
+            errorElement: 'span',
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents("div.form-group").addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+            }
+        });
+    });
+
+    function checkemailctv() {
+        $.ajax({
+            url: "/home/checkemailctv?key=" + $('#ctv_email').val(),
+            cache: false
+        }).done(function (data) {
+            if (data === "0") {
+                $('#dang_ky_btn').addClass('disabled');
+                $('#emailexist').html("Địa chỉ email đã được sử dụng.").css('color', '#A92E2E');
+            } else {
+                $('#dang_ky_btn').removeClass('disabled');
+                $('#emailexist').html("Bạn có thể sử dụng email này").css('color', '#26AAEA');
+            }
+        });
+    }
+
+    function checkphonectv() {
+        $.ajax({
+            url: "/home/checkphonectv?key=" + $('#ctv_phone').val(),
+            cache: false
+        }).done(function (data) {
+            if (data === "0") {
+                $('#dang_ky_btn').addClass('disabled');
+                $('#phoneexist').html("Số điện thoại đã được sử dụng.").css('color', '#A92E2E');
+            } else {
+                $('#dang_ky_btn').removeClass('disabled');
+                $('#phoneexist').html("Bạn có thể sử dụng số điện thoại này.").css('color', '#26AAEA');
+            }
+        });
+    }
+
+    
+</script>
+
+
+
+}

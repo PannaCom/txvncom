@@ -469,8 +469,9 @@ namespace ThueXeVn.Controllers
                 var name_login = login.phone+login.id+login.name;
                 Config.setCookie("taixelogged", Config.GetMd5Hash(md5Hash, name_login));
             }
-            catch 
+            catch(Exception ex) 
             {
+                Config.SaveTolog(ex.ToString());
                 ModelState.AddModelError("", "Có lỗi xảy ra khi đăng nhập.");
                 return View(); 
             }
@@ -500,8 +501,9 @@ namespace ThueXeVn.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
+                Config.SaveTolog(ex.ToString());
                 ModelState.AddModelError("", "Sai thông tin đăng nhập");
                 return View();
             }
@@ -538,8 +540,9 @@ namespace ThueXeVn.Controllers
                 taixeupdate.pass = newpass;
                 db.SaveChanges();
             }
-            catch 
+            catch(Exception ex)
             {
+                Config.SaveTolog(ex.ToString());
                 return View(taixeupdate);
             }
             return RedirectToAction("Login");
@@ -634,11 +637,14 @@ namespace ThueXeVn.Controllers
                 MD5 md5Hash = MD5.Create();
                 var newpass = Config.GetMd5Hash(md5Hash, epass);
                 _newCTV.ctv_pass = newpass;
+                _newCTV.date_create = DateTime.Now;
+                _newCTV.status = true;
                 db.ctv_tiepthi.Add(_newCTV);
                 db.SaveChanges();
             }
-            catch 
+            catch(Exception ex)
             {
+                Config.SaveTolog(ex.ToString());
                 ModelState.AddModelError("", "Máy chủ quá tải, vui lòng chờ 15 phút sau quay lại đăng ký.");
                 return View();
             }
@@ -651,11 +657,95 @@ namespace ThueXeVn.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult DangNhapCongTacVien()
-        //{
-        //    return View();
-        //}
+        [HttpPost]
+        public ActionResult DangNhapCongTacVien(string ctv_email, string ctv_pass)
+        {
+            try
+            {
+                string epass = ctv_pass ?? "chanhniem";
+                MD5 md5Hash = MD5.Create();
+                var newpass = Config.GetMd5Hash(md5Hash, epass);
+
+                var ctvlogin = (from s in db.ctv_tiepthi where s.ctv_email == ctv_email && s.ctv_pass == epass select s).FirstOrDefault();
+                if (ctvlogin == null)
+                {
+                    ModelState.AddModelError("", "Sai thông tin đăng nhập.");
+                    return View();
+                }
+                
+                var logged = Config.GetMd5Hash(md5Hash, ctvlogin.ctv_phone);
+                //Ghi ra cookie
+                Config.setCookie("ctvlogged", logged+"-"+ctvlogin.ctv_id);
+            }
+            catch(Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                ModelState.AddModelError("", "Máy chủ đang quá tải. Vui lòng quay lại đăng nhập sau 10 phút.");
+                return View();
+            }
+            return RedirectToRoute("congtacvienquantri");            
+        }
+
+        public ActionResult ctv_dang_xuat()
+        {
+            Config.RemoveCookie("ctvlogged");
+            return RedirectToAction("Index");
+        }
+
+        public bool IsEmailExist(string Email)
+        {
+            using (var db = new thuexevnEntities())
+            {
+                var emodel = db.ctv_tiepthi.Any(x => x.ctv_email == Email);
+                return emodel;
+            }
+        }
+
+        public bool IsPhoneExist(string phone)
+        {
+            using (var db = new thuexevnEntities())
+            {
+                var emodel = db.ctv_tiepthi.Any(x => x.ctv_phone == phone);
+                return emodel;
+            }
+        }
+
+        public string checkemailctv(string key){
+            if (key == null) { key = ""; }
+            var x = "0";
+            try
+            {
+                if (IsEmailExist(key))
+                {
+                    x = "1";
+                }
+                return x;
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                return "0";
+            }
+        }
+
+        public string checkphonectv(string key)
+        {
+            if (key == null) { key = ""; }
+            var x = "0";
+            try
+            {
+                if (IsPhoneExist(key))
+                {
+                    x = "1";
+                }
+                return x;
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                return "0";
+            }
+        }
 
     }
 }

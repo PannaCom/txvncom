@@ -50,20 +50,26 @@ namespace ThueXeVn
 
             routes.MapRoute(
                 "congtacviendangky",
-                "cong_tac_vien/dang_ky",
+                "cong-tac-vien/dang-ky",
                 new { controller = "Home", action = "DangKyCongTacVien" }
             );
 
             routes.MapRoute(
                 "congtacviendangnhap",
-                "cong_tac_vien/dang_nhap",
+                "cong-tac-vien/dang-nhap",
                 new { controller = "Home", action = "DangNhapCongTacVien" }
             );
 
             routes.MapRoute(
                 "congtacvienquantri",
-                "cong_tac_vien",
+                "cong-tac-vien",
                 new { controller = "CongTacVien", action = "Index" }
+            );
+
+            routes.MapRoute(
+                "datxetructuyen",
+                "dat-xe",
+                new { controller = "Home", action = "CarRental" }
             );
             
             routes.MapRoute(

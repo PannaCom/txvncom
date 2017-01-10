@@ -232,3 +232,8 @@ function facebookCallback() {
 }
 facebookCallback();
 
+function ctv_dangxuat() {
+    if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
+        window.location.href = "Home/ctv_dang_xuat";
+    }
+}
