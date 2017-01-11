@@ -112,4 +112,19 @@ namespace ThueXeVn.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public partial class bookingVM
+    {
+        public long id { get; set; }
+        public string name { get; set; }
+        public string phone { get; set; }
+        public System.DateTime? date_time { get; set; }
+        public System.DateTime? date_from { get; set; }
+        public System.DateTime? date_to { get; set; }
+        public string car_hire_type { get; set; }
+        public string car_from { get; set; }
+        public string car_to { get; set; }        
+        public System.Byte? status { get; set; }
+        public int? status2 { get; set; }
+    }
+
 }

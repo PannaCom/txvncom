@@ -42,9 +42,11 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <button class="btn btn-primary">Đăng nhập</button>
-                            <a href="/cong_tac_vien/dang_ky">Đăng ký nếu chưa có tài khoản?</a>
+                            <a href="/cong-tac-vien/dang-ky">Đăng ký nếu chưa có tài khoản?</a>
                         </div>
                     </div>
+                    
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
                 }
             </div>

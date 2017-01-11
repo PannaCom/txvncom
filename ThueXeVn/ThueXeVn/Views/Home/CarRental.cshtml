@@ -3,18 +3,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string link = "";
 }
-<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
-<script src="/Scripts/jquery-ui-1.8.24.js"></script>
-<script src="/Scripts/jquery-2.1.1.js"></script>
-<script src="/Scripts/jquery-ui.js"></script>
-<link rel="stylesheet" href="/Scripts/jquery-ui.css">
-<script src="/Scripts/jquery.datetimepicker.js"></script>
-<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
-@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-<script src="/Scripts/jquery.geocomplete.js"></script>
-<div class="map_canvas" style="display:none;"></div>
 
+@section scriptsheader {
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+    <script src="/Scripts/jquery.geocomplete.js"></script>
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+}
+
+
+<div class="map_canvas" style="display:none;"></div>
 
 <div class="content-heading text-center">
     <!-- Input Your Home Content Here -->
@@ -43,31 +41,38 @@
                 <p style="text-align:left;margin-top:5px;">Số điện thoại liên hệ(lái xe sẽ gọi cho bạn)*</p>
                 <input id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" />
                 <p style="text-align:left;margin-top:5px;">Thời gian đi*</p>
-                <input type="text" class="form-control" id=from_datetime placeholder="Thời gian đi">
+                <input type="text" class="form-control" id="from_datetime" placeholder="Thời gian đi">
                 <p style="text-align:left;margin-top:5px;">Thời gian về*</p>
-                <input type="text" class="form-control" id=to_datetime placeholder="Thời gian đi">
+                <input type="text" class="form-control" id="to_datetime" placeholder="Thời gian đi">
                 <input type="button" value="XÁC NHẬN ĐẶT XE" class="btn btn-primary btn-block" onclick="booking();" style="margin-bottom:5px;" id="btnregister111" />
             </div>
         </div><!-- end col 10 with offset 1 to centered -->
     </div> <!-- end contact form outer row with centered text-->
 </div><!-- End Input Your Home Content Here -->
+
+@section Scripts {
+    
 <script>
-    $('#from_datetime').datetimepicker({
-        dayOfWeekStart: 1,
-        lang: 'en',
-        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
-    });
-    $('#to_datetime').datetimepicker({
-        dayOfWeekStart: 1,
-        lang: 'en',
-        disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-        startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
-    });
-    var d = new Date();
-    var s = d.toLocaleString();
-    $('#from_datetime').datetimepicker({ value: s, step: 10 });
-    $('#to_datetime').datetimepicker({ value: s, step: 10 });
+    
+    $(document).ready(function () {
+        $('#from_datetime').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+        });
+        $('#to_datetime').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+        });
+        var d = new Date();
+        var s = d.toLocaleString();
+        $('#from_datetime').datetimepicker({ value: s, step: 10 });
+        $('#to_datetime').datetimepicker({ value: s, step: 10 });
+    })
+
     $(function () {
         var options = {
             map: ".map_canvas"
@@ -97,6 +102,7 @@
               $.log("Multiple: " + results.length + " results found");
           });
     });
+    var utm_source = getParameterByName('utm');
     function booking() {
         var formdata = new FormData(); //FormData object
         var from_datetime = document.getElementById("from_datetime").value;
@@ -161,17 +167,19 @@
         formdata.append("lon2", document.getElementById("lon2").value);
         formdata.append("name", document.getElementById("name").value);
         formdata.append("phone", document.getElementById("phone").value);
+        formdata.append("utm", utm_source);
         document.getElementById("btnregister111").value = "Đang đặt xe xin chờ....";
         document.getElementById("btnregister111").disabled = true;
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Api/booking');
+        xhr.open('POST', '/Home/booking');
         xhr.send(formdata);
         var content = "";
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 if (xhr.responseText == "1") {
                     alert("Bạn đã đặt xe thành công! Tài xế sẽ liên hệ lại sớm nhất với bạn!");
+                    window.location.href = window.location.href;
                 } else {
                     alert("Chương trình đang cập nhật, xin quay lại sau!");
                 }
@@ -185,7 +193,6 @@
         url: "/Api/getListCarType",
         cache: false
     }).done(function (html) {
-
         var news = '{"news":' + html + '}';
         var json_parsed = $.parseJSON(news);
         $("#car_type").html("");
@@ -226,3 +233,4 @@
     });
 </script>
 
+}

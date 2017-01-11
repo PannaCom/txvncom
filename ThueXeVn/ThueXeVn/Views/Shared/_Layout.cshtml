@@ -36,7 +36,7 @@
     ================================================== -->
     <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/responsive.css">
-
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     
 
     <!-- Google Fonts
@@ -46,11 +46,8 @@
     <script type="text/javascript" src="~/Content/Theme/1a/js/modernizr.custom.js"></script>
     <!-- js -->
     <script type="text/javascript" src="~/Content/Theme/1a/js/jquery-1.11.2.min.js"></script>
-    <script src="~/Content/Theme/1a/js/jquery-ui-1.8.24.js"></script>
-    <script src="~/Content/Theme/1a/js/jquery.1.11.1.js"></script>
-    <script src="~/Content/Theme/1a/js/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
     <script type="text/javascript" src="~/Content/Theme/1a/js/bootstrap.js"></script>
-    <link rel="stylesheet" href="~/Content/Theme/1a/js/jquery-ui.css">
     <script src="~/Content/Theme/1a/Plugin/bootstrap-tagsinput.min.js"></script>
     <script src="/Scripts/core.js"></script>
     @*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
@@ -72,6 +69,9 @@
         ga('create', 'UA-83915618-1', 'auto');
         ga('send', 'pageview');
     </script>
+
+    @RenderSection("scriptsheader", required: false)
+
 </head>
 <body>
 
@@ -120,12 +120,11 @@
 
     <script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
 
-    <script type="text/javascript" src="~/Content/Theme/1a/js/SmoothScroll.js"></script>
-
+    @*<script type="text/javascript" src="~/Content/Theme/1a/js/SmoothScroll.js"></script>*@
     <!-- Google Map
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&amp;sensor=false"></script>
     <script type="text/javascript" src="js/map.js"></script>-->
-    <!-- Parallax Effects -->
+    @*<!-- Parallax Effects -->
     <script type="text/javascript" src="~/Content/Theme/1a/js/skrollr.js"></script>
     <script type="text/javascript" src="~/Content/Theme/1a/js/imagesloaded.js"></script>
 
@@ -137,7 +136,7 @@
 
     <!-- Contact page-->
     <script type="text/javascript" src="~/Content/Theme/1a/js/jqBootstrapValidation.js"></script>
-    <script type="text/javascript" src="~/Content/Theme/1a/js/contact.js"></script>
+    <script type="text/javascript" src="~/Content/Theme/1a/js/contact.js"></script>*@
 
     <!-- Javascripts
     ================================================== -->

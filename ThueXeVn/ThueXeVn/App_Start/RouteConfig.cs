@@ -71,6 +71,18 @@ namespace ThueXeVn
                 "dat-xe",
                 new { controller = "Home", action = "CarRental" }
             );
+
+            //routes.MapRoute(
+            //    "getlinkchiase",
+            //    "cong-tac-vien/getlink",
+            //    new { controller = "CongTacVien", action = "getlink" }
+            //);
+
+            routes.MapRoute(
+                "danhsachdatxeqactv",
+                "cong-tac-vien/danh-sach-dat-xe",
+                new { controller = "CongTacVien", action = "danhsachdatxe" }
+            );
             
             routes.MapRoute(
                 name: "Default",

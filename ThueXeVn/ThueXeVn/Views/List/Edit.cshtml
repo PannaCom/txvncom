@@ -308,6 +308,12 @@
                 disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
             });
 
+            var d = new Date();
+            var s = d.toLocaleString();
+            $('#time_to_pick').datetimepicker({ value: s, step: 10 });
+            $('#time_to_pay').datetimepicker({ value: s, step: 10 });
+            $('#date').datetimepicker({ value: s, step: 10 });
+
 
 
         })

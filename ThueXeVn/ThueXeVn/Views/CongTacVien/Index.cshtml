@@ -5,10 +5,10 @@
 }
 
 @{
-    string link = "";
+    string link2 = "";
     if (ViewBag.linkshare != null)
     {
-        link = Html.Raw(ViewBag.linkshare);
+        link2 = ViewBag.linkshare;
     }    
 }
 
@@ -19,15 +19,38 @@
 }
 
 <div class="row">
-    <div class="col-nd-6 col-md-offset-6">
-        <div class="panel panel-default box box-primary">
-            <div class="panel-body">
-                <div class="input-group">                    
-                    <input type="text" class="form-control" placeholder="Link chia sẻ" value="@link" name="linkchiase" id="linkchiase" aria-describedby="basic-addon1">
-                    <button class="input-group-addon" id="basic-addon1"><i class="fa fa-unlink"></i> Sao chép link chia sẻ</button>
-                </div>
+    <div class="col-md-6 col-md-offset-3">
+        <div class="form-horizontal">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Link chia sẻ" value="@link2" name="linkchiase" id="linkchiase" aria-describedby="basic-addon1" readonly>
+                <span class="input-group-addon btn btn-primary" id="basic-addon2"><i class="fa fa-link"></i> Sao chép</span>
             </div>
-            
         </div>
     </div>
 </div>
+
+@section scripts {
+    
+       <script>
+
+           var copyTextareaBtn = document.querySelector('#basic-addon2');
+
+           copyTextareaBtn.addEventListener('click', function (event) {
+               var copyTextarea = document.querySelector('#linkchiase');
+               copyTextarea.select();
+
+               try {
+                   var successful = document.execCommand('copy');
+                   var msg = successful ? 'successful' : 'unsuccessful';
+                   if (msg === "successful") {
+                       alert('Đã sao chép link để dán');
+                   }
+                   console.log('Copying text command was ' + msg);
+               } catch (err) {
+                   console.log('Oops, unable to copy');
+               }
+           });
+
+       </script>
+    
+ }

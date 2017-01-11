@@ -666,11 +666,16 @@ namespace ThueXeVn.Controllers
                 MD5 md5Hash = MD5.Create();
                 var newpass = Config.GetMd5Hash(md5Hash, epass);
 
-                var ctvlogin = (from s in db.ctv_tiepthi where s.ctv_email == ctv_email && s.ctv_pass == epass select s).FirstOrDefault();
+                var ctvlogin = (from s in db.ctv_tiepthi where s.ctv_email == ctv_email && s.ctv_pass == newpass select s).FirstOrDefault();
                 if (ctvlogin == null)
                 {
                     ModelState.AddModelError("", "Sai thông tin đăng nhập.");
                     return View();
+                }
+                if (ctvlogin.status == false)
+                {
+                     ModelState.AddModelError("", "Tài khoản đang bị khóa.");
+                     return View();
                 }
                 
                 var logged = Config.GetMd5Hash(md5Hash, ctvlogin.ctv_phone);
@@ -743,6 +748,57 @@ namespace ThueXeVn.Controllers
             catch (Exception ex)
             {
                 Config.SaveTolog(ex.ToString());
+                return "0";
+            }
+        }
+
+        [HttpPost]
+        public string booking(string car_from, string car_to, string car_type, string car_hire_type, int? car_size, DateTime from_datetime, DateTime to_datetime, double? lon1, double? lat1, double? lon2, double? lat2, string name, string phone, string utm)
+        {
+            try
+            {
+                booking bo = new booking();
+                bo.car_from = car_from;
+                bo.car_to = car_to;
+                bo.car_type = car_type;
+                bo.car_hire_type = car_hire_type;
+                bo.car_size = car_size;
+                bo.date_from = from_datetime;
+                bo.date_to = to_datetime;
+                bo.lon1 = lon1;
+                bo.lat1 = lat1;
+                bo.lon2 = lon2;
+                bo.lat2 = lat2;
+                bo.name = name;
+                bo.phone = phone;
+                bo.date_time = DateTime.Now;
+                bo.status = 0;
+                bo.status2 = 0;
+                db.bookings.Add(bo);
+                db.SaveChanges();
+
+                if (utm != null && utm != "" && utm != "null")
+                {
+                    long book_id = bo.id;
+                    var _ctv = (from c in db.ctv_tiepthi where c.ctv_phone == utm select c).FirstOrDefault();
+                    if (_ctv != null)
+                    {
+                        try
+                        {
+                            string sql = "INSERT INTO booking_ctv_tiepthi(booking_id,ctv_id,utm_code) VALUES(" + book_id + "," + _ctv.ctv_id + ",'" + utm + "')";
+                            db.Database.ExecuteSqlCommand(sql);
+                        }
+                        catch (Exception ex)
+                        {
+                            Config.SaveTolog(ex.ToString());
+                        }
+                    }
+                }
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
                 return "0";
             }
         }

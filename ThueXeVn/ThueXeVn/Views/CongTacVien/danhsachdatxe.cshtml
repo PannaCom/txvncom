@@ -1,0 +1,249 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.bookingVM>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách đặt xe đã tiếp thị";
+    Layout = "~/Views/Shared/_LayoutAdminCTV.cshtml";
+}
+
+@section Styles {
+    
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@*<link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />*@
+        
+}
+
+@section PageTitleHeader {
+    <div class="page-header">
+        <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title
+            
+        </h3>
+        
+    </div>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                @using (Html.BeginForm("danhsachdatxe", "CongTacVien", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-datxxe", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="search" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập từ khóa tìm kiếm" })
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tg_dx" class="control-label">Ngày đặt từ: </label>
+                        <input type="text" name="tg_dx" id="tg_dx" class="form-control"  />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tt" class="control-label">Tình trạng: </label>
+                        <select class="form-control" id="tt" name="tt">
+                            <option value="">
+                                Chọn tình trạng
+                            </option>
+                            <option value="0">Mới đặt</option>
+                            <option value="1">Hủy chuyến đi</option>
+                            <option value="2">Đã điều xe</option>
+                            <option value="3">Đặt thành công</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="car_hire_type" class="control-label">Hình thức: </label>
+                        <select class="form-control" id="car_hire_type" name="car_hire_type"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary"><i class="fa fa-search"></i> Thống kê</button>
+                    </div>
+                    
+                    
+                }
+
+                
+
+            </div>
+
+            <script>
+                function validate() {
+                    if (document.getElementById("search").value === "" && document.getElementById("tt").value === "" && document.getElementById("tg_dx").value === "" && document.getElementById("car_hire_type").value === "") {
+                        alert('Vui lòng nhập ít nhất một lựa chọn tìm kiếm');
+                        return false;
+                    } else {
+                        return true;
+                    };
+                }
+            </script>
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table-datxxe">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ngày đặt</th>
+                                <th>Tên khách</th>
+                                <th>Số điện thoại</th>
+                                <th>Thời đón => Thời gian trả</th>
+                                <th>Điểm đón => điểm trả</th>
+                                <th>Hình thức</th>
+                                <th>Tình trạng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                int i = 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>
+                                            @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.date_time)
+                                        </td>
+                                        <td>@item.name</td>
+                                        <td>@item.phone</td>
+                                        <td>
+                                        @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.date_from) - @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.date_to)
+                                        </td>
+                                        <td>@item.car_from => @item.car_to</td>
+                                        <td>@item.car_hire_type</td>
+                                        <td>
+                                            @if (item.status2 == 0)
+                                            {
+                                                <text><span>Mới đặt</span></text>
+                                            }
+                                            else if(item.status2 == 1)
+                                            {
+                                                <text><span style="color: yellow;">Hủy chuyến đi</span></text>
+                                            }
+                                            else if (item.status2 == 2)
+                                            {
+                                                <text><span style="color: blue;">Đã điều xe</span></text>
+                                            }
+                                            else if (item.status2 == 3)
+                                            {
+                                                <text><span style="color: red;">Đặt thành công</span></text>
+                                            }
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6">
+                                        Bạn chưa có dữ liệu để hiện thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.RouteUrl("danhsachdatxeqactv", new { pg = page, search = ViewBag.search, tt = ViewBag.tt, car_hire_type = ViewBag.car_hire_type }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+                
+                <p>Số lươt tiếp thị được: @ViewBag.soluottiepthi</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.tg_dx != null)
+{
+    <script>
+        $('#tg_dx').val('@string.Format("{0:yyyy-MM-dd}", ViewBag.tg_dx)');
+    </script>
+}
+
+@if (ViewBag.tt != null)
+{
+    <script>
+        setTimeout(function () {
+            $('#tt').val('@ViewBag.tt');
+        }, 1000)
+    </script>
+}
+
+@if (ViewBag.car_hire_type != null)
+{
+    <script>
+        setTimeout(function () {
+            $('#car_hire_type').val('@ViewBag.car_hire_type');
+        }, 1000)
+    </script>
+}
+
+@section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
+    @*<script src="~/Scripts/jquery.datetimepicker.js"></script>*@
+    <script>
+    $(document).ready(function () {
+        //$('#tg_dx').datetimepicker({
+        //    dayOfWeekStart: 1,
+        //    lang: 'en',
+        //    disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+        //    dateFormat: 'yyyy-mm-dd'
+        //});
+        //var d = new Date();
+        //var s = d.toLocaleString();
+        //$('#tg_dx').datetimepicker({ value: s, step: 10 });
+
+        $('#tg_dx').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd',
+            //onClose: function (dateText, inst) {
+            //    $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+            //}
+        });
+
+        $('#tt').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-datxxe').submit();
+            }
+        })
+
+        $('#tg_dx').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-datxxe').submit();
+            }
+        })
+
+        $('#car_hire_type').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-datxxe').submit();
+            }
+        })
+
+        $.ajax({
+            url: "/Api/getCarHireType",
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+            $("#car_hire_type").html("<option value=''>Chọn hình thức</option>");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_hire_type").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+        });
+
+    })
+
+    </script>
+        
+}

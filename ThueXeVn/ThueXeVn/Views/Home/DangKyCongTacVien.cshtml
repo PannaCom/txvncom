@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <div class="col-md-12">
                             <button class="btn btn-primary" id="dang_ky_btn">Đăng ký</button>
-                            <a href="/cong_tac_vien/dang_nhap">Đăng nhập nếu có tài khoản?</a>
+                            <a href="/cong-tac-vien/dang-nhap">Đăng nhập nếu có tài khoản?</a>
                         </div>
                     </div>
 
@@ -118,33 +118,38 @@
     });
 
     function checkemailctv() {
-        $.ajax({
-            url: "/home/checkemailctv?key=" + $('#ctv_email').val(),
-            cache: false
-        }).done(function (data) {
-            if (data === "0") {
-                $('#dang_ky_btn').addClass('disabled');
-                $('#emailexist').html("Địa chỉ email đã được sử dụng.").css('color', '#A92E2E');
-            } else {
-                $('#dang_ky_btn').removeClass('disabled');
-                $('#emailexist').html("Bạn có thể sử dụng email này").css('color', '#26AAEA');
-            }
-        });
+        if ($('#ctv_email').val() !== "") {
+            $.ajax({
+                url: "/home/checkemailctv?key=" + $('#ctv_email').val(),
+                cache: false
+            }).done(function (data) {
+                if (data === "1") {
+                    $('#dang_ky_btn').addClass('disabled');
+                    $('#emailexist').html("Địa chỉ email đã được sử dụng.").css('color', '#A92E2E');
+                } else {
+                    $('#dang_ky_btn').removeClass('disabled');
+                    $('#emailexist').html("Bạn có thể sử dụng email này").css('color', '#26AAEA');
+                }
+            });
+        }
+        
     }
 
     function checkphonectv() {
-        $.ajax({
-            url: "/home/checkphonectv?key=" + $('#ctv_phone').val(),
-            cache: false
-        }).done(function (data) {
-            if (data === "0") {
-                $('#dang_ky_btn').addClass('disabled');
-                $('#phoneexist').html("Số điện thoại đã được sử dụng.").css('color', '#A92E2E');
-            } else {
-                $('#dang_ky_btn').removeClass('disabled');
-                $('#phoneexist').html("Bạn có thể sử dụng số điện thoại này.").css('color', '#26AAEA');
-            }
-        });
+        if ($('#ctv_phone').val() !== "") {
+            $.ajax({
+                url: "/home/checkphonectv?key=" + $('#ctv_phone').val(),
+                cache: false
+            }).done(function (data) {
+                if (data === "1") {
+                    $('#dang_ky_btn').addClass('disabled');
+                    $('#phoneexist').html("Số điện thoại đã được sử dụng.").css('color', '#A92E2E');
+                } else {
+                    $('#dang_ky_btn').removeClass('disabled');
+                    $('#phoneexist').html("Bạn có thể sử dụng số điện thoại này.").css('color', '#26AAEA');
+                }
+            });
+        }        
     }
 
     
