@@ -1,39 +1,50 @@
 ﻿@{
-    ViewBag.Title = "Tài xế xe đăng nhập";
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-6">
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_login" }))
-        {
-            @Html.AntiForgeryToken()
+<div>
+    <div style="width:100%;">
+        <h1 style="margin-left:24%;">Hệ thống Quản trị ThueXeVn.Com</h1>
 
-
-            <h4 style="text-align: center; border-bottom: 1px solid;padding: 10px 0;">Nhập số điện thoại và mật khẩu để đăng nhập</h4>
-
-            <div class="form-group">
-                <label for="phone" class="control-label col-md-4">Số điện thoại:</label>
-                <div class="col-md-8">
-                    <input type="text" name="phone" id="phone" placeholder="Nhập số điện thoại của tài xế" class="form-control" required />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="car_number" class="control-label col-md-4">Mật khẩu:</label>
-                <div class="col-md-8">
-                    <input type="password" name="pass_taixe" id="pass_taixe" placeholder="Nhập mật khẩu tài xế" class="form-control" required" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-4 col-md-8">
-                    <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Đăng nhập</button>
-                </div>
-            </div>
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        }
     </div>
+    <h2 style="margin-left:34%;">Đăng nhập hệ thống</h2>
+    <h3 style="margin-left:34%;">@ViewBag.message</h3>
+    <form class="clearfix mt50" role="form" method="post" action="/Home/CheckLogin" name="contactform" id="contactform">
+        <div class="row">
+            <div class="form-group" style="width:80%;margin-left:4%;">
+                <label for="name" accesskey="U"><span class="required">*</span> User</label>
+                <input name="name" type="text" id="name" class="form-control" value="" />
+            </div>
+            <div class="form-group" style="width:80%;margin-left:4%;">
+                <label for="email" accesskey="E"><span class="required">*</span> Password</label>
+                <input name="pass" type="password" id="pass" value="" class="form-control" />
+            </div>
+            <div class="form-group" style="width:80%;margin-left:4%;">
+                <button type="button" class="btn btn-info" onclick="Login();">Login</button>
+            </div>
+        </div>
+    </form>
 </div>
-
+<script>
+    function Login() {
+        var formdata = new FormData(); //FormData object
+        var name = document.getElementById("name").value;
+        var pass = document.getElementById("pass").value;
+        formdata.append("name", name);
+        formdata.append("pass", pass);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/CheckLogin');
+        xhr.send(formdata);
+        var content = "";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == 0) {
+                    alert("Sai user hoặc mật khẩu!");
+                } else {
+                    window.location.href = "/News/Index";
+                }
+            }
+        }
+    }
+</script>

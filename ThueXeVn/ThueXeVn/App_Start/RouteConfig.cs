@@ -45,7 +45,7 @@ namespace ThueXeVn
             routes.MapRoute(
                 "taixedangnhap",
                 "tai_xe/dang_nhap",
-                new { controller = "Home", action = "Login" }
+                new { controller = "Home", action = "LoginTaiXe" }
             );
 
             routes.MapRoute(

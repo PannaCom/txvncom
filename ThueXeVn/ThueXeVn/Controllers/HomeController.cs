@@ -62,6 +62,7 @@ namespace ThueXeVn.Controllers
 
             return View();
         }
+
         [HttpPost]
         public string CheckLogin(string name, string pass)
         {
@@ -88,11 +89,12 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("Index");            
         }
 
-        //public ActionResult Login()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-        //    return View();
-        //}
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+
         public ActionResult CarRental()
         {
             ViewBag.Message = "Your application description page.";
@@ -446,7 +448,7 @@ namespace ThueXeVn.Controllers
         }
 
         // Đăng nhập bằng mật khẩu
-        public ActionResult Login()
+        public ActionResult LoginTaiXe()
         {
             if (Config.getCookie("taixelogged") != "") return RedirectToRoute("quanlybanggia");
             return View();
