@@ -107,6 +107,17 @@
           <Property Name="date_create" Type="datetime" />
           <Property Name="status" Type="bit" />
         </EntityType>
+        <EntityType Name="driver_car_price">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cp_car_type" Type="int" />
+          <Property Name="cp_price" Type="int" />
+          <Property Name="cp_multiple" Type="int" />
+          <Property Name="cp_multiple2" Type="int" />
+          <Property Name="driver_id" Type="bigint" />
+        </EntityType>
         <EntityType Name="drivers">
           <Key>
             <PropertyRef Name="id" />
@@ -248,6 +259,7 @@
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
@@ -360,6 +372,7 @@
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="booking_ctv_tiepthi" EntityType="thuexevnModel.booking_ctv_tiepthi" />
           <EntitySet Name="ctv_tiepthi" EntityType="thuexevnModel.ctv_tiepthi" />
+          <EntitySet Name="driver_car_price" EntityType="thuexevnModel.driver_car_price" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -518,6 +531,17 @@
           <Property Name="point_share" Type="Int32" />
           <Property Name="date_create" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="driver_car_price">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cp_car_type" Type="Int32" />
+          <Property Name="cp_price" Type="Int32" />
+          <Property Name="cp_multiple" Type="Int32" />
+          <Property Name="cp_multiple2" Type="Int32" />
+          <Property Name="driver_id" Type="Int64" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -775,6 +799,18 @@
                 <ScalarProperty Name="ctv_sex" ColumnName="ctv_sex" />
                 <ScalarProperty Name="ctv_fullname" ColumnName="ctv_fullname" />
                 <ScalarProperty Name="ctv_id" ColumnName="ctv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_car_price">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_car_price">
+              <MappingFragment StoreEntitySet="driver_car_price">
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="cp_multiple2" ColumnName="cp_multiple2" />
+                <ScalarProperty Name="cp_multiple" ColumnName="cp_multiple" />
+                <ScalarProperty Name="cp_price" ColumnName="cp_price" />
+                <ScalarProperty Name="cp_car_type" ColumnName="cp_car_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

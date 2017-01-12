@@ -25,6 +25,7 @@
         <EntityTypeShape EntityType="thuexevnModel.booking" Width="1.5" PointX="11.375" PointY="0.75" />
         <EntityTypeShape EntityType="thuexevnModel.booking_ctv_tiepthi" Width="1.5" PointX="11.375" PointY="12.75" />
         <EntityTypeShape EntityType="thuexevnModel.ctv_tiepthi" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="thuexevnModel.driver_car_price" Width="1.5" PointX="13.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

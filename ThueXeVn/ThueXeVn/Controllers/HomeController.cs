@@ -92,6 +92,7 @@ namespace ThueXeVn.Controllers
         public ActionResult Login()
         {
             //ViewBag.Message = "Your application description page.";
+            if (Config.getCookie("logged") != "") return Redirect("/drivers/index");
             return View();
         }
 
@@ -547,7 +548,7 @@ namespace ThueXeVn.Controllers
                 Config.SaveTolog(ex.ToString());
                 return View(taixeupdate);
             }
-            return RedirectToAction("Login");
+            return RedirectToAction("LoginTaiXe");
         }
 
         public string getcarnumber(string keyword)

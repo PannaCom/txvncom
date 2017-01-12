@@ -45,5 +45,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<booking> bookings { get; set; }
         public virtual DbSet<booking_ctv_tiepthi> booking_ctv_tiepthi { get; set; }
         public virtual DbSet<ctv_tiepthi> ctv_tiepthi { get; set; }
+        public virtual DbSet<driver_car_price> driver_car_price { get; set; }
     }
 }

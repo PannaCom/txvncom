@@ -27,7 +27,7 @@ namespace ThueXeVn.Controllers
 
             if (search != null && search != "")
             {
-                sql += "where ctv_fullname like N'%" + search + "%' or ctv_phone like N'%" + search + "%'";
+                sql += " where ctv_fullname like N'%" + search + "%' or ctv_phone like N'%" + search + "%'";
                 ViewBag.search = search;
             }
 
