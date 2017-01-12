@@ -169,7 +169,7 @@ function main() {
                     $('#menu').addClass('navbar-fixed-top');
                     $('#tf-menu').css('margin-top', '49px');
                     $('#tf-home').css('background-position', '0px 0px');
-                    $('#menu').children('div').children('ul').append("<li class='disable_hover' id='hotlineadd'><a href='tel:0964108688' style='margin: 2px; '>Hỗ trợ kỹ thuật: <span class='btn btn-primary btn-success'>096 410 8688</span></a></li>");
+                    $('#menu').children('div').children('ul').append("<li class='disable_hover' id='hotlineadd'><a href='tel:0964108688' style='margin: 2px; color: #333;'>Hỗ trợ kỹ thuật: <span class='btn btn-primary btn-success'>096 410 8688</span></a></li>");
                 });
 
                 // This event fires immediately before the element has been affixed-top.

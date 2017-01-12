@@ -49,6 +49,7 @@
                         <th>
                             Trạng thái
                         </th>
+                        <th>Tình trạng</th>
                         <th></th>
                     </tr>
 
@@ -81,6 +82,48 @@
                                 {
                                     <span>Đang đợi tài xế</span>
                                 }
+                            </td>
+                            <td>
+                                @if (item.status2 == null)
+                                {
+                                    if (item.status != 0)
+                                    {
+                                        <span style="color:red;">Đã đặt</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Đang đợi tài xế</span>
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.status2 == 0 || item.status2 == null)
+                                    {
+                                        <text><span>Mới đặt</span></text>
+                                    }
+                                    else if (item.status2 == 1)
+                                    {
+                                        <text><span style="color: yellow;background: #333;">Hủy chuyến đi</span></text>
+                                    }
+                                    else if (item.status2 == 2)
+                                    {
+                                        <text><span style="color: blue;background: #fff;">Đã điều xe</span></text>
+                                    }
+                                    else if (item.status2 == 3)
+                                    {
+                                        <text><span style="color: red;background: #fff;">Đặt thành công</span></text>
+                                    }
+                                }
+                                
+                                
+                                <select name="chontinhtrang" id="chontrinhtrang">
+                                    <option value="0">Mới đặt</option>
+                                    <option value="1">Hủy chuyến đi</option>
+                                    <option value="2">Đã điều xe</option>
+                                    <option value="3">Đặt thành công</option>
+                                </select>
+                                <span class="btn btn-primary" onclick="updatedatxe('@item.id');" id="active_up_@item.id">Cập nhật</span>
+
                             </td>
                             <td>
                                 @*@Html.ActionLink("Sửa", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-primary" })*@
@@ -124,6 +167,28 @@
 
 
 <script>
+    function updatedatxe(id) {
+        if (confirm("Cập nhật chuyến đi này?")) {
+            document.getElementById("active_up_"+id).value = "Đang cập nhật xin chờ";
+            document.getElementById("active_up_" + id).disabled = true;
+            var trangthai = document.getElementById("chontrinhtrang").value;
+            $.ajax({
+                url: "/bookings/updatedatxe?id_booking=" + id + "&trangthai=" + trangthai,
+                cache: false
+            }).done(function (html) {
+                if (html == "1") {
+                    alert("Bạn cập nhật thành công!");
+                    window.location.href = "/bookings/index";
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("active_up_" + id).value = "Đã cập nhật";
+                document.getElementById("active_up_" + id).disabled = false;
+            });
+
+        }
+    }
+
     function search() {
         window.location.href = "/bookings/index?k=" + document.getElementById("keyword").value;
     }

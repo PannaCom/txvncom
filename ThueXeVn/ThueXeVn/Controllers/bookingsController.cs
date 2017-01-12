@@ -19,7 +19,7 @@ namespace ThueXeVn.Controllers
         {
             if (k == null) k = "";
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-            var p = (from q in db.bookings where q.name.Contains(k) || q.phone.Contains(k)  select q).OrderByDescending(o => o.id).Take(1000);
+            var p = (from q in db.bookings where q.name.Contains(k) || q.phone.Contains(k) select q).OrderByDescending(o => o.id).Take(1000);
             int pageSize = Config.PageSize;
             int pageNumber = (page ?? 1);
             ViewBag.page = page;
@@ -130,5 +130,58 @@ namespace ThueXeVn.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //updatedatxe
+        public string updatedatxe(int id_booking, int trangthai)
+        {
+            try
+            {
+                // Chỉ cập nhật nếu booking khác trạng thái là 3 - đã đặt thành công
+                int status2 = 0;
+                try
+                {
+                    status2 = db.Database.SqlQuery<int>("select status2 from booking where id =" + id_booking).FirstOrDefault();
+                }
+                catch (Exception)
+                {
+                    status2 = 0;
+                }                
+                if (status2 != 3)
+                {
+                    string sql = "update booking set status2=" + trangthai + " where id=" + id_booking;
+                    db.Database.ExecuteSqlCommand(sql);
+                    try
+                    {
+                        if (trangthai == 3)
+                        {
+                            var _b1 = db.booking_ctv_tiepthi.Where(x => x.booking_id == id_booking).FirstOrDefault();
+                            if (_b1 != null)
+                            {
+                                var _cid1 = _b1.ctv_id;
+                                var _ctv = db.ctv_tiepthi.Find(_cid1);
+                                if (_ctv != null)
+                                {
+                                    db.Entry(_ctv).State = EntityState.Modified;
+                                    _ctv.point_share = _ctv.point_share == null ? 1 : _ctv.point_share + 1;
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+
+                    catch
+                    {
+                        return "0";
+                    }
+                }
+
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+        }
+
     }
 }
