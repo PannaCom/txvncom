@@ -91,7 +91,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
+            //ViewBag.Message = "Your application description page.";
             return View();
         }
 

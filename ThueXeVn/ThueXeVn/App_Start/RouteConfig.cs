@@ -32,19 +32,19 @@ namespace ThueXeVn
 
             routes.MapRoute(
                 "quanlybanggia",
-                "tai_xe/quan_ly_bang_gia",
+                "tai-xe/quan-ly-bang-gia",
                 new { controller = "TaiXeBangGia", action = "Index" }
             );
 
             routes.MapRoute(
                 "taixedoipass",
-                "tai_xe/doi_pass",
+                "tai-xe/cap-nhat-mat-khau",
                 new { controller = "Home", action = "UpdatePass" }
             );
 
             routes.MapRoute(
                 "taixedangnhap",
-                "tai_xe/dang_nhap",
+                "tai-xe/dang-nhap",
                 new { controller = "Home", action = "LoginTaiXe" }
             );
 
@@ -83,6 +83,13 @@ namespace ThueXeVn
                 "cong-tac-vien/danh-sach-dat-xe",
                 new { controller = "CongTacVien", action = "danhsachdatxe" }
             );
+
+            //danhsachctv
+            routes.MapRoute(
+               "danhsachctv",
+               "admin/danhsachcongtv",
+               new { controller = "Admin", action = "danhsachctv" }
+           );
             
             routes.MapRoute(
                 name: "Default",

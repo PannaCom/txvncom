@@ -114,5 +114,7 @@ namespace ThueXeVn.Controllers
             return View(data.ToList().ToPagedList(pageNumber, pageSize));
         }
 
+        
+
     }
 }

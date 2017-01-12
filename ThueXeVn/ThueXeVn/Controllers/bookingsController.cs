@@ -168,7 +168,6 @@ namespace ThueXeVn.Controllers
                             }
                         }
                     }
-
                     catch
                     {
                         return "0";

@@ -127,4 +127,15 @@ namespace ThueXeVn.Models
         public int? status2 { get; set; }
     }
 
+    public partial class ctvVM
+    {
+        public long ctv_id { get; set; }
+        public string ctv_fullname { get; set; }
+        public string ctv_phone { get; set; }
+        public string ctv_email { get; set; }
+        public int? point_share { get; set; }
+        public System.DateTime? date_create { get; set; }
+        public bool? status { get; set; }
+    }
+
 }

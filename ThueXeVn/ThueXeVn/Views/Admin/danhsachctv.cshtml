@@ -1,0 +1,157 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.ctvVM>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách cộng tác viên";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+
+            <div class="panel-heading">
+                @using (Html.BeginForm("danhsachctv", "Admin", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-dsctv", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="search" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập từ khóa tìm kiếm" })
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary"><i class="fa fa-search"></i> Thống kê</button>
+                    </div>
+
+                }
+                
+                <script>
+                    function validate() {
+                        if (document.getElementById("search").value === "") {
+                            alert('Vui lòng nhập ít nhất một lựa chọn tìm kiếm');
+                            return false;
+                        } else {
+                            return true;
+                        };
+                    }
+                </script>
+
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table-datxxe">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Họ tên</th>
+                                <th>Ngày đăng ký</th>
+                                <th>Số lượt chia sẻ</th>
+                                <th>Tình trạng tài khoản</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.ctv_fullname</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.date_create)</td>
+                                            <td>
+                                                @if (item.point_share == null)
+                                                {
+                                                    <text>0</text>
+                                                }
+                                                else
+                                                {
+                                                    @item.point_share
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.status == true)
+                                                {
+                                                    <text>Kích hoạt</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>Tạm khóa</text>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span id="active_up_@item.ctv_id" class="btn btn-primary" onclick="updatestatus(@item.ctv_id);">Tạm dừng tài khoản</span>
+                                            </td>
+                                        </tr>
+                                                i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            Bạn chưa có dữ liệu để hiện thị
+                                        </td>
+                                    </tr>
+                                }
+                                
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6">
+                                        Bạn chưa có dữ liệu để hiện thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    <p><b>Số cộng tác viên trong hệ thống: @Model.Count</b></p>
+                    @Html.PagedListPager(Model, page => Url.RouteUrl("danhsachctv", new { pg = page, search = ViewBag.search }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updatestatus(id) {
+        if (confirm("Bạn chắc chắn muốn khóa tài khoản của cộng tác viên này?")) {
+            document.getElementById("active_up_" + id).value = "Đang cập nhật xin chờ";
+            document.getElementById("active_up_" + id).disabled = true;
+            $.ajax({
+                url: "/admin/updatestatus?id=" + id,
+                cache: false
+            }).done(function (html) {
+                if (html == "1") {
+                    alert("Bạn cập nhật thành công!");
+                    window.location.href = "/admin/danhsachcongtv";
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("active_up_" + id).value = "Đã cập nhật";
+                document.getElementById("active_up_" + id).disabled = false;
+            });
+
+        }
+    }
+</script>
