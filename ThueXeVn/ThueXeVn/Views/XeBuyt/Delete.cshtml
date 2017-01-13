@@ -1,0 +1,57 @@
+﻿@model ThueXeVn.Models.find_bus
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>find_bus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_des)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_des)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_to)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

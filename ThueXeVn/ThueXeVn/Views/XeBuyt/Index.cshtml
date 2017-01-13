@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ThueXeVn.Models.find_bus>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Số hiệu tuyến
+        </th>
+        <th>
+            Tên Tuyến<br />Thời gian hoạt động<br />Tần suất hoạt động
+        </th>
+        <th>
+            Lượt đi qua các phố chính
+        </th>
+        <th>
+            Lượt về qua các phố chính
+        </th>
+        <th>
+            Trợ giá?
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.bus_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bus_des)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bus_from)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bus_to)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bus_type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

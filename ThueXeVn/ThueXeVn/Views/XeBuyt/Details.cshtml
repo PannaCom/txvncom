@@ -1,0 +1,51 @@
+﻿@model ThueXeVn.Models.find_bus
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>find_bus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_no)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_no)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_des)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_des)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_from)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_from)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.bus_to)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bus_to)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

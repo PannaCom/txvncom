@@ -1,0 +1,70 @@
+﻿@model ThueXeVn.Models.find_bus
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Sửa tuyến xe bus</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12">Số hiệu tuyến</div>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.bus_no, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.bus_no, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">Tên Tuyến/Thời gian hoạt động/Tần suất hoạt động</div>
+            <div class="col-md-12">
+                <textarea id="bus_des" name="bus_des" rows="3" cols="10" class="form-control">@Model.bus_des</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">Lượt đi qua các phố chính</div>
+            <div class="col-md-12">
+                <textarea id="bus_from" name="bus_from" rows="10" cols="10" class="form-control">@Model.bus_from</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">Lượt về qua các phố chính</div>
+            <div class="col-md-12">
+                <textarea id="bus_to" name="bus_to" rows="10" cols="10" class="form-control">@Model.bus_to</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">Mô tả thêm(có trợ giá, không trợ giá, kế cận)</div>
+            <div class="col-md-12">
+                @*<textarea id="bus_type" name="bus_type" rows="3" cols="10" class="form-control">@Model.bus_type</textarea>*@
+                <select id="bus_type" name="bus_type" class="form-control">
+                    <option value="Tuyến xe buýt có trợ giá">Tuyến xe buýt có trợ giá</option>
+                    <option value="Tuyến xe buýt không trợ giá">Tuyến xe buýt không trợ giá</option>
+                    <option value="Tuyến xe buýt kế cận">Tuyến xe buýt kế cận</option>
+                    <option value="Tuyến xe buýt thử nghiệm">Tuyến xe buýt thử nghiệm</option>
+                </select>
+                <script>document.getElementById("bus_type").value="@Html.Raw(Model.bus_type)";</script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12">
+                <input type="submit" value="Edit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
