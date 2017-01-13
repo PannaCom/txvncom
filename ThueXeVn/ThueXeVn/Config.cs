@@ -178,6 +178,10 @@ namespace ThueXeVn
             {
                 input = "00000";
             }
+            if (input.Length < 9)
+            {
+                input = "0000" + input;
+            }
             string noMark = "a,b,c,d,e,f,g,h,i,j";
             string number = "0,1,2,3,4,5,6,7,8,9";
             string[] a_n = noMark.Split(',');
