@@ -1,21 +1,112 @@
-﻿@{
+﻿@model PagedList.IPagedList<ThueXeVn.Models.driver_car_price>
+@using PagedList.Mvc;
+@{
     ViewBag.Title = "Quản lý bảng giá xe";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdminTX.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
+
+@section PageTitleHeader {
+<div class="page-header">
+    <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title</h3>
+</div>
+
+@if (TempData["Updated"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        @Html.Raw(TempData["Updated"])
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        @Html.Raw(TempData["Error"])
+    </div>
+}
 }
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="page-header">
-            <h3>@ViewBag.Title</h3>
-        </div>
-    </div>
-</div>
+        <div class="panel panel-default">
+            
+            <div class="panel-body">
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default box">
-            <div class="panel-heading">
-                <h3>Tài xế tạo bảng giá cho các loại xe của mình</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table-banggia">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Loại xe (số chỗ)</th>
+                                <th>Giá/1km 1 chiều (đồng)</th>
+                                <th>Nhân ngày lễ</th>
+                                <th>Nhân một chiều</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                Xe @item.cp_car_type chỗ
+                                            </td>
+                                            <td style="text-align: right;">@string.Format("{0:#,##}", item.cp_price)</td>
+                                            <td>@item.cp_multiple</td>
+                                            <td>
+                                                @item.cp_multiple2
+                                            </td>
+                                            <td>
+                                                <a href="/TaiXeBangGia/Edit/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Sửa</a>
+                                                <a href="/TaiXeBangGia/Delete/@item.id" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</a>
+                                            </td>
+                                        </tr>
+                                                i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5">
+                                            Bạn chưa có dữ liệu để hiện thị
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5">
+                                        Bạn chưa có dữ liệu để hiện thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.RouteUrl("quanlybanggia", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
             </div>
 
 

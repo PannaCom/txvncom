@@ -457,12 +457,12 @@ namespace ThueXeVn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string phone, string pass)
+        public ActionResult LoginTaiXe(string phone, string pass_taixe)
         {
             try
             {
                 MD5 md5Hash = MD5.Create();
-                var epass = Config.GetMd5Hash(md5Hash, pass);
+                var epass = Config.GetMd5Hash(md5Hash, pass_taixe);
                 var login = (from t in db.drivers where t.phone == phone && t.pass == epass select t).FirstOrDefault();
                 if (login == null)
 	            {
@@ -470,7 +470,7 @@ namespace ThueXeVn.Controllers
 		            return View();
 	            }
                 var name_login = login.phone+login.id+login.name;
-                Config.setCookie("taixelogged", Config.GetMd5Hash(md5Hash, name_login));
+                Config.setCookie("taixelogged", Config.GetMd5Hash(md5Hash, name_login) + "," + login.id);
             }
             catch(Exception ex) 
             {
@@ -494,7 +494,7 @@ namespace ThueXeVn.Controllers
                 {
                     var _tx = Config.GetMd5Hash(md5Hash, p.phone);
                     //Ghi ra cookie
-                    Config.setCookie("taixeupdatepass", _tx + "," + p.id);
+                    Config.setCookie("taixeupdatepass", _tx + "-" + p.id);
                     ViewBag.idtaixe = p.id;
                 }
                 else
@@ -515,8 +515,8 @@ namespace ThueXeVn.Controllers
 
         public ActionResult UpdatePass()
         {
-            if (Config.getCookie("taixeupdatepass") != "") return RedirectToRoute("taixedoipass");
-            
+            if (Config.getCookie("taixeupdatepass") == "") return RedirectToAction("Taixe");
+            if (Config.getCookie("taixelogged") != "") return RedirectToRoute("quanlybanggia");
             return View();
         }
 
@@ -526,7 +526,7 @@ namespace ThueXeVn.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Có lỗi xảy ra khi đổi mật khẩu.");
+                ModelState.AddModelError("", "Vui lòng kiểm tra lại các trường.");
                 return View(model);
             }
             var taixeupdate = db.drivers.Find(model.id_taixe);
@@ -542,13 +542,14 @@ namespace ThueXeVn.Controllers
                 var newpass = Config.GetMd5Hash(md5Hash, epass);
                 taixeupdate.pass = newpass;
                 db.SaveChanges();
+                Config.RemoveCookie("taixeupdatepass");
             }
             catch(Exception ex)
             {
                 Config.SaveTolog(ex.ToString());
                 return View(taixeupdate);
             }
-            return RedirectToAction("LoginTaiXe");
+            return RedirectToRoute("taixedangnhap");
         }
 
         public string getcarnumber(string keyword)

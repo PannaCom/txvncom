@@ -110,11 +110,12 @@
                     <table class="table table-bordered table-striped" id="table-bangke">
                         <thead>
                             <tr>
-                                <th style="width: 50px; text-align: center;">Id</th>
+                                <th style="width: 50px; text-align: center;">Số thứ tự</th>
                                 <th>Tên khách hàng</th>
                                 <th>Số điện thoại</th>
                                 <th>Điểm đón=>Điểm trả</th>
                                 <th>Tổng tiền</th>
+                                <th>Tên tài xế</th>
                                 <th>Ghi chú</th>
                                 <th></th>
                             </tr>
@@ -124,20 +125,23 @@
                             {
                                 if (Model.Count > 0)
                                 {
+                                    int i = 1; 
                                     foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td style="text-align: center;">@item.id</td>
+                                            <td style="text-align: center;">@i</td>
                                             <td>@item.customer_name</td>
                                             <td>@item.phone</td>
                                             <td>@item.pickup => @item.paypoints</td>
                                             <td>@item.sum</td>
+                                            <td>@item.driver</td>
                                             <td>@item.note</td>
                                             <td>
                                                 <a href="/List/Edit/@item.id" class="btn btn-primary" ><i class="fa fa-edit"></i> Sửa</a>
-                                                <a href="/List/Delete/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Xóa</a>
+                                                <a href="/List/Delete/@item.id" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</a>
                                             </td>
                                         </tr>
+                                        i++;
                                     }
                                 }
                                 else

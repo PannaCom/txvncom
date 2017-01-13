@@ -32,9 +32,11 @@ namespace ThueXeVn
 
             routes.MapRoute(
                 "quanlybanggia",
-                "tai-xe/quan-ly-bang-gia",
+                "taixe/quanlybanggia",
                 new { controller = "TaiXeBangGia", action = "Index" }
             );
+
+
 
             routes.MapRoute(
                 "taixedoipass",
