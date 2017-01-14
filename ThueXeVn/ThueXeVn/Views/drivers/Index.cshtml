@@ -99,7 +99,8 @@
                                 @Html.DisplayFor(modelItem => item.car_made)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.car_type)
+                                <p>@Html.DisplayFor(modelItem => item.car_type)</p>
+                                <p>Giá: @item.car_price đ/km</p>
                             </td>
                             <td>
                                 @if (item.code != "1")
