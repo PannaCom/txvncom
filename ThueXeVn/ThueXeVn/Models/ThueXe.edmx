@@ -49,6 +49,22 @@
           <Property Name="ctv_id" Type="bigint" />
           <Property Name="utm_code" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="bus_all">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sprovince" Type="nvarchar" MaxLength="151" />
+          <Property Name="sfrom" Type="nvarchar" MaxLength="151" />
+          <Property Name="sto" Type="nvarchar" MaxLength="151" />
+        </EntityType>
+        <EntityType Name="bus_keyword">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="keyword" Type="nvarchar" MaxLength="551" />
+        </EntityType>
         <EntityType Name="call_driver_log">
           <Key>
             <PropertyRef Name="id" />
@@ -144,6 +160,18 @@
           <Property Name="lon" Type="float" />
           <Property Name="lat" Type="float" />
           <Property Name="geo" Type="geography" />
+        </EntityType>
+        <EntityType Name="find_bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bus_no" Type="nvarchar" MaxLength="500" />
+          <Property Name="bus_des" Type="ntext" />
+          <Property Name="bus_from" Type="ntext" />
+          <Property Name="bus_to" Type="ntext" />
+          <Property Name="bus_type" Type="nvarchar" MaxLength="1501" />
+          <Property Name="province" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="invoices">
           <Key>
@@ -253,6 +281,8 @@
           <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking_ctv_tiepthi" EntityType="Self.booking_ctv_tiepthi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_all" EntityType="Self.bus_all" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bus_keyword" EntityType="Self.bus_keyword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_driver_log" EntityType="Self.call_driver_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="call_log" EntityType="Self.call_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_hire_type" EntityType="Self.car_hire_type" Schema="dbo" store:Type="Tables" />
@@ -261,6 +291,7 @@
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="find_bus" EntityType="Self.find_bus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car_model" EntityType="Self.list_car_model" Schema="dbo" store:Type="Tables" />
@@ -373,6 +404,9 @@
           <EntitySet Name="booking_ctv_tiepthi" EntityType="thuexevnModel.booking_ctv_tiepthi" />
           <EntitySet Name="ctv_tiepthi" EntityType="thuexevnModel.ctv_tiepthi" />
           <EntitySet Name="driver_car_price" EntityType="thuexevnModel.driver_car_price" />
+          <EntitySet Name="bus_all" EntityType="thuexevnModel.bus_all" />
+          <EntitySet Name="bus_keyword" EntityType="thuexevnModel.bus_keyword" />
+          <EntitySet Name="find_bus" EntityType="thuexevnModel.find_bus" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -542,6 +576,34 @@
           <Property Name="cp_multiple" Type="Int32" />
           <Property Name="cp_multiple2" Type="Int32" />
           <Property Name="driver_id" Type="Int64" />
+        </EntityType>
+        <EntityType Name="bus_all">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sprovince" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
+          <Property Name="sfrom" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
+          <Property Name="sto" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="bus_keyword">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="keyword" Type="String" MaxLength="551" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="find_bus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bus_no" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="bus_des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bus_from" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bus_to" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bus_type" Type="String" MaxLength="1501" FixedLength="false" Unicode="true" />
+          <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -810,6 +872,37 @@
                 <ScalarProperty Name="cp_multiple" ColumnName="cp_multiple" />
                 <ScalarProperty Name="cp_price" ColumnName="cp_price" />
                 <ScalarProperty Name="cp_car_type" ColumnName="cp_car_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_all">
+            <EntityTypeMapping TypeName="thuexevnModel.bus_all">
+              <MappingFragment StoreEntitySet="bus_all">
+                <ScalarProperty Name="sto" ColumnName="sto" />
+                <ScalarProperty Name="sfrom" ColumnName="sfrom" />
+                <ScalarProperty Name="sprovince" ColumnName="sprovince" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bus_keyword">
+            <EntityTypeMapping TypeName="thuexevnModel.bus_keyword">
+              <MappingFragment StoreEntitySet="bus_keyword">
+                <ScalarProperty Name="keyword" ColumnName="keyword" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="find_bus">
+            <EntityTypeMapping TypeName="thuexevnModel.find_bus">
+              <MappingFragment StoreEntitySet="find_bus">
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="bus_type" ColumnName="bus_type" />
+                <ScalarProperty Name="bus_to" ColumnName="bus_to" />
+                <ScalarProperty Name="bus_from" ColumnName="bus_from" />
+                <ScalarProperty Name="bus_des" ColumnName="bus_des" />
+                <ScalarProperty Name="bus_no" ColumnName="bus_no" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
