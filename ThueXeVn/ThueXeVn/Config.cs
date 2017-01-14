@@ -79,6 +79,18 @@ namespace ThueXeVn
             // Return the hexadecimal string. 
             return sBuilder.ToString();
         }
+        public static string getTinhThanh()
+        {
+            var p = (from q in db.TinhThanhs orderby q.tinhthanhpho select q.tinhthanhpho).Distinct().ToList();
+            string tinhthanh = "<select id=province name=province class=\"form-control\">";
+            tinhthanh += "<option value=\"\">Chọn tỉnh thành</option>";
+            for (int i = 0; i < p.Count; i++)
+            {
+                tinhthanh += "<option value=\"" + p[i] + "\">" + p[i] + "</option>";
+            }
+            tinhthanh += "</select>";
+            return tinhthanh;
+        }
         public static string getProjectMenu(int id)
         {
             string menuleft = "";
