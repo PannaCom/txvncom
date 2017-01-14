@@ -261,6 +261,21 @@
           <Property Name="reg_id" Type="nvarchar(max)" />
           <Property Name="os" Type="int" />
         </EntityType>
+        <EntityType Name="pl_car_price">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pl_car_type" Type="int" />
+          <Property Name="g1" Type="int" />
+          <Property Name="g2" Type="int" />
+          <Property Name="g3" Type="int" />
+          <Property Name="g4" Type="int" />
+          <Property Name="g5" Type="int" />
+          <Property Name="g6" Type="int" />
+          <Property Name="g7" Type="int" />
+          <Property Name="g8" Type="int" />
+        </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
             <PropertyRef Name="id" />
@@ -300,6 +315,7 @@
           <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notices" EntityType="Self.notices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notifies" EntityType="Self.notifies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pl_car_price" EntityType="Self.pl_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -407,6 +423,7 @@
           <EntitySet Name="bus_all" EntityType="thuexevnModel.bus_all" />
           <EntitySet Name="bus_keyword" EntityType="thuexevnModel.bus_keyword" />
           <EntitySet Name="find_bus" EntityType="thuexevnModel.find_bus" />
+          <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -604,6 +621,21 @@
           <Property Name="bus_to" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="bus_type" Type="String" MaxLength="1501" FixedLength="false" Unicode="true" />
           <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="pl_car_price">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pl_car_type" Type="Int32" />
+          <Property Name="g1" Type="Int32" />
+          <Property Name="g2" Type="Int32" />
+          <Property Name="g3" Type="Int32" />
+          <Property Name="g4" Type="Int32" />
+          <Property Name="g5" Type="Int32" />
+          <Property Name="g6" Type="Int32" />
+          <Property Name="g7" Type="Int32" />
+          <Property Name="g8" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -903,6 +935,22 @@
                 <ScalarProperty Name="bus_from" ColumnName="bus_from" />
                 <ScalarProperty Name="bus_des" ColumnName="bus_des" />
                 <ScalarProperty Name="bus_no" ColumnName="bus_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pl_car_price">
+            <EntityTypeMapping TypeName="thuexevnModel.pl_car_price">
+              <MappingFragment StoreEntitySet="pl_car_price">
+                <ScalarProperty Name="g8" ColumnName="g8" />
+                <ScalarProperty Name="g7" ColumnName="g7" />
+                <ScalarProperty Name="g6" ColumnName="g6" />
+                <ScalarProperty Name="g5" ColumnName="g5" />
+                <ScalarProperty Name="g4" ColumnName="g4" />
+                <ScalarProperty Name="g3" ColumnName="g3" />
+                <ScalarProperty Name="g2" ColumnName="g2" />
+                <ScalarProperty Name="g1" ColumnName="g1" />
+                <ScalarProperty Name="pl_car_type" ColumnName="pl_car_type" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

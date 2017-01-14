@@ -577,6 +577,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult banggiaxe()
         {
+
             return View();
         }
 
@@ -805,6 +806,12 @@ namespace ThueXeVn.Controllers
             {
                 return "0";
             }
+        }
+
+        public ActionResult banggiaxe1()
+        {
+            var data = db.pl_car_price.ToList();
+            return PartialView("_banggiaxe1", data);
         }
 
     }

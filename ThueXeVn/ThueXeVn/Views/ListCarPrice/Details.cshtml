@@ -1,0 +1,91 @@
+﻿@model ThueXeVn.Models.pl_car_price
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>pl_car_price</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pl_car_type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pl_car_type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g6)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g6)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g7)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g7)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.g8)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.g8)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -29,6 +29,7 @@
         <EntityTypeShape EntityType="thuexevnModel.bus_all" Width="1.5" PointX="13.375" PointY="7.75" />
         <EntityTypeShape EntityType="thuexevnModel.bus_keyword" Width="1.5" PointX="13.375" PointY="10.75" />
         <EntityTypeShape EntityType="thuexevnModel.find_bus" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="thuexevnModel.pl_car_price" Width="1.5" PointX="0.75" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

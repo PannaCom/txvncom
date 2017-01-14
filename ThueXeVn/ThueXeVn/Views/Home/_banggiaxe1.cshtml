@@ -1,0 +1,126 @@
+﻿@model List<ThueXeVn.Models.pl_car_price>
+
+<div class="row" id="bangiaxe" style="background: #fff; color: #333;">
+
+    <div id="page_header">
+        <div class="col-md-2" id="bg_logo"><img src="~/Content/Images/logo_mv_e1.png" /></div>
+        <div class="col-md-offset-1 col-md-5" id="bg_h1" style="display: block; text-align: center;">
+            <h3>ThueXeVn.Com</h3>
+            <p style="color: #5BB75B; font-weight: 700; font-size: 19px;">HotLine: <a href="tel:0964108688">096 410 8688</a> - <a href="tel:0979776427">097 977 6427</a></p>
+        </div>
+        <div class="col-md-4" id="bg_right">
+            <h3 style="font-size: 11px; font-weight: bold;">Công ty cổ phần Đầu tư Thương mại và Dịch vụ Minh Việt</h3>
+            <p style="font-size: 11px;"><b>Địa chỉ: </b>78 Duy Tân, Kim Ánh Building, Cầu Giấy, Hà Nội</p>
+            <p style="font-size: 11px;"><b>Điện thoại: </b>04 66533377</p>
+        </div>
+    </div>
+    @if (Model != null)
+    {
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table_baogia" style="margin-top: 15px;">
+                    <caption>BẢNG BÁO GIÁ XE</caption>
+                    <thead style="background: #ececec; color: #000;">
+                        <tr style="text-align: center;">
+                            <th rowspan="3">Loại xe (số chỗ)</th>
+                            <th rowspan="3">1 ngày trong TP (100km/10h)</th>
+                            <th rowspan="3">1/2 ngày trong TP (50km/5h)</th>
+                            <th rowspan="3">Hà Nội - Nội Bài</th>
+                            <th rowspan="3">Nội Bài - Hà Nội</th>
+                            <th rowspan="3">Khứ hồi Nội Bài</th>
+                            <th rowspan="2" class="bg_23" style="border-bottom: 0;">Ngoài TP 2 chiều</th>
+                            <th rowspan="2" class="bg_yellow3" style="border-bottom: 0;">Ngoài TP 1 chiều</th>
+                            <th rowspan="3">Lưu đêm (đồng/đêm)</th>
+                        </tr>
+                        @*<tr style="text-align: center;">
+                                <th colspan="1" rowspan="2" class="bg_yellow">&lt;100km</th>
+                                <th colspan="1" rowspan="2" class="bg_yellow">100-200km</th>
+                                <th colspan="1" rowspan="2" class="bg_yellow">&gt;200km</th>
+                                <th colspan="1" rowspan="2" class="bg_2">&lt;100km</th>
+                                <th colspan="1" rowspan="2" class="bg_2">100-200km</th>
+                                <th colspan="1" rowspan="2" class="bg_2">&gt;200km</th>
+                            </tr>*@
+                        <tr style="text-align: center;"></tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="bg_fw1">Xe @item.pl_car_type chỗ</td>
+                                <td>@string.Format("{0:#,###}", @item.g1)</td>
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g2)
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g3)
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g4)
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g5)
+                                </td>
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g6)
+                                </td>
+                                @*<td>
+                                        9,000
+                                    </td>
+                                    <td>
+                                        8,500
+                                    </td>*@
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g7)
+                                </td>
+                                @*<td>
+                                        8,500
+                                    </td>
+                                    <td>
+                                        9,000
+                                    </td>*@
+                                <td>
+                                    @string.Format("{0:#,###}", @item.g8)
+                                </td>
+                            </tr>
+                        }
+                        
+                       
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="vertical-align: middle; font-weight: 700; font-size: 5em;" colspan="3" rowspan="5">Ghi Chú:</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;" colspan="6" rowspan="5">
+
+                                <ul style="list-style-type: none; padding-left: 0; font-weight: 600;">
+                                    <li>
+                                        <b>Riêng với tuyến xe sân bay:</b>
+                                        <ul style="list-style-type: none; padding-left: 5px;">
+                                            <li>
+                                                <p>
+                                                    - Nếu điểm đi hoặc điểm đến là 4 quận nội thành(Ba Đình, Đống Đa, Hoàn Kiếm, Cầu Giấy): 200.000 (Chiều đi) - 300.000 (chiều về) còn các quận nội thành khác: 250.000 (chiều đi) – 350.000 (chiều về).
+                                                </p>
+                                            </li>
+                                            <li><p>- Nếu quãng đường > 40km (Chương Mỹ, Quốc Oai,…): tính giá tiền theo Km</p></li>
+
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </td>
+                        </tr>
+                        @*<tr>
+                                <td colspan="7" rowspan="5"></td>
+                            </tr>*@
+
+                    </tfoot>
+
+                </table>
+                <div><p style="font-weight: 600;">Lưu ý: Toàn bộ giá trên chưa bao gồm <span style="background: #26AAEA; padding: 5px; color: #fff;">phí cầu đường</span> và <span style="background: #26AAEA; padding: 5px;color: #fff;">VAT</span>.</p></div>
+            </div>
+
+        </div>
+    }
+</div>

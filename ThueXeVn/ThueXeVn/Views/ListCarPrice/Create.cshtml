@@ -1,0 +1,153 @@
+﻿@model ThueXeVn.Models.pl_car_price
+
+@{
+    ViewBag.Title = "Thêm mới bảng giá";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .input-validation-error {
+        color: #ac2925;
+    background-color: #fff;
+    border-color: #ac2925;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Create", "ListCarPrice", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "create_banggia" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>@ViewBag.Title</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label for="pl_car_type" class="control-label col-md-2">Loại xe(số chỗ)</label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.pl_car_type, new SelectList(ViewBag.pl_car_type, "Value", "Text"), "-Chọn loại xe-", new { @class = "form-control", required = "" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g1" class="control-label col-md-2">Giá 1 ngày trong TP (100km/10h)</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g1, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g2" class="control-label col-md-2">Giá 1/2 ngày trong TP (50km/5h)</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g2, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g3" class="control-label col-md-2">Giá Hà Nội - Nội Bài</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g3, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g4" class="control-label col-md-2">Giá Nội Bài - Hà Nội</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g4, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g5" class="control-label col-md-2">Giá Khứ hồi Nội Bài</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g5, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g6" class="control-label col-md-2">Giá Ngoài TP 2 chiều	</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g6, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g7" class="control-label col-md-2">Giá Ngoài TP 1 chiều</label>                    
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g7, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="g8" class="control-label col-md-2">Giá Lưu đêm (đồng/đêm)</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.g8, new { htmlAttributes = new { @class = "form-control", required = "" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Thêm mới" class="btn btn-default" />
+                    </div>
+                    @Html.ActionLink("Trở lại danh sách", "Index")
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            //$.validator.setDefaults({
+            //    ignore: ""
+            //});
+            // Add novalidate tag if HTML5.
+            $("#create_banggia").removeAttr('novalidate');
+            var validator = $("#create_banggia").validate({
+                debug: true,
+                rules: {
+                    pl_car_type: "required",
+                    g1: "required",
+                    g2: "required",
+                    g3: "required",
+                    g4: "required",
+                    g5: "required",
+                    g6: "required",
+                    g7: "required",
+                    g8: "required"
+                },
+                messages: {
+                    pl_car_type: "Vui lòng chọn loại xe",
+                    g1: "Vui lòng nhập giá",
+                    g2: "Vui lòng nhập giá",
+                    g3: "Vui lòng nhập giá",
+                    g4: "Vui lòng nhập giá",
+                    g5: "Vui lòng nhập giá",
+                    g6: "Vui lòng nhập giá",
+                    g7: "Vui lòng nhập giá",
+                    g8: "Vui lòng nhập giá",
+                },
+                errorClass: 'error help-inline',
+                validClass: 'success',
+                errorElement: 'span',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).parents("div.col-md-10").addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+                },                
+                
+            });
+
+            
+        })
+
+
+    </script>
+}

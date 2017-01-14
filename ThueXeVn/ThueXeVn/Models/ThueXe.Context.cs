@@ -49,5 +49,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<bus_all> bus_all { get; set; }
         public virtual DbSet<bus_keyword> bus_keyword { get; set; }
         public virtual DbSet<find_bus> find_bus { get; set; }
+        public virtual DbSet<pl_car_price> pl_car_price { get; set; }
     }
 }

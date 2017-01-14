@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ThueXeVn.Models.pl_car_price>
+
+@{
+    ViewBag.Title = "Danh sách bảng giá";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <h2>@ViewBag.Title</h2>
+
+        <p>
+            @Html.ActionLink("Thêm bảng giá", "Create")
+        </p>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>
+                    Loại xe (số chỗ)
+                </th>
+                <th>
+                    1 ngày trong TP (100km/10h)
+                </th>
+                <th>
+                    1/2 ngày trong TP (50km/5h)
+                </th>
+                <th>
+                    Hà Nội - Nội Bài
+                </th>
+                <th>
+                    Nội Bài - Hà Nội
+                </th>
+                <th>
+                    Khứ hồi Nội Bài
+                </th>
+                <th>
+                    Ngoài TP 2 chiều
+                </th>
+                <th>
+                    Ngoài TP 1 chiều
+                </th>
+                <th>
+                    Lưu đêm (đồng/đêm)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                       Xe @Html.DisplayFor(modelItem => item.pl_car_type) chỗ
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.g8)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.id }, htmlAttributes: new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+    </div>
+
+</div>
