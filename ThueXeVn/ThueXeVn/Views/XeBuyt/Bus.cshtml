@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Thông tin chi tiết tuyến xe buýt ";
+    ViewBag.des = "Thông tin chi tiết tuyến xe buýt ";
+    ViewBag.keywords = "xe buyt, tuyến xe buýt,  tìm bus,  lộ trình xe bus";
+   
+    if (ViewBag.sprovince != null && ViewBag.sprovince != "")
+    {
+        ViewBag.keywords += ", " + ViewBag.sprovince;
+        ViewBag.Title += ", " + ViewBag.sprovince;
+        ViewBag.des += ", " + ViewBag.sprovince;
+    }
+    if (ViewBag.sfrom != null && ViewBag.sfrom != "")
+    {
+        ViewBag.keywords += ", " + ViewBag.sfrom;
+        ViewBag.Title += ", " + ViewBag.sfrom;
+        ViewBag.des += ", " + ViewBag.sfrom;
+    }
+    if (ViewBag.sto != null && ViewBag.sto != "")
+    {
+        ViewBag.keywords += ", " + ViewBag.sto;
+        ViewBag.Title += ", " + ViewBag.sto;
+        ViewBag.des += ", " + ViewBag.sto;
+    }
+    ViewBag.image = ThueXeVn.Config.domain + "/Images/Bus.png";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+}
+<h1>@ViewBag.Title</h1>
+    <div class="row" style="background: #fff; color: #333;">
+        <div class="container-fluid22" style="min-height: 304px; padding: 0;">
+            <div style="height: auto;">
+                <div class="container">
+                    <div class="row">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>
+                                    Tỉnh thành
+                                </th>
+                                <th>
+                                    Tuyến xe buýt
+                                </th>
+                                <th>
+                                    Điểm đi -> Điểm đến
+                                </th>
+                                <th>
+                                    Tên Tuyến, Thời gian hoạt động, Tần suất hoạt động
+                                </th>
+                            </tr>
+                                <tr>
+                                    <td>
+                                        @ViewBag.sprovince
+                                    </td>
+                                    <td>
+                                        số @ViewBag.sno
+                                    </td>
+                                    <td>
+                                        @ViewBag.sfrom -> @ViewBag.sto
+                                    </td>
+                                    <td>
+                                        @ViewBag.sdes
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

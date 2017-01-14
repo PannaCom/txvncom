@@ -1,26 +1,21 @@
-﻿@model PagedList.IPagedList<ThueXeVn.Models.find_bus>
+﻿@model PagedList.IPagedList<ThueXeVn.Models.bus_all>
 @using PagedList.Mvc;
 @{
-    
-    ViewBag.Title = "tổng hợp xe buyt Việt Nam";
-    ViewBag.des = "tổng hợp xe buyt Việt Nam";
+    ViewBag.Title = "Tất cả các tuyến xe buýt Việt Nam ";
+    ViewBag.des = "Tất cả các tuyến xe buýt ";
     ViewBag.keywords = "xe buyt, tuyến xe buýt,  tìm bus,  lộ trình xe bus";
     
-    
-    if (ViewBag.sprovince != null && ViewBag.sprovince != "")
-    {
+    if (ViewBag.sprovince != null && ViewBag.sprovince != "") { 
         ViewBag.keywords += ", " + ViewBag.sprovince;
         ViewBag.Title += ", " + ViewBag.sprovince;
         ViewBag.des += ", " + ViewBag.sprovince;
     }
-    if (ViewBag.sfrom != null && ViewBag.sfrom != "")
-    {
+    if (ViewBag.sfrom != null && ViewBag.sfrom != "") { 
         ViewBag.keywords += ", " + ViewBag.sfrom;
         ViewBag.Title += ", " + ViewBag.sfrom;
         ViewBag.des += ", " + ViewBag.sfrom;
     }
-    if (ViewBag.sto != null && ViewBag.sto != "")
-    {
+    if (ViewBag.sto != null && ViewBag.sto != "") { 
         ViewBag.keywords += ", " + ViewBag.sto;
         ViewBag.Title += ", " + ViewBag.sto;
         ViewBag.des += ", " + ViewBag.sto;
@@ -36,52 +31,31 @@
                 <div class="row">
                     <div id="form_timxe">
                         @Html.Raw(ThueXeVn.Config.getTinhThanh())
-                        <input id="from" name="from" class="form-control col-sm-3" placeholder="Điểm đi" onkeyup="searchKeyword(1);" autocomplete="off" value="@ViewBag.sfrom"/>
+                        <input id="from" name="from" class="form-control col-sm-3" placeholder="Điểm đi" onkeyup="searchKeyword(1);" autocomplete="off" value="@ViewBag.sfrom" />
                         <input id="to" name="to" class="form-control col-sm-3" placeholder="Điểm đến" onkeyup="searchKeyword(2);" autocomplete="off" value="@ViewBag.sto" />
                         <input type="button" value="TÌM XE BUÝT" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
                     </div>
                 </div>
                 <div class="row">
-                    <a href="/XeBuyt/TimBus">Xem Theo Tuyến</a>
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>
-                                <b>Tỉnh thành</b><br />/
-                                Tuyến xe
+                                <b>Tỉnh thành</b>
                             </th>
                             <th>
-                                Tên Tuyến<br />Thời gian hoạt động<br />Tần suất hoạt động
+                                Điểm đi -> Điểm đến
                             </th>
-                            <th>
-                                Lượt đi qua các phố chính
-                            </th>
-                            <th>
-                                Lượt về qua các phố chính
-                            </th>
-                            <th>
-                                Trợ giá?
-                            </th>
-                            <th></th>
+                            
                         </tr>
 
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    <b>@item.province </b><br />
-                                    số @Html.DisplayFor(modelItem => item.bus_no)
+                                    <b>@item.sprovince</b>
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.bus_des)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.bus_from)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.bus_to)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.bus_type)
+                                    <a href="/XeBuyt/Bus?sprovince=@item.sprovince&sfrom=@item.sfrom&sto=@item.sto" target="_blank">@item.sfrom -> @item.sto</a>
                                 </td>
                             </tr>
                         }
@@ -103,12 +77,12 @@
                     if (i != ViewBag.page)
                     {
                         <text>
-                            <li><a href="/XeBuyt/List?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i">@i</a></li></text>
+                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i">@i</a></li></text>
                     }
                     else
                     {
                         <text>
-                            <li><a href="/XeBuyt/List?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
                     }
                 }
             </ul>
@@ -138,7 +112,7 @@
         }
     }
     function search() {
-        window.location.href = "/XeBuyt/List?sprovince=" + $("#province").val() + "&sfrom=" + $("#from").val() + "&sto=" + $("#to").val();
+        window.location.href = "/XeBuyt/TimBus?sprovince=" + $("#province").val() + "&sfrom=" + $("#from").val() + "&sto=" + $("#to").val();
     }
     $("#province").val("@Html.Raw(ViewBag.sprovince)");
 </script>

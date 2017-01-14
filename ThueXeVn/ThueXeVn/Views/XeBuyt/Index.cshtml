@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ThueXeVn.Models.find_bus>
+﻿@model PagedList.IPagedList<ThueXeVn.Models.find_bus>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -10,10 +11,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="row">
+    <div id="form_timxe">
+        @Html.Raw(ThueXeVn.Config.getTinhThanh())
+        <input id="from" name="from" class="form-control col-sm-3" placeholder="Điểm đi" onkeyup="searchKeyword(1);" autocomplete="off" value="@ViewBag.sfrom" />
+        <input id="to" name="to" class="form-control col-sm-3" placeholder="Điểm đến" onkeyup="searchKeyword(2);" autocomplete="off" value="@ViewBag.sto" />
+        <input type="button" value="TÌM XE BUÝT" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+    </div>
+</div>
 <table class="table table-bordered table-striped">
     <tr>
         <th>
-            Tỉnh thành<br />
+            <b>Tỉnh thành</b><br />
             Số hiệu tuyến
         </th>
         <th>
@@ -35,7 +44,7 @@
     {
         <tr>
             <td>
-                @item.province <br />
+                <b>@item.province </b><br />
                 @Html.DisplayFor(modelItem => item.bus_no)
             </td>
             <td>
@@ -59,3 +68,53 @@
     }
 
 </table>
+<div class="row">
+    @if (Model.PageCount > 1)
+    {
+        <div class="col-sm-9">
+            <ul class="pagination clearfix">
+                <li class="disabled"><a href="#">«</a></li>
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    if (i != ViewBag.page)
+                    {
+                        <text>
+                            <li><a href="/XeBuyt/Index?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i">@i</a></li></text>
+                    }
+                    else
+                    {
+                        <text>
+                            <li><a href="/XeBuyt/Index?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                    }
+                }
+            </ul>
+        </div>
+    }
+</div>
+<script>
+    function searchKeyword(type) {
+        if (type==1){
+            $('#from').autocomplete({
+                source: '/XeBuyt/Find?keyword=' + $("#from").val(),
+                select: function (event, ui) {
+                    $(event.target).val(ui.item.value);
+                    return false;
+                },
+                minLength: 1
+            });
+        } else {
+            $('#to').autocomplete({
+                source: '/XeBuyt/Find?keyword=' + $("#to").val(),
+                select: function (event, ui) {
+                    $(event.target).val(ui.item.value);
+                    return false;
+                },
+                minLength: 1
+            });
+        }
+    }
+    function search() {
+        window.location.href = "/XeBuyt/Index?sprovince=" + $("#province").val() + "&sfrom=" + $("#from").val() + "&sto=" + $("#to").val();
+    }
+    $("#province").val("@Html.Raw(ViewBag.sprovince)");
+</script>
