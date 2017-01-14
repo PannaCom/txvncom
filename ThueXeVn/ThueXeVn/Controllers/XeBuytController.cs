@@ -16,27 +16,129 @@ namespace ThueXeVn.Controllers
         private thuexevnEntities db = new thuexevnEntities();
 
         // GET: XeBuyt
-        public ActionResult Index(int? page)
+        public ActionResult Index(string sprovince, string sfrom, string sto, int? page)
         {
-            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
-            var p = (from q in db.find_bus select q).OrderByDescending(o => o.id).Take(1000);
-            int pageSize = Config.PageSize;
-            int pageNumber = (page ?? 1);
-            ViewBag.page = page;
-            return View(p.ToPagedList(pageNumber, pageSize));
-        }
-        // GET: XeBuyt
-        public ActionResult List(string sfrom, string sto,int? page)
-        {
+            if (sprovince == null) sprovince = "";
             if (sfrom == null) sfrom = "";
             if (sto == null) sto = "";
-            var p = (from q in db.find_bus where q.bus_from.Contains(sfrom) && q.bus_to.Contains(sto) select q).OrderByDescending(o => o.id).Take(1000);
+            var p = (from q in db.find_bus where q.province.Contains(sprovince) && q.bus_from.Contains(sfrom) && q.bus_to.Contains(sto) select q).OrderByDescending(o => o.id).Take(1000);
             int pageSize = Config.PageSize;
             int pageNumber = (page ?? 1);
             ViewBag.page = page;
+            ViewBag.sprovince = sprovince;
             ViewBag.sfrom = sfrom;
             ViewBag.sto = sto;
             return View(p.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult Bus(string sprovince, string sfrom, string sto, int? page)
+        {
+            if (sprovince == null) sprovince = "";
+            if (sfrom == null) sfrom = "";
+            if (sto == null) sto = "";
+            try { 
+                var p = db.find_bus.Where(q=>q.province.Contains(sprovince) && q.bus_from.Contains(sfrom) && q.bus_to.Contains(sto)).FirstOrDefault();
+                ViewBag.sprovince = sprovince;
+                ViewBag.sfrom = sfrom;
+                ViewBag.sto = sto;
+                ViewBag.sno = p.bus_no;
+                ViewBag.sdes = p.bus_des;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.sprovince = "";
+                ViewBag.sfrom = "";
+                ViewBag.sto = "";
+                ViewBag.sno = "";
+                ViewBag.sdes = "";
+            }
+            if (page == null) page = 1;
+            ViewBag.url = "http://thuexevn.com/XeBuyt/Bus?sprovince=" + sprovince + "&sfrom=" + sfrom + "&sto=" + sto;
+            return View();
+        }
+        // GET: XeBuyt
+        public ActionResult List(string sprovince,string sfrom, string sto,int? page)
+        {
+            if (sprovince == null) sprovince = "";
+            if (sfrom == null) sfrom = "";
+            if (sto == null) sto = "";
+            var p = (from q in db.find_bus where q.province.Contains(sprovince) && q.bus_from.Contains(sfrom) && q.bus_to.Contains(sto) select q).OrderByDescending(o => o.id).Take(1000);
+            int pageSize = Config.PageSize;
+            int pageNumber = (page ?? 1);
+            if (page == null) page = 1;
+            ViewBag.page = page;
+            ViewBag.sprovince = sprovince;
+            ViewBag.sfrom = sfrom;
+            ViewBag.sto = sto;
+            ViewBag.url = "http://thuexevn.com/XeBuyt/List?sprovince=" + sprovince + "&sfrom=" + sfrom + "&sto=" + sto + "&page=" + page;
+            return View(p.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult TimBus(string sprovince, string sfrom, string sto, int? page)
+        {
+            if (sprovince == null) sprovince = "";
+            if (sfrom == null) sfrom = "";
+            if (sto == null) sto = "";
+            var p = (from q in db.bus_all where q.sprovince.Contains(sprovince) && q.sfrom.Contains(sfrom) && q.sto.Contains(sto) select q).OrderByDescending(o => o.id).Take(1000000);
+            int pageSize = Config.PageSize;
+            int pageNumber = (page ?? 1);
+            if (page == null) page = 1;
+            ViewBag.page = page;
+            ViewBag.sprovince = sprovince;
+            ViewBag.sfrom = sfrom;
+            ViewBag.sto = sto;
+            ViewBag.url = "http://thuexevn.com/XeBuyt/TimBus?sprovince=" + sprovince + "&sfrom=" + sfrom + "&sto=" + sto + "&page=" + page;
+            return View(p.ToPagedList(pageNumber, pageSize));
+        }
+        public string genAllBus()
+        {
+            try { 
+                //Find max id
+                long max_id = 0;
+                try {
+                    long lastId = db.bus_all.Max(o => o.id);
+                    var tempBusAll=db.bus_all.Find(lastId);
+                    var sprovince = tempBusAll.sprovince;
+                    var sfrom = tempBusAll.sfrom;
+                    var sto = tempBusAll.sto;
+                    max_id = db.find_bus.Where(o => o.bus_from.Contains(sfrom) && o.bus_to.Contains(sto) && o.province == sprovince).FirstOrDefault().id;
+                }
+                catch (Exception sm)
+                {
+                    max_id = 0;
+                }
+                var p = (from q in db.find_bus where q.id > max_id select q).ToList();
+                for (int i = 0; i < p.Count; i++) {
+                    var find_bus = p[i];
+                    string[] bus_from = find_bus.bus_from.Split('-');
+                    string[] bus_to = find_bus.bus_to.Split('-');
+                    int ii = 0;
+                    int jj = 0;                    
+                    for (ii = 0; ii < bus_from.Length; ii++)
+                    {
+                        for (jj = 0; jj < bus_to.Length; jj++)
+                        {
+                            string temp1 = bus_from[ii].Trim();
+                            string temp2 = bus_to[jj].Trim();
+                            string temp3 = find_bus.province.Trim();
+                            if (!db.bus_all.Any(o => o.sfrom == temp1 && o.sto == temp2 && o.sprovince == temp3))
+                            {
+                                try { 
+                                 db.Database.ExecuteSqlCommand("insert into bus_all(sfrom,sto,sprovince) values(N'" + temp1 + "',N'" + temp2 + "',N'" + temp3 + "')");
+                                }
+                                catch (Exception sm2)
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+                
+                }
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
         }
         public string Find(string keyword)
         {
