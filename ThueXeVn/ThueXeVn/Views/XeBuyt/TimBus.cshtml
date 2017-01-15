@@ -20,6 +20,12 @@
         ViewBag.Title += ", " + ViewBag.sto;
         ViewBag.des += ", " + ViewBag.sto;
     }
+    if (ViewBag.page != null && ViewBag.page != 1)
+    {
+
+        ViewBag.Title += ", trang " + ViewBag.page;
+        ViewBag.des += ", trang " + ViewBag.page;
+    }
     ViewBag.image = ThueXeVn.Config.domain + "/Images/Bus.png";
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
 }
@@ -66,6 +72,7 @@
         </div>
     </div>
 </div>
+<h4>Trên đây chúng tôi cung cấp cho quý khách hàng dịch vụ tìm xe buýt nhanh chóng nhất  trên toàn quốc gia, tuy nhiên nếu quý khách hàng không muốn đi ô tô vui lòng tham khảo và đăng ký dịch vụ: <a href="http://thuexevn.com"><b>cho thuê xe</b></a></h4>
 <div class="row">
     @if (Model.PageCount > 1)
     {
@@ -77,12 +84,12 @@
                     if (i != ViewBag.page)
                     {
                         <text>
-                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i">@i</a></li></text>
+                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.sto&page=@i">@i</a></li></text>
                     }
                     else
                     {
                         <text>
-                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.to&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
+                            <li><a href="/XeBuyt/TimBus?sprovince=@ViewBag.sprovince&sfrom=@ViewBag.sfrom&sto=@ViewBag.sto&page=@i" style="background-color:#8a6d3b;">@i</a></li></text>
                     }
                 }
             </ul>
