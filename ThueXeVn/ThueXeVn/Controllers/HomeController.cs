@@ -298,12 +298,26 @@ namespace ThueXeVn.Controllers
                     }
                    
 
-                    //tin tức
+                    //Xe Buýt
                     writer.WriteStartElement("url");
                     writer.WriteElementString("loc", "http://thuexevn.com/tin/page=1");
                     writer.WriteElementString("changefreq", "always");
                     writer.WriteElementString("priority", "0.97");
                     writer.WriteEndElement();
+
+                    writer.WriteStartElement("url");
+                    writer.WriteElementString("loc", "http://thuexevn.com/XeBuyt/List");
+                    writer.WriteElementString("changefreq", "always");
+                    writer.WriteElementString("priority", "0.97");
+                    writer.WriteEndElement();
+
+                    writer.WriteStartElement("url");
+                    writer.WriteElementString("loc", "http://thuexevn.com/XeBuyt/TimBus");
+                    writer.WriteElementString("changefreq", "always");
+                    writer.WriteElementString("priority", "0.97");
+                    writer.WriteEndElement();
+
+
                     var p3 = (from q in db.news select q).OrderByDescending(o => o.id).ToList();
                     for (int i = 0; i < p3.Count; i++)
                     {
