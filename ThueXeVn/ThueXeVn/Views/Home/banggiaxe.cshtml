@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ThueXeVn.Models.timbanggia
+@{
     string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
     if (Request.ServerVariables["HTTPS"] == "on")
     {
@@ -14,41 +15,270 @@
 
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     ViewBag.title = "Bảng giá xe";
-    ViewBag.des = "Bảng giá thuê xe vn.com";
+    ViewBag.des = "Bảng giá thuê xe việt nam";
     ViewBag.keywords = "";
     ViewBag.url = @url;
+    
+}
+
+@if(Model != null){
+    string strtuyen = "";
+    if (Model.tuyen == "g1"){
+       strtuyen = "1 ngày trong TP (100km/10h)";}
+       else if (Model.tuyen == "g2"){
+       strtuyen = "1/2 ngày trong TP (50km/5h)";}
+       else if (Model.tuyen == "g3"){
+       strtuyen = "Hà Nội - Nội Bài";}
+       else if (Model.tuyen == "g4"){
+       strtuyen = "Nội Bài - Hà Nội";}
+        else if (Model.tuyen == "g5"){
+            strtuyen = "Khứ hồi Nội Bài";}
+        else if (Model.tuyen == "g6"){
+            strtuyen = "Ngoài TP 2 chiều";}
+        else{strtuyen = "Ngoài TP 1 chiều";}
+    string title = " từ " + Model.from + " đến " + Model.to + " xe " + Model.loaixe + " chỗ, tuyến " + strtuyen + " số km ước tính " + Model.kc + " km giá ước tính " + Model.gia + " phí lưu đêm " + Model.gialuudem;
+    ViewBag.Title += title;
+    ViewBag.des += title;
+    ViewBag.keywords += "bảng giá xe " + strtuyen + " thuexevn.com";
 }
 
 @{Html.RenderAction("banggiaxe1", "Home");}
 
-<div class="row">
+<div class="row" style="background: #fff; color: #333; padding: 30px 0;">
     <div class="col-md-12">
 
         <h3>Tìm giá xe</h3>
         <hr />
 
-        @using (Html.BeginForm("banggiaxe", "Home", FormMethod.Get, htmlAttributes: new { @class = "form-inline", id = "tim_bang_giaxe" }))
+        <div class="form-inline" id="tim_bang_giaxe">
+            <div class="form-group">
+                <label for="address_from">Điểm đi: </label>
+                <input type="text" class="form-control" id="address_from" name="address_from" placeholder="Điểm đi">
+                <input type="hidden" name="lat1" id="lat1" />
+                <input type="hidden" name="lng1" id="lng1" />
+            </div>
+            <div class="form-group">
+                <label for="address_to">Điểm đến: </label>
+                <input type="text" class="form-control" id="address_to" name="address_to" placeholder="Điểm đến">
+                <input type="hidden" name="lat2" id="lat2" />
+                <input type="hidden" name="lng2" id="lng2" />
+            </div>
+
+            <div class="form-group">
+                <label for="Loaixe_socho">Loại xe</label>
+                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                    <option value="">Chọn loại xe</option>
+                    <option value="4">Xe 4 chỗ</option>
+                    <option value="7">Xe 7 chỗ</option>
+                    <option value="16">Xe 16 chỗ</option>
+                    <option value="29">Xe 29 chỗ</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tuyendi">Tuyến đi</label>
+                <select class="form-control" name="tuyendi" id="tuyendi">
+                    <option value="">Chọn tuyến đi</option>
+                    <option value="g1">1 ngày trong TP (100km/10h)</option>
+                    <option value="g2">1/2 ngày trong TP (50km/5h)</option>
+                    <option value="g3">Hà Nội - Nội Bài</option>
+                    <option value="g4">Nội Bài - Hà Nội</option>
+                    <option value="g5">Khứ hồi Nội Bài</option>
+                    <option value="g6">Ngoài TP 2 chiều</option>
+                    <option value="g7">Ngoài TP 1 chiều</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-default" onclick="timkiembanggia();"><i class="fa fa-search"></i> Tìm kiếm</button>
+        </div>
+
+        @if (Model != null)
         {
-            <div class="form-group">
-                <label for="exampleInputName2">Từ: </label>
-                <input type="text" class="form-control" id="address_from" placeholder="Địa chỉ từ">
+            <div id="result">
+                <h3>Bảng giá xe</h3>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Điểm đi: </b> @Model.from</div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Điểm đến: </b> @Model.to</div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Loại xe: </b> xe @Model.loaixe chỗ</div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;">
+                    <b>Tuyến đi: </b>
+                    @if (Model.tuyen == "g1")
+                    {
+                        <text>1 ngày trong TP (100km/10h)</text>
+                    }
+                    else if (Model.tuyen == "g2")
+                    {
+                        <text>1/2 ngày trong TP (50km/5h)</text>
+                    }
+                    else if (Model.tuyen == "g3")
+                    {
+                        <text>Hà Nội - Nội Bài</text>
+                    }
+                    else if (Model.tuyen == "g4")
+                    {
+                        <text>Nội Bài - Hà Nội</text>
+                    }
+                    else if (Model.tuyen == "g5")
+                    {
+                        <text>Khứ hồi Nội Bài</text>
+                    }
+                    else if (Model.tuyen == "g6")
+                    {
+                        <text>Ngoài TP 2 chiều</text>
+                    }
+                    else
+                    {
+                        <text>Ngoài TP 1 chiều</text>
+                    }
+
+                </div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Điểm đi: </b> @Model.from</div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Số km ước tính: </b>@Model.kc Km</div>
+                <div style="border-bottom: 1px solid #cbcbcb;padding: 5px 0;"><b>Giá ước tính: </b>@Model.gia</div>
+                <div>
+                    <b>Ghi chú:</b>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li>
+                            - Phí lưu đêm: @Model.gialuudem, giá chưa bao gồm phí cầu đường và VAT.
+                        </li>
+                        <li>
+                            - Riêng với tuyến xe sân bay:
+                        </li>
+                        <li>
+                            + Nếu điểm đi hoặc điểm đến là 4 quận nội thành(Ba Đình, Đống Đa, Hoàn Kiếm, Cầu Giấy): 200.000 (Chiều đi) - 300.000 (chiều về) còn các quận nội thành khác: 250.000 (chiều đi) – 350.000 (chiều về).
+                        </li>
+                        <li>
+                            + Nếu quãng đường > 40km (Chương Mỹ, Quốc Oai,…): tính giá tiền theo Km
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail2">Đến: </label>
-                <input type="text" class="form-control" id="address_to" placeholder="">
-            </div>
-            <button type="submit" class="btn btn-default">Send invitation</button>
+
+    <script>
+    $(document).ready(function () {
+        $('#address_from').val('@Html.Raw(Model.from)');
+        $('#address_to').val('@Html.Raw(Model.to)');
+        $('#lat1').val('@Model.lat1');
+        $('#lng1').val('@Model.lng1');
+        $('#lat2').val('@Model.lat2');
+        $('#lng2').val('@Model.lng2');
+        $('#Loaixe_socho').val('@Model.loaixe');
+        $('#tuyendi').val('@Model.tuyen');
+    })
+    </script>
+
         }
 
-        
+
+
 
     </div>
 </div>
+
+<div id="map-canvas" style="display: none;">
+    Bản đồ
+</div>
+
 
 @section scripts{
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script>
+        $(document).ready(function () {
+            var options = {
+                map: "#map-canvas"
+            };
+            $("#address_from").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lat1").val(result.geometry.location.lat());
+              $("#lng1").val(result.geometry.location.lng());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+            $("#address_to").geocomplete(options)
+              .bind("geocode:result", function (event, result) {
+                  $("#lat2").val(result.geometry.location.lat());
+                  $("#lng2").val(result.geometry.location.lng());
+                  //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+              })
+              .bind("geocode:error", function (event, status) {
+                  $.log("ERROR: " + status);
+              })
+              .bind("geocode:multiple", function (event, results) {
+                  $.log("Multiple: " + results.length + " results found");
+              });
+
+        })
+
+        function timkiembanggia() {
+            if (document.getElementById('address_from').value === "") {
+                alert('Vui lòng nhập địa chỉ từ');
+                document.getElementById('address_from').focus();
+                return false;
+            }
+            if (document.getElementById('address_to').value === "") {
+                alert('Vui lòng nhập địa chỉ tới');
+                document.getElementById('address_to').focus();
+                return false;
+            }
+
+            if (document.getElementById('Loaixe_socho').value === "") {
+                alert('Vui lòng chọn loại xe');
+                document.getElementById('Loaixe_socho').focus();
+                return false;
+            }
+
+            if (document.getElementById('tuyendi').value === "") {
+                alert('Vui lòng chọn tuyến đi');
+                document.getElementById('tuyendi').focus();
+                return false;
+            }
+
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var directionsService = new google.maps.DirectionsService;
+
+            var selectedMode = "DRIVING";
+            var khoangcach = "";
+            //if (document.getElementById('mode').value !== "") {
+            //    selectedMode = document.getElementById('mode').value;
+            //}
+            var latlng1 = new google.maps.LatLng(document.getElementById('lat1').value, document.getElementById('lng1').value);
+            var latlng2 = new google.maps.LatLng(document.getElementById('lat2').value, document.getElementById('lng2').value);
+            directionsService.route({
+                origin: latlng1,  // Diem di.
+                destination: latlng2,  // Diem den
+                // Note that Javascript allows us to access the constant
+                // using square brackets and a string value as its
+                // "property."
+                travelMode: google.maps.TravelMode[selectedMode]
+            }, function (response, status) {
+                if (status == 'OK') {
+                    directionsDisplay.setDirections(response);
+                    console.log(response);
+                    khoangcach = response.routes[0].legs[0].distance.text.replace(" km", "");
+
+
+                    var url = "/Home/banggiaxe";
+                    url += "?lat1=" + document.getElementById('lat1').value + "&lng1=" + document.getElementById('lng1').value + "&lat2=" + document.getElementById('lat2').value + "&lng2=" + document.getElementById('lng2').value;
+                    url += "&from=" + document.getElementById('address_from').value + "&to=" + document.getElementById('address_to').value;
+                    url += "&loaixe=" + document.getElementById('Loaixe_socho').value + "&tuyen=" + document.getElementById('tuyendi').value + "&kc=" + khoangcach;
+
+                    window.location.href = url;
+                    //alert(khoangcach);
+
+
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+
+        }
+
+
 
     </script>
 

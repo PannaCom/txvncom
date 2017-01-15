@@ -575,10 +575,44 @@ namespace ThueXeVn.Controllers
             return PartialView("_menuLoginTaiXe", strtx);
         }
 
-        public ActionResult banggiaxe()
+        public ActionResult banggiaxe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string tuyen, string kc)
         {
-
-            return View();
+            if (loaixe == null && tuyen == null)
+            {
+                return View();
+            }
+            string banggiaxesql = "SELECT g8 as 'gialuudem'," + tuyen + " as 'giaxe' FROM pl_car_price where pl_car_type = " + loaixe;
+            var banggiaxedata = db.Database.SqlQuery<getbanggia1>(banggiaxesql).FirstOrDefault();
+            if (banggiaxedata == null)
+            {
+                return View(banggiaxedata);
+            }
+            if (kc == null)
+	        {
+		        kc = "10";
+	        }
+            
+            var giaxe_1 = banggiaxedata.giaxe;
+            int ikc = Convert.ToInt32(kc);
+            if (tuyen == "g6" || tuyen == "g7")
+            {
+                giaxe_1 *= ikc;
+            }
+            var data = new timbanggia()
+            {
+                from = from ?? "",
+                to = to ?? "",
+                gia = string.Format("{0:#,###} đồng", giaxe_1),
+                gialuudem = string.Format("{0:#,###} đồng/đêm", banggiaxedata.gialuudem),
+                lat1 = lat1 ?? "",
+                lat2 = lat2 ?? "",
+                lng1 = lng1 ?? "",
+                lng2 = lng2 ?? "",
+                loaixe = loaixe,
+                tuyen = tuyen,
+                kc = kc ?? ""
+            };
+            return View(data);
         }
 
         public ActionResult XeTaxiNoiBai()

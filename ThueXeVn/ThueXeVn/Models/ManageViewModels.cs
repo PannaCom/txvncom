@@ -138,4 +138,25 @@ namespace ThueXeVn.Models
         public bool? status { get; set; }
     }
 
+    public class timbanggia
+    {
+        public string lat1 { get; set; }
+        public string lng1 { get; set; }
+        public string lat2 { get; set; }
+        public string lng2 { get; set; }
+        public string from { get; set; }
+        public string to { get; set; }
+        public string loaixe { get; set; }
+        public string tuyen { get; set; }
+        public string kc { get; set; }
+        public string gia { get; set; }
+        public string gialuudem { get; set; }
+    }
+
+    public class getbanggia1
+    {
+        public int gialuudem { get; set; }
+        public int giaxe { get; set; }        
+    }
+
 }
