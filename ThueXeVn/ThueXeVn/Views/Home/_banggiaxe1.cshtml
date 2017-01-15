@@ -44,24 +44,25 @@
                     </thead>
 
                     <tbody>
+                        
                         @foreach (var item in Model)
                         {
                             <tr>
                                 <td class="bg_fw1">Xe @item.pl_car_type chỗ</td>
-                                <td>@string.Format("{0:#,###}", @item.g1)</td>
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g1');">@string.Format("{0:#,###}", @item.g1)</td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g2');">
                                     @string.Format("{0:#,###}", @item.g2)
                                 </td>
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g3');">
                                     @string.Format("{0:#,###}", @item.g3)
                                 </td>
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g4');">
                                     @string.Format("{0:#,###}", @item.g4)
                                 </td>
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g5');">
                                     @string.Format("{0:#,###}", @item.g5)
                                 </td>
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g6');">
                                     @string.Format("{0:#,###}", @item.g6)
                                 </td>
                                 @*<td>
@@ -70,7 +71,7 @@
                                     <td>
                                         8,500
                                     </td>*@
-                                <td>
+                                <td onclick="chonloaixe_tuyenduong(@item.pl_car_type,'g7');">
                                     @string.Format("{0:#,###}", @item.g7)
                                 </td>
                                 @*<td>
