@@ -862,5 +862,15 @@ namespace ThueXeVn.Controllers
             return PartialView("_banggiaxe1", data);
         }
 
+        public ActionResult TimTaiXe()
+        {
+            return View();
+        }
+
+        public ActionResult Dangkyubergrab()
+        {
+            return View();
+        }
+
     }
 }

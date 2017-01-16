@@ -1,0 +1,116 @@
+﻿
+@{
+    string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+    }
+    else
+    {
+        url = "http://" + url;
+    }
+}
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    ViewBag.title = "Tìm tài xế";
+    ViewBag.des = "Bảng giá thuê xe tài xế";
+    ViewBag.keywords = "";
+    ViewBag.url = @url;
+
+}
+
+<link href="~/Content/style1.css" rel="stylesheet" />
+
+<div id="timtaixe">
+    <div class="row">
+        <div class="col-sm-4" id="form_search_taxe">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Tìm kiếm tài xế
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label" for="place_from">Địa điểm từ</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
+                                    <span class="input-group-addon" style="padding: 14px 15px;"><i class="fa fa-map-marker"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label" for="place_to">Địa điểm tới</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
+                                    <span class="input-group-addon"><i class="fa fa-exchange"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
+                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                                    <option value="">Chọn loại xe</option>
+                                    <option value="4">Xe 4 chỗ</option>
+                                    <option value="7">Xe 7 chỗ</option>
+                                    <option value="16">Xe 16 chỗ</option>
+                                    <option value="29">Xe 29 chỗ</option>
+                                </select>
+                            </div>                            
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-block btn-default color_button_stx"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-8" id="result_taixe">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Kết quả</h3>
+                </div>
+                <div class="panel-body list-group">
+                    <div class="row results_card mco_out">
+                        <div class="col-xs-6 col-md-7">
+                            <section class="col-xs-12 col-md-6 pho_information">
+                                <h4>Nguyễn Văn Nam</h4>
+                                <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
+                                    <i class="fa fa-star color_button_stx"></i>
+                                    <i class="fa fa-star color_button_stx"></i>
+                                    <i class="fa fa-star color_button_stx"></i>
+                                    <i class="fa fa-star color_button_stx"></i>
+                                    <i class="fa fa-star color_button_stx"></i>
+                                </div>
+                                <p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;<!-- react-text: 1824 -->Manchester<!-- /react-text --></p>
+                            </section><section class="col-xs-12 col-md-6 filters"></section>
+                        </div>
+                        <div class="col-xs-6 col-md-5">
+                            <section class="col-xs-12 col-md-6 price_container">
+                                <div>
+                                    <p id="price" class="price">544.000 Đồng.</p>
+                                </div>
+                            </section>
+                            <section class="col-xs-12 col-md-6 continue_button">
+                                <a href="tel:1234567789" class="btn btn-default color_button_stx"><i class="fa fa-phone"></i> Gọi ngay</a>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

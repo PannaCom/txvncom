@@ -55,8 +55,8 @@
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sprovince" Type="nvarchar" MaxLength="151" />
-          <Property Name="sfrom" Type="nvarchar" MaxLength="151" />
-          <Property Name="sto" Type="nvarchar" MaxLength="151" />
+          <Property Name="sfrom" Type="nvarchar" MaxLength="751" />
+          <Property Name="sto" Type="nvarchar" MaxLength="751" />
         </EntityType>
         <EntityType Name="bus_keyword">
           <Key>
@@ -600,8 +600,8 @@
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sprovince" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
-          <Property Name="sfrom" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
-          <Property Name="sto" Type="String" MaxLength="151" FixedLength="false" Unicode="true" />
+          <Property Name="sfrom" Type="String" MaxLength="751" FixedLength="false" Unicode="true" />
+          <Property Name="sto" Type="String" MaxLength="751" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="bus_keyword">
           <Key>

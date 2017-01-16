@@ -1,0 +1,89 @@
+﻿@{
+    string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+    }
+    else
+    {
+        url = "http://" + url;
+    }
+}
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    ViewBag.title = "Đăng ký hồ sơ uber grab";
+    ViewBag.des = "Đăng ký hồ sơ uber grab";
+    ViewBag.keywords = "Đăng ký hồ sơ uber grab thuexevn.com";
+    ViewBag.url = @url;
+}
+
+<div class="row" style="background: #fff; color: #333;">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h1 style="color: #333;">Đăng ký hồ sơ uber grab
+                <span style="float: right; font-size: 39%; font-family: 'Times New Roman', Times, serif;padding-top: 12px;">Mọi thắc mắc xin liên hệ hotline: <a href="tel:096.410.8688">096.410.8688</a></span>
+            </h1>
+            
+        </div>
+       
+
+        <div id="dangky_ub_grab" style="border: 1px solid #cbcbcb;border: 1px solid #cbcbcb;
+    padding: 10px;
+    font-size: 116%;">
+            <h3>Hồ sơ bao gồm: </h3>
+            <ul>
+                <li>Tên pháp nhân: </li>
+                <li>Biển kiểm soát:</li>
+                <li>Tên chủ xe:</li>
+            </ul>
+
+            <h3>Hồ sơ xe bao gồm:</h3>
+            <ul>
+                <li>Đăng ký hoặc Lưu hành ngân hàng</li>
+                <li>Đăng kiểm</li>
+                <li>CMTND Chủ xe</li>
+                <li>Giám sát hành trình</li>
+                <li>Bảo hiểm dân sự</li>
+                <li>Bảo hiểm thân vỏ</li>
+                <li>Biên bản thanh lý hợp đồng</li>
+                <li>Phù hiệu</li>
+            </ul>
+
+            <h3>Hồ sơ lái xe bao gồm:</h3>
+            <ul>
+                <li>Giấy phép lái xe</li>
+                <li>CMT lái xe</li>
+                <li>Hộ khẩu</li>
+                <li>Sơ yếu lý lịch hoặc lý lịch tư pháp</li>
+                <li>Giấy khám sức khỏe</li>
+            </ul>
+
+            <h3>Hợp đồng xã viên</h3>
+            <h3>Hợp đồng thuê xe</h3>
+            <h3>Hợp đồng Trả góp</h3>
+            <h3>Hợp đồng lao động</h3>
+
+            <h3>Ghi chú:</h3>
+            <ul>
+                <li>Tem xin miễn phí</li>
+                <li>
+                    - Uber và grab tự trừ thuế: 2.000.000/năm.
+                </li>
+                <li>
+                    - Grab và Ubser: pháp nhân kê khai thuế cho chủ xe (tại grab): 600.000/tháng.
+                </li>
+                <li>
+                    Tháng 1: thu trực tiếp.
+                    Từ tháng 2 trở đi trừ trên tiền grab chuyển.
+                </li>
+            </ul>
+
+            <h2 style="">Mọi thắc mắc xin liên hệ hotline: <a href="tel:096.410.8688">096.410.8688</a></h2>
+        </div>
+
+    </div>
+</div>
+
+

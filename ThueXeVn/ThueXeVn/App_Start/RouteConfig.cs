@@ -92,6 +92,13 @@ namespace ThueXeVn
                "admin/danhsachcongtv",
                new { controller = "Admin", action = "danhsachctv" }
            );
+
+            //dang-ky-uber-grab
+            routes.MapRoute(
+                "dangkyubergrab",
+                "dang-ky-uber-grab",
+                new { controller = "Home", action = "Dangkyubergrab" }
+            );
             
             routes.MapRoute(
                 name: "Default",
