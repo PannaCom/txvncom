@@ -870,9 +870,30 @@ namespace ThueXeVn.Controllers
             return PartialView("_banggiaxe1", data);
         }
 
-        public ActionResult TimTaiXe()
+        public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg)
         {
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+
+            //kho dữ liệu giá xe đường dài việt nam
+
+            var sql = "SELECT t1.id as 'id', t1.name as 'name', t1.phone as 'phone', t1.email as 'email', t1.address as 'address', t1.car_size as 'car_size', t2.cp_car_type as 'car_size2', t1.car_price as 'car_price', t2.cp_price as 'cp_price2' FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id where t1.car_price <> -1";
+
+            var data = db.Database.SqlQuery<timkiemDrivers>(sql).ToList();
+
+
+            //if (search == null) search = ""; if (tt == null) tt = ""; if (car_hire_type == null) car_hire_type = "";
+
             return View();
+
+//            SELECT t1.id as 'id', t1.name as 'name', t1.phone as 'phone', t1.email as 'email', t1.address as 'address', t1.car_size as 'car_size', t2.cp_car_type as 'car_size2', t1.car_price as 'car_price', t2.cp_price as 'cp_price2' FROM drivers t1
+//left JOIN driver_car_price t2 ON t1.id = t2.driver_id 
+//left JOIN  where t1.car_price <> -1
+
+//-- ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D
+
         }
 
         public ActionResult Dangkyubergrab()

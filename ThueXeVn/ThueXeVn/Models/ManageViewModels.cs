@@ -159,4 +159,17 @@ namespace ThueXeVn.Models
         public int giaxe { get; set; }        
     }
 
+    public class timkiemDrivers
+    {
+        public long? id { get; set; }
+        public string name { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string address { get; set; }
+        public int car_size { get; set; }
+        public int car_size2 { get; set; }
+        public int cp_price { get; set; }
+        public int cp_price2 { get; set; }
+    }
+
 }
