@@ -322,5 +322,25 @@ namespace ThueXeVn.Controllers
         }
 
 
+        public void ExportToExcel()
+        {
+            try
+            {
+                var model = (from s in db.invoices select s);
+                if (model != null)
+                {
+                    Config.ToExcel(Response, model.ToList(), "danh_sach_bang_ke" + DateTime.Now.ToString("yyyyMMdd") + ".xls");
+                }
+                else
+                {
+                    Response.Write("chưa có dữ liệu");
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+        }
+
     }
 }

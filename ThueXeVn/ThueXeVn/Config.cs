@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -8,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
 using ThueXeVn.Models;
 namespace ThueXeVn
 {
@@ -220,5 +222,32 @@ namespace ThueXeVn
                 sw.Close();
             }
         }
+
+        public static void ToExcel(HttpResponseBase Response, object clientsList, string fileName)
+        {
+            try
+            {
+                var grid = new System.Web.UI.WebControls.GridView();
+                grid.DataSource = clientsList;
+                grid.DataBind();
+                Response.ClearContent();
+                //var filename = "MatHang_" + DateTime.Now.ToString("yyyyMMdd")+".xls";
+                Response.AddHeader("content-disposition", "attachment; filename=" + fileName);
+                //Response.ContentType = "application/vnd.ms-excel";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                grid.RenderControl(htw);
+                string headerTable = @"<Table><tr><td>Ngày tháng</td><td>Tên khách hàng</td><td>Giới tình</td><td>Số điện thoại</td><td>Thời gian đón</td><td>Thời gian trả</td><td>Điểm đón</td><td>Điểm trả</td><td>Loại xe</td><td>Hình thức</td><td>Tài xế</td><td>Giá</td><td>VAT</td><td>Tổng tiền</td><td>Ghi chú</td></tr></Table>";
+                Response.Write(headerTable);
+                Response.Write(sw.ToString());
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+        }
+
     }
 }
