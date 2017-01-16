@@ -610,7 +610,15 @@ namespace ThueXeVn.Controllers
             int ikc = Convert.ToInt32(kc);
             if (tuyen == "g6" || tuyen == "g7")
             {
-                giaxe_1 *= ikc;
+                if (tuyen == "g6")
+                {
+                    giaxe_1 *= 2*ikc;
+                }
+                else
+                {
+                    giaxe_1 *= ikc;
+                }
+                
             }
             var data = new timbanggia()
             {
