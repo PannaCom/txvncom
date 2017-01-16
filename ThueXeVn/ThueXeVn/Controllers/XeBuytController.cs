@@ -118,7 +118,7 @@ namespace ThueXeVn.Controllers
                         {
                             string temp1 = bus_from[ii].Trim();
                             string temp2 = bus_to[jj].Trim();
-                            string temp3 = find_bus.province.Trim();
+                            string temp3 = find_bus.province!=null ? find_bus.province.Trim():"";
                             if (!db.bus_all.Any(o => o.sfrom == temp1 && o.sto == temp2 && o.sprovince == temp3))
                             {
                                 try { 
