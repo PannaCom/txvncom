@@ -11,6 +11,9 @@ using System.Globalization;
 using PagedList;
 using PagedList.Mvc;
 using System.Threading.Tasks;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
 
 namespace ThueXeVn.Controllers
 {
@@ -326,19 +329,119 @@ namespace ThueXeVn.Controllers
         {
             try
             {
-                var model = (from s in db.invoices select s);
+                var model = (from s in db.invoices select s).Select(x => new
+                {
+                    Ngaythang = x.date ?? null,
+                    Khachhang = x.customer_name,
+                    Gioitinh = x.sex,
+                    Dienthoai = x.phone,
+                    Thoigiandon = x.time_to_pick,
+                    Thoigiantra = x.time_to_pay,
+                    DiemDon = x.pickup,
+                    DiemTra = x.paypoints,
+                    SoCho = x.so_cho,
+                    HinhThuc = x.form,
+                    TaiXe = x.driver,
+                    Gia = x.price,
+                    VAT = x.vat,
+                    TongTien = x.sum,
+                    GhiChu = x.note
+                });
                 if (model != null)
                 {
-                    Config.ToExcel(Response, model.ToList(), "danh_sach_bang_ke" + DateTime.Now.ToString("yyyyMMdd") + ".xls");
-                }
-                else
-                {
-                    Response.Write("chưa có dữ liệu");
-                }
+                    DataTable dt = new DataTable();
+
+                    dt.Columns.Add("Ngày tháng", typeof(DateTime));
+                    dt.Columns.Add("Khách hàng", typeof(string));
+                    dt.Columns.Add("Giới tính", typeof(string));
+                    dt.Columns.Add("Số điện thoại", typeof(string));
+                    dt.Columns.Add("Thời gian đón", typeof(DateTime));
+                    dt.Columns.Add("Thời gian trả", typeof(DateTime));
+                    dt.Columns.Add("Điểm đón", typeof(string));
+                    dt.Columns.Add("Điểm trả", typeof(string));
+                    dt.Columns.Add("Số chỗ", typeof(string));
+                    dt.Columns.Add("Hình thức", typeof(string));
+                    dt.Columns.Add("Tài xế", typeof(string));
+                    dt.Columns.Add("Giá", typeof(string));
+                    dt.Columns.Add("VAT", typeof(string));
+                    dt.Columns.Add("Tổng tiền", typeof(string));
+                    dt.Columns.Add("Ghi chú", typeof(string));
+                    foreach (var item in model)
+                    {
+                        dt.Rows.Add(item.Ngaythang, item.Khachhang, item.Gioitinh, item.Dienthoai, item.Thoigiandon, item.Thoigiantra, item.DiemDon, item.DiemTra, item.SoCho, item.HinhThuc, item.TaiXe, item.Gia, item.VAT, item.TongTien, item.GhiChu);
+                    }
+                    string fileName1 = string.Format("Danh_Sach_bang_ke_{0:yyyyMMdd}.xlsx", DateTime.Now);
+                    WriteExcelWithNPOI(dt, "xlsx", fileName1);
+                }                
             }
             catch (Exception ex)
             {
                 Config.SaveTolog(ex.ToString());
+            }
+        }
+
+
+        public void WriteExcelWithNPOI(DataTable dt, String extension, String fileName)
+        {
+
+            IWorkbook workbook;
+
+            if (extension == "xlsx")
+            {
+                workbook = new XSSFWorkbook();
+            }
+            else if (extension == "xls")
+            {
+                workbook = new HSSFWorkbook();
+            }
+            else
+            {
+                throw new Exception("This format is not supported");
+            }
+
+            ISheet sheet1 = workbook.CreateSheet("Sheet 1");
+
+            //make a header row
+            IRow row1 = sheet1.CreateRow(0);
+
+            for (int j = 0; j < dt.Columns.Count; j++)
+            {
+
+                ICell cell = row1.CreateCell(j);
+                String columnName = dt.Columns[j].ToString();
+                cell.SetCellValue(columnName);
+            }
+
+            //loops through data
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                IRow row = sheet1.CreateRow(i + 1);
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+
+                    ICell cell = row.CreateCell(j);
+                    String columnName = dt.Columns[j].ToString();
+                    cell.SetCellValue(dt.Rows[i][columnName].ToString());
+                }
+            }
+
+            using (var exportData = new MemoryStream())
+            {
+                Response.Clear();
+                workbook.Write(exportData);
+                if (extension == "xlsx") //xlsx file format
+                {
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", fileName));
+                    Response.BinaryWrite(exportData.ToArray());
+                }
+                else if (extension == "xls")  //xls file format
+                {
+                    Response.ContentType = "application/vnd.ms-excel";
+                    Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", fileName));
+                    Response.BinaryWrite(exportData.GetBuffer());
+                }
+                Response.End();
             }
         }
 
