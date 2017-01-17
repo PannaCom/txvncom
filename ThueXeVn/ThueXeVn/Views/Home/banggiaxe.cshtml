@@ -249,12 +249,22 @@
         
 
         function timkiembanggia() {
-            if (document.getElementById('address_from').value === "") {
+            //if (document.getElementById('address_from').value === "") {
+            //    alert('Vui lòng nhập địa chỉ từ');
+            //    document.getElementById('address_from').focus();
+            //    return false;
+            //}
+            //if (document.getElementById('address_to').value === "") {
+            //    alert('Vui lòng nhập địa chỉ tới');
+            //    document.getElementById('address_to').focus();
+            //    return false;
+            //}
+            if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
                 alert('Vui lòng nhập địa chỉ từ');
                 document.getElementById('address_from').focus();
                 return false;
             }
-            if (document.getElementById('address_to').value === "") {
+            if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
                 alert('Vui lòng nhập địa chỉ tới');
                 document.getElementById('address_to').focus();
                 return false;
@@ -306,7 +316,7 @@
 
 
                 } else {
-                    window.alert('Directions request failed due to ' + status);
+                    window.alert('Vui lòng nhập lại địa chỉ ' + status);
                 }
             });
 

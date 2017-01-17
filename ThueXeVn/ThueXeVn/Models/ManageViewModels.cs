@@ -166,10 +166,29 @@ namespace ThueXeVn.Models
         public string phone { get; set; }
         public string email { get; set; }
         public string address { get; set; }
-        public int car_size { get; set; }
-        public int car_size2 { get; set; }
-        public int cp_price { get; set; }
-        public int cp_price2 { get; set; }
+        public int? car_size { get; set; }
+        public int? car_size2 { get; set; }
+        public int? cp_price { get; set; }
+        public int? cp_price2 { get; set; }
+        public int? status { get; set; }
+        public double? quangduong { get; set; }
+        public int? DiffDate { get; set; }
     }
+
+    //public class timkiemDrivers
+    //{
+    //    public string id { get; set; }
+    //    public string name { get; set; }
+    //    public string phone { get; set; }
+    //    public string email { get; set; }
+    //    public string address { get; set; }
+    //    public string car_size { get; set; }
+    //    public string car_size2 { get; set; }
+    //    public string cp_price { get; set; }
+    //    public string cp_price2 { get; set; }
+    //    public string status { get; set; }
+    //    public string quangduong { get; set; }
+    //    public string DiffDate { get; set; }
+    //}
 
 }

@@ -878,21 +878,48 @@ namespace ThueXeVn.Controllers
             ViewBag.pg = pg;
 
             //kho dữ liệu giá xe đường dài việt nam
+            if (lat1 == null) lat1 = "21.0277644"; if (lng1 == null) lng1 = "105.83415979999995";
 
-            var sql = "SELECT t1.id as 'id', t1.name as 'name', t1.phone as 'phone', t1.email as 'email', t1.address as 'address', t1.car_size as 'car_size', t2.cp_car_type as 'car_size2', t1.car_price as 'car_price', t2.cp_price as 'cp_price2' FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id where t1.car_price <> -1";
+            var sql = "SELECT t1.id as id, t1.name as name, t1.phone as phone, t1.email as email,t1.address as address, t1.car_size as car_size, t2.cp_car_type as car_size2, t1.car_price as cp_price, t2.cp_price as cp_price2, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 where t1.car_price <> -1 and status = 0";
 
-            var data = db.Database.SqlQuery<timkiemDrivers>(sql).ToList();
+            if (loaixe != null)
+            {
+                ViewBag.loaixe = loaixe;
+                sql += " and t1.car_size = " + loaixe + " or t2.cp_car_type = " + loaixe;
+            }
+            double? fq_duong = 300;
+            var data = db.Database.SqlQuery<timkiemDrivers>(sql).Where(x => x.quangduong <= fq_duong).ToList();
+            //
 
+            if (kc != null && kc != "")
+            {
+                ViewBag.kc_timkiem = kc;
+            }
+            if (lat1 != null && lat1 != "")
+	        {
+		        ViewBag.lat1 = lat1;
+	        }
+            if(lng1 != null && lng1 != "")
+	        {
+		        ViewBag.lng1 = lng1;
+	        }
+             if(lat2 != null && lat2 != "")
+	        {
+		        ViewBag.lat2 = lat2;
+	        }
+            if(lng2 != null && lng2 != "")
+	        {
+		        ViewBag.lng2 = lng2;
+	        }
+            if(from != null && from != "") {
+                ViewBag.from = from;
+            }
+            if(to != null && to != "") {
+                ViewBag.to = to;
+            }
 
             //if (search == null) search = ""; if (tt == null) tt = ""; if (car_hire_type == null) car_hire_type = "";
-
-            return View();
-
-//            SELECT t1.id as 'id', t1.name as 'name', t1.phone as 'phone', t1.email as 'email', t1.address as 'address', t1.car_size as 'car_size', t2.cp_car_type as 'car_size2', t1.car_price as 'car_price', t2.cp_price as 'cp_price2' FROM drivers t1
-//left JOIN driver_car_price t2 ON t1.id = t2.driver_id 
-//left JOIN  where t1.car_price <> -1
-
-//-- ACOS(SIN(PI()*" + lat + "/180.0)*SIN(PI()*lat/180.0)+COS(PI()*" + lat + "/180.0)*COS(PI()*lat/180.0)*COS(PI()*lon/180.0-PI()*" + lon + "/180.0))*6371 As D
+            return View(data.ToPagedList(pageNumber, pageSize)); 
 
         }
 

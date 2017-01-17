@@ -64,6 +64,7 @@
     padding-top: 7px;
     margin: 0;
     border-bottom: 1px solid #CCC;
+    padding-bottom: 15px;
 }
 
 .row.results_card .pho_information, .row.results_card .price_container {
