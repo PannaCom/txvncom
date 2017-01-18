@@ -895,7 +895,7 @@ namespace ThueXeVn.Controllers
 
             if (kc != null && kc != "")
             {
-                ViewBag.kc_timkiem = kc;
+                ViewBag.kc_timkiem = kc.Replace(',','.');
             }
             if (lat1 != null && lat1 != "")
 	        {
