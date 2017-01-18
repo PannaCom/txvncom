@@ -169,7 +169,6 @@ namespace ThueXeVn.Models
         public int? car_size { get; set; }
         public int? car_size2 { get; set; }
         public int? cp_price { get; set; }
-        public int? cp_price2 { get; set; }
         public int? status { get; set; }
         public double? quangduong { get; set; }
         public int? DiffDate { get; set; }

@@ -131,12 +131,7 @@
                             foreach (var item in Model)
                             {
                                 double giaTaiXe = 1;
-                                if (item.cp_price2 != null)
-                                {
-                                    double d_gia = Convert.ToDouble(item.cp_price2);
-                                    giaTaiXe *= kc_timkiem * d_gia;
-                                }
-                                else if(item.cp_price != null)
+                                if (item.cp_price != null)
                                 {
                                     double d_gia = Convert.ToDouble(item.cp_price);
                                     giaTaiXe *= kc_timkiem * d_gia;
