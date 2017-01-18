@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using PagedList.Mvc;
 using ThueXeVn.Models;
+using Twilio;
 
 namespace ThueXeVn.Controllers
 {
@@ -67,7 +68,96 @@ namespace ThueXeVn.Controllers
         public ActionResult SendSMS()
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+
+
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult SendSMS(string phone_number, int sendmulti1, string content_sms)
+        {
+            if (phone_number != null && phone_number.Length < 10 && phone_number.Length > 11)
+            {
+                ModelState.AddModelError("", "Vui lòng kiểm tra lại số điện thoại.");
+                return View();
+            }
+
+            var acountsms = (from s in db.value_config select s).FirstOrDefault();
+            string error = ""; string success = "";
+            try
+            {
+                var accountSid = acountsms.value_id; // Your Account SID from www.twilio.com/console
+                var authToken = acountsms.value_token;  // Your Auth Token from www.twilio.com/console
+
+                TwilioRestClient twilio = new TwilioRestClient(accountSid, authToken);
+
+                if (sendmulti1 == 1)
+                {
+                    var message = twilio.SendSmsMessage(
+                    "+12566702599", // From (Replace with your Twilio number)
+                    "+84" + phone_number, // To (Replace with your phone number)
+                    content_sms
+                    );
+
+                    if (message.RestException != null)
+                    {
+                        error = "Có lỗi không gửi được tin nhắn.";                        
+                    }
+                    else
+                    {
+                        success = "Tin nhắn gửi thành công tới số điện thoại ." + phone_number;
+                    }
+                    string tt = "";
+                    if (error != "")
+	                {
+		                tt = "chua gui";
+	                }
+                    if (success != "")
+	                {
+		                 tt = "da gui";
+	                }
+                    Config.SavePhoneSended(phone_number, tt);
+                }
+                else if(sendmulti1 == 2)
+                {
+                    var dstaixe = db.drivers.Where(x => x.phone != null && x.phone.Length >= 10 && x.phone.Length <= 11).Select(x=>x.phone).ToList();
+                    if (dstaixe.Count > 0)
+                    {
+                        foreach (var item in dstaixe)
+                        {
+                            var message = twilio.SendSmsMessage(
+                            "+12566702599", // From (Replace with your Twilio number)
+                            "+84" + item, // To (Replace with your phone number)
+                                content_sms
+                            );
+                            string tt = "da gui";
+                            if (message.RestException != null)
+                            {
+                                tt = "chua gui";
+                                error += "Có lỗi không gửi được tin nhắn tới số " + item + " <br />.";
+                                //continue;
+                            }
+                            Config.SavePhoneSended(item, tt);
+                        }
+                        success += "Tin nhắn gửi thành công tới tất cả người nhận.";     
+                    }
+                }
+
+                if (error != "")
+                {
+                    TempData["Error"] = error;
+                }
+                TempData["Update"] = success;
+                
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                TempData["Error"] = error;
+            }
+
+            return RedirectToAction("SendSMS");
         }
 
     }

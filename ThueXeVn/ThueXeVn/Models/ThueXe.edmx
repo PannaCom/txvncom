@@ -292,6 +292,14 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="pass" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="value_config">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="value_id" Type="nvarchar(max)" />
+          <Property Name="value_token" Type="nvarchar(max)" />
+        </EntityType>
         <EntityContainer Name="thuexevnModelStoreContainer">
           <EntitySet Name="activecode" EntityType="Self.activecode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="booking" EntityType="Self.booking" Schema="dbo" store:Type="Tables" />
@@ -318,6 +326,7 @@
           <EntitySet Name="pl_car_price" EntityType="Self.pl_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="value_config" EntityType="Self.value_config" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -424,6 +433,7 @@
           <EntitySet Name="bus_keyword" EntityType="thuexevnModel.bus_keyword" />
           <EntitySet Name="find_bus" EntityType="thuexevnModel.find_bus" />
           <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
+          <EntitySet Name="value_config" EntityType="thuexevnModel.value_config" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -636,6 +646,14 @@
           <Property Name="g6" Type="Int32" />
           <Property Name="g7" Type="Int32" />
           <Property Name="g8" Type="Int32" />
+        </EntityType>
+        <EntityType Name="value_config">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="value_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="value_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -951,6 +969,15 @@
                 <ScalarProperty Name="g2" ColumnName="g2" />
                 <ScalarProperty Name="g1" ColumnName="g1" />
                 <ScalarProperty Name="pl_car_type" ColumnName="pl_car_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="value_config">
+            <EntityTypeMapping TypeName="thuexevnModel.value_config">
+              <MappingFragment StoreEntitySet="value_config">
+                <ScalarProperty Name="value_token" ColumnName="value_token" />
+                <ScalarProperty Name="value_id" ColumnName="value_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

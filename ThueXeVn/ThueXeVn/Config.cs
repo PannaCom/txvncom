@@ -223,6 +223,15 @@ namespace ThueXeVn
             }
         }
 
+        public static void SavePhoneSended(string phone, string tt)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.Hosting.HostingEnvironment.MapPath("~/" + "log_send_phone.txt"), true))
+            {
+                sw.WriteLine(DateTime.Now.ToString() + " gui toi so: " + phone + ", trang thai: " + tt);
+                sw.Close();
+            }
+        }
+
         //public static void ToExcel(HttpResponseBase Response, object clientsList, string fileName)
         //{
         //    try

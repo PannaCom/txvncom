@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Gửi tin nhắn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+
+        @if (TempData["Update"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Update"])
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Gửi tin nhắn</h3>
+            </div>
+            <div class="panel-body">
+                <form id="sendsms1" name="sendsms1" method="post" enctype="multipart/form-data" action="/Admin/SendSMS">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="phone_number" class="control-label">Nhập số điện thoại</label>
+                                <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="Nhập số điện thoại" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="sendmulti1" class="control-label">Gửi nhiều người</label>
+                                <select class="form-control" id="sendmulti1" name="sendmulti1" required>
+                                    <option value="">--Chọn người cần gửi--</option>
+                                    <option value="1">Chỉ gửi 1 người</option>
+                                    <option value="2">Gửi toàn bộ tài xế có số điện thoại</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <div class="col-md-12">
+                                <label for="content_sms" class="control-label">Nội dung gửi</label>
+                                <textarea rows="10" id="content_sms" name="content_sms" class="form-control" placeholder="Nhập nội dung tin nhắn" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary">Gửi tin nhắn</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#sendmulti1').on('change', function () {
+            if ($(this).val() === '2') {
+                $('#phone_number').val('0979776427').attr('readonly', 'true');
+            } else {
+                $('#phone_number').val('').removeAttr('readonly');
+            }
+        })
+    })
+</script>
+
