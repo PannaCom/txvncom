@@ -24,7 +24,11 @@
 @section Styles {
     <link href="~/Content/stylemh.css" rel="stylesheet" />
     <link href="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
-
+    <style>
+        #form_search_taxe * {
+            border-radius: 0;
+        }
+    </style>
 }
 
 
@@ -49,7 +53,7 @@
                                     <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
                                 </div>
                             </div>*@
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="span5 about-carousel">
                                 <div id="divBannerTextCarousel" class="carousel slide">
                                     <div id="divBannerTexts" class="carousel-inner custom_slider" style="margin-top: 19px; margin-bottom: 19px;">
@@ -73,7 +77,7 @@
                                         </div>
                                     </div>
 
-                                    <ul id="download" style="padding-left: 0; display: block;">
+                                    <ul id="download" style="padding-left: 0; display: inline-flex; height: 200px;">
                                         <li style="margin-bottom: 5px;">
                                             <a href='https://play.google.com/store/apps/details?id=com.quickcar.thuexe'>
                                                 <img class="img-responsive img-c1" alt='Tải nội dung trên Google Play' src='/images/vi_badge_web_generic.png' />
@@ -97,7 +101,7 @@
 
 }
 
-<section id="timtaixe_search">
+<section id="timtaixe_search" style="margin-top: -155px;">
     <div class="container">
         <div class="row">
             <div class="col-md-12" id="form_search_taxe">
