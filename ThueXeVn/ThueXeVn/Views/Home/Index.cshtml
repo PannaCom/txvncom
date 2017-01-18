@@ -6,6 +6,7 @@
 
 <div class="map_canvas" style="display:none;"></div>
 
+
 @*<label for="autocomplete">Select a programming language: </label>
     <input id="autocomplete">
     <script>
@@ -23,6 +24,7 @@
 @section Styles {
     <link href="~/Content/stylemh.css" rel="stylesheet" />
     <link href="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
 }
 
 
@@ -33,22 +35,21 @@
             <div id="divBannerImages" class="home-banner" style="height: auto;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-6 col-sm-push-6">
-                            <div id="form_timxe">
-                                <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
-                                <input type="hidden" id="lon" name="lon" value="" />
-                                <input type="hidden" id="lat" name="lat" value="" />
-                                <select id="car_type" class="form-control col-sm-3 bg-white" style="color: #fff;">
-                                    <option value="">Chọn loại xe</option>
-                                </select>
-                                <select id="car_size" class="form-control col-sm-3 bg-white" style="color: #fff;">
-                                    <option value="">Chọn số chỗ</option>
-                                </select>
-                                <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
-                            </div>
-
-                        </div>
-                        <div class="col-md-6 col-sm-pull-6">
+                        @*<div class="col-sm-6 col-sm-push-6">
+                                <div id="form_timxe">
+                                    <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
+                                    <input type="hidden" id="lon" name="lon" value="" />
+                                    <input type="hidden" id="lat" name="lat" value="" />
+                                    <select id="car_type" class="form-control col-sm-3 bg-white" style="color: #fff;">
+                                        <option value="">Chọn loại xe</option>
+                                    </select>
+                                    <select id="car_size" class="form-control col-sm-3 bg-white" style="color: #fff;">
+                                        <option value="">Chọn số chỗ</option>
+                                    </select>
+                                    <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
+                                </div>
+                            </div>*@
+                        <div class="col-md-6">
                             <div class="span5 about-carousel">
                                 <div id="divBannerTextCarousel" class="carousel slide">
                                     <div id="divBannerTexts" class="carousel-inner custom_slider" style="margin-top: 19px; margin-bottom: 19px;">
@@ -103,13 +104,13 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                           <i class="fa fa-2x fa-car"></i> Tìm kiếm tài xế 
+                            <i class="fa fa-2x fa-car"></i> Tìm kiếm tài xế
                         </h3>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label class="control-label" for="place_from">Địa điểm từ</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
@@ -120,8 +121,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-5">
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label class="control-label" for="place_to">Địa điểm tới</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
@@ -132,8 +133,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <div class="form-group">
                                     <label for="Loaixe_socho" class="control-label">Loại xe</label>
                                     <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
                                         <option value="">Chọn loại xe</option>
@@ -162,25 +163,26 @@
         <div class="row">
             <div class="col-md-4 col-sm-6">
                 <div class="kf_num_count_wrap">
-                    <i class="fa fa-car"></i>                    
+                    <i class="fa fa-car"></i>
                     <a href="#"><h2 class="counter">156</h2> Số tài xế</a>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="kf_num_count_wrap">
-                    <i class="fa fa-phone"></i>                    
+                    <i class="fa fa-phone"></i>
                     <a href="#"><h2 class="counter">1261</h2> Số cuộc gọi</a>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="kf_num_count_wrap">
                     <i class="fa fa-users"></i>
-                    <a href="#"><h2 class="counter">912</h2> Số khách hàng
-                        
+                    <a href="#">
+                        <h2 class="counter">912</h2> Số khách hàng
+
                     </a>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </section>
@@ -272,202 +274,207 @@
     </div>
 </div>
 
+<div id="map-canvas" style="display: none;">
+    Bản đồ
+</div>
 
-    @section Scripts {
-        @*<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>*@
-        <script src="~/Scripts/waypoints.min.js"></script>
-        <script src="~/Scripts/jquery.counterup.min.js"></script>
-        <script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
-        <script src="~/Content/Theme/admin/vendor/datatable/jquery.dataTables.min.js"></script>
-        <script src="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-        <script src="/Scripts/jquery.geocomplete.js"></script>
-        <script>
-            $(document).ready(function () {
-                "use strict";
-                $('#datetimepicker').datetimepicker({
-                    dayOfWeekStart: 1,
-                    lang: 'en',
-                    disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
-                    startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
-                });
-                var d = new Date();
-                var s = d.toLocaleString();
-                $('#datetimepicker').datetimepicker({ value: s, step: 10 });
 
-                //load listcartype & listcarsize
-                $.ajax({
-                    url: "/Api/getListCarType",
-                    cache: false
-                }).done(function (html) {
-                    var news = '{"news":' + html + '}';
-                    var json_parsed = $.parseJSON(news);
-                    for (var i = 0; i < json_parsed.news.length; i++) {
-                        if (json_parsed.news[i]) {
-                            var name = json_parsed.news[i].name;
-                            $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
-                        }
+@section Scripts {
+    @*<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>*@
+    <script src="~/Scripts/waypoints.min.js"></script>
+    <script src="~/Scripts/jquery.counterup.min.js"></script>
+    <script type="text/javascript" src="~/Content/Theme/1a/js/owl.carousel.js"></script><!-- Owl Carousel Plugin -->
+    <script src="~/Content/Theme/admin/vendor/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+    <script src="/Scripts/jquery.geocomplete.js"></script>
+    <script src="~/Scripts/script2.js"></script>
+    <script>
+        $(document).ready(function () {
+            "use strict";
+            $('#datetimepicker').datetimepicker({
+                dayOfWeekStart: 1,
+                lang: 'en',
+                disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+                startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+            });
+            var d = new Date();
+            var s = d.toLocaleString();
+            $('#datetimepicker').datetimepicker({ value: s, step: 10 });
+
+            //load listcartype & listcarsize
+            $.ajax({
+                url: "/Api/getListCarType",
+                cache: false
+            }).done(function (html) {
+                var news = '{"news":' + html + '}';
+                var json_parsed = $.parseJSON(news);
+                for (var i = 0; i < json_parsed.news.length; i++) {
+                    if (json_parsed.news[i]) {
+                        var name = json_parsed.news[i].name;
+                        $("#car_type").append("<option value='" + name + "'>" + name + "</option>");
                     }
-                });
-                $.ajax({
-                    url: "/Api/getCarSize",
-                    cache: false
-                }).done(function (html) {
-                    var news = '{"news":' + html + '}';
-                    var json_parsed = $.parseJSON(news);
-                    for (var i = 0; i < json_parsed.news.length; i++) {
-                        if (json_parsed.news[i]) {
-                            var name = json_parsed.news[i].name;
-                            $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
-                        }
+                }
+            });
+            $.ajax({
+                url: "/Api/getCarSize",
+                cache: false
+            }).done(function (html) {
+                var news = '{"news":' + html + '}';
+                var json_parsed = $.parseJSON(news);
+                for (var i = 0; i < json_parsed.news.length; i++) {
+                    if (json_parsed.news[i]) {
+                        var name = json_parsed.news[i].name;
+                        $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
                     }
-                });
-
-                //counter
-                if ($('.counter').length) {
-                    $('.counter').counterUp({
-                        delay: 10,
-                        time: 1000
-                    });
                 }
-
-                //show_news_slider
-                //if ($('#show_news_slider').length) {
-                //    var owl = $("#show_news_slider");
-                //    owl.owlCarousel({
-                //        autoPlay: 3000, //Set AutoPlay to 3 seconds
-                //        slideSpeed : 300,
-                //        paginationSpeed : 400,
-                //        singleItem:true,
-                //        navigation: true,
-                //        items: 1,
-                //        lazyLoad: true,
-                //        pagination: false,
-                //        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
-                //    });
-                //}
-
-                //ds dat xe
-                if ($('#booking').length) {
-                    $('#booking').dataTable({
-                        "bFilter": false,
-                        scrollY: '50vh',
-                        scrollCollapse: true,
-                        paging: false,
-                        "bLengthChange": false,
-                        "bInfo": false,
-                        "bAutoWidth": true,
-                        "bSort": true,
-                    });
-                    $("#booking").on("click", ".bdx-x", function () {
-                        $(this).remove();
-
-                    })
-
-                    //var cycleTimer;
-                    //function startCycle() {
-                    //    cycleTimer = setInterval(function () {
-                    //        $scroll.trigger('next');
-                    //    }, 450);
-                    //}
-
-                    //// start to automatically cycle slides
-                    //startCycle();
-
-                    //// set next/previous buttons as clearInterval triggers
-                    //var $stopTriggers = $('img.right').add('img.left'); // left right
-
-                    //// function to stop auto-cycle
-                    //function stopCycle() {
-                    //    clearInterval(cycleTimer);
-                    //    setTimeout(startCycle, 5000); // restart after 5 seconds
-                    //}
-
-                }
-
-                //dangnhap taixe
-                if ($('.show_pn').length) {
-                    $('.show_pn').on('click', function (e) {
-                        window.location.href = "/Home/Taixe";
-                        e.preventDefault();
-                    })
-                }
-
-                //if ($('.bdx-x').length) {
-                //    $('.bdx-x').on('click', function () {
-                //        $(this).remove();
-                //    })
-                //}
-
-            })
-
-            var length_booking = $('#booking > tbody > tr').length - 1;
-            var row_hidden = [];
-            var cycleTimer;
-            function startCycle() {
-                cycleTimer = setInterval(function () {
-                    var row_random = getRandomInt(0, length_booking);
-                    $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut();
-                    row_hidden.push(row_random);
-                    //console.log(row_hidden.length);
-                    if (row_hidden.length > 3) {
-                        clearInterval(cycleTimer);
-                        row_hidden.forEach(function (entry) {
-                            $('#booking > tbody > tr:eq(' + entry + ')').fadeIn();
-                        });
-                        row_hidden = [];
-                        setTimeout(startCycle, 3000); // restart after 5 seconds
-                    }
-                }, 5000);
-            }
-            //// start to automatically cycle slides
-            startCycle();
-
-            function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-
-            $(function () {
-                var options = {
-                    map: ".map-canvas"
-                };
-                $("#address").geocomplete(options)
-                  .bind("geocode:result", function (event, result) {
-                      $("#lon").val(result.geometry.location.lng());
-                      $("#lat").val(result.geometry.location.lat());
-                      //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
-                  })
-                  .bind("geocode:error", function (event, status) {
-                      $.log("ERROR: " + status);
-                  })
-                  .bind("geocode:multiple", function (event, results) {
-                      $.log("Multiple: " + results.length + " results found");
-                  });
             });
 
-
-            function search() {
-                if (document.getElementById("lon").value == "") {
-                    alert("Nhập địa chỉ muốn đón!");
-                    document.getElementById("address").focus();
-                    return;
-                }
-                window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value + "&address=" + document.getElementById("address").value + "&car_type=" + document.getElementById("car_type").value + "&car_size=" + document.getElementById("car_size").value;
+            //counter
+            if ($('.counter').length) {
+                $('.counter').counterUp({
+                    delay: 10,
+                    time: 1000
+                });
             }
 
+            //show_news_slider
+            //if ($('#show_news_slider').length) {
+            //    var owl = $("#show_news_slider");
+            //    owl.owlCarousel({
+            //        autoPlay: 3000, //Set AutoPlay to 3 seconds
+            //        slideSpeed : 300,
+            //        paginationSpeed : 400,
+            //        singleItem:true,
+            //        navigation: true,
+            //        items: 1,
+            //        lazyLoad: true,
+            //        pagination: false,
+            //        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
+            //    });
+            //}
+
+            //ds dat xe
+            if ($('#booking').length) {
+                $('#booking').dataTable({
+                    "bFilter": false,
+                    scrollY: '50vh',
+                    scrollCollapse: true,
+                    paging: false,
+                    "bLengthChange": false,
+                    "bInfo": false,
+                    "bAutoWidth": true,
+                    "bSort": true,
+                });
+                $("#booking").on("click", ".bdx-x", function () {
+                    $(this).remove();
+
+                })
+
+                //var cycleTimer;
+                //function startCycle() {
+                //    cycleTimer = setInterval(function () {
+                //        $scroll.trigger('next');
+                //    }, 450);
+                //}
+
+                //// start to automatically cycle slides
+                //startCycle();
+
+                //// set next/previous buttons as clearInterval triggers
+                //var $stopTriggers = $('img.right').add('img.left'); // left right
+
+                //// function to stop auto-cycle
+                //function stopCycle() {
+                //    clearInterval(cycleTimer);
+                //    setTimeout(startCycle, 5000); // restart after 5 seconds
+                //}
+
+            }
+
+            //dangnhap taixe
+            if ($('.show_pn').length) {
+                $('.show_pn').on('click', function (e) {
+                    window.location.href = "/Home/Taixe";
+                    e.preventDefault();
+                })
+            }
+
+            //if ($('.bdx-x').length) {
+            //    $('.bdx-x').on('click', function () {
+            //        $(this).remove();
+            //    })
+            //}
+
+        })
+
+        var length_booking = $('#booking > tbody > tr').length - 1;
+        var row_hidden = [];
+        var cycleTimer;
+        function startCycle() {
+            cycleTimer = setInterval(function () {
+                var row_random = getRandomInt(0, length_booking);
+                $('#booking > tbody > tr:eq(' + row_random + ')').fadeOut();
+                row_hidden.push(row_random);
+                //console.log(row_hidden.length);
+                if (row_hidden.length > 3) {
+                    clearInterval(cycleTimer);
+                    row_hidden.forEach(function (entry) {
+                        $('#booking > tbody > tr:eq(' + entry + ')').fadeIn();
+                    });
+                    row_hidden = [];
+                    setTimeout(startCycle, 3000); // restart after 5 seconds
+                }
+            }, 5000);
+        }
+        //// start to automatically cycle slides
+        startCycle();
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        $(function () {
+            var options = {
+                map: ".map-canvas"
+            };
+            $("#address").geocomplete(options)
+              .bind("geocode:result", function (event, result) {
+                  $("#lon").val(result.geometry.location.lng());
+                  $("#lat").val(result.geometry.location.lat());
+                  //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+              })
+              .bind("geocode:error", function (event, status) {
+                  $.log("ERROR: " + status);
+              })
+              .bind("geocode:multiple", function (event, results) {
+                  $.log("Multiple: " + results.length + " results found");
+              });
+        });
 
 
-        </script>
-        <script>
+        //function search() {
+        //    if (document.getElementById("lon").value == "") {
+        //        alert("Nhập địa chỉ muốn đón!");
+        //        document.getElementById("address").focus();
+        //        return;
+        //    }
+        //    window.location.href = "/Home/Search?lon=" + document.getElementById("lon").value + "&lat=" + document.getElementById("lat").value + "&address=" + document.getElementById("address").value + "&car_type=" + document.getElementById("car_type").value + "&car_size=" + document.getElementById("car_size").value;
+        //}
+
+
+
+    </script>
+    <script>
             $(document).ready(function () {
                 $('.carousel').carousel({
                     interval: 1000 * 2
                 });
             })
 
-        </script>
+    </script>
 
-        <script>
+    <script>
             $('#from_datetime').datetimepicker({
                 dayOfWeekStart: 1,
                 lang: 'en',
@@ -643,42 +650,41 @@
                 }
             });
 
-        </script>
+    </script>
 
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
-        var owl = $("#owl-demo");
+            var owl = $("#owl-demo");
 
-        owl.owlCarousel({
-            autoPlay: 3000,
-            pagination: true,
-            items: 1, //10 items above 1000px browser width
-            itemsDesktop: [1000, 1], //5 items between 1000px and 901px
-            itemsDesktopSmall: [900, 1], // 3 items betweem 900px and 601px
-            itemsTablet: [600, 1], //2 items between 600 and 0;
-            itemsMobile: [480, 1] // itemsMobile disabled - inherit from itemsTablet option
+            owl.owlCarousel({
+                autoPlay: 3000,
+                pagination: true,
+                items: 1, //10 items above 1000px browser width
+                itemsDesktop: [1000, 1], //5 items between 1000px and 901px
+                itemsDesktopSmall: [900, 1], // 3 items betweem 900px and 601px
+                itemsTablet: [600, 1], //2 items between 600 and 0;
+                itemsMobile: [480, 1] // itemsMobile disabled - inherit from itemsTablet option
+
+            });
+
+            // Custom Navigation Events
+            $(".next").click(function () {
+                owl.trigger('owl.next');
+            })
+            $(".prev").click(function () {
+                owl.trigger('owl.prev');
+            })
+            $(".play").click(function () {
+                owl.trigger('owl.play', 1000);
+            })
+            $(".stop").click(function () {
+                owl.trigger('owl.stop');
+            })
+
 
         });
+    </script>
 
-        // Custom Navigation Events
-        $(".next").click(function () {
-            owl.trigger('owl.next');
-        })
-        $(".prev").click(function () {
-            owl.trigger('owl.prev');
-        })
-        $(".play").click(function () {
-            owl.trigger('owl.play', 1000);
-        })
-        $(".stop").click(function () {
-            owl.trigger('owl.stop');
-        })
-
-
-    });
-</script>
-<script src="~/Scripts/script2.js"></script>
-
-    }
+}
 

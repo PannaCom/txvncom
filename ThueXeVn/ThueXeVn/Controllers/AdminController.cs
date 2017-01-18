@@ -64,5 +64,11 @@ namespace ThueXeVn.Controllers
             }
         }
 
+        public ActionResult SendSMS()
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            return View();
+        }
+
     }
 }
