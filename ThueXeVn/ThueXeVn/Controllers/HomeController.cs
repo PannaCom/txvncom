@@ -872,7 +872,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg)
         {
-            int pageSize = 25;
+            int pageSize = 10;
             if (pg == null) pg = 1;
             int pageNumber = (pg ?? 1);
             ViewBag.pg = pg;
@@ -888,8 +888,10 @@ namespace ThueXeVn.Controllers
                 sql += " and t1.car_size = " + loaixe + " or t2.cp_car_type = " + loaixe;
             }
             double? fq_duong = 300;
-            var data = db.Database.SqlQuery<timkiemDrivers>(sql).Where(x => x.quangduong <= fq_duong).ToList();
+            var data = db.Database.SqlQuery<timkiemDrivers>(sql).Where(x => x.quangduong <= fq_duong).OrderBy(x => x.cp_price2).OrderBy(x => x.cp_price).ToList();
             //
+
+            ViewBag.sotaixe = data.Count;
 
             if (kc != null && kc != "")
             {
