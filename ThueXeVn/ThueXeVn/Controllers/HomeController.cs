@@ -914,10 +914,10 @@ namespace ThueXeVn.Controllers
 		        ViewBag.lng2 = lng2;
 	        }
             if(from != null && from != "") {
-                ViewBag.from = from;
+                ViewBag.from = from.Replace(", Việt Nam", "");
             }
             if(to != null && to != "") {
-                ViewBag.to = to;
+                ViewBag.to = to.Replace(", Việt Nam", "");
             }
 
             //if (search == null) search = ""; if (tt == null) tt = ""; if (car_hire_type == null) car_hire_type = "";
