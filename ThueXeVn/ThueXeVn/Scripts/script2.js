@@ -6,7 +6,7 @@
     })
     $('#movemaplocation').tooltip({
         placement: 'left',
-        title: 'Di chuyển địa điểm'
+        title: 'Hoán vị địa điểm'
     });
 
     var options = {
@@ -37,11 +37,49 @@
       .bind("geocode:multiple", function (event, results) {
           $.log("Multiple: " + results.length + " results found");
       });
+    
+    
+    var map_x1 = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: { lat: -34.397, lng: 150.644 },
+        zoom: 6
+    });
+    var infoWindow = new google.maps.InfoWindow({ map: map_x1 });
 
+    $('#getmaplocation').on('click', function () {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                //console.log(pos.lat + ',' + pos.lng);
+                $('#lat1').val(pos.lat);
+                $('#lng1').val(pos.lng);
+                $.ajax({
+                    url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + pos.lat + ',' + pos.lng + '&sensor=false',
+                    cache: false
+                }).done(function (html) {
+                    $('#place_from').val(html.results[0].formatted_address);
+                });
+
+
+            }, function () {
+                handleLocationError(false, infoWindow);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow);
+        }
+    })
     // end 
 })
 
 function timkiemtaixe() {
+    if (document.getElementById('place_from').value === document.getElementById('place_to').value) {
+        alert('Vị trí điểm đi không thể trùng vị trí đến');
+        return false;
+    }
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
         alert('Vui lòng nhập địa chỉ từ');
         document.getElementById('place_from').focus();
@@ -77,7 +115,7 @@ function timkiemtaixe() {
         if (status == 'OK') {
             directionsDisplay.setDirections(response);
             //console.log(response);
-            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "");
+            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "");
             //console.log(khoangcach);
 
             var url = "/Home/TimTaiXe";
@@ -93,4 +131,29 @@ function timkiemtaixe() {
             window.alert('Vui lòng nhập lại địa chỉ ' + status);
         }
     });
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow) {
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+}
+
+function swapValues() {
+    
+    var from = document.getElementById("place_from").value;
+    var to = document.getElementById("place_to").value;
+    var lat1 = document.getElementById("lat1").value;
+    var lng1 = document.getElementById("lng1").value;
+    var lat2 = document.getElementById("lat2").value;
+    var lng2 = document.getElementById("lng2").value;
+    if (from != "" && to != "" && lat1 != "" && lng1 != "" && lat2 != "" && lng2 != "") {
+        document.getElementById("place_to").value = from;
+        document.getElementById("place_from").value = to;
+        document.getElementById("lat2").value = lat1;
+        document.getElementById("lat1").value = lat2;
+        document.getElementById("lng2").value = lng1;
+        document.getElementById("lng1").value = lng2;
+    } 
+
 }
