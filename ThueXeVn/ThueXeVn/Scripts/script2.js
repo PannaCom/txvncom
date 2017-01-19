@@ -63,7 +63,7 @@ function timkiemtaixe() {
     var directionsService = new google.maps.DirectionsService;
 
     var selectedMode = "DRIVING";
-    var khoangcach = "";
+    //var khoangcach = "";
     var latlng1 = new google.maps.LatLng(document.getElementById('lat1').value, document.getElementById('lng1').value);
     var latlng2 = new google.maps.LatLng(document.getElementById('lat2').value, document.getElementById('lng2').value);
     directionsService.route({
@@ -76,9 +76,9 @@ function timkiemtaixe() {
     }, function (response, status) {
         if (status == 'OK') {
             directionsDisplay.setDirections(response);
-            console.log(response);
-            khoangcach = response.routes[0].legs[0].distance.text.replace(" km", "");
-
+            //console.log(response);
+            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "");
+            //console.log(khoangcach);
 
             var url = "/Home/TimTaiXe";
             url += "?lat1=" + document.getElementById('lat1').value + "&lng1=" + document.getElementById('lng1').value + "&lat2=" + document.getElementById('lat2').value + "&lng2=" + document.getElementById('lng2').value;

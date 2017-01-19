@@ -38,9 +38,9 @@
         title += " loại xe " + Html.Raw(ViewBag.loaixe) + " chỗ";
     }
 
-    if (ViewBag.kc_timkiem != null)
+    if (ViewBag.kc_timkiem_view != null)
     {
-        title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem) + " km";
+        title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem_view) + " km giá một chiều.";
     }
     
     ViewBag.title += title;
@@ -116,7 +116,12 @@
         <div class="col-sm-8" id="result_taixe">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Kết quả @title</h3>
+                    <h3 class="panel-title">Kết quả @title
+                        <select name="gia_select" id="gia_select" class="pull-right">
+                            <option value="1">Giá tăng dần</option>
+                            <option value="2">Giá giảm dần</option>
+                        </select>
+                    </h3>
                     @if (ViewBag.sotaixe != null)
                     {
                         <text><p style="color: #fff;padding-top: 10px;">Có @ViewBag.sotaixe tài xế đang chờ bạn.</p></text>
@@ -184,7 +189,7 @@
                                 </div>
                             }
                             
-                            @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                            @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, gia_select = ViewBag.gia_select }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
 
                         }
                         else
@@ -262,8 +267,46 @@
     </script>
 }
 
+@if (ViewBag.gia_select != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#gia_select').val('@Html.Raw(ViewBag.gia_select)');
+        })
+    </script>
+}
+
 @section scripts {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script src="~/Scripts/script2.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#gia_select').on('change', function () {
+            if ($(this).val() !== "") {
+                var url_2 = document.location.pathname + addUrlParam(document.location.search, 'gia_select', $(this).val());
+                window.location.href = url_2;
+            }
+        })
+    })
+    
+    var addUrlParam = function (search, key, val) {
+        var newParam = key + '=' + val,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (search) {
+            // Try to replace an existance instance
+            params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam);
+
+            // If nothing was replaced, then add the new param to the end
+            if (params === search) {
+                params += '&' + newParam;
+            }
+        }
+
+        return params;
+    };
+
+    </script>
 }
