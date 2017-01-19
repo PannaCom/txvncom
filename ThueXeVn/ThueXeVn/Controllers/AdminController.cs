@@ -34,7 +34,23 @@ namespace ThueXeVn.Controllers
 
             var data = db.Database.SqlQuery<ctvVM>(sql).ToList().OrderByDescending(s => s.date_create);
 
+
             return View(data.ToList().ToPagedList(pageNumber, pageSize));
+        }
+
+
+        public ActionResult CountNumberShares(long? id)
+        {
+            var sql = "select COUNT(t1.ctv_id) from ctv_tiepthi t1 join booking_ctv_tiepthi t2 on t1.ctv_id = t2.ctv_id where t1.ctv_id = " + id;
+            var x = 0;
+            try
+            {
+                x = db.Database.SqlQuery<int>(sql).FirstOrDefault();
+            }
+            catch 
+            {
+            }            
+            return PartialView("_CountNumberShares", x);
         }
 
         //updatestatus

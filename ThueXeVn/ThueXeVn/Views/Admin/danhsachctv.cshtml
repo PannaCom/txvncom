@@ -53,7 +53,7 @@
                                 <th>STT</th>
                                 <th>Họ tên</th>
                                 <th>Ngày đăng ký</th>
-                                <th>Số lượt chia sẻ</th>
+                                <th>Số lượt chia sẻ thành công/Tổng số chia sẻ</th>
                                 <th>Số điện thoại</th>
                                 <th>Tình trạng tài khoản</th>
                                 <th>Chức năng</th>
@@ -80,6 +80,7 @@
                                                 {
                                                     @item.point_share
                                                 }
+                                                @{Html.RenderAction("CountNumberShares", "Admin", new { id = item.ctv_id });}
                                             </td>
                                             <td>@item.ctv_phone</td>
                                             <td>
