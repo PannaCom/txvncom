@@ -98,6 +98,7 @@
                                 <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
                                     <option value="">Chọn loại xe</option>
                                     <option value="4">Xe 4 chỗ</option>
+                                    <option value="5">Xe 5 chỗ</option>
                                     <option value="7">Xe 7 chỗ</option>
                                     <option value="16">Xe 16 chỗ</option>
                                     <option value="29">Xe 29 chỗ</option>
@@ -277,11 +278,11 @@
 }
 
 @section scripts {
-    <script>
+    @*<script>
         if (location.protocol != 'https:') {
             location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
         }
-    </script>
+    </script>*@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script src="~/Scripts/script2.js"></script>

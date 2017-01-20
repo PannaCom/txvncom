@@ -897,6 +897,7 @@ namespace ThueXeVn.Controllers
                 if (gia_select == "1")
                 {
                     data = db.Database.SqlQuery<timkiemDrivers>(sql).Where(x => x.quangduong <= fq_duong).OrderBy(x => x.cp_price).ToList();
+                    //)
                 }
                 else
                 {
