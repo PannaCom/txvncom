@@ -162,9 +162,9 @@ section {
     color: #fff;
 }
 
-.disable_hover a:hover {
+/*.disable_hover a:hover {
     border-bottom: 0!important;
-}
+}*/
 
 #form_taixe {
     background: rgb(255, 255, 255);

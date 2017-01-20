@@ -962,10 +962,10 @@ namespace ThueXeVn.Controllers
 
         //public JsonResult GetLocationProperty()
         //{
-            
-
         //    return Json(longlat, JsonRequestBehavior.AllowGet);
         //}
+
+
 
       
 
