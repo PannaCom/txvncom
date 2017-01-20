@@ -47,6 +47,8 @@
 
     $('#getmaplocation').on('click', function () {
         // Try HTML5 geolocation.
+        
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 var pos = {
@@ -63,13 +65,17 @@
                     $('#place_from').val(html.results[0].formatted_address);
                 });
 
-
             }, function () {
-                handleLocationError(false, infoWindow);
+                console.log("Browser doesn't support Geolocation");
+            }, function (failure) {
+                if (failure.message.indexOf("Only secure origins are allowed") == 0) {
+                    // Secure Origin issue.
+
+                }
             });
         } else {
             // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow);
+            console.log("Browser doesn't support Geolocation");
         }
     })
     // end 
@@ -133,11 +139,11 @@ function timkiemtaixe() {
     });
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow) {
-    infoWindow.setContent(browserHasGeolocation ?
-                          'Error: The Geolocation service failed.' :
-                          'Error: Your browser doesn\'t support geolocation.');
-}
+//function handleLocationError(browserHasGeolocation, infoWindow) {
+//    infoWindow.setContent(browserHasGeolocation ?
+//                          'Error: The Geolocation service failed.' :
+//                          'Error: Your browser doesn\'t support geolocation.');
+//}
 
 function swapValues() {
     

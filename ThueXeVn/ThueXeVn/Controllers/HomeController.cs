@@ -10,6 +10,7 @@ using System.Xml;
 using ThueXeVn.Models;
 using PagedList;
 using System.Data.Entity;
+using System.Device.Location;
 namespace ThueXeVn.Controllers
 {
     public class HomeController : Controller
@@ -958,6 +959,15 @@ namespace ThueXeVn.Controllers
         {
             return View();
         }
+
+        //public JsonResult GetLocationProperty()
+        //{
+            
+
+        //    return Json(longlat, JsonRequestBehavior.AllowGet);
+        //}
+
+      
 
     }
 }
