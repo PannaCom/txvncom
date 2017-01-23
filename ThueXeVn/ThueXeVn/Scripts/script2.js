@@ -82,18 +82,20 @@
 })
 
 function timkiemtaixe() {
-    if (document.getElementById('place_from').value === document.getElementById('place_to').value) {
-        alert('Vị trí điểm đi không thể trùng vị trí đến');
-        return false;
-    }
+    
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-        alert('Vui lòng nhập địa chỉ từ');
+        alert('Vui lòng nhập địa chỉ đi');
         document.getElementById('place_from').focus();
         return false;
     }
     if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-        alert('Vui lòng nhập địa chỉ tới');
+        alert('Vui lòng nhập địa chỉ đến');
         document.getElementById('place_to').focus();
+        return false;
+    }
+
+    if (document.getElementById('place_from').value === document.getElementById('place_to').value && document.getElementById('place_from').value !== "" && document.getElementById('place_to').value !== "") {
+        alert('Vị trí điểm đi không thể trùng vị trí đến');
         return false;
     }
 
