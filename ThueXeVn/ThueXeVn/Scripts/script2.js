@@ -97,11 +97,11 @@ function timkiemtaixe() {
         return false;
     }
 
-    if (document.getElementById('Loaixe_socho').value === "") {
-        alert('Vui lòng chọn loại xe');
-        document.getElementById('Loaixe_socho').focus();
-        return false;
-    }
+    //if (document.getElementById('Loaixe_socho').value === "") {
+    //    alert('Vui lòng chọn loại xe');
+    //    document.getElementById('Loaixe_socho').focus();
+    //    return false;
+    //}
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
