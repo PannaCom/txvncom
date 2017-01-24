@@ -172,6 +172,8 @@ namespace ThueXeVn.Models
         public int? status { get; set; }
         public double? quangduong { get; set; }
         public int? DiffDate { get; set; }
+        public string car_model { get; set; }
+        public string car_made { get; set; }
     }
 
     //public class timkiemDrivers

@@ -881,7 +881,7 @@ namespace ThueXeVn.Controllers
             //kho dữ liệu giá xe đường dài việt nam
             if (lat1 == null) lat1 = "21.0277644"; if (lng1 == null) lng1 = "105.83415979999995"; if (gia_select == null) gia_select = "1";
 
-            var sql = "SELECT t1.id as id, t1.name as name, t1.phone as phone, t1.email as email,t1.address as address, t1.car_size as car_size, t2.cp_car_type as car_size2, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 where t1.car_price <> -1 and status = 0";
+            var sql = "SELECT t1.id as id, t1.name as name, t1.phone as phone, t1.email as email,t1.address as address, t1.car_size as car_size, t2.cp_car_type as car_size2, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 where t1.car_price <> -1 and status = 0";
 
             if (loaixe != null && loaixe != "")
             {
@@ -966,7 +966,18 @@ namespace ThueXeVn.Controllers
         //    return Json(longlat, JsonRequestBehavior.AllowGet);
         //}
 
-
+        public ActionResult LoadCarImage(string made, string model)
+        {
+            string imgpath = "";
+            string sql1 = "select t2.image from drivers t1 left join car_made_model t2 on t1.car_made = t2.made and t1.car_model = t2.model where t1.car_made = '" + made + "' and t1.car_model = '"+ model +"'";
+            
+            var url = db.Database.SqlQuery<string>(sql1).FirstOrDefault();
+            if (url != null)
+            {
+                imgpath = url.ToString();
+            }
+            return PartialView("_LoadCarImage", imgpath);
+        }
 
       
 

@@ -15,8 +15,8 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
-    ViewBag.title = "Tìm tài xế";
-    ViewBag.des = "Tìm tài xế";
+    ViewBag.title = "Giá cho thuê xe";
+    ViewBag.des =  "Giá cho thuê xe";
     ViewBag.keywords = "";
     ViewBag.url = @url;  
 }
@@ -144,8 +144,9 @@
                                 }
                                 
                                 <div class="row results_card mco_out">
-                                    <div class="col-xs-6 col-md-5">
-                                        <section class="col-xs-12 col-md-12 pho_information" style="padding-top: 0;">
+                                    <div class="col-xs-6 col-md-8">
+                                        @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
+                                        <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
                                             <h4>@item.name</h4>
                                             <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
                                                 @if (item.DiffDate <= 7)
@@ -168,11 +169,11 @@
                                             @if (item.address != null && item.address != "")
                                             {
                                                 <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
-                                            }
-                                            
+                                            }                                            
                                         </section>
+                                        
                                     </div>
-                                    <div class="col-xs-6 col-md-7">
+                                    <div class="col-xs-6 col-md-4">
                                         <section class="col-xs-12 col-md-6 price_container">
                                             <div>
                                                 <p id="price" class="price">
