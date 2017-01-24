@@ -145,34 +145,38 @@
                                 
                                 <div class="row results_card mco_out">
                                     <div class="col-xs-6 col-md-8">
-                                        @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
-                                        <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
-                                            <h4>@item.name</h4>
-                                            <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
-                                                @if (item.DiffDate <= 7)
-                                                {
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star color_stx"></i>
-                                                    <i class="fa fa-star"></i>
-                                                }                                                
-                                            </div>
-                                            @if (item.address != null && item.address != "")
-                                            {
-                                                <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
-                                            }                                            
+                                        <section class="col-xs-12 col-md-3">
+                                            <p>@item.car_made @item.car_model</p>
+                                            @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                         </section>
-                                        
-                                    </div>
+                                            
+                                            <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
+                                                <h4>@item.name</h4>
+                                                <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
+                                                    @if (item.DiffDate <= 7)
+                                                    {
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star color_stx"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    }
+                                                </div>
+                                                @if (item.address != null && item.address != "")
+                                                {
+                                                    <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
+                                                }
+                                            </section>
+
+</div>
                                     <div class="col-xs-6 col-md-4">
                                         <section class="col-xs-12 col-md-6 price_container">
                                             <div>

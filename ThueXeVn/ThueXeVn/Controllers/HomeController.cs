@@ -969,7 +969,7 @@ namespace ThueXeVn.Controllers
         public ActionResult LoadCarImage(string made, string model)
         {
             string imgpath = "";
-            string sql1 = "select t2.image from drivers t1 left join car_made_model t2 on t1.car_made = t2.made and t1.car_model = t2.model where t1.car_made = '" + made + "' and t1.car_model = '"+ model +"'";
+            string sql1 = "select top(1) image from car_made_model where made = N'" + made + "' and (model = '" + model + "' or model like N'%" + model + "%')";
             
             var url = db.Database.SqlQuery<string>(sql1).FirstOrDefault();
             if (url != null)
