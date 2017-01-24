@@ -174,24 +174,29 @@
                                                 {
                                                     <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
                                                 }
+                                                
                                             </section>
 
 </div>
                                     <div class="col-xs-6 col-md-4">
-                                        <section class="col-xs-12 col-md-6 price_container">
-                                            <div>
+                                        <section class="col-xs-12 col-md-12 price_container">
+                                            <div>                                                
                                                 <p id="price" class="price">
                                                     @if (giaTaiXe != 1)
                                                     {
                                                         <text>@string.Format("{0:#,###} Đồng/km.", giaTaiXe)</text>
                                                     }
                                                 </p>
+                                                <p>Giá 1km: @string.Format("{0:#,###} Đồng/km.", item.cp_price)</p>
                                             </div>
+                                            <p>
+                                                Hotline
+                                                <a href="tel:0964108688" class="btn btn-default color_button_stx"><i class="fa fa-phone"></i> Gọi ngay</a>
+                                            </p>
                                         </section>
-                                        <section class="col-xs-12 col-md-6 continue_button">
-                                            Hotline
-                                            <a href="tel:0964108688" class="btn btn-default color_button_stx"><i class="fa fa-phone"></i> Gọi ngay</a>
-                                        </section>
+                                        @*<section class="col-xs-12 col-md-6 continue_button">
+                                            
+                                        </section>*@
                                     </div>
                                 </div>
                             }
