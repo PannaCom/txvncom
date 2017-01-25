@@ -323,9 +323,16 @@
         }).done(function (html) {
             $('#Loaixe_socho').append(html);
         });
+        
+        setTimeout(function () {            
+            @if (ViewBag.loaixe != null)
+            {
+                <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
+            }
+        }, 1000)
 
     })
-    
+
     var addUrlParam = function (search, key, val) {
         var newParam = key + '=' + val,
             params = '?' + newParam;
