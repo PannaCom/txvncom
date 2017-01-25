@@ -59,8 +59,67 @@
 
 <div id="timtaixe">
     <div class="row">
-        
-        <div class="col-sm-8 col-sm-push-4" id="result_taixe">
+        @*col-sm-push-4*@
+
+        <div class="col-sm-4" id="form_search_taxe">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Tìm kiếm tài xế
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label" for="place_from">Địa điểm đi</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
+                                    <span class="input-group-addon" id="getmaplocation" style="padding: 14px 15px; cursor: pointer;"><i class="fa fa-map-marker"></i></span>
+                                    <input type="hidden" name="lat1" id="lat1" />
+                                    <input type="hidden" name="lng1" id="lng1" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="control-label" for="place_to">Địa điểm đến</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
+                                    <span class="input-group-addon" id="movemaplocation" style="cursor: pointer;" onclick="swapValues();"><i class="fa fa-exchange"></i></span>
+                                    <input type="hidden" name="lat2" id="lat2" />
+                                    <input type="hidden" name="lng2" id="lng2" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
+                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                                    <option value="">Tất cả loại xe</option>
+                                    @*<option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
+                                    <option value="5">Xe 5 chỗ (có cốp)</option>
+                                    <option value="7">Xe 7 chỗ</option>
+                                    <option value="8">Xe 8 chỗ</option>
+                                    <option value="16">Xe 16 chỗ</option>
+                                    <option value="29">Xe 29 chỗ</option>
+                                    <option value="30">Xe 30 chỗ</option>*@
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe();"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-8" id="result_taixe">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3>Dịp tết chỉ hiện thị các tài xế có giá từ 8,000 đồng/km trở lên</h3>
@@ -172,63 +231,9 @@
 
         </div>
 
-        <div class="col-sm-4 col-sm-pull-8" id="form_search_taxe">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Tìm kiếm tài xế
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <label class="control-label" for="place_from">Địa điểm đi</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
-                                    <span class="input-group-addon" id="getmaplocation" style="padding: 14px 15px; cursor: pointer;"><i class="fa fa-map-marker"></i></span>
-                                    <input type="hidden" name="lat1" id="lat1" />
-                                    <input type="hidden" name="lng1" id="lng1" />
-                                </div>
-                            </div>
-                        </div>
+        @*col-sm-pull-8*@
 
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <label class="control-label" for="place_to">Địa điểm đến</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
-                                    <span class="input-group-addon" id="movemaplocation" style="cursor: pointer;" onclick="swapValues();"><i class="fa fa-exchange"></i></span>
-                                    <input type="hidden" name="lat2" id="lat2" />
-                                    <input type="hidden" name="lng2" id="lng2" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
-                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
-                                    <option value="">Tất cả loại xe</option>
-                                    <option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
-                                    <option value="5">Xe 5 chỗ (có cốp)</option>
-                                    <option value="7">Xe 7 chỗ</option>
-                                    <option value="8">Xe 8 chỗ</option>
-                                    <option value="16">Xe 16 chỗ</option>
-                                    <option value="29">Xe 29 chỗ</option>
-                                    <option value="30">Xe 30 chỗ</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe();"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
-                </div>
-            </div>
-
-        </div>
+        
 
     </div>
 </div>
@@ -310,6 +315,15 @@
                 window.location.href = url_2;
             }
         })
+
+        //Loaixe_socho
+        $.ajax({
+            url: "/Home/getCarSize",
+            cache: false
+        }).done(function (html) {
+            $('#Loaixe_socho').append(html);
+        });
+
     })
     
     var addUrlParam = function (search, key, val) {

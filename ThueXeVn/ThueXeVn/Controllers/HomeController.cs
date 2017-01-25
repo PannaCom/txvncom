@@ -956,6 +956,33 @@ namespace ThueXeVn.Controllers
 
         }
 
+        public string getCarSize()
+        {
+            string carsize = "";
+            try
+            {
+                var p = (from q in db.drivers where q.car_size != null orderby q.car_size select q.car_size).Distinct().ToList();
+                for (int i = 0; i < p.Count(); i++)
+                {
+                    string x1 = ""; string x2 = "";
+                    if (p[i] == 4)
+                    {
+                        x1 = "(giá siêu rẻ, có cốp)";
+                    }
+                    if (p[i] == 5)
+                    {
+                        x2 = "(có cốp)";
+                    }
+                    carsize += "<option value=\"" + p[i] + "\">Xe " + p[i] + " chỗ " + x1 + x2 + "</option>";
+                }
+                
+            }
+            catch (Exception ex)
+            {
+            }
+            return carsize;
+        }
+
         public ActionResult Dangkyubergrab()
         {
             return View();
