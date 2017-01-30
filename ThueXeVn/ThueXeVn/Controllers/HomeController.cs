@@ -921,10 +921,10 @@ namespace ThueXeVn.Controllers
                 {                    
                     kc = kc.Replace(',', '.');
                 }
-                else if (kc.Contains('.'))
-                {
-                    kc = kc.Replace(".","");
-                }
+                //else if (kc.Contains('.'))
+                //{
+                //    kc = kc.Replace(".","");
+                //}
                 ViewBag.kc_timkiem = kc;
 
             }
