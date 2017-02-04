@@ -2265,3 +2265,26 @@ ul.img-product-n > li > a > img {
 .error .form-control {
     border-color: #9c0d0d;
 }
+
+#footer_sec {
+    background: #2169a7;
+    color: #fff;
+    padding: 5px;
+}
+
+#footer_sec ul li {
+    display: inline-block;
+    border-right: 1px solid #fff;
+}
+
+#footer_sec ul li a{
+    padding: 5px;
+}
+
+#footer_sec ul li:last-child {
+    border-right: 0 solid #fff;
+}
+
+#footer_sec ul li:first-child {
+    border-right: 0 solid #fff;
+}
