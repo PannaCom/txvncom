@@ -185,7 +185,7 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("Index");
         }
 
-
+        #region module quản trị nộp tiền khởi tạo tài khoản cho tài xế - Nguyen Van Nam
         public string getModalInitDriver(long? id)
         {
             string html = "";
@@ -266,6 +266,7 @@ namespace ThueXeVn.Controllers
             }            
             return PartialView("_checkInitmoney", danop);
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
