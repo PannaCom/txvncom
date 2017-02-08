@@ -185,6 +185,88 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public string getModalInitDriver(long? id)
+        {
+            string html = "";
+            var driver = db.drivers.Find(id);
+            if (driver == null)
+            {
+                html = "<p>Không tìm thấy tài xế để nộp tiền</p>";
+            }
+            else
+            {
+                html += "<form class=\"form-horizontal\" method=\"post\" id=\"form_init_acc_driver\" name=\"form_init_acc_driver\" enctype=\"multipart/form-data\">"
+                   + "<h4>Tài xế: " + driver.name +"</h4>"
+                   + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\""+ driver.id + "\" />"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-12\">"
+                   + "<label class=\"control-label\">Số tiền tài xế nộp: </label>"
+                   + "<input type=\"number\" name=\"total_money\" id=\"total_money\" class=\"form-control\" placeholder=\"Số tiền tài xế nộp\" />"
+                   + "</div>"
+                   + "</div>"
+                   + "<button type=\"button\" class=\"btn btn-info\" id=\"btn_noptien\" onclick=\"noptientodriver();\">Nộp tiền</button>"
+                   + "</form>";
+
+                //html += "<script>$(document).ready(function() {"
+                //        + "$(\"#form_init_acc_driver\").submit(function(e) {"
+                //        + "var url = \"/drivers/adddrivermoney\"; // the script where you handle the form input."
+                //        + "if ($('#total_money').val() !== \"\") {"
+                //        + "$.ajax({type: \"POST\", url: url, data: $(\"#form_init_acc_driver\").serialize(),"
+                //        + "success: function(data){ if (data === 1) { alert('Đã nộp tiền tạo tài khoản cho tài xế.');"
+                //        + "console.log($(this).html());} console.log(data);}});}else {alert(\"Vui lòng nhập số tiền tạo tài khoản nộp.\");}e.preventDefault();});})</script>";
+            }
+            
+            return html;
+        }
+
+        [HttpPost]
+        public ActionResult adddrivermoney(long? driver_id, int? total_money)
+        {
+            int _saved = 0;
+            var _taixent = db.drivers_money.Where(x => x.driver_id == driver_id).FirstOrDefault();
+            // chưa nộp thì thêm mới
+            try
+            {
+                if (_taixent == null)
+                {
+                    drivers_money addmoney = new drivers_money();
+                    addmoney.driver_id = driver_id ?? null;
+                    addmoney.total_money = total_money ?? null;
+                    addmoney.status = 1;
+                    db.drivers_money.Add(addmoney);
+                }
+                else
+                {
+                    // đã nộp thì cập nhật
+                    _taixent.total_money = total_money ?? null;
+                    db.Entry(_taixent).State = EntityState.Modified;
+                }                
+                db.SaveChanges();
+                _saved = 1;
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }          
+            
+            return Json(_saved, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult _checkInitmoney(long? id)
+        {
+            string danop = "Chưa nộp tiền";
+            if (id != null)
+            {
+                var _checked = db.drivers_money.Where(x => x.driver_id == id).FirstOrDefault();
+                if (_checked != null)
+                {
+                    danop = "Đã nộp tiền";
+                }
+            }            
+            return PartialView("_checkInitmoney", danop);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

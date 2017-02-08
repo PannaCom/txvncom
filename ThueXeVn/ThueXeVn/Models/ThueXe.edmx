@@ -161,6 +161,15 @@
           <Property Name="lat" Type="float" />
           <Property Name="geo" Type="geography" />
         </EntityType>
+        <EntityType Name="drivers_money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="driver_id" Type="bigint" />
+          <Property Name="total_money" Type="int" />
+          <Property Name="status" Type="tinyint" />
+        </EntityType>
         <EntityType Name="find_bus">
           <Key>
             <PropertyRef Name="id" />
@@ -314,6 +323,7 @@
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="find_bus" EntityType="Self.find_bus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="invoices" EntityType="Self.invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="list_car" EntityType="Self.list_car" Schema="dbo" store:Type="Tables" />
@@ -434,6 +444,7 @@
           <EntitySet Name="find_bus" EntityType="thuexevnModel.find_bus" />
           <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
           <EntitySet Name="value_config" EntityType="thuexevnModel.value_config" />
+          <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -654,6 +665,15 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="value_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="value_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="drivers_money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="total_money" Type="Int32" />
+          <Property Name="status" Type="Byte" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -978,6 +998,16 @@
               <MappingFragment StoreEntitySet="value_config">
                 <ScalarProperty Name="value_token" ColumnName="value_token" />
                 <ScalarProperty Name="value_id" ColumnName="value_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drivers_money">
+            <EntityTypeMapping TypeName="thuexevnModel.drivers_money">
+              <MappingFragment StoreEntitySet="drivers_money">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total_money" ColumnName="total_money" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

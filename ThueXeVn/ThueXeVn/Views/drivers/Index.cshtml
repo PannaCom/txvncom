@@ -7,6 +7,15 @@
     int page = int.Parse(ViewBag.page.ToString());
     count = (page - 1) * Config.PageSize;
 }
+
+@section Styles {
+    <style>
+        #modal-7 .modal-dialog {
+            z-index: 9999;
+        }
+    </style>    
+}
+
 <div class="row">
     <div class="col-lg-12">
         <div class="page-header">
@@ -139,6 +148,8 @@
                                 @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                                 @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
                                 <input type="button" value="Kích hoạt" class="btn btn-primary" onclick="Active(@item.id);" id="active_@item.id" />
+                                @{Html.RenderAction("_checkInitmoney", new { id = @item.id });}
+                                <button class="btn btn-info" onclick="Init_acc_drShowForm(@item.id);" id="init_acc_driver_@item.id">Nộp tiền tài khoản</button>
                             </td>
                         </tr>
                     }
@@ -175,6 +186,30 @@
     }
 </div>
 
+<div class="modal fade" id="modal-7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="exampleModalLabel">Nộp tiền tài khoản</h4>
+            </div>
+
+            <div class="modal-body">
+
+                Content is loading...
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
 
 <script>
     function search() {
@@ -234,4 +269,66 @@
         }
         //alert(sThisVal);
     }
+
+    function Init_acc_drShowForm(id) {
+        if (id) {
+            $.get('/drivers/getModalInitDriver?id=' + id, function(html){
+                $('#modal-7 .modal-body').html(html);
+                $('#modal-7').modal('show', {backdrop: 'static', keyboard: false});
+            });
+        }
+    }
+
+    function noptientodriver() {
+        var url = "/drivers/adddrivermoney"; // the script where you handle the form input.
+        if ($('#total_money').val() !== "") {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_init_acc_driver").serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    if (data === 1) {
+                        alert('Đã nộp tiền tạo tài khoản cho tài xế.');
+                        //$(this).siblings('.checked_money').html('Đã nộp tiền.');
+                    }
+                    //console.log(data);
+                }
+            });
+        }else {
+            alert("Vui lòng nhập số tiền tạo tài khoản nộp.");
+            $('#total_money').focus();
+        }   
+    }
+
+    //$(document).ready(function() {
+    //    $("#form_init_acc_driver").submit(function(e) {
+
+    //        var url = "/drivers/adddrivermoney"; // the script where you handle the form input.
+    //        if ($('#total_money').val() !== "") {
+            
+    //            $.ajax({
+    //                type: "POST",
+    //                url: url,
+    //                data: $("#form_init_acc_driver").serialize(), // serializes the form's elements.
+    //                success: function(data)
+    //                {
+    //                    if (data === 1) {
+    //                        alert('Đã nộp tiền tạo tài khoản cho tài xế.');
+    //                        console.log($(this).html());
+    //                    }
+    //                    console.log(data);
+    //                }
+    //            });
+    //        }else {
+    //            alert("Vui lòng nhập số tiền tạo tài khoản nộp.");
+    //        }
+    //        e.preventDefault(); // avoid to execute the actual submit of the form.
+    //    });
+    //})
+
+
+
 </script>
+
+}
