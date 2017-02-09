@@ -1019,6 +1019,32 @@ namespace ThueXeVn.Controllers
             return PartialView("_LoadCarImage", imgpath);
         }
 
+        //getModaldatxenhanh
+        //public string getModaldatxenhanh(long? driver_id)
+        //{
+        //    string html = "";
+        //    html += "<form class=\"form-horizontal\" method=\"post\" id=\"form_dat_thue_xe\" name=\"form_dat_thue_xe\" enctype=\"multipart/form-data\">"
+        //           + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\"" + driver_id + "\" />"
+        //           + "<div class=\"form-group\">"
+        //           + "<div class=\"col-md-12\">"
+        //           + "<label class=\"control-label\">Thông tin khuyến mại: </label>"
+        //           + "<textarea rows=\"10\" name=\"promotion_des\" id=\"promotion_des\" class=\"form-control\" placeholder=\"Thông tin khuyến mại\" />"
+        //           + "</div>"
+        //           + "</div>"
+        //           + "<div class=\"form-group\">"
+        //           + "<div class=\"col-md-12\">"
+        //           + "<label class=\"control-label\">Trạng thái khuyến mại: </label>"
+        //           + "<select name=\"promo_status\" id=\"promo_status\" class=\"form-control\">"
+        //           + "<option value=\"True\">Kích hoạt</option>"
+        //           + "<option value=\"False\">Kết thúc khuyến mại</option>"
+        //           + "</select>"
+        //           + "</div>"
+        //           + "</div>"
+        //           + "<button type=\"button\" class=\"btn btn-primary\" id=\"btn_saveDriverPromotion\" onclick=\"saveDriverPromotion();\">Cập nhật khuyến mại</button>"
+        //           + "</form>";
+        //    return html;
+        //}
+
       
 
     }

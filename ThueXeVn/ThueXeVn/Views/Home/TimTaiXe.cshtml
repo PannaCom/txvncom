@@ -122,7 +122,7 @@
         <div class="col-sm-8" id="result_taixe">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3>Dịp tết chỉ hiện thị các tài xế có giá từ 8,000 đồng/km trở lên</h3>
+                    @*<h3>Dịp tết chỉ hiện thị các tài xế có giá từ 8,000 đồng/km trở lên</h3>*@
                     <h3 class="panel-title">
                         Kết quả @title
                         <select name="gia_select" id="gia_select" class="pull-right">
@@ -200,9 +200,11 @@
                                                 <p>Giá 1km: @string.Format("{0:#,###} Đồng.", item.cp_price)</p>
                                             </div>
                                             <p>
-                                                Hotline
-                                                <a href="tel:0964108688" class="btn btn-default color_button_stx"><i class="fa fa-phone"></i> Gọi ngay</a>
+                                                <a href="tel:0964108688" class="btn btn-default color_button_stx btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>
                                             </p>
+                                            @*<p>
+                                                <span style="color: #fff;" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id);"><i class="fa fa-car"></i> Đặt xe</span>
+                                            </p>*@
                                         </section>
                                         @*<section class="col-xs-12 col-md-6 continue_button">
 
@@ -244,6 +246,29 @@
 
 <div id="map-canvas" style="display: none;">
     Bản đồ
+</div>
+
+<div class="modal fade" id="modal-7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="exampleModalLabel">Đặt xe</h4>
+            </div>
+
+            <div class="modal-body">
+
+                Content is loading...
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 @if (ViewBag.from != null || ViewBag.to != null || ViewBag.loaixe != null)
@@ -356,4 +381,17 @@
         };
 
     </script>
+
+    @*//dat xe nhanh*@
+    @*<script>
+        function func_datxenhanh(id) {
+            if (id) {
+                $.get('/Home/getModaldatxenhanh?driver_id=' + id, function (html) {
+                    $('#modal-7 .modal-body').html(html);
+                    $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
+                })
+            }
+        }
+    </script>*@
+
 }

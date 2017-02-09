@@ -2287,3 +2287,7 @@ ul.img-product-n > li > a > img {
 #footer_sec ul li:first-child {
     /*border-right: 0 solid #fff;*/
 }
+
+.dat_xe i {
+    color: #fff!important;
+}
