@@ -205,7 +205,7 @@ namespace ThueXeVn.Controllers
                    + "<input type=\"number\" name=\"total_money\" id=\"total_money\" class=\"form-control\" placeholder=\"Số tiền tài xế nộp\" />"
                    + "</div>"
                    + "</div>"
-                   + "<button type=\"button\" class=\"btn btn-info\" id=\"btn_noptien\" onclick=\"noptientodriver();\">Nộp tiền</button>"
+                   + "<button type=\"button\" class=\"btn btn-info\" id=\"btn_noptien\" onclick=\"noptientodriver("+ id +");\">Nộp tiền</button>"
                    + "</form>";
 
                 //html += "<script>$(document).ready(function() {"
@@ -261,7 +261,11 @@ namespace ThueXeVn.Controllers
                 var _checked = db.drivers_money.Where(x => x.driver_id == id).FirstOrDefault();
                 if (_checked != null)
                 {
-                    danop = "Đã nộp tiền";
+                    if (_checked.total_money > 0)
+                    {
+                        danop = "Đã nộp: " + _checked.total_money + " đồng.";
+                    }
+                    
                 }
             }            
             return PartialView("_checkInitmoney", danop);

@@ -1,0 +1,197 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.driver_promotion>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Quản lý chương trình khuyến mại của nhà xe.";
+    Layout = "~/Views/Shared/_LayoutAdminTX.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
+
+@section PageTitleHeader {
+    <div class="page-header">
+        <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title</h3>
+    </div>
+<button class="btn btn-primary" onclick="addDriverPromotion(@ViewBag.driverId);" id="add_driver_promotion">Thêm thông tin khuyến mại</button>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table_driver_promotion">
+                        <thead>
+                            <tr>
+                                <th>Thông tin khuyến mại</th>
+                                <th>Tình trạng khuyến mại</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td id="des_km">
+                                                @item.des
+                                            </td>
+                                            <td>
+                                                @if (item.status == true)
+                                                {
+                                                    <text>Đang khuyến mại</text>
+                                                }
+                                                else
+                                                {<text>Kết thúc khuyến mại</text>
+
+                                                }
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-info" onclick="editDriverPromotion(@item.id);" id="edit_driver_promotion_@item.id">Sửa thông tin khuyến mại</button>
+                                                @*<button class="btn btn-danger" onclick="ActionDriverPromotion(@item.id);" id="action_driver_promotion_@item.id">Cho phép khuyến mại</button>*@
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3">
+                                            Chưa có chương trình khuyến mại nào.
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3">
+                                        Chưa có chương trình khuyến mại nào
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.Action("driverPromotion", "TaiXeBangGia", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="exampleModalLabel">Cập nhật khuyến mại</h4>
+            </div>
+
+            <div class="modal-body">
+
+                Content is loading...
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        
+        function addDriverPromotion(id) {
+            if (id) {
+                $.get('/TaiXeBangGia/getModaladdPromotion?driver_id='+id, function (html) {
+                    $('#modal-7 .modal-body').html(html);
+                    $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
+                })
+            }
+        }
+
+        function editDriverPromotion(id) {
+            if (id) {
+                $.get('/TaiXeBangGia/getModalEditPromotion?id=' + id, function (html) {
+                    $('#modal-7 .modal-body').html(html);
+                    $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
+                });
+            }
+        }
+
+        function saveDriverPromotion() {
+            var url = "/TaiXeBangGia/saveDriverPromotion"; // the script where you handle the form input.
+            if ($('#promotion_des').val() === "") {
+                alert("Vui lòng nhập thông tin khuyến mại cho nhà xe.");
+                $('#promotion_des').focus();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_add_driver_promotion").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data !== "") {
+                        alert('Đã cập nhật thông tin khuyến mại.');
+                        $('#table_driver_promotion').children('tbody').html(data);
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+
+        //$(document).ready(function() {
+        //    $("#form_init_acc_driver").submit(function(e) {
+
+        //        var url = "/drivers/adddrivermoney"; // the script where you handle the form input.
+        //        if ($('#total_money').val() !== "") {
+
+        //            $.ajax({
+        //                type: "POST",
+        //                url: url,
+        //                data: $("#form_init_acc_driver").serialize(), // serializes the form's elements.
+        //                success: function(data)
+        //                {
+        //                    if (data === 1) {
+        //                        alert('Đã nộp tiền tạo tài khoản cho tài xế.');
+        //                        console.log($(this).html());
+        //                    }
+        //                    console.log(data);
+        //                }
+        //            });
+        //        }else {
+        //            alert("Vui lòng nhập số tiền tạo tài khoản nộp.");
+        //        }
+        //        e.preventDefault(); // avoid to execute the actual submit of the form.
+        //    });
+        //})
+
+
+
+    </script>
+}
+
+
+

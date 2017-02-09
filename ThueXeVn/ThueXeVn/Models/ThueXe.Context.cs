@@ -52,5 +52,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<pl_car_price> pl_car_price { get; set; }
         public virtual DbSet<value_config> value_config { get; set; }
         public virtual DbSet<drivers_money> drivers_money { get; set; }
+        public virtual DbSet<driver_promotion> driver_promotion { get; set; }
     }
 }

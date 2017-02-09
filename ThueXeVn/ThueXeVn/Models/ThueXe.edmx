@@ -134,6 +134,15 @@
           <Property Name="cp_multiple2" Type="int" />
           <Property Name="driver_id" Type="bigint" />
         </EntityType>
+        <EntityType Name="driver_promotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="driver_id" Type="bigint" />
+          <Property Name="des" Type="nvarchar(max)" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
         <EntityType Name="drivers">
           <Key>
             <PropertyRef Name="id" />
@@ -322,6 +331,7 @@
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_promotion" EntityType="Self.driver_promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="find_bus" EntityType="Self.find_bus" Schema="dbo" store:Type="Tables" />
@@ -445,6 +455,7 @@
           <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
           <EntitySet Name="value_config" EntityType="thuexevnModel.value_config" />
           <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
+          <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -674,6 +685,15 @@
           <Property Name="driver_id" Type="Int64" />
           <Property Name="total_money" Type="Int32" />
           <Property Name="status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="driver_promotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1007,6 +1027,16 @@
               <MappingFragment StoreEntitySet="drivers_money">
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="total_money" ColumnName="total_money" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_promotion">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_promotion">
+              <MappingFragment StoreEntitySet="driver_promotion">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="des" ColumnName="des" />
                 <ScalarProperty Name="driver_id" ColumnName="driver_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

@@ -279,7 +279,7 @@
         }
     }
 
-    function noptientodriver() {
+    function noptientodriver(id) {
         var url = "/drivers/adddrivermoney"; // the script where you handle the form input.
         if ($('#total_money').val() !== "") {
             $.ajax({
@@ -290,7 +290,11 @@
                 {
                     if (data === 1) {
                         alert('Đã nộp tiền tạo tài khoản cho tài xế.');
-                        //$(this).siblings('.checked_money').html('Đã nộp tiền.');
+                        var el1 = "#init_acc_driver_"+id;
+                        $(el1).siblings('.checked_money').html('Đã nộp: ' + $('#total_money').val() + " đồng.");
+                        //console.log($(this).html());
+                        
+                        //location.href = window.location;
                     }
                     //console.log(data);
                 }

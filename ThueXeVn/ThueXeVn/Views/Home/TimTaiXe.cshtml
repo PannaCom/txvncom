@@ -16,9 +16,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     ViewBag.title = "Giá cho thuê xe";
-    ViewBag.des =  "Giá cho thuê xe";
+    ViewBag.des = "Giá cho thuê xe";
     ViewBag.keywords = "";
-    ViewBag.url = @url;  
+    ViewBag.url = @url;
 }
 
 @{
@@ -42,9 +42,9 @@
     {
         title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem_view) + " km giá một chiều (giá chưa bao gồm phí cầu đường).";
     }
-    
+
     ViewBag.title += title;
-    ViewBag.des += title; 
+    ViewBag.des += title;
 }
 
 @{
@@ -100,12 +100,12 @@
                                 <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
                                     <option value="">Tất cả loại xe</option>
                                     @*<option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
-                                    <option value="5">Xe 5 chỗ (có cốp)</option>
-                                    <option value="7">Xe 7 chỗ</option>
-                                    <option value="8">Xe 8 chỗ</option>
-                                    <option value="16">Xe 16 chỗ</option>
-                                    <option value="29">Xe 29 chỗ</option>
-                                    <option value="30">Xe 30 chỗ</option>*@
+                                        <option value="5">Xe 5 chỗ (có cốp)</option>
+                                        <option value="7">Xe 7 chỗ</option>
+                                        <option value="8">Xe 8 chỗ</option>
+                                        <option value="16">Xe 16 chỗ</option>
+                                        <option value="29">Xe 29 chỗ</option>
+                                        <option value="30">Xe 30 chỗ</option>*@
                                 </select>
                             </div>
                         </div>
@@ -123,7 +123,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3>Dịp tết chỉ hiện thị các tài xế có giá từ 8,000 đồng/km trở lên</h3>
-                    <h3 class="panel-title">Kết quả @title                    
+                    <h3 class="panel-title">
+                        Kết quả @title
                         <select name="gia_select" id="gia_select" class="pull-right">
                             <option value="1">Giá tăng dần</option>
                             <option value="2">Giá giảm dần</option>
@@ -133,7 +134,7 @@
                     {
                         <text><p style="color: #fff;padding-top: 10px;">Có @ViewBag.sotaixe tài xế đang chờ bạn.</p></text>
                     }
-                    
+
                 </div>
                 <div class="panel-body list-group">
                     @if (Model != null)
@@ -148,46 +149,49 @@
                                     double d_gia = Convert.ToDouble(item.cp_price);
                                     giaTaiXe *= kc_timkiem * d_gia;
                                 }
-                                
+
                                 <div class="row results_card mco_out">
                                     <div class="col-xs-6 col-md-8">
                                         <section class="col-xs-12 col-md-3">
                                             <p>@item.car_made @item.car_model</p>
                                             @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                         </section>
-                                            
-                                            <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
-                                                <h4>@item.name</h4>
-                                                <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
-                                                    @if (item.DiffDate <= 7)
-                                                    {
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star color_stx"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    }
-                                                </div>
-                                                @if (item.address != null && item.address != "")
-                                                {
-                                                    <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
-                                                }
-                                                
-                                            </section>
 
-</div>
+                                        <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
+                                            <h4>@item.name</h4>
+                                            <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
+                                                @if (item.DiffDate <= 7)
+                                                {
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star color_stx"></i>
+                                                    <i class="fa fa-star"></i>
+                                                }
+                                            </div>
+                                            @if (item.address != null && item.address != "")
+                                            {
+                                                <text><p class="pho-location"><i class="fa fa-map-marker"></i>&nbsp;@item.address</p></text>
+                                            }
+                                            
+                                           @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
+
+                                        </section>
+                                        
+                                    </div>
                                     <div class="col-xs-6 col-md-4">
                                         <section class="col-xs-12 col-md-12 price_container">
-                                            <div>                                                
-                                                <p id="price" class="price"> Tổng giá:
+                                            <div>
+                                                <p id="price" class="price">
+                                                    Tổng giá:
                                                     @if (giaTaiXe != 1)
                                                     {
                                                         <text>@string.Format("{0:#,###} Đồng.", giaTaiXe)</text>
@@ -201,12 +205,12 @@
                                             </p>
                                         </section>
                                         @*<section class="col-xs-12 col-md-6 continue_button">
-                                            
-                                        </section>*@
+
+                                            </section>*@
                                     </div>
                                 </div>
                             }
-                            
+
                             @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
 
                         }
@@ -216,7 +220,7 @@
                                 Không có tài xế nào.
                             </div>
                         }
-                        
+
                     }
                     else
                     {
@@ -233,7 +237,7 @@
 
         @*col-sm-pull-8*@
 
-        
+
 
     </div>
 </div>
@@ -245,11 +249,11 @@
 @if (ViewBag.from != null || ViewBag.to != null || ViewBag.loaixe != null)
 {
     <script>
-    $(document).ready(function () {
-        $('#place_from').val('@Html.Raw(ViewBag.from)');
-        $('#place_to').val('@Html.Raw(ViewBag.to)');
-        $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');        
-    })
+        $(document).ready(function () {
+            $('#place_from').val('@Html.Raw(ViewBag.from)');
+            $('#place_to').val('@Html.Raw(ViewBag.to)');
+            $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');
+        })
     </script>
 }
 
@@ -300,56 +304,56 @@
 
 @section scripts {
     @*<script>
-        if (location.protocol != 'https:') {
-            location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-        }
-    </script>*@
+            if (location.protocol != 'https:') {
+                location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+            }
+        </script>*@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script src="~/Scripts/script2.js"></script>
     <script>
-    $(document).ready(function () {
-        $('#gia_select').on('change', function () {
-            if ($(this).val() !== "") {
-                var url_2 = document.location.pathname + addUrlParam(document.location.search, 'gia_select', $(this).val());
-                window.location.href = url_2;
-            }
-        })
+        $(document).ready(function () {
+            $('#gia_select').on('change', function () {
+                if ($(this).val() !== "") {
+                    var url_2 = document.location.pathname + addUrlParam(document.location.search, 'gia_select', $(this).val());
+                    window.location.href = url_2;
+                }
+            })
 
-        //Loaixe_socho
-        $.ajax({
-            url: "/Home/getCarSize",
-            cache: false
-        }).done(function (html) {
-            $('#Loaixe_socho').append(html);
-        });
-        
-        setTimeout(function () {            
-            @if (ViewBag.loaixe != null)
+            //Loaixe_socho
+            $.ajax({
+                url: "/Home/getCarSize",
+                cache: false
+            }).done(function (html) {
+                $('#Loaixe_socho').append(html);
+            });
+
+            setTimeout(function () {
+                @if (ViewBag.loaixe != null)
             {
                 <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
             }
-        }, 1000)
+            }, 1000)
 
-    })
+        })
 
-    var addUrlParam = function (search, key, val) {
-        var newParam = key + '=' + val,
-            params = '?' + newParam;
+        var addUrlParam = function (search, key, val) {
+            var newParam = key + '=' + val,
+                params = '?' + newParam;
 
-        // If the "search" string exists, then build params from it
-        if (search) {
-            // Try to replace an existance instance
-            params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam);
+            // If the "search" string exists, then build params from it
+            if (search) {
+                // Try to replace an existance instance
+                params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam);
 
-            // If nothing was replaced, then add the new param to the end
-            if (params === search) {
-                params += '&' + newParam;
+                // If nothing was replaced, then add the new param to the end
+                if (params === search) {
+                    params += '&' + newParam;
+                }
             }
-        }
 
-        return params;
-    };
+            return params;
+        };
 
     </script>
 }
