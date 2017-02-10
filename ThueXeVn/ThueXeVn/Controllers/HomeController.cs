@@ -1020,31 +1020,139 @@ namespace ThueXeVn.Controllers
         }
 
         //getModaldatxenhanh
-        //public string getModaldatxenhanh(long? driver_id)
-        //{
-        //    string html = "";
-        //    html += "<form class=\"form-horizontal\" method=\"post\" id=\"form_dat_thue_xe\" name=\"form_dat_thue_xe\" enctype=\"multipart/form-data\">"
-        //           + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\"" + driver_id + "\" />"
-        //           + "<div class=\"form-group\">"
-        //           + "<div class=\"col-md-12\">"
-        //           + "<label class=\"control-label\">Thông tin khuyến mại: </label>"
-        //           + "<textarea rows=\"10\" name=\"promotion_des\" id=\"promotion_des\" class=\"form-control\" placeholder=\"Thông tin khuyến mại\" />"
-        //           + "</div>"
-        //           + "</div>"
-        //           + "<div class=\"form-group\">"
-        //           + "<div class=\"col-md-12\">"
-        //           + "<label class=\"control-label\">Trạng thái khuyến mại: </label>"
-        //           + "<select name=\"promo_status\" id=\"promo_status\" class=\"form-control\">"
-        //           + "<option value=\"True\">Kích hoạt</option>"
-        //           + "<option value=\"False\">Kết thúc khuyến mại</option>"
-        //           + "</select>"
-        //           + "</div>"
-        //           + "</div>"
-        //           + "<button type=\"button\" class=\"btn btn-primary\" id=\"btn_saveDriverPromotion\" onclick=\"saveDriverPromotion();\">Cập nhật khuyến mại</button>"
-        //           + "</form>";
-        //    return html;
-        //}
+        public string getModaldatxenhanh(long? driver_id, string diemdi, string diemden, string kcc)
+        {
+            string html = "";
+            var _taxedx = db.drivers.Find(driver_id);
+            if (_taxedx != null)
+            {
 
+                html += "<form class=\"form-horizontal\" method=\"post\" id=\"form_dat_thue_xe\" name=\"form_dat_thue_xe\" enctype=\"multipart/form-data\" style=\"color: #333;\">"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-12\">"
+                   + "<h4>Tài xế: " + _taxedx.name + "</h4>"
+                   + "<p><b>Đi từ: </b>" + diemdi + " <b>tới: </b>" + diemden + "</p>"
+                   + "<p>Khoảng cách khoảng: " + kcc + " km (giá chưa bao gồm VAT).</p>"
+                   +"</div>"
+                   + "</div><hr/>"                 
+                   + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\"" + driver_id + "\" />"
+                   + "<input type=\"hidden\" name=\"driver_name\" id=\"driver_name\" value=\"" + _taxedx.name + "\" />"
+                   + "<input type=\"hidden\" name=\"lon_from\" id=\"lon_from\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"lat_from\" id=\"lat_from\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"lon_to\" id=\"lon_to\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"lat_to\" id=\"lat_to\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"from_place\" id=\"from_place\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"to_place\" id=\"to_place\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"car_type_made_model\" id=\"car_type_made_model\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"car_hire_type\" id=\"car_hire_type\" value=\"Một chiều\" />"
+                   + "<input type=\"hidden\" name=\"price_driver\" id=\"price_driver\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"distance\" id=\"distance\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"total_money\" id=\"total_money\" value=\"\" />"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Họ tên khách: </label>"
+                   + "<input name=\"customer_name\" id=\"customer_name\" class=\"form-control\" placeholder=\"Tên khách hàng\" />"
+                   + "</div>"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Số điện thoại: </label>"
+                   + "<input name=\"customer_phone\" id=\"customer_phone\" class=\"form-control\" placeholder=\"Số điện thoại khách hàng\" />"
+                   + "</div>"
+                   + "</div>"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Từ ngày: </label>"
+                   + "<input name=\"from_date\" id=\"from_date\" class=\"form-control\" placeholder=\"Từ ngày\" />"
+                   + "</div>"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Đến ngày: </label>"
+                   + "<input name=\"to_date\" id=\"to_date\" class=\"form-control\" placeholder=\"Đến ngày\" />"
+                   + "</div>"
+                   + "</div>"
+                   + "<button type=\"button\" class=\"btn btn-primary\" id=\"btn_bookingtodriver\" onclick=\"saveBookingToDriver(" + _taxedx.id + ");\">Đặt xe</button>"
+                   + "</form>";
+
+                html += "<script>"
+                + "$('#from_date').datetimepicker({"
+                + "dayOfWeekStart: 1,"
+                + "lang: 'en',"
+                + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+                + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+                + "});"
+                + "$('#to_date').datetimepicker({"
+                + "dayOfWeekStart: 1,"
+                + "lang: 'en',"
+                + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+                + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+                + "});"
+                + "var d = new Date();"
+                + "var s = d.toLocaleString();"
+                + "$('#to_date').datetimepicker({ value: s, step: 10 });"                
+                + "</script>";
+            }
+            return html;
+        }
+
+        [HttpPost]
+        public ActionResult saveBookingToDriver(booking_to_driver model)
+        {
+            int data = 0;
+            try
+            {
+                booking_to_driver newBooking = new booking_to_driver();
+                newBooking.lon_from = model.lon_from ?? null;
+                newBooking.lat_from = model.lat_from ?? null;
+                newBooking.lon_to = model.lon_to ?? null;
+                newBooking.lat_to = model.lat_to ?? null;
+                newBooking.from_place = model.from_place ?? null;
+                newBooking.to_place = model.to_place ?? null;
+                newBooking.car_type_made_model = model.car_type_made_model ?? null;
+                newBooking.car_hire_type = model.car_hire_type ?? null;
+                newBooking.driver_id = model.driver_id ?? null;
+                newBooking.driver_name = model.driver_name ?? null;
+                newBooking.date_booking = DateTime.Now;
+                newBooking.price_driver = model.price_driver ?? null;
+                newBooking.distance = model.distance ?? null;
+                newBooking.total_money = model.total_money ?? null;
+                newBooking.customer_name = model.customer_name ?? null;
+                newBooking.customer_phone = model.customer_phone ?? null;
+                newBooking.from_date = model.from_date ?? null;
+                newBooking.to_date = model.to_date ?? null;
+                newBooking.status = 0;
+                db.booking_to_driver.Add(newBooking);
+                db.SaveChanges();
+                data = 1;
+                string result = "";
+                result += "Khách hàng: " + newBooking.customer_name
+                    + ".<br/> Số điện thoại: " + newBooking.customer_phone
+                    + ".<br/> Ngày đặt: " + newBooking.date_booking
+                    + ".<br/> Ngày đi: " + newBooking.from_date.ToString() + ".<br/> Ngày đến: " + newBooking.to_date.ToString()
+                    + ".<br/> Điểm đi: " + newBooking.from_place + ".<br/> Điểm đến: " + newBooking.to_place
+                    + ".<br/> Tài xế: " + newBooking.driver_name
+                    + ".<br/> Giá xe: " + newBooking.price_driver + " đồng"
+                    + ".<br/> Tổng tiền: " + newBooking.total_money + " đồng.";
+
+                // gui thông tin vao email
+                try
+                {
+                    var sendmail = Config.Sendmail("thuexevn.com@gmail.com", "chanhniem", "thuexevn.com@gmail.com", DateTime.Now.ToString("dd-MM-yyyy HH:mm T") + "-Khách đặt xe", result);
+                    if (sendmail == true)
+	                {
+		                data = 1;
+	                }
+                }
+                catch (Exception ex)
+                {
+                    Config.SaveTolog(ex.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
       
 
     }

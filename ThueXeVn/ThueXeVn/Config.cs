@@ -56,6 +56,44 @@ namespace ThueXeVn
             }
             return true;
         }
+
+        public static bool Sendmail(string from, string pass, string to, string topic, string content)
+        {
+            try
+            {
+                var fromAddress = from;
+                var toAddress = to;
+                //Password of your gmail address
+                string fromPassword = pass;
+                // Passing the values and make a email formate to display
+                string subject = topic;
+                string body = content;
+                // smtp settings
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(fromAddress);
+                message.To.Add(toAddress);
+                message.Subject = subject;
+                message.IsBodyHtml = true;
+                message.Body = body;
+                var smtp = new System.Net.Mail.SmtpClient();
+                {
+                    smtp.Host = "smtp.gmail.com";//"smtp.gmail.com";
+                    smtp.Port = 587;// 465;//587;
+                    smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                    smtp.Credentials = new NetworkCredential(fromAddress, fromPassword);
+                    smtp.Timeout = 20000;
+                }
+                // Passing values to smtp object
+                smtp.Send(message);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static long randomcode()
         {
             Random random = new Random();

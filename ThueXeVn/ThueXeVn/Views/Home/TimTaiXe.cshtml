@@ -13,6 +13,10 @@
     }
 }
 
+
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     ViewBag.title = "Giá cho thuê xe";
@@ -56,7 +60,7 @@
 }
 
 <link href="~/Content/style1.css" rel="stylesheet" />
-
+<input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem_view" />
 <div id="timtaixe">
     <div class="row">
         @*col-sm-push-4*@
@@ -153,7 +157,7 @@
                                 <div class="row results_card mco_out">
                                     <div class="col-xs-6 col-md-8">
                                         <section class="col-xs-12 col-md-3">
-                                            <p>@item.car_made @item.car_model</p>
+                                            <p id="car_type_made_model_@item.id">@item.car_made @item.car_model</p>
                                             @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                         </section>
 
@@ -190,21 +194,21 @@
                                     <div class="col-xs-6 col-md-4">
                                         <section class="col-xs-12 col-md-12 price_container">
                                             <div>
-                                                <p id="price" class="price">
+                                                <p>
                                                     Tổng giá:
                                                     @if (giaTaiXe != 1)
                                                     {
-                                                        <text>@string.Format("{0:#,###} Đồng.", giaTaiXe)</text>
+                                                        <text><span id="total_money_driver_@item.id">@string.Format("{0:#,###}", giaTaiXe)</span> Đồng.</text>
                                                     }
                                                 </p>
-                                                <p>Giá 1km: @string.Format("{0:#,###} Đồng.", item.cp_price)</p>
+                                                <p>Giá 1km: <span id="price_driver_@item.id">@string.Format("{0:#,###}", item.cp_price)</span> Đồng.</p>
                                             </div>
                                             <p>
                                                 <a href="tel:0964108688" class="btn btn-default color_button_stx btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>
                                             </p>
-                                            @*<p>
+                                            <p>
                                                 <span style="color: #fff;" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id);"><i class="fa fa-car"></i> Đặt xe</span>
-                                            </p>*@
+                                            </p>
                                         </section>
                                         @*<section class="col-xs-12 col-md-6 continue_button">
 
@@ -254,19 +258,22 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="exampleModalLabel">Đặt xe</h4>
+                <h4 class="modal-title" id="exampleModalLabel" style="color: #333; font-weight: 600;">Đặt xe</h4>
             </div>
 
             <div class="modal-body">
 
                 Content is loading...
+                <div class="form-group">
+
+                </div>
 
             </div>
 
-            <div class="modal-footer">
+            @*<div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
 
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
@@ -376,22 +383,96 @@
                     params += '&' + newParam;
                 }
             }
-
             return params;
         };
 
     </script>
 
     @*//dat xe nhanh*@
-    @*<script>
+    <script>
         function func_datxenhanh(id) {
+            
+            if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
+                alert('Vui lòng nhập điểm đi.');
+                return false;
+                
+            }
+            if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
+                alert('Vui lòng nhập điểm đến.');
+                return false;
+                
+            }
             if (id) {
-                $.get('/Home/getModaldatxenhanh?driver_id=' + id, function (html) {
+                $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
                     $('#modal-7 .modal-body').html(html);
                     $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
                 })
             }
+            
         }
-    </script>*@
+
+        function saveBookingToDriver(id) {
+            document.getElementById('lon_from').value = document.getElementById('lng1').value;
+            document.getElementById('lat_from').value = document.getElementById('lat1').value;
+            document.getElementById('lon_to').value = document.getElementById('lng2').value;
+            document.getElementById('lat_to').value = document.getElementById('lat2').value;
+            document.getElementById('from_place').value = document.getElementById('place_from').value;
+            document.getElementById('to_place').value = document.getElementById('place_to').value;
+            document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
+            document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',','');
+            document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
+            document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
+            
+            var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
+            if (document.getElementById('customer_name').value === "") {
+                alert("Vui lòng nhập họ tên khách hàng.");
+                document.getElementById('customer_name').focus();
+                return false;
+            }
+            if (document.getElementById('customer_phone').value === "") {
+                alert("Vui lòng nhập số điện thoại khách hàng.");
+                document.getElementById('customer_phone').focus();
+                return false;
+            }
+            if (document.getElementById('from_date').value === "") {
+                alert("Vui lòng nhập ngày đến.");
+                document.getElementById('from_date').focus();
+                return false;
+            }
+            if (document.getElementById('to_date').value === "") {
+                alert("Vui lòng nhập ngày đi.");
+                document.getElementById('to_date').focus();
+                return false;
+            }
+            if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
+                alert("Ngày đi phải sau ngày đến");
+                document.getElementById('from_date').focus();
+                return false;
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data == 1) {
+                        $('#modal-7').modal('hide');
+                        alert('Đã đặt xe thành công.');
+                        //reset value
+                        document.getElementById('customer_name').value = "";
+                        document.getElementById('customer_phone').value = "";
+                        document.getElementById('from_date').value = "";
+                        var d = new Date();
+                        var s = d.toLocaleString();
+                        $('#to_date').datetimepicker({ value: s, step: 10 });
+                        //end value
+                        $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+
+    </script>
 
 }

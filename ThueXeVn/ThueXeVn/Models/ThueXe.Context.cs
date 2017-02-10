@@ -53,5 +53,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<value_config> value_config { get; set; }
         public virtual DbSet<drivers_money> drivers_money { get; set; }
         public virtual DbSet<driver_promotion> driver_promotion { get; set; }
+        public virtual DbSet<booking_to_driver> booking_to_driver { get; set; }
     }
 }
