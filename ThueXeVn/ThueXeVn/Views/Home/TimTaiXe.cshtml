@@ -457,7 +457,7 @@
                 success: function (data) {
                     if (data == 1) {
                         $('#modal-7').modal('hide');
-                        alert('Đã đặt xe thành công.');
+                       
                         //reset value
                         document.getElementById('customer_name').value = "";
                         document.getElementById('customer_phone').value = "";
@@ -466,6 +466,7 @@
                         var s = d.toLocaleString();
                         $('#to_date').datetimepicker({ value: s, step: 10 });
                         //end value
+                        setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
                         $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
                     }
                     //console.log(data);
