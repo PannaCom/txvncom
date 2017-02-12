@@ -155,7 +155,7 @@
                 success: function (data) {
                     if (data !== "") {
                         alert('Đã cập nhật thông tin khuyến mại.');
-                        $('#table_driver_promotion').children('tbody').html(data);
+                        $('#table_driver_promotion').children('tbody').append(data);
                     }
                     //console.log(data);
                 }
