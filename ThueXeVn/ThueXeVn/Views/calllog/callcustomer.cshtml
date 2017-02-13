@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.call_driver_log>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Thống kê khách gọi cho tài xế";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section Styles {
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table-banggia">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Số hành khách</th>
+                                <th>Số tài xế</th>
+                                <th>Ngày gọi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+
+                                if (Model.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @item.from_number
+                                            </td>
+                                            <td>@item.to_number</td>
+                                            <td>
+                                                @item.date_time
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5">
+                                            Bạn chưa có dữ liệu để hiện thị
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5">
+                                        Bạn chưa có dữ liệu để hiện thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.Action("callcustomer", "calllog", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+

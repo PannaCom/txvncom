@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ThueXeVn.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace ThueXeVn.Controllers
 {
@@ -19,6 +21,19 @@ namespace ThueXeVn.Controllers
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
             return View(db.call_log.ToList());
+        }
+
+        public ActionResult callcustomer(int? pg)
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+
+            var data = db.call_driver_log.Where(x => x.from_number != null && x.to_number != null).Select(x=>x).OrderByDescending(x => x.id).ToList();
+
+            return View(data.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: calllog/Details/5
