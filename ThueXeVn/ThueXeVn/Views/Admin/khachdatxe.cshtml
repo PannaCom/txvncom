@@ -1,0 +1,123 @@
+﻿@model PagedList.IPagedList<ThueXeVn.Models.booking_to_driver>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Quản lý khách đặt xe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="table-khachdatxe">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên khách</th>
+                                <th>Số điện thoại khách</th>
+                                <th>Ngày đặt</th>
+                                <th>Tài xế</th>
+                                <th>Tổng tiền</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+
+                                if (Model.Count > 0)
+                                {
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @item.customer_name
+                                            </td>
+                                            <td>@item.customer_phone</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy HH:mm}", item.date_booking)</td>
+                                            <td>@item.driver_name</td>
+                                            <td>@string.Format("{0:#,##}", item.total_money)</td>
+                                            <td><span id="xoa_datxe_@item.id" class="btn btn-danger" onclick="xoa_datxe(@item.id);">Xóa</span></td>
+                                            
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7">
+                                            Bạn chưa có dữ liệu để hiện thị
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7">
+                                        Bạn chưa có dữ liệu để hiện thị
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                @if (Model != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.Action("khachdatxe", "Admin", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function xoa_datxe(id) {
+            if (confirm('Bạn chắc chắn muốn xóa khách đặt xe này?')) {
+                if (id) {
+                    var url = "/Admin/deleteKhachDatXe"; // the script where you handle the form input.
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: { id: id }, // serializes the form's elements.
+                        success: function (data) {
+                            if (data == "1") {
+                                alert('Đã xóa khách đặt xe này.');
+                            }
+                            window.location.href = location.href;
+                            //console.log(data);
+                        }
+                    });
+                }
+            }
+            
+        }
+    </script>   
+ }
