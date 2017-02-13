@@ -148,6 +148,15 @@
                                 @*@Html.ActionLink("Details", "Details", new { id = item.id }) |*@
                                 @Html.ActionLink("Xóa", "Delete", new { id = item.id }, htmlAttributes: new { @class = "btn btn-danger" })
                                 <input type="button" value="Kích hoạt" class="btn btn-primary" onclick="Active(@item.id);" id="active_@item.id" />
+                                <hr />
+                                @if (@item.phone != null)
+                                {
+                                    {Html.RenderAction("LoadStatusListOnline", new { phone = @item.phone });}
+                                }
+                                
+                                <button type="button" class="btn btn-primary" id="kichhoat_@item.id" onclick="kichhoat(@item.id, '@item.phone');">Kích hoạt tài khoản</button>
+                                <button type="button" class="btn btn-danger" id="tamdung_@item.id" onclick="tamdung(@item.id, '@item.phone');">Tạm dừng tài khoản</button>
+                                <hr />
                                 @{Html.RenderAction("_checkInitmoney", new { id = @item.id });}
                                 <button class="btn btn-info" onclick="Init_acc_drShowForm(@item.id);" id="init_acc_driver_@item.id">Nộp tiền tài khoản</button>
                             </td>
@@ -303,6 +312,44 @@
             alert("Vui lòng nhập số tiền tạo tài khoản nộp.");
             $('#total_money').focus();
         }   
+    }
+
+    function kichhoat(id, phone) {
+        var url = "/drivers/kichhoatdriver"; // the script where you handle the form input.
+        if (id) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: phone}, // serializes the form's elements.
+                success: function(data)
+                {
+                    if (data === '1') {
+                        alert('Đã kích hoạt tài khoản.');
+                        $('#kichhoat_'+id).siblings('.trangthai_taikhoan').html('Đã kích hoạt tài xế.');
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+    }
+
+    function tamdung(id, phone) {
+        var url = "/drivers/tamdungdriver"; // the script where you handle the form input.
+        if (id) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: phone}, // serializes the form's elements.
+                success: function(data)
+                {
+                    if (data === '1') {
+                        alert('Đã tạm dừng tài khoản tài xế.');
+                        $('#tamdung_'+id).siblings('.trangthai_taikhoan').html('Đã tạm dừng tài khoản.');
+                    }
+                    //console.log(data);
+                }
+            });
+        }
     }
 
     //$(document).ready(function() {

@@ -159,6 +159,14 @@
           <Property Name="cp_multiple2" Type="int" />
           <Property Name="driver_id" Type="bigint" />
         </EntityType>
+        <EntityType Name="driver_images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="driver_id" Type="bigint" />
+          <Property Name="img_url" Type="nvarchar" MaxLength="505" />
+        </EntityType>
         <EntityType Name="driver_promotion">
           <Key>
             <PropertyRef Name="id" />
@@ -357,6 +365,7 @@
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_images" EntityType="Self.driver_images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_promotion" EntityType="Self.driver_promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
@@ -483,6 +492,7 @@
           <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
           <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
           <EntitySet Name="booking_to_driver" EntityType="thuexevnModel.booking_to_driver" />
+          <EntitySet Name="driver_images" EntityType="thuexevnModel.driver_images" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -746,6 +756,14 @@
           <Property Name="from_date" Type="DateTime" Precision="3" />
           <Property Name="to_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="driver_images">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="img_url" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1116,6 +1134,15 @@
                 <ScalarProperty Name="lon_to" ColumnName="lon_to" />
                 <ScalarProperty Name="lat_from" ColumnName="lat_from" />
                 <ScalarProperty Name="lon_from" ColumnName="lon_from" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_images">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_images">
+              <MappingFragment StoreEntitySet="driver_images">
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

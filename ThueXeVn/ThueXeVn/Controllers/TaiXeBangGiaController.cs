@@ -8,6 +8,7 @@ using PagedList;
 using PagedList.Mvc;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.IO;
 
 namespace ThueXeVn.Controllers
 {
@@ -182,6 +183,83 @@ namespace ThueXeVn.Controllers
             return View(data.ToList().ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult themanhnhaxe(int? pg)
+        {
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id = Convert.ToInt64(id_taixe);
+            var taxidn = db.drivers.Find(id);
+            if (taxidn == null)
+            {
+                Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
+            }
+            ViewBag.driverId = id;
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+
+            var data = db.driver_images.Where(x => x.driver_id == id).Select(x => x).ToList();
+
+            return View(data.ToList().ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult uploadimg(long? driver_id)
+        {
+            var fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\nhaxe", Server.MapPath(@"\")));
+                        string strDay = DateTime.Now.ToString("yyyyMM");
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), strDay);
+
+                        var _fileName = Guid.NewGuid().ToString("N") + ".jpg";
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, _fileName);
+                        //System.Drawing.Image bm = System.Drawing.Image.FromStream(file.InputStream);
+                        // Thay đổi kích thước ảnh
+                        //bm = ResizeBitmap((Bitmap)bm, 100, 100); /// new width, height
+                        //// Giảm dung lượng ảnh trước khi lưu
+                        //ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+                        //ImageCodecInfo ici = null;
+                        //foreach (ImageCodecInfo codec in codecs)
+                        //{
+                        //    if (codec.MimeType == "image/jpeg")
+                        //        ici = codec;
+                        //}
+                        //EncoderParameters ep = new EncoderParameters();
+                        //ep.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, (long)80);
+                        //bm.Save(path, ici, ep);
+                        //bm.Save(path);
+                        file.SaveAs(path);
+                        fName = "/Images/nhaxe/" + strDay + "/" + _fileName;
+
+                        var update_img = db.Database.ExecuteSqlCommand("INSERT INTO driver_images(img_url,driver_id) VALUES('" + fName + "'," + driver_id + ")");
+                       
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+            return Json(new { Message = fName }, JsonRequestBehavior.AllowGet);
+        }
+
+        
+
         public string getModaladdPromotion(long? driver_id)
         {
             string html = "";
@@ -277,6 +355,68 @@ namespace ThueXeVn.Controllers
             }
 
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult khachdatxe(string k, int? pg)
+        {
+            if (k == null) k = "";
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id = Convert.ToInt64(id_taixe);
+
+            var taxidn = db.drivers.Find(id);
+            if (taxidn == null)
+            {
+                Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
+            }
+            var p = db.booking_to_driver.Where(x => x.driver_id == id).Select(x=>x);
+            if (k != null && k != "")
+            {
+                p = p.Where(x => x.customer_name.Contains(k));
+            }
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+            return View(p.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult deleteKhachDatXe(long? id)
+        {
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id_driver = Convert.ToInt64(id_taixe);
+            string deleted = "";
+            var khach = db.booking_to_driver.Where(x=>x.id == id && x.driver_id == id_driver).Select(x=>x).FirstOrDefault();
+            if (khach != null)
+            {
+                db.booking_to_driver.Remove(khach);
+                db.SaveChanges();
+                deleted = "1";
+            }
+
+            return Json(deleted, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult deleteDriverImage(long? id)
+        {
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id_driver = Convert.ToInt64(id_taixe);
+            string deleted = "";
+            var image = db.driver_images.Where(x => x.id == id && x.driver_id == id_driver).Select(x => x).FirstOrDefault();
+            if (image != null)
+            {
+                db.driver_images.Remove(image);
+                db.SaveChanges();
+                deleted = "1";
+            }
+
+            return Json(deleted, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿.home-banner {
+﻿
+.home-banner {
     background-attachment: scroll;
     background-clip: border-box;
     background-color: rgba(0,0,0,0);
@@ -111,6 +112,7 @@ section {
       padding: 6px 50px;
   }
 }
+
 
 #mh_show_gioithieu_new {
         background: #EFEEEE;
@@ -233,4 +235,27 @@ section {
 
 #table_baogia > tfoot > tr > td {
     text-align: center;
+}
+
+.anh_nhaxe {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.anh_nhaxe li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.anh_nhaxe li img {
+    width: 100px; height: 70px;
+}
+
+#carousel-example-generic {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#carousel-example-generic li {
+    margin-right: 10px;
 }

@@ -13,7 +13,7 @@
     }
 }
 
-
+<link href="~/Content/bxslider/jquery.bxslider.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
 <script src="/Scripts/jquery.datetimepicker.js"></script>
 
@@ -59,6 +59,7 @@
     }
 }
 
+@*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
 <link href="~/Content/style1.css" rel="stylesheet" />
 <input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem_view" />
 <div id="timtaixe">
@@ -157,7 +158,7 @@
                                 <div class="row results_card mco_out">
                                     <div class="col-xs-6 col-md-8">
                                         <section class="col-xs-12 col-md-3">
-                                            <p id="car_type_made_model_@item.id">@item.car_made @item.car_model</p>
+                                            <p id="car_type_made_model_@item.id">@item.car_made @item.car_model @item.car_years</p>
                                             @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                         </section>
 
@@ -187,10 +188,13 @@
                                             }
                                             
                                            @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
-
+                                           
                                         </section>
                                         
                                     </div>
+
+
+
                                     <div class="col-xs-6 col-md-4">
                                         <section class="col-xs-12 col-md-12 price_container">
                                             <div>
@@ -210,11 +214,17 @@
                                                 <span style="color: #fff;" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id);"><i class="fa fa-car"></i> Đặt xe</span>
                                             </p>
                                         </section>
-                                        @*<section class="col-xs-12 col-md-6 continue_button">
-
-                                            </section>*@
+                                       
                                     </div>
+                                   
+                                    @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
+                                    
+
                                 </div>
+                        
+                        
+
+
                             }
 
                             @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
@@ -340,6 +350,8 @@
                 location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
             }
         </script>*@
+@*<script src="~/Content/slick/slick.min.js"></script>*@
+    <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script src="~/Scripts/script2.js"></script>
@@ -473,6 +485,26 @@
                 }
             });
         }
+
+        //$(document).ready(function(){
+        //    $('.multiple-items').slick({
+        //        infinite: true,
+        //        slidesToShow: 1,
+        //        slidesToScroll: 1
+        //    });
+        //});
+
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                infiniteLoop: false,
+                slideMargin: 10,
+                minSlides: 1,
+                slideWidth: 250,
+                controls: false
+            });
+        });
+
+        
 
     </script>
 

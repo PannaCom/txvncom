@@ -176,5 +176,33 @@ namespace ThueXeVn.Controllers
             return RedirectToAction("SendSMS");
         }
 
+        public ActionResult khachdatxe(string k, int? pg)
+        {
+            if (k == null) k = "";
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            var p = (from q in db.booking_to_driver where q.customer_name.Contains(k) || q.customer_phone.Contains(k) || q.driver_name.Contains(k) select q).OrderByDescending(o => o.id).Take(1000);
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+            return View(p.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        public ActionResult deleteKhachDatXe(long? id)
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            string deleted = "";
+            var khach = db.booking_to_driver.Find(id);
+            if (khach != null)
+            {
+                db.booking_to_driver.Remove(khach);
+                db.SaveChanges();
+                deleted = "1";
+            }
+
+            return Json(deleted, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

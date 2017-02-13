@@ -281,6 +281,44 @@ namespace ThueXeVn.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult LoadStatusListOnline(string phone)
+        {
+            var data = db.list_online.Where(x => x.phone == phone).Select(x => x.status).FirstOrDefault().ToString();
+            return PartialView("_LoadStatusListOnline", data);
+        }
+
+        [HttpPost]
+        public string kichhoatdriver(string id)
+        {
+            try
+            {
+                if (Config.getCookie("logged") == "") return "0";
+                db.Database.ExecuteSqlCommand("update list_online set status=0 where phone=N'" + id + "'");
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+
+        }
+
+        [HttpPost]
+        public string tamdungdriver(string id)
+        {
+            try
+            {
+                if (Config.getCookie("logged") == "") return "0";
+                db.Database.ExecuteSqlCommand("update list_online set status=1 where phone=N'" + id + "'");
+                return "1";
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+
+        }
+
         
     }
 }

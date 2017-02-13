@@ -174,6 +174,7 @@ namespace ThueXeVn.Models
         public int? DiffDate { get; set; }
         public string car_model { get; set; }
         public string car_made { get; set; }
+        public int? car_years { get; set; }
     }
 
     //public class timkiemDrivers

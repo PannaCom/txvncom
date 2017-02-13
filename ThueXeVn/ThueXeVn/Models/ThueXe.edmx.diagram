@@ -34,6 +34,7 @@
         <EntityTypeShape EntityType="thuexevnModel.drivers_money" Width="1.5" PointX="15.375" PointY="3.75" />
         <EntityTypeShape EntityType="thuexevnModel.driver_promotion" Width="1.5" PointX="15.375" PointY="6.75" />
         <EntityTypeShape EntityType="thuexevnModel.booking_to_driver" Width="1.5" PointX="15.375" PointY="9.75" />
+        <EntityTypeShape EntityType="thuexevnModel.driver_images" Width="1.5" PointX="9.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
