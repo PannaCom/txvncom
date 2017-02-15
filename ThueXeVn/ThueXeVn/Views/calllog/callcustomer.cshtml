@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<ThueXeVn.Models.call_driver_log>
+﻿@model PagedList.IPagedList<ThueXeVn.Models.call_driver_log_model>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Thống kê khách gọi cho tài xế";
@@ -29,9 +29,11 @@
                         <thead>
                             <tr>
                                 <th>STT</th>
-                                <th>Số hành khách</th>
                                 <th>Số tài xế</th>
+                                <th>Tên tài xế</th>
+                                <th>Số hành khách</th>
                                 <th>Ngày gọi</th>
+                                <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,10 +50,12 @@
                                             <td>
                                                 @item.from_number
                                             </td>
+                                            <td>@item.driver_name</td>
                                             <td>@item.to_number</td>
                                             <td>
                                                 @item.date_time
                                             </td>
+                                            <td><span class="btn btn-danger" onclick="xoalog(@item.id);" id="xoa_log_@item.id">Xóa</span></td>
                                         </tr>
                                         i++;
                                     }
@@ -92,3 +96,26 @@
     </div>
 </div>
 
+@section scripts {
+    <script>
+        function xoalog(id) {
+            if (id) {
+                var url = "/calllog/deletecalllog"; // the script where you handle the form input.
+                if (id) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: { id: id }, // serializes the form's elements.
+                        success: function (data) {
+                            if (data === '1') {
+                                alert('Đã xóa cuộc gọi tài xế.');
+                                window.location.href = window.location.href;
+                            }
+                            //console.log(data);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+    }

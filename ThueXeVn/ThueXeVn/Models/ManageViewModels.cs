@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
 
 namespace ThueXeVn.Models
 {
@@ -192,5 +193,14 @@ namespace ThueXeVn.Models
     //    public string quangduong { get; set; }
     //    public string DiffDate { get; set; }
     //}
+
+    public partial class call_driver_log_model
+    {
+        public long id { get; set; }
+        public string from_number { get; set; }
+        public string to_number { get; set; }
+        public Nullable<System.DateTime> date_time { get; set; }
+        public string driver_name { get; set; }
+    }
 
 }
