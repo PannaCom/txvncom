@@ -1,0 +1,29 @@
+﻿
+@{
+    string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    if (Request.ServerVariables["HTTPS"] == "on")
+    {
+        url = "https://" + url;
+    }
+    else
+    {
+        url = "http://" + url;
+    }
+}
+
+@{
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    ViewBag.title = "Trang cá nhân tài xế";
+    ViewBag.des = "Trang cá nhân tài xế";
+    ViewBag.keywords = "";
+    ViewBag.url = @url;
+}
+
+
+
+
+@section scripts {
+    
+
+        
+}

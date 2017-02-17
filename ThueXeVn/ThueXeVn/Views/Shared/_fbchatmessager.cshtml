@@ -1,5 +1,73 @@
-﻿<script type='text/javascript'>
-    (function () {
-        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//d2yy16lkdmfg04.cloudfront.net/resource/facebookchat.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-    })(); window.embeddedChatFacebookAsyncInit = function () { embeddedChatFacebook.init("8953"); }
+﻿@*<a href="https://www.messenger.com/t/100014446952315/" title="Hỗ trợ trực tuyến" style="position: fixed; right: 0; bottom: 0; margin-bottom: 30px; margin-right: 10px;">
+    <i class="fa fa-3x fa-comment" style="color: #1035ad"></i>
+</a>*@
+<link href="~/Content/style2.css" rel="stylesheet" />
+
+
+<div class="backdrop_gray"></div>
+
+
+<div class="fab blue child btn-floating" data-subitem="3">
+    <i class="fa fa-angle-up"></i>
+    <a class="btn-floating fab-tip item_to_top" href="#">Lên đầu trang</a>
+</div>
+
+<div class="fab blue child btn-floating" data-subitem="2">
+    <i class="fa fa-phone"></i>
+    <a class="btn-floating fab-tip" href="tel:0964108688">Hot line 096.410.8688</a>
+</div>
+
+<div class="fab blue child btn-floating" data-tooltip="Hỗ trợ trực tuyến" data-subitem="1">
+    <i class="fa fa-comment"></i>
+    <a class="btn-floating fab-tip" href="https://www.messenger.com/t/100014446952315" target="_blank" title="Hỗ trợ trực tuyến">Hỗ trợ trực tuyến</a>
+</div>
+
+<div class="fab" id="masterfab"><span>+</span></div>
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $(".fab,.backdrop_gray").click(function () {
+                if ($(".backdrop_gray").is(":visible")) {
+                    $(".backdrop_gray").fadeOut(125);
+                    $(".fab.child")
+                        .stop()
+                        .animate({
+                            bottom: $("#masterfab").css("bottom"),
+                            opacity: 0
+                        }, 125, function () {
+                            $(this).hide();
+                        });
+                } else {
+                    $(".backdrop_gray").fadeIn(125);
+                    $(".fab.child").each(function () {
+                        $(this)
+                            .stop()
+                            .show()
+                            .animate({
+                                bottom: (parseInt($("#masterfab").css("bottom")) + parseInt($("#masterfab").outerHeight()) + 70 * $(this).data("subitem") - $(".fab.child").outerHeight()) + "px",
+                                opacity: 1
+                            }, 125);
+                    });
+                }
+            });
+        });
+
+        if ($('.item_to_top').length) {
+            $('.item_to_top').click(function () {
+                $('html,body').animate({ scrollTop: 0 }, 500);
+                $(".backdrop_gray").fadeOut(125);
+                $(".fab.child")
+                        .stop()
+                        .animate({
+                            bottom: $("#masterfab").css("bottom"),
+                            opacity: 0
+                        }, 125, function () {
+                            $(this).hide();
+                        });
+                return false;
+               
+            })
+        }
+    })
 </script>
