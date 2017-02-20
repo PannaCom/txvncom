@@ -1,0 +1,34 @@
+﻿@model List<ThueXeVn.Models.driver_images>
+@using ThueXeVn;
+
+@if (Model != null)
+{
+    <div class="flexslider sectionMarginTop album_driver" id="album_driver" style="margin-bottom: 0;">
+        <ul class="slides">
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <li>
+                        <div style="position: relative;">
+                            <img src="@item.img_url" class="item_img" style="height: 300px;" />
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li>
+                    <div style="position: relative;">
+                        <img src="~/Images/nhaxe/slider_nhaxe.jpg" class="item_img" style="height: 300px;" />
+                    </div>
+                </li>
+                <li>
+                    <div style="position: relative;">
+                        <img src="~/Images/nhaxe/slide-7.jpg" class="item_img" style="height: 300px;" />
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}

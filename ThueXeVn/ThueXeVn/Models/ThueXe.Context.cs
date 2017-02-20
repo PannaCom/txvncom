@@ -55,5 +55,7 @@ namespace ThueXeVn.Models
         public virtual DbSet<driver_promotion> driver_promotion { get; set; }
         public virtual DbSet<booking_to_driver> booking_to_driver { get; set; }
         public virtual DbSet<driver_images> driver_images { get; set; }
+        public virtual DbSet<driver_info> driver_info { get; set; }
+        public virtual DbSet<driver_rate_comment> driver_rate_comment { get; set; }
     }
 }

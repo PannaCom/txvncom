@@ -2298,3 +2298,21 @@ ul.img-product-n > li > a > img {
 .dat_xe i {
     color: #fff!important;
 }
+
+#profile_taixe {
+        padding: 10px;
+    background: #fff;
+    color: #333;
+}
+
+#profile_taixe h3 {
+    margin-top: 0;
+}
+
+.fa_red {
+    color: #d2550a;
+}
+
+#panel_danhgia {
+    margin-top: 10px;
+}

@@ -167,6 +167,14 @@
           <Property Name="driver_id" Type="bigint" />
           <Property Name="img_url" Type="nvarchar" MaxLength="505" />
         </EntityType>
+        <EntityType Name="driver_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="driver_id" Type="bigint" />
+          <Property Name="driver_des" Type="ntext" />
+        </EntityType>
         <EntityType Name="driver_promotion">
           <Key>
             <PropertyRef Name="id" />
@@ -175,6 +183,21 @@
           <Property Name="driver_id" Type="bigint" />
           <Property Name="des" Type="nvarchar(max)" />
           <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="driver_rate_comment">
+          <Key>
+            <PropertyRef Name="cus_cm_id" />
+          </Key>
+          <Property Name="cus_cm_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cus_driver_id" Type="bigint" />
+          <Property Name="cus_rate" Type="int" />
+          <Property Name="cus_name" Type="nvarchar" MaxLength="505" />
+          <Property Name="cus_email" Type="nvarchar" MaxLength="505" />
+          <Property Name="cus_phone" Type="nvarchar" MaxLength="505" />
+          <Property Name="cus_comment" Type="ntext" />
+          <Property Name="cm_like" Type="int" />
+          <Property Name="cm_dislike" Type="int" />
+          <Property Name="cm_date" Type="datetime" />
         </EntityType>
         <EntityType Name="drivers">
           <Key>
@@ -366,7 +389,9 @@
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_images" EntityType="Self.driver_images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_info" EntityType="Self.driver_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_promotion" EntityType="Self.driver_promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_rate_comment" EntityType="Self.driver_rate_comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="find_bus" EntityType="Self.find_bus" Schema="dbo" store:Type="Tables" />
@@ -493,6 +518,8 @@
           <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
           <EntitySet Name="booking_to_driver" EntityType="thuexevnModel.booking_to_driver" />
           <EntitySet Name="driver_images" EntityType="thuexevnModel.driver_images" />
+          <EntitySet Name="driver_info" EntityType="thuexevnModel.driver_info" />
+          <EntitySet Name="driver_rate_comment" EntityType="thuexevnModel.driver_rate_comment" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -764,6 +791,29 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="driver_id" Type="Int64" />
           <Property Name="img_url" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="driver_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="driver_des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="driver_rate_comment">
+          <Key>
+            <PropertyRef Name="cus_cm_id" />
+          </Key>
+          <Property Name="cus_cm_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cus_driver_id" Type="Int64" />
+          <Property Name="cus_rate" Type="Int32" />
+          <Property Name="cus_name" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="cus_email" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="cus_phone" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="cus_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cm_like" Type="Int32" />
+          <Property Name="cm_dislike" Type="Int32" />
+          <Property Name="cm_date" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1144,6 +1194,31 @@
                 <ScalarProperty Name="img_url" ColumnName="img_url" />
                 <ScalarProperty Name="driver_id" ColumnName="driver_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_info">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_info">
+              <MappingFragment StoreEntitySet="driver_info">
+                <ScalarProperty Name="driver_des" ColumnName="driver_des" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_rate_comment">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_rate_comment">
+              <MappingFragment StoreEntitySet="driver_rate_comment">
+                <ScalarProperty Name="cm_date" ColumnName="cm_date" />
+                <ScalarProperty Name="cm_dislike" ColumnName="cm_dislike" />
+                <ScalarProperty Name="cm_like" ColumnName="cm_like" />
+                <ScalarProperty Name="cus_comment" ColumnName="cus_comment" />
+                <ScalarProperty Name="cus_phone" ColumnName="cus_phone" />
+                <ScalarProperty Name="cus_email" ColumnName="cus_email" />
+                <ScalarProperty Name="cus_name" ColumnName="cus_name" />
+                <ScalarProperty Name="cus_rate" ColumnName="cus_rate" />
+                <ScalarProperty Name="cus_driver_id" ColumnName="cus_driver_id" />
+                <ScalarProperty Name="cus_cm_id" ColumnName="cus_cm_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,6 +16,13 @@
 <link href="~/Content/bxslider/jquery.bxslider.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
 <script src="/Scripts/jquery.datetimepicker.js"></script>
+<style>
+    .profile_page:hover {
+        border-bottom: 1px solid #cbcbcb;
+    }
+    
+
+</style>
 
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
@@ -163,7 +170,10 @@
                                         </section>
 
                                         <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
-                                            <h4>@item.name</h4>
+                                            <h4 class="profile_page_1">
+                                                <a href="/Home/profile/@item.id" class="profile_page">@item.name</a>
+                                                <a href="/Home/profile/@item.id" style="font-size: 75%; margin-left: 10px; display: none;">Xem chi tiết</a>
+                                            </h4>
                                             <div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
                                                 @if (item.DiffDate <= 7)
                                                 {
@@ -502,6 +512,13 @@
                 slideWidth: 250,
                 controls: false
             });
+
+            $('.profile_page').hover(function () {
+                $(this).siblings('a').css('display', 'inline-block');
+            }, function () {
+                $(this).siblings('a').css('display', 'none');
+            });
+
         });
 
         

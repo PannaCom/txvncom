@@ -1,6 +1,7 @@
-﻿
+﻿@model ThueXeVn.Models.driver
 @{
     string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
+    long driverId = 0;
     if (Request.ServerVariables["HTTPS"] == "on")
     {
         url = "https://" + url;
@@ -9,8 +10,15 @@
     {
         url = "http://" + url;
     }
+    
+    if (ViewBag.driverId != null)
+    {
+        driverId = ViewBag.driverId;
+    }
 }
-
+<link href="~/Content/sld/flexslider.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
+<link href="~/Content/PagedList.css" rel="stylesheet" />
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     ViewBag.title = "Trang cá nhân tài xế";
@@ -21,9 +29,210 @@
 
 
 
+@if (Model != null)
+{
+    ViewBag.title += " " + @Model.name;
+}
+
+<div id="profile_taixe">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Tài xế: @Model.name</h3>
+                <address><i class="fa fa-address-card"></i> @Model.address <a href="#"> - Xem bản đồ </a></address>
+                <div>
+                    <p>Đánh giá: <input type="hidden" class="rating-tooltip danh_gia_chung" id="danh_gia_chung_rating" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="2"> <span id="danh_gia_chung_n">4 sao.</span></p>
+                    <p>Dựa trên 10 lượt đánh giá.</p>
+                </div>
+                @{Html.RenderAction("LoadDesDriver", new { driver_id = Model.id });}
+            </div>
+            <div class="col-md-8">
+                @{Html.RenderAction("LoadAlbumDriver", new { driver_id = Model.id });}
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="panel_danhgia">
+                <div class="col-md-4">
+                    <h3>Gửi đánh giá và nhận xét</h3>
+
+                    <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Đánh giá tài xế: </label>
+                            <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="2"> <span id="cus_rate_number"></span>
+                        </div>
+
+                        <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
+                        <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
+                        <div class="form-group">
+                            <label for="cus_name">Họ tên:</label>
+                            <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cus_email">Email:</label>
+                            <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cus_phone">Số điện thoại:</label>
+                            <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cus_comment">Bình luận:</label>
+                            <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
+
+                    </form>
+
+                </div>
+                @*@{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}*@
+                @Html.Action("LoadCommentDriver", new { driver_id = Model.id })
+                @*<div class="col-md-8">
+                    <div class="comment_driver">
+                        <h3>Danh sách nhận xét</h3>
+                        <ul id="comment_driver_list">
+
+                        </ul>
+                    </div>
+                </div>*@
+
+
+            </div>
+        </div>
+    }
+</div>
 
 @section scripts {
-    
+    <script src="~/Content/sld/jquery.flexslider-min.js"></script>
+    <script src="~/Content/bootstrap-rating.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
-        
+            $('.album_driver').flexslider({
+                animation: "slide",
+                controlNav: false,
+                directionNav: true,
+                draggable: false,
+            });
+
+            //$('.danh_gia_chung').rating({
+            //    extendSymbol: function (rate) {
+            //        $(this).tooltip({
+            //            container: 'body',
+            //            placement: 'bottom',
+            //            title: 'Đánh giá ' + rate + ' sao.'
+            //        });
+            //    }
+            //});
+
+            $('.danh_gia_chung').rating({
+
+                extendSymbol: function () {
+                    var title;
+                    $(this).tooltip({
+                        container: 'body',
+                        placement: 'bottom',
+                        trigger: 'manual',
+                        title: function () {
+                            return title;
+                        }
+                    });
+                    $(this).on('rating.rateenter', function (e, rate) {
+                        title = 'Đánh giá ' + rate + ' sao.';
+                        $(this).tooltip('show');
+                    })
+                    .on('rating.rateleave', function () {
+                        $(this).tooltip('hide');
+                    });
+                }
+            });
+            $('.danh_gia_chung').rating('rate', 4.5);
+
+            $('.danh_gia_chung').on('change', function () {
+                $('#danh_gia_chung_n').html($(this).val() + ' sao.');
+            })
+
+            $('#cus_rate').rating({
+
+                extendSymbol: function () {
+                    var title;
+                    $(this).tooltip({
+                        container: 'body',
+                        placement: 'bottom',
+                        trigger: 'manual',
+                        title: function () {
+                            return title;
+                        }
+                    });
+                    $(this).on('rating.rateenter', function (e, rate) {
+                        title = 'Đánh giá ' + rate + ' sao.';
+                        $(this).tooltip('show');
+                    })
+                    .on('rating.rateleave', function () {
+                        $(this).tooltip('hide');
+                    });
+                }
+            });
+
+            $('#cus_rate').on('change', function () {
+                $('#cus_rate_number').html($(this).val() + ' sao.').fadeIn();
+                addCommentdriver();
+            })
+
+            //$(document).on("click", "#contentPager a[href]", function () {
+            //    $.ajax({
+            //        url: $(this).attr("href"),
+            //        type: 'GET',
+            //        cache: false,
+            //        success: function (result) {
+            //            $('#content').html(result);
+            //        }
+            //    });
+            //    return false;
+            //});
+
+        })
+
+        function addCommentdriver() {
+            var url = "/Home/addCommentdriver"; // the script where you handle the form input.
+            if ($('#cus_name').val() === "") {
+                alert("Vui lòng nhập họ tên.");
+                $('#cus_name').focus();
+                return false;
+            }
+            if ($('#cus_email').val() === "") {
+                alert("Vui lòng nhập email.");
+                $('#cus_email').focus();
+                return false;
+            }
+            if ($('#cus_phone').val() === "") {
+                alert("Vui lòng nhập số điện thoại.");
+                $('#cus_phone').focus();
+                return false;
+            }
+            if ($('#cus_comment').val() === "") {
+                alert("Vui lòng nhập bình luận.");
+                $('#cus_comment').focus();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#addcomment").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data !== "") {
+                        alert('Đánh giá và nhận xét của bạn đã được gửi thành công.');
+                        $('#cus_cm_id').val(data);
+                        $('#btnaddComment').addClass('disabled');
+                    }
+                }
+            });
+        }
+    </script>
+
 }

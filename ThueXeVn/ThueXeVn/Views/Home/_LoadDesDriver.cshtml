@@ -1,0 +1,11 @@
+﻿@model ThueXeVn.Models.driver_info
+
+@if (Model != null)
+{
+    <div>
+        <h3>Giới thiệu nhà xe</h3>
+        <p class="lead">
+            @Html.Raw(@Model.driver_des)
+        </p>
+    </div>
+}
