@@ -1,0 +1,101 @@
+﻿@*@model PagedList.IPagedList<ThueXeVn.Models.driver_rate_comment>
+    @using PagedList.Mvc;*@
+@model List<ThueXeVn.Models.driver_rate_comment>
+@{
+    Layout = null;
+}
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        <h3>Đang hiện thị @Model.Count nhận xét</h3>
+
+        <div id="content" class="review">
+            <div class="review-header">
+                <hr class="line-seperator">
+            </div>
+            @{int i = 1;}
+            @foreach (var item in Model)
+            {
+                <div id="review-@i" class="sub-section individual-review-item">
+                    <div class="col-xs-12 col-sm-3 review-info">
+                        <div class="review-comment-score">
+                            <span>@item.cus_rate</span>
+                        </div>
+
+                        <input type="hidden" class="rating-tooltip rate_review_@i" id="rate_review_@i" name="rate_review_@i" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1" data-readonly>
+                        <script>
+                            $(document).ready(function () {
+                                $('#rate_review_@i').rating('rate', @item.cus_rate);
+                            })
+
+                        </script>
+                        <div class="review-info-detail">
+                            <span class="review-reviewer-name">
+                                <strong>@item.cus_name</strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="review-comment-bubble">
+                            <div class="review-comment-title">
+                                <span>“@item.cus_comment”</span>
+                            </div>
+
+                            <div class="review-comment-date-only">
+                                <span class="review-date">Đã nhận xét vào @string.Format("{0:dd/MM/yyyy}", item.cm_date)</span>
+                            </div>
+                        </div>
+                        @*<div class="helpful_btn_container review-info-bottom">
+                                <span class="helpful_btn_state">Cám ơn phản hồi của bạn!</span>
+                            </div>*@
+                        <div class="helpful_btn_container review-info-bottom">
+                            <span class="helpful_btn_state" id="vote_cm_@item.cus_cm_id">
+                                @if (item.cm_like != null)
+                                {
+                                    <text>
+                                        @item.cm_like hành khách cảm thấy nhận xét này hữu ích. Bạn thì sao?
+                                        <button class="helpful-btn" onclick="danh_gia_r(@item.cus_cm_id, 1);">Có</button> |
+                                        <button class="helpful-btn" onclick="danh_gia_r(@item.cus_cm_id, 0);">Không</button>
+                                    </text>
+                                }
+                                else
+                                {
+                                    <text>
+                                        Bạn cảm thấy nhận xét này hữu ích?
+                                        <button class="helpful-btn" onclick="danh_gia_r(@item.cus_cm_id,1);">Có</button> |
+                                        <button class="helpful-btn" onclick="danh_gia_r(@item.cus_cm_id,0);">Không</button>
+                                    </text>
+                                }
+
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+                                i++;
+            }
+
+
+        </div>
+    }
+
+    else
+    {
+        <div class="col-md-8">
+            <div class="comment_driver">
+                <h3>Chưa có đánh giá nào?</h3>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-md-8">
+        <div class="comment_driver">
+            <h3>Chưa có đánh giá nào?</h3>
+        </div>
+    </div>
+}
+
+

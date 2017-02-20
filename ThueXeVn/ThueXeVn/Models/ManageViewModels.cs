@@ -203,4 +203,10 @@ namespace ThueXeVn.Models
         public string driver_name { get; set; }
     }
 
+    public class danhgiavm
+    {
+        public int? so1 { get; set; }
+        public long? so2 { get; set; }
+    }
+
 }

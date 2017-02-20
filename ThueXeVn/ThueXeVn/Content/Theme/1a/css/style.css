@@ -2310,9 +2310,116 @@ ul.img-product-n > li > a > img {
 }
 
 .fa_red {
-    color: #d2550a;
+    color: #d2550a!important;
 }
 
 #panel_danhgia {
     margin-top: 10px;
 }
+
+.review {
+    margin-top: 20px;
+    font-weight: 300;
+}
+
+.review .review-header {
+    font-weight: 700;
+}
+
+.review .review-header .line-seperator {
+    display: block;
+    color: #DDD;
+    border-top: 1px solid;
+    width: 100%;
+    margin: 0;
+}
+
+.sub-section {
+    width: 100%;
+    padding: 25px 0;
+    zoom: 1;
+}
+
+.review .individual-review-item {
+    display: block;
+    overflow: hidden;
+    margin-top: 0;
+    padding: 20px;
+    border-bottom: 1px solid #DDD;
+}
+
+.review .individual-review-item .review-info {
+    padding-top: 20px;
+}
+
+.review .individual-review-item .review-info .review-comment-score {
+    overflow: hidden;
+    font-size: 36px;
+    font-weight: 600;
+    color: #3d81f5;
+    line-height: 36px;
+    text-align: center;
+}
+
+.review-info-detail {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.review .individual-review-item .review-comment-bubble {
+    background-color: #F5F5F5;
+    border-radius: 15px;
+        padding: 6% 9%;
+}
+
+.review .individual-review-item .review-comment-bubble .review-comment-title {
+    margin-left: -8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.review .individual-review-item .review-comment-bubble .review-comment-icon {
+    vertical-align: top;
+    padding-top: 20px;
+}
+.review .individual-review-item .review-comment-bubble .review-comment-date-only {
+    padding-top: 10px;
+    overflow: hidden;
+}
+
+.review .individual-review-item .review-info-bottom {
+    margin: 15px 0 10px;
+    padding-left: 0;
+    line-height: 14px;
+}
+
+.helpful_btn_container {
+    float: right;
+    line-height: 38px;
+}
+
+.review .individual-review-item .review-info-bottom .helpful_btn_state {
+    margin-right: 10px;
+}
+
+.review .individual-review-item .review-info-bottom .helpful-btn {
+    border: 0;
+    color: #3d81f5;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+    line-height: 14px;
+    height: 14px;
+}
+
+.helpful-btn {
+    background-color: #fff;
+    border: 1px solid #0283DF;
+    border-radius: 3px;
+    color: #0283DF;
+    padding: 0 20px;
+    margin-left: 10px;
+    height: 40px;
+}
+

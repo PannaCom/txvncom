@@ -1,0 +1,29 @@
+﻿@model List<ThueXeVn.Models.driver_rate_comment>
+@if (Model != null)
+{
+    if (Model.Count > 0)
+    {
+        var n = Model.Sum(x => x.cus_rate) / Model.Count;
+        <div>
+            <p>Đánh giá: <input type="hidden" class="rating-tooltip danh_gia_chung" id="danh_gia_chung_rating" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="2" data-readonly> <span id="danh_gia_chung_n">@n sao.</span></p>
+            <p>Dựa trên <b>@Model.Count</b> lượt đánh giá.</p>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#danh_gia_chung_rating').rating('rate', @n);
+            })
+        </script>
+    }
+    else
+    {
+        <div>Chưa có đánh giá nào? Đánh giá ngay.</div>
+    }
+
+}
+else
+{
+    <div>Chưa có đánh giá nào? Đánh giá ngay.</div>
+}
+
+

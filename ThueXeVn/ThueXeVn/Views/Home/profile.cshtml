@@ -16,9 +16,13 @@
         driverId = ViewBag.driverId;
     }
 }
+
 <link href="~/Content/sld/flexslider.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
+<script src="~/Content/sld/jquery.flexslider-min.js"></script>
+<script src="~/Content/bootstrap-rating.min.js"></script>
+
 @{
     Layout = "~/Views/Shared/_LayoutContent.cshtml";
     ViewBag.title = "Trang cá nhân tài xế";
@@ -32,6 +36,7 @@
 @if (Model != null)
 {
     ViewBag.title += " " + @Model.name;
+    ViewBag.des += " " + @Model.name;
 }
 
 <div id="profile_taixe">
@@ -40,11 +45,12 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>Tài xế: @Model.name</h3>
-                <address><i class="fa fa-address-card"></i> @Model.address <a href="#"> - Xem bản đồ </a></address>
-                <div>
-                    <p>Đánh giá: <input type="hidden" class="rating-tooltip danh_gia_chung" id="danh_gia_chung_rating" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="2"> <span id="danh_gia_chung_n">4 sao.</span></p>
-                    <p>Dựa trên 10 lượt đánh giá.</p>
-                </div>
+                @if (Model.address != null)
+                {
+                    <address><i class="fa fa-address-card"></i> @Model.address <a href="#"> - Xem bản đồ </a></address>
+                }
+                @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
+                
                 @{Html.RenderAction("LoadDesDriver", new { driver_id = Model.id });}
             </div>
             <div class="col-md-8">
@@ -60,7 +66,7 @@
                     <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Đánh giá tài xế: </label>
-                            <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="2"> <span id="cus_rate_number"></span>
+                            <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
                         </div>
 
                         <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
@@ -91,8 +97,14 @@
 
                 </div>
                 @*@{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}*@
-                @Html.Action("LoadCommentDriver", new { driver_id = Model.id })
-                @*<div class="col-md-8">
+                <div class="col-md-8">
+                    <div class="comment_driver">
+                        @{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}
+                    </div>
+                </div>
+                
+                    
+                     @*<div class="col-md-8">
                     <div class="comment_driver">
                         <h3>Danh sách nhận xét</h3>
                         <ul id="comment_driver_list">
@@ -108,10 +120,11 @@
 </div>
 
 @section scripts {
-    <script src="~/Content/sld/jquery.flexslider-min.js"></script>
-    <script src="~/Content/bootstrap-rating.min.js"></script>
+    
     <script>
+        
         $(document).ready(function () {
+            
 
             $('.album_driver').flexslider({
                 animation: "slide",
@@ -130,28 +143,28 @@
             //    }
             //});
 
-            $('.danh_gia_chung').rating({
+            //$('.danh_gia_chung').rating({
 
-                extendSymbol: function () {
-                    var title;
-                    $(this).tooltip({
-                        container: 'body',
-                        placement: 'bottom',
-                        trigger: 'manual',
-                        title: function () {
-                            return title;
-                        }
-                    });
-                    $(this).on('rating.rateenter', function (e, rate) {
-                        title = 'Đánh giá ' + rate + ' sao.';
-                        $(this).tooltip('show');
-                    })
-                    .on('rating.rateleave', function () {
-                        $(this).tooltip('hide');
-                    });
-                }
-            });
-            $('.danh_gia_chung').rating('rate', 4.5);
+            //    extendSymbol: function () {
+            //        var title;
+            //        $(this).tooltip({
+            //            container: 'body',
+            //            placement: 'bottom',
+            //            trigger: 'manual',
+            //            title: function () {
+            //                return title;
+            //            }
+            //        });
+            //        $(this).on('rating.rateenter', function (e, rate) {
+            //            title = 'Đánh giá ' + rate + ' sao.';
+            //            $(this).tooltip('show');
+            //        })
+            //        .on('rating.rateleave', function () {
+            //            $(this).tooltip('hide');
+            //        });
+            //    }
+            //});
+            
 
             $('.danh_gia_chung').on('change', function () {
                 $('#danh_gia_chung_n').html($(this).val() + ' sao.');
@@ -183,6 +196,8 @@
                 $('#cus_rate_number').html($(this).val() + ' sao.').fadeIn();
                 addCommentdriver();
             })
+
+            
 
             //$(document).on("click", "#contentPager a[href]", function () {
             //    $.ajax({
@@ -233,6 +248,22 @@
                 }
             });
         }
+
+        function danh_gia_r(x, y) {
+            var url = "/Home/danh_gia_cm";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id : x, v : y}, // serializes the form's elements.
+                success: function (data) {
+                    if (data !== "") {
+                        $('#vote_cm_' + x).html('<span class="helpful_btn_state">Cám ơn phản hồi của bạn!</span>');
+                    }
+                }
+            });
+        }
+
     </script>
+
 
 }

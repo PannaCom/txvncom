@@ -36,7 +36,11 @@ namespace ThueXeVn
                 new { controller = "TaiXeBangGia", action = "Index" }
             );
 
-
+            //routes.MapRoute(
+            //    "commentlist",
+            //    "load/comment/{driver_id}/{p}",
+            //    new { controller = "Home", action = "LoadCommentDriver", driver_id = UrlParameter.Optional, p = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 "taixedoipass",
