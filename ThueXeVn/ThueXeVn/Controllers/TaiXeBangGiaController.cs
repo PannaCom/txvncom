@@ -50,7 +50,7 @@ namespace ThueXeVn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Addbanggia(string cp_car_type, string cp_price, string cp_multiple, string cp_multiple2)
+        public ActionResult Addbanggia(string cp_car_type, string cp_price)
         {
             
             if (Config.getCookie("taixelogged") != null)
@@ -62,10 +62,11 @@ namespace ThueXeVn.Controllers
                 {
                     Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
                 }
-                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
+                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; 
+                //if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
                 try
                 {
-                    var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,cp_multiple,cp_multiple2,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + cp_multiple + "," + cp_multiple2 + "," + id+")";
+                    var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + id+")";
                     var addbanggiaxe = db.Database.ExecuteSqlCommand(sql);
                     TempData["Updated"] = "Đã thêm mới bảng giá.";
                 }
@@ -92,7 +93,7 @@ namespace ThueXeVn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(long? cp_id, string cp_car_type, string cp_price, string cp_multiple, string cp_multiple2)
+        public ActionResult Edit(long? cp_id, string cp_car_type, string cp_price)
         {
 
             if (Config.getCookie("taixelogged") != null)
@@ -104,10 +105,11 @@ namespace ThueXeVn.Controllers
                 {
                     Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
                 }
-                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
+                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; 
+                //if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
                 try
                 {
-                    var sql = "update driver_car_price set cp_car_type = " + cp_car_type + ", cp_price = " + cp_price + ", cp_multiple = " + cp_multiple + ", cp_multiple2 = " + cp_multiple2 + " where id = " + cp_id;
+                    var sql = "update driver_car_price set cp_car_type = " + cp_car_type + ", cp_price = " + cp_price + " where id = " + cp_id;
                     var updatebanggiaxe = db.Database.ExecuteSqlCommand(sql);
                     TempData["Updated"] = "Đã Cập nhật mới bảng giá.";
                 }
