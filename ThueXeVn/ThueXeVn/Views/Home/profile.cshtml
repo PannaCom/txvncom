@@ -244,6 +244,7 @@
                         alert('Đánh giá và nhận xét của bạn đã được gửi thành công.');
                         $('#cus_cm_id').val(data);
                         $('#btnaddComment').addClass('disabled');
+                        $('.comment_driver').append('<div class="alert alert-success">Đánh giá và nhận xét của bạn đã được gửi thành công.</div>');
                     }
                 }
             });
