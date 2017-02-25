@@ -2423,3 +2423,19 @@ ul.img-product-n > li > a > img {
     height: 40px;
 }
 
+.flag_lang {
+    position: absolute;
+    right: 0;
+    margin-right: 80px;
+    z-index: 999;
+    margin-top: 20px;
+}
+
+.flag_lang img {
+    width: 30px; height: 15px;
+    transition: all ease .7s;
+}
+
+.flag_lang:hover img {
+    width: 40px; height: 20px;
+}
