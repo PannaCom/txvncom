@@ -17,5 +17,6 @@ namespace ThueXeVn.Models
         public long id { get; set; }
         public Nullable<long> driver_id { get; set; }
         public string driver_des { get; set; }
+        public string driver_note { get; set; }
     }
 }

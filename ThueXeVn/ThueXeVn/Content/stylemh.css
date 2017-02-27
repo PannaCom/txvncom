@@ -195,6 +195,16 @@ section {
     #divBannerImages {
         height: 313px;
     }
+
+    /*#pos_banggia {
+        height: 34px;
+        padding: 5px;
+        width: 300px;
+    }*/
+}
+
+#btn_xembanggia {
+    padding: 11px 12px;
 }
 
 #divBannerImages {
@@ -223,8 +233,8 @@ section {
 }
 
 #table_baogia > tbody > tr > td {
-    text-align: right;
-    width: 80px;
+    text-align: right!important;
+    width: 80px!important;
 }
 
 #table_baogia > thead > tr > th {

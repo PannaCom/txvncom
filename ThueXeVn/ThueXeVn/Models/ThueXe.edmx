@@ -126,6 +126,20 @@
           <Property Name="model" Type="nvarchar" MaxLength="255" />
           <Property Name="image" Type="nvarchar" MaxLength="505" />
         </EntityType>
+        <EntityType Name="car_price_da_nang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="car_type" Type="int" />
+          <Property Name="g1" Type="int" />
+          <Property Name="g2" Type="int" />
+          <Property Name="g3" Type="int" />
+          <Property Name="g4" Type="int" />
+          <Property Name="g5" Type="int" />
+          <Property Name="g6" Type="int" />
+          <Property Name="g7" Type="int" />
+        </EntityType>
         <EntityType Name="car_size">
           <Key>
             <PropertyRef Name="id" />
@@ -174,6 +188,7 @@
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="driver_id" Type="bigint" />
           <Property Name="driver_des" Type="ntext" />
+          <Property Name="driver_note" Type="ntext" />
         </EntityType>
         <EntityType Name="driver_promotion">
           <Key>
@@ -183,6 +198,8 @@
           <Property Name="driver_id" Type="bigint" />
           <Property Name="des" Type="nvarchar(max)" />
           <Property Name="status" Type="bit" />
+          <Property Name="from_date" Type="date" />
+          <Property Name="to_date" Type="date" />
         </EntityType>
         <EntityType Name="driver_rate_comment">
           <Key>
@@ -385,6 +402,7 @@
           <EntitySet Name="call_log" EntityType="Self.call_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_hire_type" EntityType="Self.car_hire_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_made_model" EntityType="Self.car_made_model" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="car_price_da_nang" EntityType="Self.car_price_da_nang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car_size" EntityType="Self.car_size" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ctv_tiepthi" EntityType="Self.ctv_tiepthi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_car_price" EntityType="Self.driver_car_price" Schema="dbo" store:Type="Tables" />
@@ -515,11 +533,12 @@
           <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
           <EntitySet Name="value_config" EntityType="thuexevnModel.value_config" />
           <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
-          <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
           <EntitySet Name="booking_to_driver" EntityType="thuexevnModel.booking_to_driver" />
           <EntitySet Name="driver_images" EntityType="thuexevnModel.driver_images" />
-          <EntitySet Name="driver_info" EntityType="thuexevnModel.driver_info" />
           <EntitySet Name="driver_rate_comment" EntityType="thuexevnModel.driver_rate_comment" />
+          <EntitySet Name="car_price_da_nang" EntityType="thuexevnModel.car_price_da_nang" />
+          <EntitySet Name="driver_info" EntityType="thuexevnModel.driver_info" />
+          <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -750,15 +769,6 @@
           <Property Name="total_money" Type="Int32" />
           <Property Name="status" Type="Byte" />
         </EntityType>
-        <EntityType Name="driver_promotion">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="driver_id" Type="Int64" />
-          <Property Name="des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="Boolean" />
-        </EntityType>
         <EntityType Name="booking_to_driver">
           <Key>
             <PropertyRef Name="id" />
@@ -792,14 +802,6 @@
           <Property Name="driver_id" Type="Int64" />
           <Property Name="img_url" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="driver_info">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="driver_id" Type="Int64" />
-          <Property Name="driver_des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="driver_rate_comment">
           <Key>
             <PropertyRef Name="cus_cm_id" />
@@ -814,6 +816,40 @@
           <Property Name="cm_like" Type="Int32" />
           <Property Name="cm_dislike" Type="Int32" />
           <Property Name="cm_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="car_price_da_nang">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="car_type" Type="Int32" />
+          <Property Name="g1" Type="Int32" />
+          <Property Name="g2" Type="Int32" />
+          <Property Name="g3" Type="Int32" />
+          <Property Name="g4" Type="Int32" />
+          <Property Name="g5" Type="Int32" />
+          <Property Name="g6" Type="Int32" />
+          <Property Name="g7" Type="Int32" />
+        </EntityType>
+        <EntityType Name="driver_info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="driver_des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="driver_note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="driver_promotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="des" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="from_date" Type="DateTime" Precision="0" />
+          <Property Name="to_date" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1152,16 +1188,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="driver_promotion">
-            <EntityTypeMapping TypeName="thuexevnModel.driver_promotion">
-              <MappingFragment StoreEntitySet="driver_promotion">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="des" ColumnName="des" />
-                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="booking_to_driver">
             <EntityTypeMapping TypeName="thuexevnModel.booking_to_driver">
               <MappingFragment StoreEntitySet="booking_to_driver">
@@ -1197,15 +1223,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="driver_info">
-            <EntityTypeMapping TypeName="thuexevnModel.driver_info">
-              <MappingFragment StoreEntitySet="driver_info">
-                <ScalarProperty Name="driver_des" ColumnName="driver_des" />
-                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="driver_rate_comment">
             <EntityTypeMapping TypeName="thuexevnModel.driver_rate_comment">
               <MappingFragment StoreEntitySet="driver_rate_comment">
@@ -1219,6 +1236,43 @@
                 <ScalarProperty Name="cus_rate" ColumnName="cus_rate" />
                 <ScalarProperty Name="cus_driver_id" ColumnName="cus_driver_id" />
                 <ScalarProperty Name="cus_cm_id" ColumnName="cus_cm_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="car_price_da_nang">
+            <EntityTypeMapping TypeName="thuexevnModel.car_price_da_nang">
+              <MappingFragment StoreEntitySet="car_price_da_nang">
+                <ScalarProperty Name="g7" ColumnName="g7" />
+                <ScalarProperty Name="g6" ColumnName="g6" />
+                <ScalarProperty Name="g5" ColumnName="g5" />
+                <ScalarProperty Name="g4" ColumnName="g4" />
+                <ScalarProperty Name="g3" ColumnName="g3" />
+                <ScalarProperty Name="g2" ColumnName="g2" />
+                <ScalarProperty Name="g1" ColumnName="g1" />
+                <ScalarProperty Name="car_type" ColumnName="car_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_info">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_info">
+              <MappingFragment StoreEntitySet="driver_info">
+                <ScalarProperty Name="driver_note" ColumnName="driver_note" />
+                <ScalarProperty Name="driver_des" ColumnName="driver_des" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_promotion">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_promotion">
+              <MappingFragment StoreEntitySet="driver_promotion">
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="des" ColumnName="des" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

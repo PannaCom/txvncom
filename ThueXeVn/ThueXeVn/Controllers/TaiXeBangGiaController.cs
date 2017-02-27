@@ -69,6 +69,7 @@ namespace ThueXeVn.Controllers
                     var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + id+")";
                     var addbanggiaxe = db.Database.ExecuteSqlCommand(sql);
                     TempData["Updated"] = "Đã thêm mới bảng giá.";
+                    return RedirectToRoute("quanlybanggia");
                 }
                 catch(Exception ex)
                 {
@@ -419,6 +420,78 @@ namespace ThueXeVn.Controllers
             }
 
             return Json(deleted, JsonRequestBehavior.AllowGet);
+        }
+
+        public string getNoteTaiXe(long? id)
+        {
+            var driver_info = (from s in db.driver_info where s.driver_id == id select s.driver_note).FirstOrDefault();
+            return driver_info;
+        }
+
+        public string getInfoTaiXe(long? id)
+        {
+            var driver_info = (from s in db.driver_info where s.driver_id == id select s.driver_des).FirstOrDefault();
+            return driver_info;
+        }
+
+        [HttpPost]
+        public ActionResult updateNote(long? id, string notes)
+        {
+            string updated = "";
+            try
+            {
+                var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
+                if (update != null)
+                {
+                    update.driver_note = notes ?? null;
+                    db.Entry(update).State = EntityState.Modified;
+                    db.SaveChanges();
+                    updated = "1";
+                }
+                else
+                {
+                    driver_info ghichu = new driver_info();
+                    ghichu.driver_id = id;
+                    ghichu.driver_note = notes ?? null;
+                    db.driver_info.Add(ghichu);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+            return Json(updated, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult updateInfo(long? id, string des)
+        {
+            string updated = "";
+            try
+            {
+                var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
+                if (update != null)
+                {
+                    update.driver_des = des ?? null;
+                    db.Entry(update).State = EntityState.Modified;
+                    db.SaveChanges();
+                    updated = "1";
+                }
+                else
+                {
+                    driver_info ghichu = new driver_info();
+                    ghichu.driver_id = id;
+                    ghichu.driver_des = des ?? null;
+                    db.driver_info.Add(ghichu);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+            return Json(updated, JsonRequestBehavior.AllowGet);
         }
 
     }

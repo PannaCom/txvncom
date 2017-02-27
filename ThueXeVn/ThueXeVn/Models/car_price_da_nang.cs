@@ -12,13 +12,16 @@ namespace ThueXeVn.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class driver_promotion
+    public partial class car_price_da_nang
     {
         public int id { get; set; }
-        public Nullable<long> driver_id { get; set; }
-        public string des { get; set; }
-        public Nullable<bool> status { get; set; }
-        public Nullable<System.DateTime> from_date { get; set; }
-        public Nullable<System.DateTime> to_date { get; set; }
+        public Nullable<int> car_type { get; set; }
+        public Nullable<int> g1 { get; set; }
+        public Nullable<int> g2 { get; set; }
+        public Nullable<int> g3 { get; set; }
+        public Nullable<int> g4 { get; set; }
+        public Nullable<int> g5 { get; set; }
+        public Nullable<int> g6 { get; set; }
+        public Nullable<int> g7 { get; set; }
     }
 }

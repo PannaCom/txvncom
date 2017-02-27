@@ -86,7 +86,7 @@
 <div class="row" style="background: #fff; color: #333; padding: 30px 0;">
     <div class="col-md-12">
 
-        <h3>Tìm giá xe</h3>
+        <h3>Tìm giá xe <a class="pull-right" href="#" id="xembanggia2" style="font-size: 14px;">Xem bảng giá khác</a></h3>
         <hr />
 
         <div class="form-inline" id="tim_bang_giaxe">
@@ -243,10 +243,57 @@
 </div>
 <input type="hidden" name="khoangcach" id="khoangcach" />
 
+<div class="modal fade" tabindex="-1" role="dialog" id="ModalPosition" style="color: #333;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Bạn muốn xem bảng giá thuê xe ở đâu?</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-9">
+                            <select name="pos_banggia" id="pos_banggia" class="form-control">
+                                <option value="">Xem bảng giá thuê xe Việt Nam</option>
+                                <option value="hanoi">Tại Hà Nội</option>
+                                <option value="danang">Tại Đà Nẵng</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="btn btn-primary btn-block" id="btn_xembanggia" onclick="xembanggiaxe();">Xem bảng giá</span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
 @section scripts{>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script>
+        @if (Config.getCookie("showgb") == "")
+	    {
+		    <text>
+        $(window).load(function () {
+            setTimeout(function () {                
+                $.ajax({
+                    url: "/Home/setcookieshowbg",
+                    cache: false
+                }).done(function (html) {
+                    $('#ModalPosition').modal('show');
+                });
+            }, 1000);    
+            
+        })</text>
+	    }     
+        
         $(document).ready(function () {
             var options = {
                 map: "#map-canvas"
@@ -290,6 +337,11 @@
                     <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
                 }
             }, 1000)*@
+
+            $('#xembanggia2').on('click', function (e) {
+                e.preventDefault();
+                $('#ModalPosition').modal('show');
+            })
 
         })
 
@@ -372,7 +424,20 @@
 
         }
 
+        function xembanggiaxe() {
+            if (document.getElementById('pos_banggia').value === "") {
+                alert('Vui lòng chọn bảng giá cần xem?');
+                document.getElementById('pos_banggia').focus();
+                return false;
+            }
+            var pos_v = document.getElementById('pos_banggia').value;
+            if (pos_v == "hanoi") {
+                $('#ModalPosition').modal('hide');
+            } else if (pos_v == "danang") {
+                window.location.href = "/Home/banggiaxedanang";
+            }
 
+        }
 
     </script>
 

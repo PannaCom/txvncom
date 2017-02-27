@@ -1,0 +1,55 @@
+﻿@model List<ThueXeVn.Models.car_price_da_nang>
+
+
+    @if (Model != null)
+    {
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table_baogia" style="margin-top: 15px;">
+                    <caption>Bảng báo giá cho thuê xe <span style="border-bottom: 1px solid;">TỰ LÁI</span></caption>
+                    <thead style="background: #ececec; color: #000;">
+                        <tr style="text-align: center;">
+                            <th rowspan="3">Loại xe (số chỗ)</th>
+                            <th rowspan="3">1/2 ngày trong TP Đà Nẵng (50km/10h)</th>
+                            <th rowspan="3">1 ngày trong TP Đà Nẵng (100km/10h)</th>
+                            <th rowspan="3">1ngày ngoài TP Đà Nẵng(&lt;120km)</th>
+                        </tr>
+                        <tr style="text-align: center;"></tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="bg_fw1">Xe @item.car_type chỗ</td>
+                                <td class="bg_fw1">@string.Format("{0:#,###}", item.g5)</td>
+                                <td class="bg_fw1">@string.Format("{0:#,###}", item.g6)</td>
+                                <td class="bg_fw1">@string.Format("{0:#,###}", item.g7)</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="vertical-align: middle; font-weight: 700; font-size: 2em;" rowspan="5">Ghi Chú:</td>
+                            <td style="text-align: left;" rowspan="5" colspan="4">
+                                <p>- Đơn vị tính (1.000 đ)</p>
+                                <p>- Giá trên là giá khởi điểm, khi thuê xe giá sẽ có sự thay đổi tùy thuộc vào loại xe và tình trạng của xe.</p>
+                                <p>- Nếu thuê xe thêm ngày thì giá tiền sẽ được nhân đôi thêm.</p>
+                                <p>- Giá xe có sự thay đổi trong trường hợp này lễ, tết,...</p>
+                                <p>- Liên hệ  Hotline để có thông tin và giá tốt nhất.</p>
+                            </td>
+                        </tr>
+                        
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+
+

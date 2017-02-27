@@ -9,9 +9,18 @@
     <link href="~/Content/PagedList.css" rel="stylesheet" />
 }
 
+@{
+    long id_driver = 0;
+    if (Config.getCookie("taixelogged") != "")
+    {
+        var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+        id_driver = Convert.ToInt64(id_taixe);
+    }
+}
+
 @section PageTitleHeader {
 <div class="page-header">
-    <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title</h3>
+    <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title </h3>
 </div>
 
 @if (TempData["Updated"] != null)
@@ -36,9 +45,10 @@
 }
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
+        
         <div class="panel panel-default">
-            
+            <a class="btn btn-primary" href="/TaiXeBangGia/Addbanggia">Thêm bảng giá</a><br />
             <div class="panel-body">
 
                 <div class="table-responsive">
@@ -114,5 +124,102 @@
 
         </div>
     </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cập nhật ghi chú</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <div class="form-group">
+                        <label class="control-label">Ghi chú bảng giá</label>
+                        <textarea class="form-control" rows="5" id="note_driver" name="note_driver"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="updateNote(@id_driver);">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cập nhật giới thiệu nhà xe</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <div class="form-group">
+                        <label class="control-label">Giới thiệu nhà xe</label>
+                        <textarea class="form-control" rows="5" id="info_driver" name="info_driver"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="updateInfo(@id_driver);">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 </div>
 
+@section scripts {
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "/TaiXeBangGia/getNoteTaiXe?id=@id_driver",
+                cache: false
+            }).done(function (html) {
+                $('#note_driver').val(html);
+            });
+        })
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/TaiXeBangGia/getInfoTaiXe?id=@id_driver",
+                cache: false
+            }).done(function (html) {
+                $('#info_driver').val(html);
+            });
+        })
+
+        function updateInfo(id) {
+            var url = "/TaiXeBangGia/updateInfo"; // the script where you handle the form input.
+            if ($('#info_driver').val() === "") {
+                alert("Vui lòng nhập thông tin nhà xe");
+                $('#info_driver').focus();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { id: id, des: $('#info_driver').val() }, // serializes the form's elements.
+                success: function (data) {
+                    if (data !== "") {
+                        alert('Đã cập nhật thông tin nhà xe.');
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+
+        function updateNote(id) {
+            var url = "/TaiXeBangGia/updateNote"; // the script where you handle the form input.
+            if ($('#note_driver').val() === "") {
+                alert("Vui lòng nhập ghi chú nhà xe");
+                $('#note_driver').focus();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { id: id, notes: $('#note_driver').val() }, // serializes the form's elements.
+                success: function (data) {
+                    if (data !== "") {
+                        alert('Đã cập nhật ghi chú nhà xe.');
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+
+    </script>
+}

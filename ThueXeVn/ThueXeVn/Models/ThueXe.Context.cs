@@ -52,10 +52,11 @@ namespace ThueXeVn.Models
         public virtual DbSet<pl_car_price> pl_car_price { get; set; }
         public virtual DbSet<value_config> value_config { get; set; }
         public virtual DbSet<drivers_money> drivers_money { get; set; }
-        public virtual DbSet<driver_promotion> driver_promotion { get; set; }
         public virtual DbSet<booking_to_driver> booking_to_driver { get; set; }
         public virtual DbSet<driver_images> driver_images { get; set; }
-        public virtual DbSet<driver_info> driver_info { get; set; }
         public virtual DbSet<driver_rate_comment> driver_rate_comment { get; set; }
+        public virtual DbSet<car_price_da_nang> car_price_da_nang { get; set; }
+        public virtual DbSet<driver_info> driver_info { get; set; }
+        public virtual DbSet<driver_promotion> driver_promotion { get; set; }
     }
 }
