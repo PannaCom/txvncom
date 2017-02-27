@@ -283,8 +283,36 @@ namespace ThueXeVn.Controllers
                    + "</select>"
                    + "</div>"
                    + "</div>"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Từ ngày: </label>"
+                   + "<input name=\"from_date\" id=\"from_date\" class=\"form-control\" placeholder=\"Từ ngày\" />"
+                   + "</div>"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Đến ngày: </label>"
+                   + "<input name=\"to_date\" id=\"to_date\" class=\"form-control\" placeholder=\"Đến ngày\" />"
+                   + "</div>"
+                   + "</div>"
                    + "<button type=\"button\" class=\"btn btn-primary\" id=\"btn_saveDriverPromotion\" onclick=\"saveDriverPromotion();\">Cập nhật khuyến mại</button>"
                    + "</form>";
+
+            html += "<script>"
+               + "$('#from_date').datetimepicker({"
+               + "dayOfWeekStart: 1,"
+               + "lang: 'en',"
+               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+               + "});"
+               + "$('#to_date').datetimepicker({"
+               + "dayOfWeekStart: 1,"
+               + "lang: 'en',"
+               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+               + "});"
+               + "var d = new Date();"
+               + "var s = d.toLocaleString();"
+               + "$('#to_date').datetimepicker({ value: s, step: 10 });"
+               + "</script>";
             return html;
         }
 
@@ -312,9 +340,40 @@ namespace ThueXeVn.Controllers
                     +"</select>"
                    + "</div>"
                    + "</div>"
+                   + "<div class=\"form-group\">"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Từ ngày: </label>"
+                   + "<input name=\"from_date\" id=\"from_date\" class=\"form-control\" placeholder=\"Từ ngày\" />"
+                   + "</div>"
+                   + "<div class=\"col-md-6\">"
+                   + "<label class=\"control-label\">Đến ngày: </label>"
+                   + "<input name=\"to_date\" id=\"to_date\" class=\"form-control\" placeholder=\"Đến ngày\" />"
+                   + "</div>"
+                   + "</div>"
                    + "<button type=\"button\" class=\"btn btn-primary\" id=\"btn_saveDriverPromotion\" onclick=\"saveDriverPromotion();\">Cập nhật khuyến mại</button>"
                    + "</form>"
                    + "<script>document.getElementById(\"promotion_des\").value = \"" + _promotion.des + "\";document.getElementById(\"promo_status\").value = \""+ _promotion.status +"\";</script>";
+
+                html += "<script>"
+               + "$('#from_date').datetimepicker({"
+               + "dayOfWeekStart: 1,"
+               + "lang: 'en',"
+               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+               + "});"
+               + "$('#to_date').datetimepicker({"
+               + "dayOfWeekStart: 1,"
+               + "lang: 'en',"
+               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
+               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+               + "});"
+               + "var d1 = '" + _promotion.from_date.Value.ToString("dd/MM/yyyy") + "';"
+               + "var s1 = d1.toLocaleString();"
+               + "var d2 = '" + _promotion.to_date.Value.ToString("dd/MM/yyyy") + "';"
+               + "var s2 = d2.toLocaleString();"
+               + "$('#to_date').datetimepicker({ value: s1, step: 10 });"
+               + "$('#from_date').datetimepicker({ value: s2, step: 10 });"
+               + "</script>";
             }
            
             
@@ -322,7 +381,25 @@ namespace ThueXeVn.Controllers
         }
 
         [HttpPost]
-        public ActionResult saveDriverPromotion(long? driver_id, string promotion_des, bool? promo_status)
+        public ActionResult deleteDriverPromotion(int? id)
+        {
+            string deleted = "";
+            try
+            {
+                var km = db.driver_promotion.Find(id);
+                db.driver_promotion.Remove(km);
+                db.SaveChanges();
+                deleted = "1";
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+            return Json(deleted, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult saveDriverPromotion(long? driver_id, string promotion_des, bool? promo_status, DateTime? from_date, DateTime? to_date)
         {
             string data = ""; string tt_km = ""; string result = "";
             var _promotion = db.driver_promotion.Where(x => x.driver_id == driver_id).FirstOrDefault();
@@ -335,6 +412,8 @@ namespace ThueXeVn.Controllers
                     addpromotion.driver_id = driver_id ?? null;
                     addpromotion.des = promotion_des ?? null;
                     addpromotion.status = promo_status ?? null;
+                    addpromotion.from_date = from_date ?? null;
+                    addpromotion.to_date = to_date ?? null;
                     db.driver_promotion.Add(addpromotion);
                     tt_km = addpromotion.status == true ? "Đang khuyến mại" : "Kết thúc khuyến mại";
                     result = "<tr><td>" + addpromotion.des + "</td><td>" + tt_km + "</td><td>" + "<button class=\"btn btn-info\" onclick=\"editDriverPromotion(" + addpromotion.id + ");\"" + "id=\"edit_driver_promotion_" + addpromotion.id + "\">Sửa thông tin khuyến mại</button>" + "</td></tr>";
@@ -344,9 +423,11 @@ namespace ThueXeVn.Controllers
                     // đã nộp thì cập nhật
                     _promotion.des = promotion_des ?? null;
                     _promotion.status = promo_status ?? null;
+                    _promotion.from_date = from_date ?? null;
+                    _promotion.to_date = to_date ?? null;
                     db.Entry(_promotion).State = EntityState.Modified;
                     tt_km = _promotion.status == true ? "Đang khuyến mại" : "Kết thúc khuyến mại";
-                    result = "<tr><td>" + _promotion.des + "</td><td>" + tt_km + "</td><td>" + "<button class=\"btn btn-info\" onclick=\"editDriverPromotion(" + _promotion.id + ");\"" + "id=\"edit_driver_promotion_" + _promotion.id + "\">Sửa thông tin khuyến mại</button>" + "</td></tr>";
+                    //result = "<tr><td>" + _promotion.des + "</td><td>" + tt_km + "</td><td>" + "<button class=\"btn btn-info\" onclick=\"editDriverPromotion(" + _promotion.id + ");\"" + "id=\"edit_driver_promotion_" + _promotion.id + "\">Sửa thông tin khuyến mại</button>" + "</td></tr>";
                 }
                 db.SaveChanges();
 

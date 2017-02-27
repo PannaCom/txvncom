@@ -7,7 +7,11 @@
 
 @section Styles {
     <link href="~/Content/PagedList.css" rel="stylesheet" />
+    
 }
+
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+<script src="/Scripts/jquery.datetimepicker.js"></script>
 
 @section PageTitleHeader {
     <div class="page-header">
@@ -54,7 +58,7 @@
                                             </td>
                                             <td>
                                                 <button class="btn btn-info" onclick="editDriverPromotion(@item.id);" id="edit_driver_promotion_@item.id">Sửa thông tin khuyến mại</button>
-                                                @*<button class="btn btn-danger" onclick="ActionDriverPromotion(@item.id);" id="action_driver_promotion_@item.id">Cho phép khuyến mại</button>*@
+                                                <button class="btn btn-danger" onclick="deleteDriverPromotion(@item.id);" id="delete_driver_promotion_@item.id">Xóa khuyến mại</button>
                                             </td>
                                         </tr>
                                     }
@@ -141,6 +145,26 @@
             }
         }
 
+        function deleteDriverPromotion(id) {
+            if (confirm('Bạn chắc chắn muốn xóa bỏ khuyến mại này?')) {
+                if (id) {
+                    var url = "/TaiXeBangGia/deleteDriverPromotion";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {id: id}, // serializes the form's elements.
+                        success: function (data) {
+                            if (data !== "") {
+                                alert('Đã xóa thông tin khuyến mại.');
+                                window.location.href = location.href;
+                            }
+                            //console.log(data);
+                        }
+                    });
+                }
+            }
+        }
+
         function saveDriverPromotion() {
             var url = "/TaiXeBangGia/saveDriverPromotion"; // the script where you handle the form input.
             if ($('#promotion_des').val() === "") {
@@ -153,9 +177,11 @@
                 url: url,
                 data: $("#form_add_driver_promotion").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data !== "") {
+                    if (data == "") {
                         alert('Đã cập nhật thông tin khuyến mại.');
-                        $('#table_driver_promotion').children('tbody').append(data);
+                        if (data !== "") {
+                            $('#table_driver_promotion').children('tbody').append(data);
+                        }
                     }
                     //console.log(data);
                 }
