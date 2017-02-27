@@ -311,7 +311,8 @@ namespace ThueXeVn.Controllers
                + "});"
                + "var d = new Date();"
                + "var s = d.toLocaleString();"
-               + "$('#to_date').datetimepicker({ value: s, step: 10 });"
+               + "$('#to_date').datetimepicker({ format:'Y/m/d' });"
+               + "$('#from_date').datetimepicker({ value: s, step: 10, format:'Y/m/d' });"
                + "</script>";
             return html;
         }
@@ -359,20 +360,14 @@ namespace ThueXeVn.Controllers
                + "dayOfWeekStart: 1,"
                + "lang: 'en',"
                + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
-               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
                + "});"
                + "$('#to_date').datetimepicker({"
                + "dayOfWeekStart: 1,"
                + "lang: 'en',"
-               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
-               + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+               + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"               
                + "});"
-               + "var d1 = '" + _promotion.from_date.Value.ToString("dd/MM/yyyy") + "';"
-               + "var s1 = d1.toLocaleString();"
-               + "var d2 = '" + _promotion.to_date.Value.ToString("dd/MM/yyyy") + "';"
-               + "var s2 = d2.toLocaleString();"
-               + "$('#to_date').datetimepicker({ value: s1, step: 10 });"
-               + "$('#from_date').datetimepicker({ value: s2, step: 10 });"
+               + "$('#to_date').datetimepicker({value:'" + _promotion.to_date.Value.ToString("yyyy/MM/dd") + "', format:'Y/m/d'});"
+               + "$('#from_date').datetimepicker({value:'" + _promotion.from_date.Value.ToString("yyyy/MM/dd") + "', format:'Y/m/d'});"
                + "</script>";
             }
            
@@ -428,6 +423,7 @@ namespace ThueXeVn.Controllers
                     db.Entry(_promotion).State = EntityState.Modified;
                     tt_km = _promotion.status == true ? "Đang khuyến mại" : "Kết thúc khuyến mại";
                     //result = "<tr><td>" + _promotion.des + "</td><td>" + tt_km + "</td><td>" + "<button class=\"btn btn-info\" onclick=\"editDriverPromotion(" + _promotion.id + ");\"" + "id=\"edit_driver_promotion_" + _promotion.id + "\">Sửa thông tin khuyến mại</button>" + "</td></tr>";
+                    result = "1";
                 }
                 db.SaveChanges();
 

@@ -177,10 +177,12 @@
                 url: url,
                 data: $("#form_add_driver_promotion").serialize(), // serializes the form's elements.
                 success: function (data) {
-                    if (data == "") {
+                    if (data !== "") {
                         alert('Đã cập nhật thông tin khuyến mại.');
-                        if (data !== "") {
+                        if (data !== "1") {
                             $('#table_driver_promotion').children('tbody').append(data);
+                        }else {
+                            window.location.href = location.href;
                         }
                     }
                     //console.log(data);

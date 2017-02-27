@@ -183,11 +183,11 @@
 
         function updateInfo(id) {
             var url = "/TaiXeBangGia/updateInfo"; // the script where you handle the form input.
-            if ($('#info_driver').val() === "") {
-                alert("Vui lòng nhập thông tin nhà xe");
-                $('#info_driver').focus();
-                return false;
-            }
+            //if ($('#info_driver').val() === "") {
+            //    alert("Vui lòng nhập thông tin nhà xe");
+            //    $('#info_driver').focus();
+            //    return false;
+            //}
             $.ajax({
                 type: "POST",
                 url: url,
@@ -203,11 +203,11 @@
 
         function updateNote(id) {
             var url = "/TaiXeBangGia/updateNote"; // the script where you handle the form input.
-            if ($('#note_driver').val() === "") {
-                alert("Vui lòng nhập ghi chú nhà xe");
-                $('#note_driver').focus();
-                return false;
-            }
+            //if ($('#note_driver').val() === "") {
+            //    alert("Vui lòng nhập ghi chú nhà xe");
+            //    $('#note_driver').focus();
+            //    return false;
+            //}
             $.ajax({
                 type: "POST",
                 url: url,
