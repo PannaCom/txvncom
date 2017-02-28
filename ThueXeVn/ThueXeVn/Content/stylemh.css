@@ -21,7 +21,7 @@
     margin-top: 19px;
     padding: 9px;
     margin-bottom: 20px;
-        background: rgba(58, 70, 97, 0.58);
+    background: rgba(58, 70, 97, 0.58);
     -moz-border-radius: 10px;
     -o-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -66,7 +66,6 @@ section {
     width: 100%;
     background-color: #fff;
     position: relative;
-
 }
 
 .kf_num_count_wrap {
@@ -76,7 +75,7 @@ section {
     position: relative;
     border: 1px solid #337ab7;
     background: #337ab7;
-        margin: 5px 0;
+    margin: 5px 0;
 }
 
     .kf_num_count_wrap i {
@@ -88,7 +87,7 @@ section {
     }
 
     .kf_num_count_wrap h2 {
-        margin-top: 8px;  
+        margin-top: 8px;
         color: #CD4315;
     }
 
@@ -103,30 +102,30 @@ section {
         width: 75%;
     }
 
-    #download {
-        list-style-type: none;
-    }
+#download {
+    list-style-type: none;
+}
 
 @media(max-width: 320px) {
-  .kf_num_count_wrap a {
-      padding: 6px 50px;
-  }
+    .kf_num_count_wrap a {
+        padding: 6px 50px;
+    }
 }
 
 
 #mh_show_gioithieu_new {
-        background: #EFEEEE;
+    background: #EFEEEE;
 }
 
 #show_news_slider {
     position: relative;
 }
 
-#show_news_slider .owl-controls{
-    position: absolute;
-    top: 0;
-    right: 0;
-}
+    #show_news_slider .owl-controls {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
 
 .kf_blog_post_wrap h4 {
     margin-bottom: 2px;
@@ -160,9 +159,9 @@ section {
     -o-transition: top 0.5s ease 0s;
 }
 
-#menu .navbar-nav > li > a {
-    color: #fff;
-}
+    #menu .navbar-nav > li > a {
+        color: #fff;
+    }
 
 /*.disable_hover a:hover {
     border-bottom: 0!important;
@@ -187,14 +186,27 @@ section {
     cursor: pointer;
 }
 
-#dv1 .form-group .col-sm-6{
+#dv1 .form-group .col-sm-6 {
     padding: 0 5px;
+}
+
+.form_profile {
+    color: #333;
+    background: #fff;
+    border: 1px solid #cbcbcb;
+    border-top-width: 3px;
+    border-left-width: 3px;
+    padding: 8px 5px;
+    margin: 5px 0;
+    border-radius: 14px;
 }
 
 @media (min-width: 763px) {
     #divBannerImages {
         height: 313px;
     }
+
+    
 
     /*#pos_banggia {
         height: 34px;
@@ -219,22 +231,22 @@ section {
 }
 
 .bg_yellow {
-    background:#f5ff00;
+    background: #f5ff00;
 }
 
 .bg_2 {
-    background:#ebad95;
+    background: #ebad95;
 }
 
 .bg_fw1 {
     font-weight: 700;
-    text-align: left!important;
-    width: 150px!important;
+    text-align: left !important;
+    width: 150px !important;
 }
 
 #table_baogia > tbody > tr > td {
-    text-align: right!important;
-    width: 80px!important;
+    text-align: right !important;
+    width: 80px !important;
 }
 
 #table_baogia > thead > tr > th {
@@ -252,20 +264,38 @@ section {
     padding-left: 0;
 }
 
-.anh_nhaxe li {
-    display: inline-block;
-    margin-right: 10px;
-}
+    .anh_nhaxe li {
+        display: inline-block;
+        margin-right: 10px;
+    }
 
-.anh_nhaxe li img {
-    width: 100px; height: 70px;
-}
+        .anh_nhaxe li img {
+            width: 100px;
+            height: 70px;
+        }
 
 #carousel-example-generic {
     list-style-type: none;
     padding-left: 0;
 }
 
-#carousel-example-generic li {
-    margin-right: 10px;
+    #carousel-example-generic li {
+        margin-right: 10px;
+    }
+
+.item_profile {
+    margin-bottom: 5px;
+}
+
+    .item_profile h3 {
+        font-size: 20px;
+    }
+
+.profile_gia {
+    padding: 5% 2%;
+    text-align: center;
+       background: #03a9f4;
+    border-radius: 13px;
+    color: #f5f5f5;
+    margin-top: 5px;
 }

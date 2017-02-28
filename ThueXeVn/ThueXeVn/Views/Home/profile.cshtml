@@ -10,7 +10,7 @@
     {
         url = "http://" + url;
     }
-    
+
     if (ViewBag.driverId != null)
     {
         driverId = ViewBag.driverId;
@@ -20,11 +20,14 @@
 <link href="~/Content/sld/flexslider.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
 <script src="~/Content/sld/jquery.flexslider-min.js"></script>
 <script src="~/Content/bootstrap-rating.min.js"></script>
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+
 
 @{
-    Layout = "~/Views/Shared/_LayoutContent.cshtml";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
     ViewBag.title = "Trang cá nhân tài xế";
     ViewBag.des = "Trang cá nhân tài xế";
     ViewBag.keywords = "";
@@ -39,99 +42,198 @@
     ViewBag.des += " " + @Model.name;
 }
 
-<div id="profile_taixe">
+<div id="content" style="color: #333; background: #fff;">
     @if (Model != null)
     {
-        <div class="row">
-            <div class="col-md-4">
-                <h3>Tài xế: @Model.name</h3>
-                @if (Model.address != null)
-                {
-                    <address><i class="fa fa-address-card"></i> @Model.address <a href="#"> - Xem bản đồ </a></address>
-                }
-                @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
-                
-                @{Html.RenderAction("LoadDesDriver", new { driver_id = Model.id });}
-            </div>
-            <div class="col-md-8">
+        <div class="container-fluid">
+            <div class="row">
                 @{Html.RenderAction("LoadAlbumDriver", new { driver_id = Model.id });}
             </div>
         </div>
+    <div style="background: #f5f5f5;">
+        <div class="container">
 
-        <div class="row">
-            <div id="panel_danhgia">
-                <div class="col-md-4">
-                    <h3>Gửi đánh giá và nhận xét</h3>
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="row item_profile">
+                        <div class="col-sm-3">
+                            <h3>Nhà xe</h3>
+                        </div>
+                        <div class="col-sm-9">
+                            <h3>Tài xế: @Model.name</h3>
+                            @if (Model.address != null && Model.address != "")
+                            {
+                            <address><i class="fa fa-address-card"></i> @Model.address <a href="#map-canvas"> - Xem bản đồ</a></address>
+                            }
+                            <p>Xe @Model.car_made @Model.car_model @Model.car_years</p>
+                            @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
+                        </div>
+                    </div>
 
-                    <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
+                    @{Html.RenderAction("LoadBangGiaDriver", new { driver_id = Model.id });}
+                    @{Html.RenderAction("LoadDesDriver", new { driver_id = Model.id });}
+
+                </div>
+                <div class="col-md-5 sidebar">
+                    <div><h3 class="profile_gia">Giá xe: @string.Format("{0:#,###}", Model.car_price) đồng.</h3></div>
+
+                    @*Datxe*@
+
+                    <form class="form-horizontal form_profile" method="post" id="form_dat_thue_xe" name="form_dat_thue_xe" enctype="multipart/form-data">
+                        <input type="hidden" name="driver_id" id="driver_id" value="@Model.id" />
+                        <input type="hidden" name="driver_name" id="driver_name" value="@Model.name" />
+                        <input type="hidden" name="car_hire_type" id="car_hire_type" value="Một chiếu" />
+                        <input type="hidden" name="car_type_made_model" id="car_type_made_model" value="@Model.car_type @Model.car_model @Model.car_years" />
+                        <input type="hidden" name="price_driver" id="price_driver" value="@Model.car_price" />
+                        <input type="hidden" name="distance" id="distance" value="" />
+                        <input type="hidden" name="total_money" id="total_money" value="" />
                         <div class="form-group">
-                            <label>Đánh giá tài xế: </label>
-                            <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
+                            <div class="col-sm-6">
+                                <label class="control-label">Họ tên khách: </label>
+                                <input name="customer_name" id="customer_name" class="form-control" placeholder="Tên khách hàng" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">Số điện thoại: </label>
+                                <input name="customer_phone" id="customer_phone" class="form-control" placeholder="Số điện thoại khách hàng" />
+                            </div>
                         </div>
 
-                        <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
-                        <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
                         <div class="form-group">
-                            <label for="cus_name">Họ tên:</label>
-                            <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                            <div class="col-sm-6">
+                                <label class="control-label">Điểm đi: </label>
+                                <input name="from_place" id="from_place" class="form-control" placeholder="Điểm đi" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">Điểm đến: </label>
+                                <input name="to_place" id="to_place" class="form-control" placeholder="Điểm đến" />
+                            </div>
+                            <input type="hidden" name="lon_from" id="lon_from" value="" />
+                            <input type="hidden" name="lat_from" id="lat_from" value="" />
+                            <input type="hidden" name="lon_to" id="lon_to" value="" />
+                            <input type="hidden" name="lat_to" id="lat_to" value="" />
                         </div>
 
                         <div class="form-group">
-                            <label for="cus_email">Email:</label>
-                            <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
+                            <div class="col-sm-6">
+                                <label class="control-label">Từ ngày: </label>
+                                <input name="from_date" id="from_date" class="form-control" placeholder="Từ ngày" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="control-label">Đến ngày: </label>
+                                <input name="to_date" id="to_date" class="form-control" placeholder="Đến ngày" />
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="cus_phone">Số điện thoại:</label>
-                            <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-primary btn-block" id="btn_bookingtodriver" onclick="saveBookingToDriver(@Model.id);">Đặt xe</button>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="cus_comment">Bình luận:</label>
-                            <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
-                        </div>
-
-                        <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
 
                     </form>
 
                 </div>
-                @*@{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}*@
-                <div class="col-md-8">
-                    <div class="comment_driver">
-                        @{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}
-                    </div>
-                </div>
-                
-                    
-                     @*<div class="col-md-8">
-                    <div class="comment_driver">
-                        <h3>Danh sách nhận xét</h3>
-                        <ul id="comment_driver_list">
 
-                        </ul>
-                    </div>
-                </div>*@
 
 
             </div>
+
+
         </div>
+    </div>
+        <div class="container">
+            <div class="row">
+                <div id="panel_danhgia">
+                    <div class="col-md-4">
+                        <h3>Gửi đánh giá và nhận xét</h3>
+
+                        <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>Đánh giá tài xế: </label>
+                                <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
+                            </div>
+
+                            <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
+                            <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
+                            <div class="form-group">
+                                <label for="cus_name">Họ tên:</label>
+                                <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cus_email">Email:</label>
+                                <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cus_phone">Số điện thoại:</label>
+                                <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cus_comment">Bình luận:</label>
+                                <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
+                            </div>
+
+                            <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
+
+                        </form>
+
+                    </div>
+                    @*@{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}*@
+                    <div class="col-md-8">
+                        <div class="comment_driver">
+                            @{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}
+                        </div>
+                    </div>
+
+
+                    @*<div class="col-md-8">
+                            <div class="comment_driver">
+                                <h3>Danh sách nhận xét</h3>
+                                <ul id="comment_driver_list">
+
+                                </ul>
+                            </div>
+                        </div>*@
+
+
+                </div>
+            </div>
+        </div>
+
+        if (Model.lon != null && Model.lat != null)
+        {
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="map-canvas" id="map-canvas"></div>
+                </div>
+            </div>
+        }
+
+
     }
 </div>
 
+<div id="map-canvas" style="display: none;">
+    Bản đồ
+</div>
+
 @section scripts {
-    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+    <script src="/Scripts/jquery.geocomplete.js"></script>
     <script>
-        
+
         $(document).ready(function () {
-            
 
             $('.album_driver').flexslider({
-                animation: "slide",
+                animation: Modernizr.touch ? "slide" : "fade",
+                animationSpeed: Modernizr.touch ? 400 : 1000,
                 controlNav: false,
                 directionNav: true,
-                draggable: false,
+                draggable: true,
             });
+
 
             //$('.danh_gia_chung').rating({
             //    extendSymbol: function (rate) {
@@ -164,7 +266,7 @@
             //        });
             //    }
             //});
-            
+
 
             $('.danh_gia_chung').on('change', function () {
                 $('#danh_gia_chung_n').html($(this).val() + ' sao.');
@@ -195,9 +297,10 @@
             $('#cus_rate').on('change', function () {
                 $('#cus_rate_number').html($(this).val() + ' sao.').fadeIn();
                 addCommentdriver();
+                $('#cus_name').focus();
             })
 
-            
+
 
             //$(document).on("click", "#contentPager a[href]", function () {
             //    $.ajax({
@@ -255,7 +358,7 @@
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {id : x, v : y}, // serializes the form's elements.
+                data: { id: x, v: y }, // serializes the form's elements.
                 success: function (data) {
                     if (data !== "") {
                         $('#vote_cm_' + x).html('<span class="helpful_btn_state">Cám ơn phản hồi của bạn!</span>');
@@ -264,7 +367,185 @@
             });
         }
 
+        $('#from_date').datetimepicker({dayOfWeekStart: 1,lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+        });
+        $('#to_date').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'en',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'
+        });
+        var d = new Date();
+        var s = d.toLocaleString();
+        $('#from_date').datetimepicker({ value: s, step: 10 });
+
+        $.ajax({
+            url: "/Api/getListCarType",
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+            $("#car_type_made_model").html("");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_type_made_model").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+        });
+
+        $.ajax({
+            url: "/Api/getCarHireType",
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+            $("#car_hire_type").html("");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_hire_type").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+        });
+
+        var options = {
+            map: "#map-canvas"
+        };
+        $("#from_place").geocomplete(options)
+      .bind("geocode:result", function (event, result) {
+          $("#lon_from").val(result.geometry.location.lat());
+          $("#lat_from").val(result.geometry.location.lng());
+          //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+      })
+      .bind("geocode:error", function (event, status) {
+          $.log("ERROR: " + status);
+      })
+      .bind("geocode:multiple", function (event, results) {
+          $.log("Multiple: " + results.length + " results found");
+      });
+
+        $("#to_place").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon_to").val(result.geometry.location.lat());
+              $("#lat_to").val(result.geometry.location.lng());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+
+        //Loaixe_socho
+        //$.ajax({
+        //    url: "/Home/getCarSize",
+        //    cache: false
+        //}).done(function (html) {
+        //    $('#car_type_made_model').append(html);
+        //});
+
+        function saveBookingToDriver(id) {
+
+            var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
+            if (document.getElementById('customer_name').value === "") {
+                alert("Vui lòng nhập họ tên khách hàng.");
+                document.getElementById('customer_name').focus();
+                return false;
+            }
+            if (document.getElementById('customer_phone').value === "") {
+                alert("Vui lòng nhập số điện thoại khách hàng.");
+                document.getElementById('customer_phone').focus();
+                return false;
+            }
+            if (document.getElementById('from_date').value === "") {
+                alert("Vui lòng nhập ngày đến.");
+                document.getElementById('from_date').focus();
+                return false;
+            }
+            if (document.getElementById('to_date').value === "") {
+                alert("Vui lòng nhập ngày đi.");
+                document.getElementById('to_date').focus();
+                return false;
+            }
+            if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
+                alert("Ngày đi phải sau ngày đến");
+                document.getElementById('from_date').focus();
+                return false;
+            }
+            if (document.getElementById('lon_from').value === "" && document.getElementById('lat_from').value === "") {
+                alert("Vui lòng nhập lại điểm đi.");
+                document.getElementById('from_place').focus();
+                return false;
+            }
+
+            if (document.getElementById('lon_to').value === "" && document.getElementById('lat_to').value === "") {
+                alert("Vui lòng nhập lại điểm đến.");
+                document.getElementById('to_place').focus();
+                return false;
+            }
+            document.getElementById("btn_bookingtodriver").innerHTML = "Đang đặt xe xin chờ....";
+            document.getElementById("btn_bookingtodriver").disabled = true;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data == 1) {
+                        document.getElementById('customer_name').value = "";
+                        document.getElementById('customer_phone').value = "";
+                        document.getElementById('to_date').value = "";
+                        var d = new Date();
+                        var s = d.toLocaleString();
+                        $('#from_date').datetimepicker({ value: s, step: 10 });
+
+                        alert('Đã đặt xe thành công.');
+                        document.getElementById("btn_bookingtodriver").innerHTML = "Đặt xe";
+                        document.getElementById("btn_bookingtodriver").disabled = false;
+                    }
+                    //console.log(data);
+                }
+            });
+        }
+
     </script>
 
 
+    @if (Model != null)
+    {
+        if (Model.lon != null && Model.lat != null)
+        {
+
+            <!--Map JavaScript-->
+            <script>
+                initmap();
+                function initmap() {
+                    var myVitri = new google.maps.LatLng(@Model.lat, @Model.lon);
+                    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                        center: { lat: myVitri.lat(), lng: myVitri.lng() },
+                        zoom: 14,
+                        draggable: true,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        animation: google.maps.Animation.DROP,
+                    });
+
+                    var infoWindow = new google.maps.InfoWindow({ map: map });
+                    var pos = {
+                        lat: myVitri.lat(),
+                        lng: myVitri.lng()
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('<i class="fa fa-car fa-2x"></i> @Html.Raw(Model.address)');
+                    map.setCenter(pos);
+
+                }
+            </script>
+
+        }
+    }
 }

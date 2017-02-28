@@ -460,7 +460,7 @@ namespace ThueXeVn.Controllers
             if (pg == null) pg = 1;
             int pageNumber = (pg ?? 1);
             ViewBag.pg = pg;
-            return View(p.ToPagedList(pageNumber, pageSize));
+            return View(p.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]

@@ -8,7 +8,7 @@
 @section Styles {
     <link href="~/Content/PagedList.css" rel="stylesheet" />
 }
-
+@*<script src="/Scripts/ckeditor/ckeditor.js"></script>*@
 @{
     long id_driver = 0;
     if (Config.getCookie("taixelogged") != "")
@@ -153,6 +153,12 @@
                     </div>
                     <button type="button" class="btn btn-primary" onclick="updateInfo(@id_driver);">Cập nhật</button>
                 </div>
+                @*<script>
+                    CKEDITOR.replace('info_driver');
+                   
+
+                </script>*@
+
             </div>
         </div>
 

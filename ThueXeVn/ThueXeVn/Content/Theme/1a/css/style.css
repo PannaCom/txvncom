@@ -37,6 +37,10 @@ html {
     .container {
         width: 1100px;
     }
+
+    .item_img {
+        height: 500px;
+    }
 }
 
 p {
@@ -1922,6 +1926,10 @@ table.dropdown-filter > thead > tr > th {
         font-size: 13px;
         padding: 0;
     }
+
+    .map-canvas {
+        height: 200px;
+    }
 }
 
 .detail-product {
@@ -2439,3 +2447,26 @@ ul.img-product-n > li > a > img {
 .flag_lang:hover img {
     width: 40px; height: 20px;
 }
+
+.flex-control-thumbs img {
+    height: 88px!important;
+    padding: 0px 2px;
+}
+
+@media (min-width: 992px) {
+    .layoutSingleColumn {
+        width: 620px;
+    }
+}
+
+@media (min-width: 768px) {
+    .layoutSingleColumn {
+        float: left;
+        width: 425px;
+    }
+
+    .map-canvas {
+        height: 500px;
+    }
+}
+
