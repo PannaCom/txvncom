@@ -242,10 +242,29 @@
     Bản đồ
 </div>
 <input type="hidden" name="khoangcach" id="khoangcach" />
+<style>
+    .modal {
+  text-align: center;
+  padding: 0!important;
+}
 
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+</style>
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalPosition" style="color: #333;">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="min-height: 300px;">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
                 <h3 class="text-center">Vui lòng chọn khu vực xem bảng giá?</h3>
