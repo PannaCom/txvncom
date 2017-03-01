@@ -248,24 +248,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a class="close" data-dismiss="modal">×</a>
-                <h3>Bạn muốn xem bảng giá thuê xe ở đâu?</h3>
+                <h3 class="text-center">Vui lòng chọn khu vực xem bảng giá?</h3>
             </div>
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-md-9">
-                            <select name="pos_banggia" id="pos_banggia" class="form-control">
-                                <option value="">Xem bảng giá thuê xe Việt Nam</option>
-                                <option value="hanoi">Tại Hà Nội</option>
-                                <option value="danang">Tại Đà Nẵng</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <span class="btn btn-primary btn-block" id="btn_xembanggia" onclick="xembanggiaxe();">Xem bảng giá</span>
-                        </div>
-                    </div>
-
-                    
+                <div class="text-center">
+                    <a href="/home/banggiaxe" class="btn btn-primary" id="xembanggia3">Hà Nội</a>
+                    <a href="/home/banggiaxedanang" class="btn btn-primary">Đà Nẵng</a>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -278,21 +266,21 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
     <script src="/Scripts/jquery.geocomplete.js"></script>
     <script>
-        @if (Config.getCookie("showgb") == "")
+        @*@if (Config.getCookie("showgb") == "")
 	    {
 		    <text>
+        </text>
+	    }*@   
+        
         $(window).load(function () {
-            setTimeout(function () {                
-                $.ajax({
-                    url: "/Home/setcookieshowbg",
-                    cache: false
-                }).done(function (html) {
-                    $('#ModalPosition').modal('show');
-                });
-            }, 1000);    
-            
-        })</text>
-	    }     
+            $('#ModalPosition').modal({ show: true, backdrop: 'static' });
+            //$.ajax({
+            //    url: "/Home/setcookieshowbg",
+            //    cache: false
+            //}).done(function (html) {
+                
+            //});
+        })
         
         $(document).ready(function () {
             var options = {
@@ -340,8 +328,14 @@
 
             $('#xembanggia2').on('click', function (e) {
                 e.preventDefault();
-                $('#ModalPosition').modal('show');
+                $('#ModalPosition').modal({ show: true, backdrop: 'static' });
             })
+
+            $('#xembanggia3').on('click', function (e) {
+                e.preventDefault();
+                $('#ModalPosition').modal('hide');
+            })
+            
 
         })
 
@@ -424,19 +418,11 @@
 
         }
 
-        function xembanggiaxe() {
-            if (document.getElementById('pos_banggia').value === "") {
-                alert('Vui lòng chọn bảng giá cần xem?');
-                document.getElementById('pos_banggia').focus();
-                return false;
-            }
-            var pos_v = document.getElementById('pos_banggia').value;
-            if (pos_v == "hanoi") {
-                $('#ModalPosition').modal('hide');
-            } else if (pos_v == "danang") {
-                window.location.href = "/Home/banggiaxedanang";
-            }
 
+
+        function xembanggiaxe(e) {
+            e.preventDefault();
+            $('#ModalPosition').modal('hide');
         }
 
     </script>

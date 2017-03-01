@@ -28,8 +28,8 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
-    ViewBag.title = "Trang cá nhân tài xế";
-    ViewBag.des = "Trang cá nhân tài xế";
+    ViewBag.title = "Trang nhà xe";
+    ViewBag.des = "Trang nhà xe";
     ViewBag.keywords = "";
     ViewBag.url = @url;
 }
@@ -75,7 +75,7 @@
 
                 </div>
                 <div class="col-md-5 sidebar">
-                    <div><h3 class="profile_gia">Giá xe: @string.Format("{0:#,###}", Model.car_price) đồng.</h3></div>
+                    <div><h3 class="profile_gia">Giá xe: @string.Format("{0:#,###}", Model.car_price) đồng/km</h3></div>
 
                     @*Datxe*@
 
@@ -149,7 +149,7 @@
 
                         <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label>Đánh giá tài xế: </label>
+                                <label>Đánh giá nhà xe: </label>
                                 <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
                             </div>
 
