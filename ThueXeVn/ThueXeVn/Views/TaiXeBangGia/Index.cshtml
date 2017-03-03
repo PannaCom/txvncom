@@ -7,8 +7,10 @@
 
 @section Styles {
     <link href="~/Content/PagedList.css" rel="stylesheet" />
+
 }
-@*<script src="/Scripts/ckeditor/ckeditor.js"></script>*@
+<script src="/Scripts/ckeditor/ckeditor.js"></script>
+
 @{
     long id_driver = 0;
     if (Config.getCookie("taixelogged") != "")
@@ -44,129 +46,129 @@
 }
 }
 
+<a class="btn btn-primary" href="/TaiXeBangGia/Addbanggia">Thêm bảng giá</a><br />
+
 <div class="row">
     <div class="col-lg-6">
         
-        <div class="panel panel-default">
-            <a class="btn btn-primary" href="/TaiXeBangGia/Addbanggia">Thêm bảng giá</a><br />
-            <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="table-banggia">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Loại xe (số chỗ)</th>
+                        <th>Giá/1km 1 chiều (đồng)</th>
+                        @*<th>Nhân ngày lễ</th>
+                        <th>Nhân một chiều</th>*@
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
 
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="table-banggia">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Loại xe (số chỗ)</th>
-                                <th>Giá/1km 1 chiều (đồng)</th>
-                                @*<th>Nhân ngày lễ</th>
-                                <th>Nhân một chiều</th>*@
-                                <th>Chức năng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model != null)
-                            {
-                                
-                                if (Model.Count > 0)
-                                {
-                                    int i = 1;
-                                    foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>@i</td>
-                                            <td>
-                                                Xe @item.cp_car_type chỗ
-                                            </td>
-                                            <td style="text-align: right;">@string.Format("{0:#,##}", item.cp_price)</td>
-                                            @*<td>@item.cp_multiple</td>
-                                            <td>
-                                                @item.cp_multiple2
-                                            </td>*@
-                                            <td>
-                                                <a href="/TaiXeBangGia/Edit/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Sửa</a>
-                                                <a href="/TaiXeBangGia/Delete/@item.id" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</a>
-                                            </td>
-                                        </tr>
-                                                i++;
-                                    }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="5">
-                                            Bạn chưa có dữ liệu để hiện thị
-                                        </td>
-                                    </tr>
-                                }
-
-                            }
-                            else
+                        if (Model.Count > 0)
+                        {
+                            int i = 1;
+                            foreach (var item in Model)
                             {
                                 <tr>
-                                    <td colspan="5">
-                                        Bạn chưa có dữ liệu để hiện thị
+                                    <td>@i</td>
+                                    <td>
+                                        Xe @item.cp_car_type chỗ
+                                    </td>
+                                    <td style="text-align: right;">@string.Format("{0:#,##}", item.cp_price)</td>
+                                    @*<td>@item.cp_multiple</td>
+                                    <td>
+                                        @item.cp_multiple2
+                                    </td>*@
+                                    <td>
+                                        <a href="/TaiXeBangGia/Edit/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Sửa</a>
+                                        <a href="/TaiXeBangGia/Delete/@item.id" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</a>
                                     </td>
                                 </tr>
+                                i++;
                             }
-                        </tbody>
-                    </table>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5">
+                                    Bạn chưa có dữ liệu để hiện thị
+                                </td>
+                            </tr>
+                        }
 
-                </div>
-
-                @if (Model != null)
-                {
-                    @Html.PagedListPager(Model, page => Url.RouteUrl("quanlybanggia", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
-                }
-
-            </div>
-
-
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5">
+                                Bạn chưa có dữ liệu để hiện thị
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
         </div>
+
+        @if (Model != null)
+        {
+            @Html.PagedListPager(Model, page => Url.RouteUrl("quanlybanggia", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        }
     </div>
 
+    
+</div>
+
+<div class="row">
     <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Cập nhật ghi chú</h3>
-            </div>
-            <div class="panel-body">
-                <div>
-                    <div class="form-group">
-                        <label class="control-label">Ghi chú bảng giá</label>
-                        <textarea class="form-control" rows="5" id="note_driver" name="note_driver"></textarea>
-                    </div>
+        <div class="form-horizontal">
+            <form id="updatenote">
+                <div class="form-group">
+                    <label class="control-label">Ghi chú bảng giá</label>
+                    <textarea class="form-control editor" rows="5" id="note_driver" name="note_driver"></textarea>
+                </div>
+
+                <div class="form-group">
                     <button type="button" class="btn btn-primary" onclick="updateNote(@id_driver);">Cập nhật</button>
                 </div>
-            </div>
-        </div>
-        
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Cập nhật giới thiệu nhà xe</h3>
-            </div>
-            <div class="panel-body">
-                <div>
-                    <div class="form-group">
-                        <label class="control-label">Giới thiệu nhà xe</label>
-                        <textarea class="form-control" rows="5" id="info_driver" name="info_driver"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="updateInfo(@id_driver);">Cập nhật</button>
-                </div>
-                @*<script>
-                    CKEDITOR.replace('info_driver');
-                   
 
-                </script>*@
-
-            </div>
+                <script>
+                    CKEDITOR.replace('note_driver');
+                </script>
+            </form>
         </div>
 
 
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label">Giới thiệu nhà xe</label>
+                <textarea class="form-control editor" rows="5" id="info_driver" name="info_driver"></textarea>
+            </div>           
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="updateInfo(@id_driver);">Cập nhật</button>
+            </div>
+            
+        </div>
+        <script>
+            CKEDITOR.replace('info_driver');
+        </script>
+
+
+
+    </div>
+
+</div>
+
 @section scripts {
+<script src="~/Scripts/ckeditor/ckaajx.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -174,7 +176,7 @@
                 url: "/TaiXeBangGia/getNoteTaiXe?id=@id_driver",
                 cache: false
             }).done(function (html) {
-                $('#note_driver').val(html);
+                CKEDITOR.instances['note_driver'].setData(html);
             });
         })
 
@@ -183,49 +185,64 @@
                 url: "/TaiXeBangGia/getInfoTaiXe?id=@id_driver",
                 cache: false
             }).done(function (html) {
-                $('#info_driver').val(html);
+                CKEDITOR.instances['info_driver'].setData(html);
             });
         })
 
         function updateInfo(id) {
             var url = "/TaiXeBangGia/updateInfo"; // the script where you handle the form input.
-            //if ($('#info_driver').val() === "") {
-            //    alert("Vui lòng nhập thông tin nhà xe");
-            //    $('#info_driver').focus();
-            //    return false;
-            //}
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: { id: id, des: $('#info_driver').val() }, // serializes the form's elements.
-                success: function (data) {
-                    if (data !== "") {
-                        alert('Đã cập nhật thông tin nhà xe.');
-                    }
-                    //console.log(data);
+            
+            var value = CKEDITOR.instances['info_driver'].getData()
+            if (value === "") {
+                alert("Vui lòng nhập thông tin nhà xe");
+                return false;
+            }
+            CKEDITOR.ajax.post(url, JSON.stringify({ id: id, des: value }), 'application/json', function (data) {
+                if (data !== "") {
+                    alert('Đã cập nhật thông tin nhà xe.');
                 }
             });
+            //$.ajax({
+            //    type: "POST",
+            //    url: url,
+            //    data: { id: id, des: value }, // serializes the form's elements.
+            //    success: function (data) {
+            //        if (data !== "") {
+            //            alert('Đã cập nhật thông tin nhà xe.');
+            //        }
+            //        //console.log(data);
+            //    }
+            //});
         }
 
         function updateNote(id) {
             var url = "/TaiXeBangGia/updateNote"; // the script where you handle the form input.
-            //if ($('#note_driver').val() === "") {
-            //    alert("Vui lòng nhập ghi chú nhà xe");
-            //    $('#note_driver').focus();
-            //    return false;
-            //}
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: { id: id, notes: $('#note_driver').val() }, // serializes the form's elements.
-                success: function (data) {
-                    if (data !== "") {
-                        alert('Đã cập nhật ghi chú nhà xe.');
-                    }
-                    //console.log(data);
+            var value = CKEDITOR.instances['note_driver'].getData()
+            if (value === "") {
+                alert("Vui lòng nhập ghi chú nhà xe");
+                return false;
+            }
+            CKEDITOR.ajax.post(url, JSON.stringify({ id: id, note_driver: value }), 'application/json', function (data) {
+                if (data !== "") {
+                    alert('Đã cập nhật ghi chú nhà xe.');
                 }
             });
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: url,
+            //    data: {id: id, note_driver: '"'+ value + '"'}, // serializes the form's elements.
+            //    success: function (data) {
+            //        if (data !== "") {
+            //            alert('Đã cập nhật ghi chú nhà xe.');
+            //        }
+            //        //console.log(data);
+            //    }
+            //});
         }
 
     </script>
+
+
+
 }

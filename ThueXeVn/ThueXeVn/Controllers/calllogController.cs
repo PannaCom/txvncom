@@ -23,6 +23,12 @@ namespace ThueXeVn.Controllers
             return View(db.call_log.ToList());
         }
 
+        public ActionResult taixegoi(string phone)
+        {
+            var data = db.drivers.Where(x => x.phone == phone).FirstOrDefault();
+            return PartialView("_taixegoi", data);
+        }
+
         public ActionResult callcustomer(int? pg)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
@@ -31,14 +37,20 @@ namespace ThueXeVn.Controllers
             int pageNumber = (pg ?? 1);
             ViewBag.pg = pg;
 
-            //var data = db.call_driver_log.Where(x => x.from_number != null && x.to_number != null).Select(x=>x).OrderByDescending(x => x.id).ToList();
-            var data = (from a in db.call_driver_log join b in db.drivers on a.from_number equals b.phone select new call_driver_log_model() { 
-                id = a.id,
-                from_number = a.from_number,
-                to_number = a.to_number,
-                date_time = a.date_time,
-                driver_name = b.name
-            }).ToList().OrderByDescending(x=>x.date_time).ToList();
+            var data = db.call_driver_log.Where(x => x.from_number != null && x.to_number != null).Select(x => x).OrderByDescending(x => x.id).ToList();
+
+            //var sql = "";
+
+
+            //var data = (from a in db.call_driver_log join b in db.drivers on a.from_number equals b.phone select new call_driver_log_model() { 
+            //    id = a.id,
+            //    from_number = a.from_number,
+            //    to_number = a.to_number,
+            //    date_time = a.date_time,
+            //    driver_name = b.name
+            //}).ToList().OrderByDescending(x=>x.date_time).ToList();
+
+
             return View(data.ToPagedList(pageNumber, pageSize));
         }
 

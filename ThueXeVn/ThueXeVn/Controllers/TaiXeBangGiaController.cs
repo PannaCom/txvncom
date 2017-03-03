@@ -512,7 +512,7 @@ namespace ThueXeVn.Controllers
         }
 
         [HttpPost]
-        public ActionResult updateNote(long? id, string notes)
+        public ActionResult updateNote(long? id, string note_driver)
         {
             string updated = "";
             try
@@ -520,7 +520,7 @@ namespace ThueXeVn.Controllers
                 var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
                 if (update != null)
                 {
-                    update.driver_note = notes ?? null;
+                    update.driver_note = note_driver ?? null;
                     db.Entry(update).State = EntityState.Modified;
                     db.SaveChanges();
                     updated = "1";
@@ -529,7 +529,7 @@ namespace ThueXeVn.Controllers
                 {
                     driver_info ghichu = new driver_info();
                     ghichu.driver_id = id;
-                    ghichu.driver_note = notes ?? null;
+                    ghichu.driver_note = note_driver ?? null;
                     db.driver_info.Add(ghichu);
                     db.SaveChanges();
                 }

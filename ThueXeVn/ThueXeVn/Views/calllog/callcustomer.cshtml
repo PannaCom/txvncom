@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<ThueXeVn.Models.call_driver_log_model>
+﻿@model PagedList.IPagedList<ThueXeVn.Models.call_driver_log>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "Thống kê khách gọi cho tài xế";
@@ -50,7 +50,8 @@
                                             <td>
                                                 @item.from_number
                                             </td>
-                                            <td>@item.driver_name</td>
+                                            <td>@{Html.RenderAction("taixegoi", new { phone = item.from_number });}</td>
+                                            @*<td>@item.driver_name</td>*@
                                             <td>@item.to_number</td>
                                             <td>
                                                 @string.Format("{0:dd/MM/yyyy HH:mm:ss tt}", item.date_time)
@@ -101,20 +102,18 @@
         function xoalog(id) {
             if (id) {
                 var url = "/calllog/deletecalllog"; // the script where you handle the form input.
-                if (id) {
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: { id: id }, // serializes the form's elements.
-                        success: function (data) {
-                            if (data === '1') {
-                                alert('Đã xóa cuộc gọi tài xế.');
-                                window.location.href = window.location.href;
-                            }
-                            //console.log(data);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { id: id }, // serializes the form's elements.
+                    success: function (data) {
+                        if (data === '1') {
+                            alert('Đã xóa cuộc gọi tài xế.');
+                            window.location.href = window.location.href;
                         }
-                    });
-                }
+                        //console.log(data);
+                    }
+                });
             }
         }
     </script>
