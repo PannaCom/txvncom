@@ -38,7 +38,7 @@ namespace ThueXeVn.Controllers
                 to_number = a.to_number,
                 date_time = a.date_time,
                 driver_name = b.name
-            }).ToList();
+            }).ToList().OrderByDescending(x=>x.date_time).ToList();
             return View(data.ToPagedList(pageNumber, pageSize));
         }
 

@@ -53,7 +53,7 @@
                                             <td>@item.driver_name</td>
                                             <td>@item.to_number</td>
                                             <td>
-                                                @item.date_time
+                                                @string.Format("{0:dd/MM/yyyy HH:mm:ss tt}", item.date_time)
                                             </td>
                                             <td><span class="btn btn-danger" onclick="xoalog(@item.id);" id="xoa_log_@item.id">Xóa</span></td>
                                         </tr>

@@ -78,6 +78,12 @@ namespace ThueXeVn
                 new { controller = "Home", action = "CarRental" }
             );
 
+            routes.MapRoute(
+                "profiletaixe",
+                "Home/profile/{taixe}-{id}",
+                new { controller = "Home", action = "profile", id = UrlParameter.Optional, taixe = UrlParameter.Optional }
+            );
+
             //routes.MapRoute(
             //    "getlinkchiase",
             //    "cong-tac-vien/getlink",

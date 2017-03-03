@@ -1,5 +1,6 @@
 ﻿@model PagedList.IPagedList<ThueXeVn.Models.timkiemDrivers>
 @using PagedList.Mvc;
+@using ThueXeVn
 
 @{
     string url = Request.Url.Authority + HttpContext.Current.Request.RawUrl.ToString();
@@ -158,6 +159,7 @@
                             foreach (var item in Model)
                             {
                                 double giaTaiXe = 1;
+                                string url_profile = string.Format("/Home/profile/{0}-{1}", @Config.unicodeToNoMark(item.name), item.id);
                                 if (item.cp_price != null)
                                 {
                                     double d_gia = Convert.ToDouble(item.cp_price);
@@ -170,11 +172,12 @@
                                             <p id="car_type_made_model_@item.id">@item.car_made @item.car_model @item.car_years</p>
                                             @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                         </section>
-
+                                        
                                         <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
                                             <h4 class="profile_page_1">
-                                                <a href="/Home/profile/@item.id" class="profile_page">@item.name</a>
-                                                <a href="/Home/profile/@item.id" style="font-size: 75%; margin-left: 10px; display: none;">Xem chi tiết</a>
+                                                
+                                                <a href="@url_profile" class="profile_page">@item.name</a>
+                                                <a href="@url_profile" style="font-size: 75%; margin-left: 10px; display: none;">Xem chi tiết</a>
                                             </h4>
                                             @*<div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
                                                 @if (item.DiffDate <= 7)
