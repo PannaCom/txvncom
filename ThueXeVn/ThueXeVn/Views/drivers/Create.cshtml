@@ -15,7 +15,7 @@
 <script src="/Scripts/jquery.geocomplete.js"></script>
 <div class="map_canvas" style="display:none;"></div>
 <div class="col-sm-12" id="dv2" style="background-color:white;color:black;border-radius:25px;min-height:567px;display:block;">
-    <h2 style="color:#449d44;">THÊM TÀI XẾ</h2>
+    <h2 style="color:#449d44;">THÊM TÀI XẾ/NHÀ XE</h2>
     <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
     <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
     <p style="text-align:left;margin-top:5px;">Kiểu tài xế*</p>
@@ -25,7 +25,7 @@
     </select>
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
-    <p style="text-align:left;margin-top:5px;">Biển số xe *</p>
+    <p style="text-align:left;margin-top:5px;">Biển số xe</p>
     <input id="car_number" name="car_number" class="form-control" placeholder="Nhập biển số xe" />
     <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
     <select id="car_made" class="form-control" onchange="autosearchmodel();"></select>
@@ -36,7 +36,7 @@
     <p style="text-align:left;margin-top:5px;">Loại xe *</p>
     <select id="car_type" class="form-control"></select>
     <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
-    <select id="car_year" class="form-control"><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
+    <select id="car_year" class="form-control"><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
     <p style="text-align:left;margin-top:5px;">Bảng giá</p>
     <select id="car_price" class="form-control">
         <option value="-1">Thỏa thuận</option>
@@ -90,11 +90,11 @@
             document.getElementById("tphone").focus();
             return;
         }
-        if (document.getElementById("car_number").value == "") {
-            alert("Nhập biển số!");
-            document.getElementById("car_number").focus();
-            return;
-        }
+        //if (document.getElementById("car_number").value == "") {
+        //    alert("Nhập biển số!");
+        //    document.getElementById("car_number").focus();
+        //    return;
+        //}
         if (document.getElementById("car_made").value == "") {
             alert("Nhập hãng xe!");
             document.getElementById("car_made").focus();
@@ -174,7 +174,8 @@
         cache: false
     }).done(function (html) {
         $("#car_made").html("<option value=\"\">Chọn hãng xe</option>");
-        $("#car_made").append("" + html);
+        $("#car_made").append("<option value='Tất cả các hãng'>Tất cả các hãng</option>");
+        $("#car_made").append(html);
         @*$("#car_made").val("@Html.Raw(Model.car_made)");*@
     });
     $.ajax({
@@ -205,17 +206,18 @@
     function autosearchmodel() {
         var keyword = document.getElementById("car_model").value;
         var made = document.getElementById("car_made").value;
-        var urlSearch = '/Api/getCarModelListFromMade2?keyword=' + keyword + "&made=" + made;
-        
+        //var urlSearch = '/Api/getCarModelListFromMade2?keyword=' + keyword + "&made=" + made;
+        var urlSearch = '/Home/getCarModelListFromMade2?made=' + made;
         $.ajax({
             url: urlSearch,
             cache: false
         }).done(function (html) {
-           
+
             var news = '{"news":' + html + '}';
             var json_parsed = $.parseJSON(news);
-           
+
             $("#car_model").html("");
+            $("#car_model").append("<option value='Tất cả các hãng'>Tất cả các hãng</option>");
             for (var i = 0; i < json_parsed.news.length; i++) {
                 if (json_parsed.news[i]) {
                     var name = json_parsed.news[i].name;
