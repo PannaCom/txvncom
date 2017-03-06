@@ -40,7 +40,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<call_log> call_log { get; set; }
         public virtual DbSet<car_made_model> car_made_model { get; set; }
         public virtual DbSet<invoice> invoices { get; set; }
-        public virtual DbSet<driver> drivers { get; set; }
         public virtual DbSet<TinhThanh> TinhThanhs { get; set; }
         public virtual DbSet<booking> bookings { get; set; }
         public virtual DbSet<booking_ctv_tiepthi> booking_ctv_tiepthi { get; set; }
@@ -58,5 +57,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<car_price_da_nang> car_price_da_nang { get; set; }
         public virtual DbSet<driver_info> driver_info { get; set; }
         public virtual DbSet<driver_promotion> driver_promotion { get; set; }
+        public virtual DbSet<driver> drivers { get; set; }
     }
 }

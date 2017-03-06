@@ -242,6 +242,7 @@
           <Property Name="lon" Type="float" />
           <Property Name="lat" Type="float" />
           <Property Name="geo" Type="geography" />
+          <Property Name="driver_type" Type="int" />
         </EntityType>
         <EntityType Name="drivers_money">
           <Key>
@@ -521,7 +522,6 @@
           <EntitySet Name="call_log" EntityType="thuexevnModel.call_log" />
           <EntitySet Name="car_made_model" EntityType="thuexevnModel.car_made_model" />
           <EntitySet Name="invoices" EntityType="thuexevnModel.invoice" />
-          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="TinhThanhs" EntityType="thuexevnModel.TinhThanh" />
           <EntitySet Name="bookings" EntityType="thuexevnModel.booking" />
           <EntitySet Name="booking_ctv_tiepthi" EntityType="thuexevnModel.booking_ctv_tiepthi" />
@@ -539,6 +539,7 @@
           <EntitySet Name="car_price_da_nang" EntityType="thuexevnModel.car_price_da_nang" />
           <EntitySet Name="driver_info" EntityType="thuexevnModel.driver_info" />
           <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
+          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -613,33 +614,6 @@
           <Property Name="vat" Type="Double" />
           <Property Name="sum" Type="Double" />
           <Property Name="note" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="driver">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_years" Type="Int32" />
-          <Property Name="car_size" Type="Int32" />
-          <Property Name="car_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="car_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="car_price" Type="Int32" />
-          <Property Name="total_moneys" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="date_time" Type="DateTime" Precision="3" />
-          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="regId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="os" Type="Int32" />
-          <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="lon" Type="Double" />
-          <Property Name="lat" Type="Double" />
-          <Property Name="geo" Type="Geography" />
         </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
@@ -851,6 +825,34 @@
           <Property Name="from_date" Type="DateTime" Precision="0" />
           <Property Name="to_date" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="driver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_made" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_years" Type="Int32" />
+          <Property Name="car_size" Type="Int32" />
+          <Property Name="car_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="car_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="car_price" Type="Int32" />
+          <Property Name="total_moneys" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="province" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="date_time" Type="DateTime" Precision="3" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="regId" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="os" Type="Int32" />
+          <Property Name="pass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lon" Type="Double" />
+          <Property Name="lat" Type="Double" />
+          <Property Name="geo" Type="Geography" />
+          <Property Name="driver_type" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1017,34 +1019,6 @@
                 <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="customer_name" ColumnName="customer_name" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="drivers">
-            <EntityTypeMapping TypeName="thuexevnModel.driver">
-              <MappingFragment StoreEntitySet="drivers">
-                <ScalarProperty Name="geo" ColumnName="geo" />
-                <ScalarProperty Name="lat" ColumnName="lat" />
-                <ScalarProperty Name="lon" ColumnName="lon" />
-                <ScalarProperty Name="pass" ColumnName="pass" />
-                <ScalarProperty Name="os" ColumnName="os" />
-                <ScalarProperty Name="regId" ColumnName="regId" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="date_time" ColumnName="date_time" />
-                <ScalarProperty Name="province" ColumnName="province" />
-                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
-                <ScalarProperty Name="car_price" ColumnName="car_price" />
-                <ScalarProperty Name="car_type" ColumnName="car_type" />
-                <ScalarProperty Name="car_number" ColumnName="car_number" />
-                <ScalarProperty Name="car_size" ColumnName="car_size" />
-                <ScalarProperty Name="car_years" ColumnName="car_years" />
-                <ScalarProperty Name="car_made" ColumnName="car_made" />
-                <ScalarProperty Name="car_model" ColumnName="car_model" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1272,6 +1246,35 @@
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="des" ColumnName="des" />
                 <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drivers">
+            <EntityTypeMapping TypeName="thuexevnModel.driver">
+              <MappingFragment StoreEntitySet="drivers">
+                <ScalarProperty Name="driver_type" ColumnName="driver_type" />
+                <ScalarProperty Name="geo" ColumnName="geo" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lon" ColumnName="lon" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="date_time" ColumnName="date_time" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="total_moneys" ColumnName="total_moneys" />
+                <ScalarProperty Name="car_price" ColumnName="car_price" />
+                <ScalarProperty Name="car_type" ColumnName="car_type" />
+                <ScalarProperty Name="car_number" ColumnName="car_number" />
+                <ScalarProperty Name="car_size" ColumnName="car_size" />
+                <ScalarProperty Name="car_years" ColumnName="car_years" />
+                <ScalarProperty Name="car_made" ColumnName="car_made" />
+                <ScalarProperty Name="car_model" ColumnName="car_model" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

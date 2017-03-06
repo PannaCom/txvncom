@@ -55,7 +55,7 @@ namespace ThueXeVn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,name,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address")] driver driver)
+        public ActionResult Create([Bind(Include = "id,name,driver_type,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address")] driver driver)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
             if (ModelState.IsValid)
@@ -102,7 +102,7 @@ namespace ThueXeVn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,name,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address, lon, lat")] driver driver)
+        public ActionResult Edit([Bind(Include = "id,name,driver_type,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address, lon, lat")] driver driver)
         {
             if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
             if (ModelState.IsValid)

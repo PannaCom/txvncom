@@ -18,6 +18,11 @@
     <h2 style="color:#449d44;">THÊM TÀI XẾ</h2>
     <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
     <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" />
+    <p style="text-align:left;margin-top:5px;">Kiểu tài xế*</p>
+    <select class="form-control" id="tdriver_type" name="tdriver_type">
+        <option value="0">Tài xế lẻ</option>
+        <option value="1">Nhà xe</option>
+    </select>
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
     <p style="text-align:left;margin-top:5px;">Biển số xe *</p>
@@ -74,6 +79,12 @@
             document.getElementById("tname").focus();
             return;
         }
+        if (document.getElementById("tdriver_type").value == "") {
+            alert("Nhập kiểu tài xế!");
+            document.getElementById("tdriver_type").focus();
+            return;
+        }
+        
         if (document.getElementById("tphone").value == "") {
             alert("Nhập số điện thoại lái xe!");
             document.getElementById("tphone").focus();
@@ -126,6 +137,7 @@
         }
         formdata.append("id", -1);
         formdata.append("name", document.getElementById("tname").value);
+        formdata.append("driver_type", document.getElementById("tdriver_type").value);
         formdata.append("phone", document.getElementById("tphone").value);
         formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);
