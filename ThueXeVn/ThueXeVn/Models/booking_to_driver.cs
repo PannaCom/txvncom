@@ -27,12 +27,13 @@ namespace ThueXeVn.Models
         public string driver_name { get; set; }
         public Nullable<System.DateTime> date_booking { get; set; }
         public Nullable<int> price_driver { get; set; }
-        public Nullable<int> distance { get; set; }
+        public Nullable<double> distance { get; set; }
         public Nullable<decimal> total_money { get; set; }
         public string customer_name { get; set; }
         public string customer_phone { get; set; }
         public Nullable<System.DateTime> from_date { get; set; }
         public Nullable<System.DateTime> to_date { get; set; }
         public Nullable<byte> status { get; set; }
+        public Nullable<int> car_size_driver { get; set; }
     }
 }

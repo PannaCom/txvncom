@@ -80,7 +80,7 @@ namespace ThueXeVn
 
             routes.MapRoute(
                 "profiletaixe",
-                "Home/profile/{taixe}-{id}",
+                "nha-xe/{taixe}-{id}",
                 new { controller = "Home", action = "profile", id = UrlParameter.Optional, taixe = UrlParameter.Optional }
             );
 
@@ -108,6 +108,13 @@ namespace ThueXeVn
                 "dangkyubergrab",
                 "dang-ky-uber-grab",
                 new { controller = "Home", action = "Dangkyubergrab" }
+            );
+
+            // taixe/taikhoan
+            routes.MapRoute(
+                "taixeaccount",
+                "taixe/taikhoan",
+                new { controller = "TaiXeBangGia", action = "driverEdit" }
             );
             
             routes.MapRoute(

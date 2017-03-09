@@ -30,7 +30,8 @@
                                 <th>Tên khách</th>
                                 <th>Số điện thoại khách</th>
                                 <th>Ngày đặt</th>
-                                <th>Tài xế</th>
+                                <th>Đi từ -> đến</th>
+                                <th>Thời gian từ -> đến</th>
                                 <th>Tổng tiền</th>
                                 <th>Chức năng</th>
                             </tr>
@@ -50,8 +51,9 @@
                                                 @item.customer_name
                                             </td>
                                             <td>@item.customer_phone</td>
-                                            <td>@string.Format("{0:dd/MM/yyyy HH:mm}", item.date_booking)</td>
-                                            <td>@item.driver_name</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.date_booking)</td>
+                                            <td>@item.from_place -> @item.to_place</td>
+                                            <td>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.from_date) -> @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.to_date)</td>
                                             <td>@string.Format("{0:#,##}", item.total_money)</td>
                                             <td><span id="xoa_datxe_@item.id" class="btn btn-danger" onclick="xoa_datxe(@item.id);">Xóa</span></td>
                                             
@@ -62,7 +64,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             Chưa có khách nào
                                         </td>
                                     </tr>
@@ -72,7 +74,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         Chưa có khách nào
                                     </td>
                                 </tr>

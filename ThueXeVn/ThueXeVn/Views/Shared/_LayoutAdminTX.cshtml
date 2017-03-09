@@ -43,7 +43,7 @@
                     <h3>Yêu cầu JavaScript</h3>
                 </div>
                 <p class="lead">
-                    Chúng tôi rất tiếc, nhưng hệ thống sẽ không hoạt động đúng nếu không bật JavaScript. Nếu trình duyệt không hỗ trợ JavaScript, hãy thử lại một trình duyệt mới hơn. 
+                    Chúng tôi rất tiếc, nhưng hệ thống sẽ không hoạt động đúng nếu không bật JavaScript. Nếu trình duyệt không hỗ trợ JavaScript, hãy thử lại một trình duyệt mới hơn.
                 </p>
             </div>
         </div>
@@ -59,15 +59,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    Trang quản trị của tài xế
+                    @Config.getCookie("mvtype") @Config.getCookie("mvname")
                 </a>
             </div>
             <!-- /.navbar-header -->
-
             <!-- /.navbar-top-links -->
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    @Html.Partial("_MenuAdminTX")                    
+                    @Html.Partial("_MenuAdminTX")
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -94,7 +93,7 @@
     <script src="~/Content/Theme/admin/js/sb-admin-2.js"></script>
     @RenderSection("scripts", required: false)
 
-    
+
 
 </body>
 </html>

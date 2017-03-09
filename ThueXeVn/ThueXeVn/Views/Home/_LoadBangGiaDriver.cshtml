@@ -15,7 +15,7 @@
                         string tenxe = "Xe " + item.cp_car_type + " chỗ";
                         if (item.cp_car_type == 4) { tenxe += " (giá siêu rẻ, có cốp)"; }
                         if (item.cp_car_type == 5) { tenxe += " (có cốp)"; }
-                        <p style="border-bottom: 1px dotted;padding-bottom: 5px;"><b>@tenxe</b>: <span>@string.Format("{0:#,###} đồng.", item.cp_price)</span></p>
+                        <p style="border-bottom: 1px dotted;padding-bottom: 5px;"><b>@tenxe</b>: <span>@string.Format("{0:#,###} đồng/km.", item.cp_price)</span></p>
                     }
                 </div>
             </div>

@@ -168,7 +168,8 @@ namespace ThueXeVn.Models
         public string email { get; set; }
         public string address { get; set; }
         public int? car_size { get; set; }
-        public int? car_size2 { get; set; }
+        //public int? car_size2 { get; set; }
+        //public int? car_size_d { get; set; }
         public int? cp_price { get; set; }
         public int? status { get; set; }
         public double? quangduong { get; set; }
@@ -176,6 +177,7 @@ namespace ThueXeVn.Models
         public string car_model { get; set; }
         public string car_made { get; set; }
         public int? car_years { get; set; }
+        public int? driver_type { get; set; }
     }
 
     //public class timkiemDrivers

@@ -571,5 +571,50 @@ namespace ThueXeVn.Controllers
             return Json(updated, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult driverEdit()
+        {
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id_driver = Convert.ToInt64(id_taixe);
+
+            driver driver = db.drivers.Find(id_driver);
+            string phone = driver.phone;
+            //string car_number=driver.car_number;
+            var p = db.list_online.Where(o => o.phone == phone).FirstOrDefault();
+            try
+            {
+                ViewBag.lon = p.lon;
+                ViewBag.lat = p.lat;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.lon = 105.3724793;
+                ViewBag.lat = 20.9740874;
+            }
+            if (driver == null)
+            {
+                return HttpNotFound();
+            }
+            return View(driver);
+        }
+
+        // POST: drivers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult driverEdit([Bind(Include = "id,name,driver_type,phone,email,car_model,car_made,car_years,car_size,car_number,car_type,car_price,total_moneys,province,date_time,code,address, lon, lat")] driver driver)
+        {
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+            if (ModelState.IsValid)
+            {
+                db.Entry(driver).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(driver);
+        }
+
+
     }
 }

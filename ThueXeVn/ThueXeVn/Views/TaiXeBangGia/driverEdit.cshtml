@@ -1,0 +1,244 @@
+﻿@model ThueXeVn.Models.driver
+
+@{
+    ViewBag.Title = "Sửa thông tin tài xế";
+    Layout = "~/Views/Shared/_LayoutAdminTX.cshtml";
+}
+<script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
+<script src="/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="/Scripts/jquery-2.1.1.js"></script>
+<script src="/Scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="/Scripts/jquery-ui.css">
+<script src="/Scripts/jquery.datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+@*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+<script src="/Scripts/jquery.geocomplete.js"></script>
+<div class="map_canvas" style="display:none;"></div>
+
+
+
+<div class="col-sm-12" id="dv2" style="background-color:white;color:black;border-radius:25px;min-height:567px;display:block;">
+    <div class="page-header">
+        <h2 style="color:#449d44;">SỬA THÔNG TIN TÀI XẾ/NHÀ XE</h2>
+    </div>
+    <p style="text-align:left;margin-top:5px;">Tên tài xế*</p>
+    <input id="tname" name="tname" class="form-control" placeholder="Nhập tên" value="@Model.name"/>
+    <p style="text-align:left;margin-top:5px;">Kiểu tài xế*</p>
+    <select class="form-control" id="tdriver_type" name="tdriver_type">
+        <option value="0">Tài xế lẻ</option>
+        <option value="1">Nhà xe</option>
+    </select>
+    <script>
+        document.getElementById("tdriver_type").value = @Model.driver_type;
+    </script>
+    <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
+    <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone" />
+    <p style="text-align:left;margin-top:5px;">Biển số xe</p>
+    <input id="car_number" name="car_number" value="@Model.car_number" class="form-control" placeholder="Nhập biển số xe" />
+    <p style="text-align:left;margin-top:5px;">Hãng xe *</p>
+    <select id="car_made" class="form-control" onchange="autosearchmodel();"></select>
+    <p style="text-align:left;margin-top:5px;">Tên xe (model) *</p>
+    <select id="car_model" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Số chỗ *</p>
+    <select id="car_size" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Loại xe *</p>
+    <select id="car_type" class="form-control"></select>
+    <p style="text-align:left;margin-top:5px;">Năm sản xuất *</p>
+    <select id="car_year" class="form-control"><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option></select>
+    <p style="text-align:left;margin-top:5px;">Bảng giá</p>
+    <select id="car_price" class="form-control">
+        <option value="-1">Thỏa thuận</option>
+        @for (int i = 5000; i < 30000; i += 500)
+        {
+            <option value="@i">@i đồng/km</option>
+        }
+    </select>
+    <p style="text-align:left;margin-top:5px;">Địa chỉ (thường trú hoặc hay đón khách) *</p>
+    <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ chính xác" autocomplete="on" value="@Model.address" />
+    <input type="hidden" id="lon" name="lon" value="@ViewBag.lon" />
+    <input type="hidden" id="lat" name="lat" value="@ViewBag.lat" />
+
+    <p style="text-align:left;margin-top:5px;">Mật khẩu (Dùng để đăng nhập quản trị dành riêng cho tài xế) *</p>
+    <input type="hidden" name="password_tx" id="password_tx" value="@Model.pass" />    
+    <input id="password_new_input" name="password_new_input" type="password" class="form-control" placeholder="Nhập mật khẩu dùng để đăng nhập cho tài xế" />
+
+    <input type="button" value="CẬP NHẬT XE" class="btn btn-primary btn-block" onclick="register();" style="margin-bottom:5px;" id="btnregister2" />
+</div>
+<script>
+    $(document).ready(function() {
+        $('#password_new_input').on('change', function() {
+            $('#password_tx').val($(this).val());
+        })
+    })
+    $(function () {
+        var options = {
+            map: ".map_canvas"
+        };
+        $("#address").geocomplete(options)
+          .bind("geocode:result", function (event, result) {
+              $("#lon").val(result.geometry.location.lng());
+              $("#lat").val(result.geometry.location.lat());
+              //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
+          })
+          .bind("geocode:error", function (event, status) {
+              $.log("ERROR: " + status);
+          })
+          .bind("geocode:multiple", function (event, results) {
+              $.log("Multiple: " + results.length + " results found");
+          });
+    });
+    function register() {
+        var formdata = new FormData(); //FormData object
+        //var datetimepicker = document.getElementById("datetimepicker").value;
+        if (document.getElementById("tname").value == "") {
+            alert("Nhập tên lái xe!");
+            document.getElementById("tname").focus();
+            return;
+        }
+        if (document.getElementById("tdriver_type").value == "") {
+            alert("Nhập kiểu tài xế!");
+            document.getElementById("tdriver_type").focus();
+            return;
+        }
+        
+        if (document.getElementById("tphone").value == "") {
+            alert("Nhập số điện thoại lái xe!");
+            document.getElementById("tphone").focus();
+            return;
+        }
+        if (document.getElementById("car_made").value == "") {
+            alert("Nhập hãng xe!");
+            document.getElementById("car_made").focus();
+            return;
+        }
+        if (document.getElementById("car_model").value == "") {
+            alert("Nhập loại xe model!");
+            document.getElementById("car_model").focus();
+            return;
+        }
+        if (document.getElementById("car_size").value == "") {
+            alert("Nhập số chỗ!");
+            document.getElementById("car_size").focus();
+            return;
+        }
+        if (document.getElementById("car_year").value == "") {
+            alert("Nhập năm sản xuất!");
+            document.getElementById("car_year").focus();
+            return;
+        }
+        if (document.getElementById("car_type").value == "") {
+            alert("Nhập loại xe!");
+            document.getElementById("car_type").focus();
+            return;
+        }
+        if (document.getElementById("car_price").value == "") {
+            alert("Nhập bảng giá!");
+            document.getElementById("car_price").focus();
+            return;
+        }
+        if (document.getElementById("lon").value == "") {
+            alert("Nhập địa chỉ!");
+            document.getElementById("address").focus();
+            return;
+        }
+        if (document.getElementById("password_tx").value == "") {
+            alert("Nhập mật khẩu đăng nhập!");
+            document.getElementById("password_new_input").focus();
+            return;
+        }
+
+        formdata.append("id", @Model.id);
+        formdata.append("name", document.getElementById("tname").value);
+        formdata.append("driver_type", document.getElementById("tdriver_type").value);
+        formdata.append("phone", document.getElementById("tphone").value);
+        formdata.append("car_number", document.getElementById("car_number").value);
+        formdata.append("car_made", document.getElementById("car_made").value);
+        formdata.append("car_model", document.getElementById("car_model").value);
+        formdata.append("car_size", document.getElementById("car_size").value);
+        formdata.append("car_year", document.getElementById("car_year").value);
+        formdata.append("car_type", document.getElementById("car_type").value);
+        formdata.append("car_price", document.getElementById("car_price").value);
+        formdata.append("address", document.getElementById("address").value);
+        formdata.append("lon", document.getElementById("lon").value);
+        formdata.append("lat", document.getElementById("lat").value);
+        formdata.append("password_tx", document.getElementById("password_tx").value);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Home/Register');
+        xhr.send(formdata);
+        var content = "";
+        document.getElementById("btnregister2").value = "Đang cập nhật xin chờ...";
+        document.getElementById("btnregister2").disabled = true;
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                if (xhr.responseText == "1") {
+                    alert("Bạn đã cập nhật thành công!");
+                    window.location.href="/taixe/taikhoan";
+                } else {
+                    alert("Chương trình đang cập nhật, xin quay lại sau!");
+                }
+                document.getElementById("btnregister2").value = "CẬP NHẬT XE";
+                document.getElementById("btnregister2").disabled = false;
+            }
+        }
+    }
+    $.ajax({
+        url: "/Home/getHangXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_made").html("<option value=\"\">Chọn hãng xe</option>");
+        $("#car_made").append("<option value='Tất cả các hãng'>Tất cả các hãng</option>");
+        $("#car_made").append(html);
+        $("#car_made").val("@Html.Raw(Model.car_made)");
+        autosearchmodel();
+    });
+    $.ajax({
+        url: "/Home/getLoaiXe",
+        cache: false
+    }).done(function (html) {
+        $("#car_type").html("" + html);
+        $("#car_type").val("@Html.Raw(Model.car_type)");
+    });
+    $.ajax({
+        url: "/Api/getCarSize",
+        cache: false
+    }).done(function (html) {
+        var news = '{"news":' + html + '}';
+        var json_parsed = $.parseJSON(news);
+        $("#car_size").html("");
+        for (var i = 0; i < json_parsed.news.length; i++) {
+            if (json_parsed.news[i]) {
+                var name = json_parsed.news[i].name;
+                $("#car_size").append("<option value='" + name + "'>" + name + "</option>");
+            }
+        }
+        $("#car_size").val("@Model.car_size");
+    });
+
+    $("#car_year").val("@Model.car_years");
+    $("#car_price").val("@Model.car_price");
+    function autosearchmodel() {
+        var keyword = document.getElementById("car_model").value;
+        var made = document.getElementById("car_made").value;
+        //var urlSearch = '/Api/getCarModelListFromMade2?keyword=' + keyword + "&made=" + made;
+        var urlSearch = '/Home/getCarModelListFromMade2?made=' + made;
+        $.ajax({
+            url: urlSearch,
+            cache: false
+        }).done(function (html) {
+            var news = '{"news":' + html + '}';
+            var json_parsed = $.parseJSON(news);
+
+            $("#car_model").html("");
+            $("#car_model").append("<option value='Tất cả các hãng'>Tất cả các hãng</option>");
+            for (var i = 0; i < json_parsed.news.length; i++) {
+                if (json_parsed.news[i]) {
+                    var name = json_parsed.news[i].name;
+                    $("#car_model").append("<option value='" + name + "'>" + name + "</option>");
+                }
+            }
+            $("#car_model").val("@Html.Raw(Model.car_model)");
+        });
+    }
+    
+</script>

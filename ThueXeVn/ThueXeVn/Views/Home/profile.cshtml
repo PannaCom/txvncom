@@ -25,6 +25,15 @@
 <script src="~/Content/bootstrap-rating.min.js"></script>
 <script src="/Scripts/jquery.datetimepicker.js"></script>
 
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=404216066584603";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 @{
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -50,20 +59,26 @@
                 @{Html.RenderAction("LoadAlbumDriver", new { driver_id = Model.id });}
             </div>
         </div>
-    <div style="background: #f5f5f5;">
+    <div style="background: #f5f5f5 url(/Images/bg_profile.jpg) no-repeat center center;background-size: cover;">
         <div class="container">
 
             <div class="row">
                 <div class="col-md-7">
-                    <div class="row item_profile">
+                    <div class="row item_profile item_profile_first">
                         <div class="col-sm-3">
-                            <h3>Nhà xe</h3>
+                            <h3>
+                                @if (Model.driver_type == 0)
+                                {<text>Tài xế</text>}
+                                else
+                                {<text>Nhà xe</text>}:
+                            </h3>
+
                         </div>
                         <div class="col-sm-9">
-                            <h3>Tài xế: @Model.name</h3>
+                            <h3>@Model.name</h3>
                             @if (Model.address != null && Model.address != "")
                             {
-                            <address><i class="fa fa-address-card"></i> @Model.address <a href="#map-canvas"> - Xem bản đồ</a></address>
+                                <address><i class="fa fa-address-card"></i> @Model.address <a href="#map-canvas"> - Xem bản đồ</a></address>
                             }
                             <p>Xe @Model.car_made @Model.car_model @Model.car_years</p>
                             @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
@@ -75,18 +90,35 @@
 
                 </div>
                 <div class="col-md-5 sidebar">
-                    <div><h3 class="profile_gia">Giá xe: @string.Format("{0:#,###}", Model.car_price) đồng/km</h3></div>
-
+                    <div>
+                        <h3 class="profile_gia">
+                            Giá trung bình:&nbsp;
+                            @if (Model.car_price == -1)
+                            {
+                                <text>thỏa thuận.</text>
+                            }
+                            else
+                            {
+                                <text>@string.Format("{0:#,###} đồng/km.", Model.car_price)</text>
+                            }
+                        </h3>
+                    </div>
                     @*Datxe*@
-
                     <form class="form-horizontal form_profile" method="post" id="form_dat_thue_xe" name="form_dat_thue_xe" enctype="multipart/form-data">
+
+                        <div class="text-center">
+                            <h1 style="color: #03a9f4;">Liên hệ ngay</h1>
+                            <a href="tel:@Model.phone" class="btn btn-info">@Model.phone</a>
+                        </div>
+                        
                         <input type="hidden" name="driver_id" id="driver_id" value="@Model.id" />
                         <input type="hidden" name="driver_name" id="driver_name" value="@Model.name" />
                         <input type="hidden" name="car_hire_type" id="car_hire_type" value="Một chiếu" />
                         <input type="hidden" name="car_type_made_model" id="car_type_made_model" value="@Model.car_type @Model.car_model @Model.car_years" />
                         <input type="hidden" name="price_driver" id="price_driver" value="@Model.car_price" />
-                        <input type="hidden" name="distance" id="distance" value="" />
-                        <input type="hidden" name="total_money" id="total_money" value="" />
+                        <input type="hidden" name="distance" id="distance" />
+                        <input type="hidden" name="total_money" id="total_money" />
+                        
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="control-label">Họ tên khách: </label>
@@ -125,8 +157,19 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <button type="button" class="btn btn-primary btn-block" id="btn_bookingtodriver" onclick="saveBookingToDriver(@Model.id);">Đặt xe</button>
+                            <div class="col-sm-12">
+                                <label class="control-label">Loại xe: </label>
+                                <select class="form-control" id="car_size_driver" name="car_size_driver" onchange="getcpdriver(@Model.id);">
+                                    <option value="">Tất cả loại xe</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="button" style="background: #03a9f4;border-color: #03a9f4;border-radius: 0;" class="btn btn-lg btn-primary btn-block" id="btn_bookingtodriver" onclick="saveBookingToDriver(@Model.id);">Đặt xe</button>
                             </div>
                         </div>
 
@@ -202,15 +245,25 @@
             </div>
         </div>
 
-        if (Model.lon != null && Model.lat != null)
+        if (ViewBag.lon != null && ViewBag.lat != null)
         {
-            <div class="container-fluid">
+            <div class="container-fluid" style="margin-top: 10px;">
                 <div class="row">
                     <div class="map-canvas" id="map-canvas"></div>
                 </div>
             </div>
         }
 
+        <div class="container" style="margin-top: 10px; margin-bottom: 10px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Thảo luận</h3>
+                    <div id="fb_page">
+                        <div class="fb-comments" data-href="@url" data-numposts="5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     }
 </div>
@@ -233,7 +286,6 @@
                 directionNav: true,
                 draggable: true,
             });
-
 
             //$('.danh_gia_chung').rating({
             //    extendSymbol: function (rate) {
@@ -300,7 +352,13 @@
                 $('#cus_name').focus();
             })
 
-
+            //Loaixe_socho
+            $.ajax({
+                url: "/Home/getCarSize",
+                cache: false
+            }).done(function (html) {
+                $('#car_size_driver').append(html);
+            });
 
             //$(document).on("click", "#contentPager a[href]", function () {
             //    $.ajax({
@@ -315,6 +373,28 @@
             //});
 
         })
+
+
+        function getcpdriver(id) {
+            if (id) {
+                var _loaixe = document.getElementById('car_size_driver').value;
+                if (_loaixe != "") {
+                    $.ajax({
+                        url: "/Home/getcpdriver?id="+id + "&socho=" + _loaixe,
+                        cache: false
+                    }).done(function (html) {
+                        $('#price_driver').val(html);
+                        var so1 = parseFloat(html);
+                        var so2 = parseFloat(document.getElementById("distance").value);
+                        document.getElementById("total_money").value = so1 * so2;
+                    });
+                }else {
+
+                }
+                
+            }
+        }
+        
 
         function addCommentdriver() {
             var url = "/Home/addCommentdriver"; // the script where you handle the form input.
@@ -416,8 +496,9 @@
         };
         $("#from_place").geocomplete(options)
       .bind("geocode:result", function (event, result) {
-          $("#lon_from").val(result.geometry.location.lat());
-          $("#lat_from").val(result.geometry.location.lng());
+          $("#lat_from").val(result.geometry.location.lat());
+          $("#lon_from").val(result.geometry.location.lng());
+          search_khoangcach();
           //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
       })
       .bind("geocode:error", function (event, status) {
@@ -429,8 +510,9 @@
 
         $("#to_place").geocomplete(options)
           .bind("geocode:result", function (event, result) {
-              $("#lon_to").val(result.geometry.location.lat());
-              $("#lat_to").val(result.geometry.location.lng());
+              $("#lat_to").val(result.geometry.location.lat());
+              $("#lon_to").val(result.geometry.location.lng());
+              search_khoangcach();
               //alert("long" + result.geometry.location.lng() + ", lat=" + result.geometry.location.lat());
           })
           .bind("geocode:error", function (event, status) {
@@ -439,6 +521,43 @@
           .bind("geocode:multiple", function (event, results) {
               $.log("Multiple: " + results.length + " results found");
           });
+
+
+        function search_khoangcach() {
+            if (document.getElementById('lat_from').value != "" && document.getElementById('lon_from').value != "" && document.getElementById('lat_to').value != "" && document.getElementById('lon_to').value != "") {
+            
+                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var directionsService = new google.maps.DirectionsService;
+
+                var selectedMode = "DRIVING";
+                //var khoangcach = "";
+                var latlng1 = new google.maps.LatLng(document.getElementById('lat_from').value, document.getElementById('lon_from').value);
+                var latlng2 = new google.maps.LatLng(document.getElementById('lat_to').value, document.getElementById('lon_to').value);
+                console.log(latlng1);
+                console.log(latlng2);
+                directionsService.route({
+                    origin: latlng1,  // Diem di.
+                    destination: latlng2,  // Diem den
+                    // Note that Javascript allows us to access the constant
+                    // using square brackets and a string value as its
+                    // "property."
+                    travelMode: google.maps.TravelMode[selectedMode]
+                }, function (response, status) {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                        var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "").replace(",",".").trim();
+                    
+                        var _gia1 = document.getElementById("price_driver").value;
+                        var so1 = parseFloat(khoangcach);
+                        var so2 = parseFloat(_gia1);
+                        document.getElementById("distance").value = so1;
+                        document.getElementById("total_money").value = so1 * so2;
+                    } else {
+                        console.log(status);
+                    }
+                });
+            }
+        }
 
         //Loaixe_socho
         //$.ajax({
@@ -449,7 +568,6 @@
         //});
 
         function saveBookingToDriver(id) {
-
             var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
             if (document.getElementById('customer_name').value === "") {
                 alert("Vui lòng nhập họ tên khách hàng.");
@@ -487,6 +605,13 @@
                 document.getElementById('to_place').focus();
                 return false;
             }
+
+            if (document.getElementById('car_size_driver').value === "") {
+                alert("Vui lòng chọn loại xe muốn đặt.");
+                document.getElementById('car_size_driver').focus();
+                return false;
+            }
+            
             document.getElementById("btn_bookingtodriver").innerHTML = "Đang đặt xe xin chờ....";
             document.getElementById("btn_bookingtodriver").disabled = true;
             $.ajax({
@@ -514,38 +639,35 @@
     </script>
 
 
-    @if (Model != null)
-    {
-        if (Model.lon != null && Model.lat != null)
-        {
+@if (ViewBag.lon != null && ViewBag.lat != null)
+{
 
-            <!--Map JavaScript-->
-            <script>
-                initmap();
-                function initmap() {
-                    var myVitri = new google.maps.LatLng(@Model.lat, @Model.lon);
-                    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-                        center: { lat: myVitri.lat(), lng: myVitri.lng() },
-                        zoom: 14,
-                        draggable: true,
-                        scrollwheel: false,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        animation: google.maps.Animation.DROP,
-                    });
+    <!--Map JavaScript-->
+    <script>
+        initmap();
+        function initmap() {
+            var myVitri = new google.maps.LatLng(@ViewBag.lat, @ViewBag.lon);
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                center: { lat: myVitri.lat(), lng: myVitri.lng() },
+                zoom: 14,
+                draggable: true,
+                scrollwheel: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                animation: google.maps.Animation.DROP,
+            });
 
-                    var infoWindow = new google.maps.InfoWindow({ map: map });
-                    var pos = {
-                        lat: myVitri.lat(),
-                        lng: myVitri.lng()
-                    };
+            var infoWindow = new google.maps.InfoWindow({ map: map });
+            var pos = {
+                lat: myVitri.lat(),
+                lng: myVitri.lng()
+            };
 
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('<i class="fa fa-car fa-2x"></i> @Html.Raw(Model.address)');
-                    map.setCenter(pos);
-
-                }
-            </script>
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('<i class="fa fa-car fa-2x"></i> @Html.Raw(Model.name + ", <br /> Địa chỉ: " + Model.address)');
+            map.setCenter(pos);
 
         }
-    }
+    </script>
+
+}
 }

@@ -159,7 +159,7 @@
                             foreach (var item in Model)
                             {
                                 double giaTaiXe = 1;
-                                string url_profile = string.Format("/Home/profile/{0}-{1}", @Config.unicodeToNoMark(item.name), item.id);
+                                string url_profile = string.Format("/nha-xe/{0}-{1}", @Config.unicodeToNoMark(item.name), item.id);
                                 if (item.cp_price != null)
                                 {
                                     double d_gia = Convert.ToDouble(item.cp_price);
@@ -176,7 +176,7 @@
                                         <section class="col-xs-12 col-md-9 pho_information" style="padding-top: 0;">
                                             <h4 class="profile_page_1">
                                                 
-                                                <a href="@url_profile" class="profile_page">@item.name</a>
+                                                <a href="@url_profile" class="profile_page">@if(item.driver_type == 0){<text>Tài xế</text>}else {<text>Nhà xe</text>} @item.name</a>
                                                 <a href="@url_profile" style="font-size: 75%; margin-left: 10px; display: none;">Xem chi tiết</a>
                                             </h4>
                                             @*<div class="rating-star-box" title="This provider has received 4.5 stars out of 5 based on customer reviews">
@@ -220,6 +220,9 @@
                                                     {
                                                         <text><span id="total_money_driver_@item.id">@string.Format("{0:#,###}", giaTaiXe)</span> Đồng.</text>
                                                     }
+                                                </p>
+                                                <p>
+                                                    Loại xe: xe <span id="car_size_driver_@item.id">@item.car_size</span> chỗ
                                                 </p>
                                                 <p>Giá 1km: <span id="price_driver_@item.id">@string.Format("{0:#,###}", item.cp_price)</span> Đồng.</p>
                                             </div>
@@ -450,6 +453,7 @@
             document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',','');
             document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
             document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
+            document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_'+id).value;
             
             var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
             if (document.getElementById('customer_name').value === "") {
