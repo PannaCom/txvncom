@@ -28,7 +28,7 @@
         document.getElementById("tdriver_type").value = @Model.driver_type;
     </script>
     <p style="text-align:left;margin-top:5px;">Email</p>
-    <input id="temail" name="temail" type="email" class="form-control" placeholder="Địa chỉ email" onchange="EmailDriverExists(@Model.id);" />
+    <input id="temail" name="temail" type="email" class="form-control" placeholder="Địa chỉ email" onchange="EmailDriverExists(@Model.id);" value="@Model.email" />
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone" />
     <p style="text-align:left;margin-top:5px;">Biển số xe</p>
