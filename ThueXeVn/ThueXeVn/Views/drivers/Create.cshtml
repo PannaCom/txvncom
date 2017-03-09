@@ -23,6 +23,8 @@
         <option value="0">Tài xế lẻ</option>
         <option value="1">Nhà xe</option>
     </select>
+    <p style="text-align:left;margin-top:5px;">Email</p>
+    <input id="temail" name="temail" type="email" class="form-control" placeholder="Địa chỉ email" onchange="EmailDriverExists();" />
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" />
     <p style="text-align:left;margin-top:5px;">Biển số xe</p>
@@ -71,6 +73,27 @@
               $.log("Multiple: " + results.length + " results found");
           });
     });
+
+    function EmailDriverExists() {
+        var email = document.getElementById('temail').value;
+        if (email != "") {
+        $.ajax({
+            type: "POST",
+            url: '/Home/EmailDriverExists',
+            data: { strEmail: email }, // serializes the form's elements.
+            success: function (data) {
+                if (data == false) {
+                    alert('Email đã được đăng ký');
+                    document.getElementById("btnregister2").disabled = true;
+                } else {
+                    document.getElementById("btnregister2").disabled = false;
+                }
+                //console.log(data);
+            }
+        });
+        }
+    }
+
     function register() {
         var formdata = new FormData(); //FormData object
         //var datetimepicker = document.getElementById("datetimepicker").value;
@@ -84,7 +107,11 @@
             document.getElementById("tdriver_type").focus();
             return;
         }
-        
+        if (document.getElementById("temail").value.length > 50) {
+            alert("Email không được vượt quá 50 ký tự.");
+            document.getElementById("temail").focus();
+            return;
+        }
         if (document.getElementById("tphone").value == "") {
             alert("Nhập số điện thoại lái xe!");
             document.getElementById("tphone").focus();
@@ -138,6 +165,7 @@
         formdata.append("id", -1);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("driver_type", document.getElementById("tdriver_type").value);
+        formdata.append("email", document.getElementById("temail").value);
         formdata.append("phone", document.getElementById("tphone").value);
         formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);

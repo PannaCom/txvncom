@@ -4,6 +4,12 @@
     ViewBag.Title = "Sửa thông tin tài xế";
     Layout = "~/Views/Shared/_LayoutAdminTX.cshtml";
 }
+
+@*@if (Config.getCookie("taixelogged") != null) { 
+    var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+    long _id = Convert.ToInt64(id_taixe);
+}*@
+
 <script type="text/javascript" src="/Scripts/jquery-1.11.0.min.js"></script>
 <script src="/Scripts/jquery-ui-1.8.24.js"></script>
 <script src="/Scripts/jquery-2.1.1.js"></script>
@@ -32,6 +38,8 @@
     <script>
         document.getElementById("tdriver_type").value = @Model.driver_type;
     </script>
+    <p style="text-align:left;margin-top:5px;">Email</p>
+    <input id="temail" name="temail" type="email" class="form-control" placeholder="Địa chỉ email" onchange="EmailDriverExists(@Model.id);" />
     <p style="text-align:left;margin-top:5px;">Số điện thoại *</p>
     <input id="tphone" name="tphone" class="form-control" placeholder="Nhập số điện thoại" value="@Model.phone" />
     <p style="text-align:left;margin-top:5px;">Biển số xe</p>
@@ -88,6 +96,29 @@
               $.log("Multiple: " + results.length + " results found");
           });
     });
+
+    function EmailDriverExists(id) {
+        var email = document.getElementById('temail').value;
+        if(email != "") {
+
+        $.ajax({
+            type: "POST",
+            url: '/Home/EmailDriverExists',
+            data: { lgId: id, strEmail: email }, // serializes the form's elements.
+            success: function (data) {
+                if (data == false) {
+                    alert('Email đã được đăng ký');
+                    document.getElementById("btnregister2").disabled = true;
+                } else {
+                    document.getElementById("btnregister2").disabled = false;
+                }
+                //console.log(data);
+            }
+        });
+            
+        }
+    }
+
     function register() {
         var formdata = new FormData(); //FormData object
         //var datetimepicker = document.getElementById("datetimepicker").value;
@@ -101,7 +132,11 @@
             document.getElementById("tdriver_type").focus();
             return;
         }
-        
+        if (document.getElementById("temail").value.length > 50) {
+            alert("Email không được vượt quá 50 ký tự.");
+            document.getElementById("temail").focus();
+            return;
+        }
         if (document.getElementById("tphone").value == "") {
             alert("Nhập số điện thoại lái xe!");
             document.getElementById("tphone").focus();
@@ -151,6 +186,7 @@
         formdata.append("id", @Model.id);
         formdata.append("name", document.getElementById("tname").value);
         formdata.append("driver_type", document.getElementById("tdriver_type").value);
+        formdata.append("email", document.getElementById("temail").value);
         formdata.append("phone", document.getElementById("tphone").value);
         formdata.append("car_number", document.getElementById("car_number").value);
         formdata.append("car_made", document.getElementById("car_made").value);
