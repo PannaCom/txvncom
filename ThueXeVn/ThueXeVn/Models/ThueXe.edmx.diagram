@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="80b077da9079426d8e7184008f572ed8" Name="Diagram1">
+      <Diagram DiagramId="80b077da9079426d8e7184008f572ed8" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="thuexevnModel.list_car" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="thuexevnModel.list_car_model" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="thuexevnModel.list_car_type" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
@@ -36,8 +36,8 @@
         <EntityTypeShape EntityType="thuexevnModel.car_price_da_nang" Width="1.5" PointX="17.375" PointY="0.75" />
         <EntityTypeShape EntityType="thuexevnModel.driver_info" Width="1.5" PointX="15.375" PointY="15.75" />
         <EntityTypeShape EntityType="thuexevnModel.driver_promotion" Width="1.5" PointX="15.375" PointY="6.75" />
-        <EntityTypeShape EntityType="thuexevnModel.driver" Width="1.5" PointX="3.375" PointY="11.75" />
         <EntityTypeShape EntityType="thuexevnModel.booking_to_driver" Width="1.5" PointX="15.375" PointY="9.75" />
+        <EntityTypeShape EntityType="thuexevnModel.driver" Width="1.5" PointX="3.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -539,8 +539,8 @@
           <EntitySet Name="car_price_da_nang" EntityType="thuexevnModel.car_price_da_nang" />
           <EntitySet Name="driver_info" EntityType="thuexevnModel.driver_info" />
           <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
-          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="booking_to_driver" EntityType="thuexevnModel.booking_to_driver" />
+          <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -801,6 +801,32 @@
           <Property Name="from_date" Type="DateTime" Precision="0" />
           <Property Name="to_date" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="booking_to_driver">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lon_from" Type="Double" />
+          <Property Name="lat_from" Type="Double" />
+          <Property Name="lon_to" Type="Double" />
+          <Property Name="lat_to" Type="Double" />
+          <Property Name="from_place" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="to_place" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="car_type_made_model" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="car_hire_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="driver_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="date_booking" Type="DateTime" Precision="3" />
+          <Property Name="price_driver" Type="Int32" />
+          <Property Name="distance" Type="Double" />
+          <Property Name="total_money" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="customer_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="customer_phone" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="from_date" Type="DateTime" Precision="3" />
+          <Property Name="to_date" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Byte" />
+          <Property Name="car_size_driver" Type="Int32" />
+        </EntityType>
         <EntityType Name="driver">
           <Key>
             <PropertyRef Name="id" />
@@ -828,32 +854,6 @@
           <Property Name="lat" Type="Double" />
           <Property Name="geo" Type="Geography" />
           <Property Name="driver_type" Type="Int32" />
-        </EntityType>
-        <EntityType Name="booking_to_driver">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="lon_from" Type="Double" />
-          <Property Name="lat_from" Type="Double" />
-          <Property Name="lon_to" Type="Double" />
-          <Property Name="lat_to" Type="Double" />
-          <Property Name="from_place" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
-          <Property Name="to_place" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
-          <Property Name="car_type_made_model" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
-          <Property Name="car_hire_type" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="driver_id" Type="Int64" />
-          <Property Name="driver_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="date_booking" Type="DateTime" Precision="3" />
-          <Property Name="price_driver" Type="Int32" />
-          <Property Name="distance" Type="Double" />
-          <Property Name="total_money" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="customer_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="customer_phone" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="from_date" Type="DateTime" Precision="3" />
-          <Property Name="to_date" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="Byte" />
-          <Property Name="car_size_driver" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1226,6 +1226,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="booking_to_driver">
+            <EntityTypeMapping TypeName="thuexevnModel.booking_to_driver">
+              <MappingFragment StoreEntitySet="booking_to_driver">
+                <ScalarProperty Name="car_size_driver" ColumnName="car_size_driver" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="to_date" ColumnName="to_date" />
+                <ScalarProperty Name="from_date" ColumnName="from_date" />
+                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="total_money" ColumnName="total_money" />
+                <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="price_driver" ColumnName="price_driver" />
+                <ScalarProperty Name="date_booking" ColumnName="date_booking" />
+                <ScalarProperty Name="driver_name" ColumnName="driver_name" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="car_hire_type" ColumnName="car_hire_type" />
+                <ScalarProperty Name="car_type_made_model" ColumnName="car_type_made_model" />
+                <ScalarProperty Name="to_place" ColumnName="to_place" />
+                <ScalarProperty Name="from_place" ColumnName="from_place" />
+                <ScalarProperty Name="lat_to" ColumnName="lat_to" />
+                <ScalarProperty Name="lon_to" ColumnName="lon_to" />
+                <ScalarProperty Name="lat_from" ColumnName="lat_from" />
+                <ScalarProperty Name="lon_from" ColumnName="lon_from" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="drivers">
             <EntityTypeMapping TypeName="thuexevnModel.driver">
               <MappingFragment StoreEntitySet="drivers">
@@ -1251,33 +1278,6 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="booking_to_driver">
-            <EntityTypeMapping TypeName="thuexevnModel.booking_to_driver">
-              <MappingFragment StoreEntitySet="booking_to_driver">
-                <ScalarProperty Name="car_size_driver" ColumnName="car_size_driver" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="to_date" ColumnName="to_date" />
-                <ScalarProperty Name="from_date" ColumnName="from_date" />
-                <ScalarProperty Name="customer_phone" ColumnName="customer_phone" />
-                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
-                <ScalarProperty Name="total_money" ColumnName="total_money" />
-                <ScalarProperty Name="distance" ColumnName="distance" />
-                <ScalarProperty Name="price_driver" ColumnName="price_driver" />
-                <ScalarProperty Name="date_booking" ColumnName="date_booking" />
-                <ScalarProperty Name="driver_name" ColumnName="driver_name" />
-                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
-                <ScalarProperty Name="car_hire_type" ColumnName="car_hire_type" />
-                <ScalarProperty Name="car_type_made_model" ColumnName="car_type_made_model" />
-                <ScalarProperty Name="to_place" ColumnName="to_place" />
-                <ScalarProperty Name="from_place" ColumnName="from_place" />
-                <ScalarProperty Name="lat_to" ColumnName="lat_to" />
-                <ScalarProperty Name="lon_to" ColumnName="lon_to" />
-                <ScalarProperty Name="lat_from" ColumnName="lat_from" />
-                <ScalarProperty Name="lon_from" ColumnName="lon_from" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
