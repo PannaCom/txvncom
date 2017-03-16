@@ -116,6 +116,12 @@ namespace ThueXeVn
                 "taixe/taikhoan",
                 new { controller = "TaiXeBangGia", action = "driverEdit" }
             );
+
+            routes.MapRoute(
+                "dangkythongtinnhaxe",
+                "dang-ky-thong-tin-nha-xe",
+                new { controller = "Home", action = "ContactUS" }
+            );
             
             routes.MapRoute(
                 name: "Default",

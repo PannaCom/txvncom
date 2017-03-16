@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -27,40 +26,43 @@
                         <h3>Đăng ký thông tin nhà xe</h3>
                     </div>
                 </div>
-                <div class="row">                    
-                    <div class="input-field col s6">
+                <div class="row">
+                    <div class="input-field col s12 m6">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="first_name" name="first_name" type="text" class="validate">
-                        <label for="icon_prefix">Tên nhà xe:</label>
+                        <label for="first_name">Tên nhà xe:</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="material-icons prefix">phone</i>
                         <input id="phone_number" name="phone_number" type="text" class="validate">
                         <label for="phone_number">Số điện thoại:</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="fa fa-address-card prefix"></i>
                         <input id="add_ress" name="add_ress" type="text" class="validate">
-                        <label for="icon_prefix">Địa chỉ</label>
+                        <label for="add_ress">Địa chỉ</label>
                     </div>
-                    <div class="input-field col s6">
+                    <div class="input-field col s12 m6">
                         <i class="fa fa-envelope prefix"></i>
-                        <input id="email" name="email" type="text" class="validate">
-                        <label for="phone_number">Email:</label>
+                        <input id="email" name="email" type="email" class="validate">
+                        <label for="email">Email:</label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12">
                         <i class="fa fa-link prefix"></i>
-                        <input id="website" name="website" type="text" class="validate">
+                        <input id="website" name="website" type="text" class="validate" />
                         <label for="website">Website:</label>
                     </div>
-                    <div class="input-field col s6">
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
                         <i class="fa fa-car prefix"></i>
                         <select multiple id="loaixe" name="loaixe">
-                            <option value="" disabled selected>Chọn loại xe</option>
+                            <option value="" disabled>Chọn loại xe</option>
                             <option value="4">Xe 4 chỗ</option>
                             <option value="5">Xe 5 chỗ</option>
                             <option value="7">Xe 7 chỗ</option>
@@ -69,28 +71,31 @@
                             <option value="35">Xe 35 chỗ</option>
                             <option value="45">Xe 45 chỗ</option>
                         </select>
-                        
+
                         <label for="loaixe">Loại xe:</label>
                     </div>
+                </div>
+
+                <div class="row" id="banggiarieng">
                     
                 </div>
+
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s12">
                         <i class="fa fa-money prefix"></i>
-                        <input id="banggia" name="banggia" type="text" class="validate">
-                        <label for="banggia">Bảng giá:</label>
+                        <textarea rows="10" id="banggia" name="banggia"  class="materialize-textarea" placeholder="Ví dụ: giá xe 4 chỗ 6000 đồng/km, giá xe 5 chỗ 7000 đồng/km"></textarea>
+                        <label for="banggia">Ghi chú bảng giá:</label>
                     </div>
-                    
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fa fa-train prefix"></i>
-                        <textarea rows="10" id="tour" name="tour" type="text" class="materialize-textarea"></textarea>
-                        <label for="tous">Các tour hay đi:</label>
+                        <textarea rows="10" id="tour" name="tour" class="materialize-textarea"></textarea>
+                        <label for="tour">Các tour hay đi:</label>
                     </div>
                 </div>
                 <div class="row">
-                   
+
                     <div class="file-field input-field col s6">
                         <div class="btn">
                             <span>Hình ảnh</span>
@@ -100,13 +105,18 @@
                             <input class="file-path validate" type="text">
                         </div>
                     </div>
+                    <div class="file-field input-field col s12 m6">
+                        <img class="materialboxed" width="200" src="" id="blah" style="display: none;">
+                    </div>
+                    
                 </div>
 
                 <div class="row">
-                    <div class="col s12">
+                    <div class="file-field input-field col s12 m6">
                         <button type="button" class="waves-effect waves-light btn" id="btn_contact" onclick="contactus(event);"><i class="material-icons left">done</i>Gửi thông tin đăng ký</button>
                     </div>
                 </div>
+
             </form>
         </div>
 
@@ -115,82 +125,6 @@
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="~/Content/materialize/js/materialize.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-
-        function contactus(e) {
-            e.preventDefault();
-            var formdata = new FormData(); //FormData object
-            
-            if (document.getElementById("first_name").value === "") {
-                alert('Vui lòng nhập tên nhà xe.');
-                document.getElementById("first_name").focus();
-                return false;
-            }
-
-            if (document.getElementById("phone_number").value === "") {
-                alert('Vui lòng nhập số điện thoại.');
-                document.getElementById("phone_number").focus();
-                return false;
-            }
-
-            if (document.getElementById("add_ress").value === "") {
-                alert('Vui lòng nhập địa chỉ.');
-                document.getElementById("add_ress").focus();
-                return false;
-            }
-
-            if (document.getElementById("email").value === "") {
-                alert('Vui lòng nhập email nhà xe.');
-                document.getElementById("email").focus();
-                return false;
-            }
-                       
-            var $file = document.getElementById('hinh_anh'),
-            $formData = new FormData();
-
-            if ($file.files.length > 0) {
-                for (var i = 0; i < $file.files.length; i++) {
-                    $formData.append('file-' + i, $file.files[i]);
-                }
-            }
-
-            $formData.append("first_name", document.getElementById("first_name").value);
-            $formData.append("add_ress", document.getElementById("add_ress").value);
-            $formData.append("email", document.getElementById("email").value);
-            $formData.append("website", document.getElementById("website").value);
-
-            var loaixe = [];
-            $('#loaixe :selected').each(function (i, selected) {
-                loaixe[i] = $(selected).val();
-            });
-
-            $formData.append("loaixe", loaixe);
-            $formData.append("banggia", document.getElementById("banggia").value);
-            $formData.append("tour", document.getElementById("tour").value);
-            
-            document.getElementById('btn_contact').innerHTML = 'Đang gửi thông tin đăng ký...';
-            document.getElementById('btn_contact').disabled = true;
-            $.ajax({
-                url: '/home/contactus',
-                type: 'POST',
-                data: $formData,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-                success: function ($data) {
-                    alert('Thông tin đăng ký của bạn đã được gửi thành công, chúng tôi sẽ liên lạc sớm lại cho bạn.');
-                    document.getElementById('btn_contact').innerHTML = 'Gửi thông tin đăng ký';
-                    document.getElementById('btn_contact').disabled = false;
-                }
-            });          
-            
-
-        }
-
-    </script>
+    <script src="~/Content/materialize/js/main.js"></script>
 </body>
 </html>
