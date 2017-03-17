@@ -1080,6 +1080,7 @@ namespace ThueXeVn.Controllers
             }
             ViewBag.gia_select = gia_select;
             //if (search == null) search = ""; if (tt == null) tt = ""; if (car_hire_type == null) car_hire_type = "";
+            data = data.OrderByDescending(x => x.driver_type).ToList();
             return View(data.ToPagedList(pageNumber, pageSize)); 
 
         }
@@ -1401,13 +1402,15 @@ namespace ThueXeVn.Controllers
         {
             var dt = db.driver_rate_comment.Where(x => x.cus_driver_id == id).Select(x => x).ToList();
             var dg = new danhgiavm();
+            var _rd = Guid.NewGuid().ToString();
+            
             if (dt.Count > 0)
             {
                 var n = dt.Sum(x => x.cus_rate) / dt.Count;
                 dg = new danhgiavm()
                 {
                     so1 = n,
-                    so2 = id
+                    so2 = id + _rd
                 };
             }           
             

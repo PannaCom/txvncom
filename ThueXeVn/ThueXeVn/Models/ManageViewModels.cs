@@ -208,7 +208,7 @@ namespace ThueXeVn.Models
     public class danhgiavm
     {
         public int? so1 { get; set; }
-        public long? so2 { get; set; }
+        public string so2 { get; set; }
     }
 
 }

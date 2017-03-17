@@ -25,6 +25,9 @@ namespace ThueXeVn
             bundles.Add(new ScriptBundle("~/Scripts/core").Include(
                 "~/Scripts/core.js"));
 
+            bundles.Add(new ScriptBundle("~/Content/css/styles").Include(
+                "~/Content/jquery.datetimepicker.css"));
+
             BundleTable.EnableOptimizations = false;
         }
     }

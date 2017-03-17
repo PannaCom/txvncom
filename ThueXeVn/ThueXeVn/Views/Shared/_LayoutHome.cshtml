@@ -11,20 +11,19 @@
 
     <!-- Favicons
     ================================================== -->
-    <link rel="shortcut icon" href="~/Content/Theme/1a/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="~/Content/Theme/1a/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/Theme/1a/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/Theme/1a/img/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="~/Images/page/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="~/Images/page/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Images/page/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Images/page/apple-touch-icon-114x114.png">
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/fonts/font-awesome/css/font-awesome.min.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
 
     <!-- Jquery UI style
     ================================================== -->
-    <link rel="stylesheet" href="/Scripts/jquery-ui.css">
-    <!-- datetimepicker style
-    ================================================== -->
-    <link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css/styles")
     <!-- Nivo Lightbox
     ================================================== -->
     <link rel="stylesheet" href="~/Content/Theme/1a/css/nivo-lightbox.css">
@@ -51,6 +50,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     @Scripts.Render("~/bundles/modernizr")
+
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>   
     <script src="~/Scripts/jquery.datetimepicker.min.js"></script>
