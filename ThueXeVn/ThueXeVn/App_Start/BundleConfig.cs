@@ -25,10 +25,22 @@ namespace ThueXeVn
             bundles.Add(new ScriptBundle("~/Scripts/core").Include(
                 "~/Scripts/core.js"));
 
-            bundles.Add(new ScriptBundle("~/Content/css/styles").Include(
-                "~/Content/jquery.datetimepicker.css"));
+            bundles.Add(new StyleBundle("~/Content/fontend/css/main").Include(
+                "~/Content/fontend/css/jquery.datetimepicker.css",
+                "~/Content/fontend/css/owl.carousel.css",
+                "~/Content/fontend/css/owl.theme.css",
+                "~/Content/fontend/css/style.css",
+                "~/Content/fontend/css/responsive.css",
+                "~/Content/fontend/css/stylemh.css"                
+                ));
 
-            BundleTable.EnableOptimizations = false;
+            bundles.Add(new ScriptBundle("~/Content/fontend/js/scripts").Include(
+                "~/Content/fontend/js/owl.carousel.js",
+                "~/Content/fontend/js/main.js"
+                ));
+            bundles.Add(new ScriptBundle("~/Scripts/main").Include("~/Scripts/script2.js"));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

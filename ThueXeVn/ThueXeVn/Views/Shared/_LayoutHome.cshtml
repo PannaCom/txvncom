@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="~/Images/page/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="~/Images/page/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="~/Images/page/apple-touch-icon-114x114.png">
+    <link href="~/Content/fontend/css/fonts.css" rel="stylesheet" />
     <!-- Bootstrap -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
@@ -22,27 +23,10 @@
     <!-- Jquery UI style
     ================================================== -->
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
-    @Styles.Render("~/Content/css/styles")
-    <!-- Nivo Lightbox
-    ================================================== -->
-    <link rel="stylesheet" href="~/Content/Theme/1a/css/nivo-lightbox.css">
-    <link rel="stylesheet" href="~/Content/Theme/1a/css/nivo_lightbox_themes/default/default.css">
-
-    <!-- Slider
-    ================================================== -->
-    <link href="~/Content/Theme/1a/css/owl.carousel.css" rel="stylesheet" media="screen">
-    <link href="~/Content/Theme/1a/css/owl.theme.css" rel="stylesheet" media="screen">
-    <!-- tagsinput
-    ================================================== -->
-    <link href="~/Content/Theme/1a/Plugin/bootstrap-tagsinput.css" rel="stylesheet" />
-    <!-- Stylesheet
-    ================================================== -->
-    <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/style.css">
-    <link rel="stylesheet" type="text/css" href="~/Content/Theme/1a/css/responsive.css">
+    @Styles.Render("~/Content/fontend/css/main")
 
     @RenderSection("Styles", false)
-    
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -52,7 +36,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>   
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
     <script src="~/Scripts/jquery.datetimepicker.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     @Scripts.Render("~/Scripts/core")
@@ -67,7 +51,6 @@
         ga('create', 'UA-83915618-1', 'auto');
         ga('send', 'pageview');
     </script>
-    @*@Html.Partial("_fbchatmessager")*@
 </head>
 <body>
 
@@ -90,7 +73,7 @@
     @Html.Partial("_Footer")
 
     <div id="footer_sec">
-        <div class="container">            
+        <div class="container">
             <ul style="list-style-type: none; text-align: center; margin-top: 10px;">
                 <li>Dịch vụ nổi bật: </li>
                 <li>
@@ -106,46 +89,15 @@
         </div>
     </div>
 
-    
-    @*<script src="//images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.1.11.1.js"></script>-->
-
-
-        <script type="text/javascript" src="~/Content/Theme/1a/js/SmoothScroll.js"></script>
-
-        <!-- Google Map
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&amp;sensor=false"></script>
-        <script type="text/javascript" src="js/map.js"></script>-->
-        <!-- Parallax Effects -->
-        <script type="text/javascript" src="~/Content/Theme/1a/js/skrollr.js"></script>
-        <script type="text/javascript" src="~/Content/Theme/1a/js/imagesloaded.js"></script>
-
-        <!-- Portfolio Filter -->
-        <script type="text/javascript" src="~/Content/Theme/1a/js/jquery.isotope.js"></script>
-
-        <!-- LightBox Nivo -->
-        <script type="text/javascript" src="~/Content/Theme/1a/js/nivo-lightbox.min.js"></script>
-
-        <!-- Contact page-->
-        <script type="text/javascript" src="~/Content/Theme/1a/js/jqBootstrapValidation.js"></script>
-        <script type="text/javascript" src="~/Content/Theme/1a/js/contact.js"></script>
-
-
-        <!-- Javascripts
-        ================================================== -->
-        <script type="text/javascript" src="~/Content/Theme/1a/js/main.js"></script>*@
-
-
     @*<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>*@
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-    <script src="/Scripts/jquery.geocomplete.js"></script>
-    <script type="text/javascript" src="~/Content/Theme/1a/js/main.js"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>*@
+    <script src="~/Scripts/jquery.geocomplete.min.js"></script>
+
+    @Scripts.Render("~/Content/fontend/js/scripts")
 
     @RenderSection("scripts", required: false)
 
-    @Html.Partial("_fbchatmessager")
-    
+    @*@Html.Partial("_fbchatmessager")*@
+
 </body>
 </html>
