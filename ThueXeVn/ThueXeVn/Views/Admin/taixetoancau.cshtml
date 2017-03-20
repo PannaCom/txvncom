@@ -54,18 +54,29 @@
                                 <button class="btn btn-primary" type="button" id="btn_sendsms" onclick="send_sms_start(event);">Gửi tin nhắn</button>
                             </div>
                         </div>
+                        
+                        
+
                     </div>
                 </form>
             </div>
         </div>
+
+       
     </div>
 
     <div class="col-md-6">
-        
-        <div id="progressbar" class="progressbar">
-            <div id="progresslabel" class="progressbarlabel"></div>
+        <div id="result" style="border: 2px solid #808080; height: 250px; overflow: auto; display: none;">
+            <div id="progressbar" class="progressbar">
+                <div id="progresslabel" class="progressbarlabel"></div>
+            </div>
+            
+            @*<div class="progress" id="progressbar">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+                    <span class="sr-only">45% Complete</span>
+                </div>
+            </div>*@
         </div>
-
     </div>
 
 </div>
@@ -84,11 +95,8 @@
             //            $('#taixe_phone').append('<option value="' + data[i].phone + '">' + data[i].name + '</option>');
             //        })
             //    }
-            //})           
-
+            //})              
         })
-
-        
 
         function send_sms_start(e) {
             e.preventDefault();
@@ -123,106 +131,125 @@
                 }
             }
 
-            var button = document.getElementById("btn_sendsms");
-            button.innerHTML = "Đang gửi tin nhắn.... ";
-            button.disabled = true;
+         
+            document.getElementById("btn_sendsms").innerHTML = "Đang gửi tin nhắn.... ";
+            document.getElementById("btn_sendsms").disabled = true;
 
-            var xhr = new XMLHttpRequest();
-            var data = new FormData();
-            data.append("phone", document.getElementById("taixe_phone").value);
-            data.append("content", document.getElementById("content_sms").value);
-            xhr.upload.addEventListener("progress", function (evt) {
-                if (evt.lengthComputable) {
-                    var progress = Math.round(evt.loaded * 100 / evt.total);
-                    console.log(progress);
-                    $("#progressbar").progressbar("value", progress);
-                }
-            }, false);
-            xhr.addEventListener("progress", function (evt) {
-                if (evt.lengthComputable) {
-                    var progress = Math.round(evt.loaded * 100 / evt.total);
-                    console.log(progress);
-                    $("#progressbar").progressbar("value", progress);
-                }
-            }, false);
-            xhr.open("POST", "/Admin/sendsmstoancau");
-            xhr.send(data);
+            //var xhr = new XMLHttpRequest();
+            //var data = new FormData();
+            //data.append("phone", document.getElementById("taixe_phone").value);
+            //data.append("content", document.getElementById("content_sms").value);
+            //xhr.upload.addEventListener("progress", function (evt) {
+            //    if (evt.lengthComputable) {
+            //        var progress = Math.round(evt.loaded * 100 / evt.total);
+            //        console.log(progress);
+            //        $("#progressbar").progressbar("value", progress);
+            //    }
+            //}, false);
+            //xhr.addEventListener("progress", function (evt) {
+            //    if (evt.lengthComputable) {
+            //        var progress = Math.round(evt.loaded * 100 / evt.total);
+            //        console.log(progress);
+            //        $("#progressbar").progressbar("value", progress);
+            //    }
+            //}, false);
+            //xhr.open("POST", "/Admin/sendsmstoancau");
+            //xhr.send(data);            
 
-            $("#progressbar").progressbar({
-                max: 100,
-                change: function (evt, ui) {
-                    $("#progresslabel").text($("#progressbar").progressbar("value") + "%");
-                },
-                complete: function (evt, ui) {
-                    $("#progresslabel").text("File upload successful!");
-                }
-            });
+            //document.getElementById("btn_sendsms").innerHTML = "Gửi tin nhắn";
+            //document.getElementById("btn_sendsms").disabled = false;
 
             // start the recursion
             //send_sms_next(danhsachgui, document.getElementById("content_sms").value);
 
-            //$.ajax({
-            //    xhr: function () {
-            //        var xhr = new window.XMLHttpRequest();
+            $.ajax({
+                type: 'POST',
+                url: "/admin/sendsmstoancau",
+                data: { content: document.getElementById("content_sms").value, phone: document.getElementById("taixe_phone").value },
+                dataType: 'json',
+                cache: false,
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.responseText);
+                    alert(thrownError);
+                },
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.timeout = 2000;
+                    //Download progress
+                    xhr.addEventListener("progress", function (evt) {
+                        console.log(evt.lengthComputable);
+                        if (evt.lengthComputable) {
+                            var progress = Math.round(evt.loaded * 100 / evt.total);
+                            $("#progressbar").progressbar("value", progress);
+                        }
+                    }, false);
+                    return xhr;
 
-            //        // Upload progress
-            //        //xhr.upload.addEventListener("progress", function (evt) {
-            //        //    if (evt.lengthComputable) {
-            //        //        var percentComplete = evt.loaded / evt.total;
-            //        //        //Do something with upload progress
-            //        //        console.log(percentComplete);
-            //        //        $('.progress-bar').css('width', percentComplete + '%').attr('aria-valuenow', percentComplete).append('<span class="sr-only">' + percentComplete + '% Complete</span>');
-            //        //        $('.progress-bar').empty().append('<span class="sr-only">' + percentComplete + '% Complete</span>');
-            //        //        $('#result').show();
-            //        //    }
-            //        //}, false);
+                    //// Download progress
+                    //xhr.addEventListener("progress", function (evt) {
+                    //    if (evt.lengthComputable) {
+                    //        var progress = Math.round(evt.loaded * 100 / evt.total);
+                    //        $("#progressbar").progressbar("value", progress);
+                    //    }
+                    //}, false);
 
-            //        // Download progress
-            //        xhr.addEventListener("progress", function (evt) {
-            //            if (evt.lengthComputable) {
-            //                var progress = Math.round(evt.loaded * 100 / evt.total);
-            //                $("#progressbar").progressbar("value", progress);
-            //            }
-            //        }, false);
+                    //return xhr;
+                    //console.log(xhr);
+                },                
+                success: function (data) {
+                    // Do something success-ish
+                    var result;
+                    var target = $('#result');
+                    target.show();
 
-            //        return xhr;
-            //    },
-            //    type: 'POST',
-            //    url: "/admin/sendsmstoancau",
-            //    data: { content: document.getElementById("content_sms").value, phone: document.getElementById("taixe_phone").value },
-            //    success: function (data) {
-            //        // Do something success-ish
-            //        console.log(data);
-            //        var result;
-            //        var target = $('#result');
-            //        target.show();
+                    try {
+                        result = data;
+                        console.log(result);
+                        target.append('<div>' + result.message + result.count + ' tài xế.</div>');
+                        target.animate({ scrollTop: target.height() });
+                        var button = document.getElementById("btn_sendsms");
+                        button.innerHTML = "Gửi tin nhắn";
+                        button.disabled = false;
+                    }
+                    catch (e) {
+                        target.append('<div>Đã xảy ra lỗi</div>');
+                        if (console) {
+                            console.warn(e.message);
+                            console.warn('Invalid JSON Response: ' + data);
+                        }
+                    }
 
-            //        try {
-            //            result = data;
-            //            console.log(result);
-            //            target.append('<div>' + result.message + '</div>');
-            //        }
-            //        catch (e) {
-            //            target.append('<div>Đã xảy ra lỗi</div>');
-            //            if (console) {
-            //                console.warn(e.message);
-            //                console.warn('Invalid JSON Response: ' + data);
-            //            }
-            //        }
+                    target.animate({ scrollTop: target.height() });
+                    
+                }
+               
+            });
 
-            //        target.animate({ scrollTop: target.height() });
-            //        send_sms_complete();
-            //    }
-            //});
-
+            $("#progressbar").progressbar({
+                max: 100,
+                change: function (evt, ui) {
+                    $("#progresslabel").html("Đang gửi được " + $("#progressbar").progressbar("value") + "%");
+                },
+                complete: function (evt, ui) {
+                    $("#progresslabel").html("Đã gửi xong!");
+                }
+            });
 
         }
-
         
 
-        ///** 
-        //     * recursive function for resizing images
-        //     */
+
+
+
+
+
+
+
+
+
+        /** 
+             * recursive function for resizing images
+             */
         //function send_sms_next(danhsachgui, contentsms, next_index) {
         //    if (next_index >= danhsachgui.length) return send_sms_complete();
         //    var ajaxurl = '/admin/sendsmstoancau';
@@ -260,12 +287,11 @@
         // */        
         //function send_sms_complete() {
         //    var target = $('#result');
-        //    target.append('<div><strong>Đã gửi hết</strong></div>');
+        //    target.append('<div><strong>Đã gửi xong.</strong></div>');
         //    target.animate({ scrollTop: target.height() });
         //    var button = document.getElementById("btn_sendsms");
         //    button.innerHTML = "Gửi tin nhắn";
-        //    button.disabled = false;
-            
+        //    button.disabled = false;            
         //}
         
         
