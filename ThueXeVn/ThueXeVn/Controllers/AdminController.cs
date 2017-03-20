@@ -7,6 +7,10 @@ using PagedList;
 using PagedList.Mvc;
 using ThueXeVn.Models;
 using Twilio;
+using System.Text.RegularExpressions;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ThueXeVn.Controllers
 {
@@ -202,6 +206,122 @@ namespace ThueXeVn.Controllers
             }
 
             return Json(deleted, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult taixetoancau()
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+
+            return View();
+        }
+
+        public class txtoancau {
+            public string name {get; set;}
+            public string phone {get; set;}
+        }
+
+        public ActionResult loadtaixe()
+        {
+            var data = db.tai_xe_toan_cau.Where(x => x.F4 != null && x.F4 != "0").Select(x => new txtoancau()
+            {
+                name = x.F3,
+                phone = x.F4
+            }).ToList();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult sendsmstoancau(string content, string phone) 
+        {
+            
+            // load ds cuoi cung
+            int txend = -1;
+
+            var originalDirectory = new DirectoryInfo(Server.MapPath(@"\"));
+            string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "log_sptc_end.txt");
+
+            bool isExists = System.IO.File.Exists(pathString);
+
+            if (isExists){
+                string contentfile = System.IO.File.ReadAllText(pathString);
+                txend = int.Parse(contentfile);
+            }          
+
+            if (phone == null) phone = "all";
+            var dstx = db.tai_xe_toan_cau.Where(x => x.F4 != null && x.F4 != "0").OrderBy(x => x.F1).ToList();
+
+            if (txend > -1)
+            {
+                dstx = dstx.Where(x => x.F1 > txend).ToList();
+            }
+            StringBuilder sb = new StringBuilder();
+            string strstatus = "chưa gửi được";
+            //var acountsms = (from s in db.value_config select s).FirstOrDefault();
+            try
+            {
+                //var accountSid = acountsms.value_id; // Your Account SID from www.twilio.com/console
+                //var authToken = acountsms.value_token;  // Your Auth Token from www.twilio.com/console
+
+                //TwilioRestClient twilio = new TwilioRestClient(accountSid, authToken);
+                if (dstx.Count > 0)
+                {
+                    foreach (var item in dstx)
+                    {
+                        var i = 1;
+                        var _sophone = getPhoneNumber(item.F4);
+                        string jsonCustomer = JsonConvert.
+                                  SerializeObject(_sophone);
+                        sb.AppendFormat("data: {0}\n\n", jsonCustomer);
+
+                        //var message = twilio.SendSmsMessage(
+                        //"+12566702599", // From (Replace with your Twilio number)
+                        //"+84" + _sophone, // To (Replace with your phone number)
+                        //    content
+                        //);
+                        //strstatus = "Đã gửi thành công.";
+                        
+                        //Config.SavePhoneToanCau(_sophone, strstatus);
+                        //i++;
+                        //if (message.RestException != null)
+                        //{
+                        //    Config.SaveLogSendedEnd(item.F1);
+                        //    break;
+
+                        //}
+                        
+                    }
+                }
+                
+                
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+            }
+            System.Threading.Thread.Sleep(5000);
+            return Content(sb.ToString(), "text/event-stream");
+            //return Json(new { message = strstatus }, JsonRequestBehavior.AllowGet);
+        }
+
+        public string getPhoneNumber(string subjectString)
+        {
+            //System.Text.RegularExpressions.Regex
+            var resultString = subjectString;
+            if (resultString.Contains("'"))
+            {
+                resultString = resultString.Replace("'", "");
+            }
+            if (resultString.Contains("."))
+            {
+                resultString = resultString.Replace(".", "");
+            }
+            if (resultString.Contains("/"))
+            {
+                resultString = resultString.Split('/')[0];
+            }
+            resultString = Regex.Match(resultString, @"\d+").Value;
+            resultString = resultString.Trim();
+            return resultString;
         }
 
     }

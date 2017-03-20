@@ -234,6 +234,7 @@ namespace ThueXeVn.Controllers
                     addmoney.driver_id = driver_id ?? null;
                     addmoney.total_money = total_money ?? null;
                     addmoney.status = 1;
+                    addmoney.date_pay = DateTime.Now;
                     db.drivers_money.Add(addmoney);
                 }
                 else

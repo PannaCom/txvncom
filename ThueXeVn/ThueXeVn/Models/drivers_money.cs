@@ -18,5 +18,6 @@ namespace ThueXeVn.Models
         public Nullable<long> driver_id { get; set; }
         public Nullable<int> total_money { get; set; }
         public Nullable<byte> status { get; set; }
+        public Nullable<System.DateTime> date_pay { get; set; }
     }
 }

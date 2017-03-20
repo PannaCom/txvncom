@@ -253,6 +253,7 @@
           <Property Name="driver_id" Type="bigint" />
           <Property Name="total_money" Type="int" />
           <Property Name="status" Type="tinyint" />
+          <Property Name="date_pay" Type="datetime" />
         </EntityType>
         <EntityType Name="find_bus">
           <Key>
@@ -369,6 +370,26 @@
           <Property Name="g7" Type="int" />
           <Property Name="g8" Type="int" />
         </EntityType>
+        <EntityType Name="tai_xe_toan_cau">
+          <Key>
+            <PropertyRef Name="F1" />
+          </Key>
+          <Property Name="F1" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F2" Type="nvarchar" MaxLength="255" />
+          <Property Name="F3" Type="nvarchar" MaxLength="255" />
+          <Property Name="F4" Type="nvarchar" MaxLength="255" />
+          <Property Name="F5" Type="nvarchar" MaxLength="255" />
+          <Property Name="F6" Type="nvarchar" MaxLength="255" />
+          <Property Name="F7" Type="nvarchar" MaxLength="255" />
+          <Property Name="F8" Type="nvarchar" MaxLength="255" />
+          <Property Name="F9" Type="float" />
+          <Property Name="F10" Type="float" />
+          <Property Name="F11" Type="float" />
+          <Property Name="F12" Type="float" />
+          <Property Name="F13" Type="nvarchar" MaxLength="255" />
+          <Property Name="F14" Type="float" />
+          <Property Name="F15" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="TinhThanh">
           <Key>
             <PropertyRef Name="id" />
@@ -424,6 +445,7 @@
           <EntitySet Name="notices" EntityType="Self.notices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="notifies" EntityType="Self.notifies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pl_car_price" EntityType="Self.pl_car_price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tai_xe_toan_cau" EntityType="Self.tai_xe_toan_cau" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TinhThanh" EntityType="Self.TinhThanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="value_config" EntityType="Self.value_config" Schema="dbo" store:Type="Tables" />
@@ -533,7 +555,6 @@
           <EntitySet Name="find_bus" EntityType="thuexevnModel.find_bus" />
           <EntitySet Name="pl_car_price" EntityType="thuexevnModel.pl_car_price" />
           <EntitySet Name="value_config" EntityType="thuexevnModel.value_config" />
-          <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
           <EntitySet Name="driver_images" EntityType="thuexevnModel.driver_images" />
           <EntitySet Name="driver_rate_comment" EntityType="thuexevnModel.driver_rate_comment" />
           <EntitySet Name="car_price_da_nang" EntityType="thuexevnModel.car_price_da_nang" />
@@ -541,6 +562,8 @@
           <EntitySet Name="driver_promotion" EntityType="thuexevnModel.driver_promotion" />
           <EntitySet Name="booking_to_driver" EntityType="thuexevnModel.booking_to_driver" />
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
+          <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
+          <EntitySet Name="tai_xe_toan_cau" EntityType="thuexevnModel.tai_xe_toan_cau" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -735,15 +758,6 @@
           <Property Name="value_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="value_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="drivers_money">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="driver_id" Type="Int64" />
-          <Property Name="total_money" Type="Int32" />
-          <Property Name="status" Type="Byte" />
-        </EntityType>
         <EntityType Name="driver_images">
           <Key>
             <PropertyRef Name="id" />
@@ -854,6 +868,36 @@
           <Property Name="lat" Type="Double" />
           <Property Name="geo" Type="Geography" />
           <Property Name="driver_type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="drivers_money">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="total_money" Type="Int32" />
+          <Property Name="status" Type="Byte" />
+          <Property Name="date_pay" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tai_xe_toan_cau">
+          <Key>
+            <PropertyRef Name="F1" />
+          </Key>
+          <Property Name="F1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F8" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F9" Type="Double" />
+          <Property Name="F10" Type="Double" />
+          <Property Name="F11" Type="Double" />
+          <Property Name="F12" Type="Double" />
+          <Property Name="F13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="F14" Type="Double" />
+          <Property Name="F15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1154,16 +1198,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="drivers_money">
-            <EntityTypeMapping TypeName="thuexevnModel.drivers_money">
-              <MappingFragment StoreEntitySet="drivers_money">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="total_money" ColumnName="total_money" />
-                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="driver_images">
             <EntityTypeMapping TypeName="thuexevnModel.driver_images">
               <MappingFragment StoreEntitySet="driver_images">
@@ -1279,6 +1313,38 @@
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="drivers_money">
+            <EntityTypeMapping TypeName="thuexevnModel.drivers_money">
+              <MappingFragment StoreEntitySet="drivers_money">
+                <ScalarProperty Name="date_pay" ColumnName="date_pay" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="total_money" ColumnName="total_money" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tai_xe_toan_cau">
+            <EntityTypeMapping TypeName="thuexevnModel.tai_xe_toan_cau">
+              <MappingFragment StoreEntitySet="tai_xe_toan_cau">
+                <ScalarProperty Name="F15" ColumnName="F15" />
+                <ScalarProperty Name="F14" ColumnName="F14" />
+                <ScalarProperty Name="F13" ColumnName="F13" />
+                <ScalarProperty Name="F12" ColumnName="F12" />
+                <ScalarProperty Name="F11" ColumnName="F11" />
+                <ScalarProperty Name="F10" ColumnName="F10" />
+                <ScalarProperty Name="F9" ColumnName="F9" />
+                <ScalarProperty Name="F8" ColumnName="F8" />
+                <ScalarProperty Name="F7" ColumnName="F7" />
+                <ScalarProperty Name="F6" ColumnName="F6" />
+                <ScalarProperty Name="F5" ColumnName="F5" />
+                <ScalarProperty Name="F4" ColumnName="F4" />
+                <ScalarProperty Name="F3" ColumnName="F3" />
+                <ScalarProperty Name="F2" ColumnName="F2" />
+                <ScalarProperty Name="F1" ColumnName="F1" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

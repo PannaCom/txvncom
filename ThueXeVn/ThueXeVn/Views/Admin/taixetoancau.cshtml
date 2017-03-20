@@ -1,0 +1,276 @@
+﻿
+@{
+    ViewBag.Title = "Gửi tin nhắn tài xế toàn cầu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Tài xế toàn cầu</h3>
+            </div>
+            <div class="panel-body">
+
+                <form id="sendfullsms" name="sendfullsms" method="post" enctype="multipart/form-data" action="/Admin/SendSMS">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-horizontal">
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="taixe_phone" class="control-label">Chọn tài xế gửi tin nhắn</label>
+                                <select class="form-control" id="taixe_phone" name="taixe_phone">
+                                    <option value="" disabled>--Chọn người cần gửi--</option>
+                                    <option value="all">Gửi tất cả tài xế</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="content_sms" class="control-label">Nội dung gửi</label>
+                                <textarea rows="10" id="content_sms" name="content_sms" class="form-control" placeholder="Nhập nội dung tin nhắn"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="sercurity_code" class="control-label">Mã bảo mật</label>
+                                <input class="form-control" name="sercurity_code" type="number" id="sercurity_code" placeholder="Mã bảo mật" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" type="button" id="btn_sendsms" onclick="send_sms_start(event);">Gửi tin nhắn</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        
+        <div id="progressbar" class="progressbar">
+            <div id="progresslabel" class="progressbarlabel"></div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+    
+    <script>
+        $(document).ready(function () {
+            //$.ajax({
+            //    url: '/admin/loadtaixe',
+            //    type: 'get',
+            //    dataType: 'json',
+            //    cache: false,
+            //    success: function (data) {
+            //        $.each(data, function (i, v) {
+            //            $('#taixe_phone').append('<option value="' + data[i].phone + '">' + data[i].name + '</option>');
+            //        })
+            //    }
+            //})           
+
+        })
+
+        
+
+        function send_sms_start(e) {
+            e.preventDefault();
+            
+            if (document.getElementById("taixe_phone").value === "") {
+                alert('Vui lòng chọn tài xế để gửi.');
+                document.getElementById("taixe_phone").focus();
+                return false;
+            }
+
+            if (document.getElementById("content_sms").value == "") {
+                alert('Vui lòng nhập nội dung gửi.');
+                document.getElementById("content_sms").focus();
+                return false;
+            }
+
+            if ($('#sercurity_code').val() == "") {
+                alert('Vui lòng nhập mã bảo mật.');
+                $('#sercurity_code').focus();
+                return false;
+            }
+
+            if (document.getElementById('sercurity_code').value !== "") {
+                var d = new Date()
+                var date = d.getDate();
+                var month = d.getMonth() + 1;
+                var sercode = date + month;
+                var code = parseInt(document.getElementById('sercurity_code').value);
+                if (code != sercode) {
+                    alert('Mã bảo mật không đúng.');
+                    return false;
+                }
+            }
+
+            var button = document.getElementById("btn_sendsms");
+            button.innerHTML = "Đang gửi tin nhắn.... ";
+            button.disabled = true;
+
+            var xhr = new XMLHttpRequest();
+            var data = new FormData();
+            data.append("phone", document.getElementById("taixe_phone").value);
+            data.append("content", document.getElementById("content_sms").value);
+            xhr.upload.addEventListener("progress", function (evt) {
+                if (evt.lengthComputable) {
+                    var progress = Math.round(evt.loaded * 100 / evt.total);
+                    console.log(progress);
+                    $("#progressbar").progressbar("value", progress);
+                }
+            }, false);
+            xhr.addEventListener("progress", function (evt) {
+                if (evt.lengthComputable) {
+                    var progress = Math.round(evt.loaded * 100 / evt.total);
+                    console.log(progress);
+                    $("#progressbar").progressbar("value", progress);
+                }
+            }, false);
+            xhr.open("POST", "/Admin/sendsmstoancau");
+            xhr.send(data);
+
+            $("#progressbar").progressbar({
+                max: 100,
+                change: function (evt, ui) {
+                    $("#progresslabel").text($("#progressbar").progressbar("value") + "%");
+                },
+                complete: function (evt, ui) {
+                    $("#progresslabel").text("File upload successful!");
+                }
+            });
+
+            // start the recursion
+            //send_sms_next(danhsachgui, document.getElementById("content_sms").value);
+
+            //$.ajax({
+            //    xhr: function () {
+            //        var xhr = new window.XMLHttpRequest();
+
+            //        // Upload progress
+            //        //xhr.upload.addEventListener("progress", function (evt) {
+            //        //    if (evt.lengthComputable) {
+            //        //        var percentComplete = evt.loaded / evt.total;
+            //        //        //Do something with upload progress
+            //        //        console.log(percentComplete);
+            //        //        $('.progress-bar').css('width', percentComplete + '%').attr('aria-valuenow', percentComplete).append('<span class="sr-only">' + percentComplete + '% Complete</span>');
+            //        //        $('.progress-bar').empty().append('<span class="sr-only">' + percentComplete + '% Complete</span>');
+            //        //        $('#result').show();
+            //        //    }
+            //        //}, false);
+
+            //        // Download progress
+            //        xhr.addEventListener("progress", function (evt) {
+            //            if (evt.lengthComputable) {
+            //                var progress = Math.round(evt.loaded * 100 / evt.total);
+            //                $("#progressbar").progressbar("value", progress);
+            //            }
+            //        }, false);
+
+            //        return xhr;
+            //    },
+            //    type: 'POST',
+            //    url: "/admin/sendsmstoancau",
+            //    data: { content: document.getElementById("content_sms").value, phone: document.getElementById("taixe_phone").value },
+            //    success: function (data) {
+            //        // Do something success-ish
+            //        console.log(data);
+            //        var result;
+            //        var target = $('#result');
+            //        target.show();
+
+            //        try {
+            //            result = data;
+            //            console.log(result);
+            //            target.append('<div>' + result.message + '</div>');
+            //        }
+            //        catch (e) {
+            //            target.append('<div>Đã xảy ra lỗi</div>');
+            //            if (console) {
+            //                console.warn(e.message);
+            //                console.warn('Invalid JSON Response: ' + data);
+            //            }
+            //        }
+
+            //        target.animate({ scrollTop: target.height() });
+            //        send_sms_complete();
+            //    }
+            //});
+
+
+        }
+
+        
+
+        ///** 
+        //     * recursive function for resizing images
+        //     */
+        //function send_sms_next(danhsachgui, contentsms, next_index) {
+        //    if (next_index >= danhsachgui.length) return send_sms_complete();
+        //    var ajaxurl = '/admin/sendsmstoancau';
+        //    $.post(
+        //        ajaxurl, // 
+        //        { content: contentsms, phone: danhsachgui[next_index] },
+        //        function (response) {
+        //            console.log(response);
+        //            var result;
+        //            var target = $('#result');
+        //            target.show();
+
+        //            try {
+        //                result = response;
+        //                target.append('<div>' + (next_index + 1) + '/' + danhsachgui.length + ' &gt;&gt; phone: ' + result['message'] + ', trạng thái: ' + result['status'] + '</div>');
+        //            }
+        //            catch (e) {
+        //                target.append('<div>Đã xảy ra lỗi</div>');
+        //                if (console) {
+        //                    console.warn(danhsachgui[next_index] + ': ' + e.message);
+        //                    console.warn('Invalid JSON Response: ' + response);
+        //                }
+        //            }
+
+        //            target.animate({ scrollTop: target.height() });
+
+        //            // recurse
+        //            send_sms_next(danhsachgui, contentsms, next_index + 1);
+        //        }
+        //    );
+        //}
+
+        ///**
+        // * fired when all images have been resized
+        // */        
+        //function send_sms_complete() {
+        //    var target = $('#result');
+        //    target.append('<div><strong>Đã gửi hết</strong></div>');
+        //    target.animate({ scrollTop: target.height() });
+        //    var button = document.getElementById("btn_sendsms");
+        //    button.innerHTML = "Gửi tin nhắn";
+        //    button.disabled = false;
+            
+        //}
+        
+        
+
+
+    </script>
+        
+}

@@ -270,6 +270,24 @@ namespace ThueXeVn
             }
         }
 
+        public static void SavePhoneToanCau(string phone, string status)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.Hosting.HostingEnvironment.MapPath("~/" + "log_send_phone_toan_cau.txt"), true))
+            {
+                sw.WriteLine(DateTime.Now.ToString() + "<< gui toi so: " + phone + ", trang thai: " + status);
+                sw.Close();
+            }
+        }
+
+        public static void SaveLogSendedEnd(long id)
+        {
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.Hosting.HostingEnvironment.MapPath("~/" + "log_sptc_end.txt"), true))
+            {
+                sw.Write(id);
+                sw.Close();
+            }
+        }
+
         //public static void ToExcel(HttpResponseBase Response, object clientsList, string fileName)
         //{
         //    try
