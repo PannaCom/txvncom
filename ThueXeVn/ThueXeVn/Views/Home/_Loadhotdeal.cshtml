@@ -1,0 +1,37 @@
+﻿@model List<ThueXeVn.Models.hotdeal>
+
+@if (Model != null)
+{
+
+    <section id="hotdeal" class="fun_home_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="list-group">
+
+                        <a href="#" class="list-group-item active">
+                            <h3>
+                                <i class="fa fa-bolt"></i> Nhà xe có nhiều người quan tâm
+                            </h3>
+                        </a>
+                        @foreach (var item in Model)
+                        {
+                            string url_nhaxe = string.Format("/nha-xe/{0}-{1}", @Config.unicodeToNoMark(item.driver_name), item.driver_id);
+                            <a href="@url_nhaxe" class="list-group-item">
+                                <div class="item__card">
+                                    <div class="location"><div class="from"><h4>@item.driver_name</h4></div></div>
+                                    <div class="price"><i class="fa fa-eye"></i>&nbsp;@item.driver_view</div>
+                                    <i class="fa fa-angle-right"></i>
+                                </div>
+                            </a>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+
