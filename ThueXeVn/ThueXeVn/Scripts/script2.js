@@ -327,21 +327,26 @@
     }
 }*/
 
-function timkiemtaixe() {
-    
+
+
+function timkiemtaixe(e) {
+    e.preventDefault();
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-        alert('Vui lòng nhập địa chỉ đi');
+        notifywarn('Vui lòng nhập địa chỉ đi');
+        
         document.getElementById('place_from').focus();
         return false;
     }
     if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-        alert('Vui lòng nhập địa chỉ đến');
+        notifywarn('Vui lòng nhập địa chỉ đến');
+        
         document.getElementById('place_to').focus();
         return false;
     }
 
     if (document.getElementById('place_from').value === document.getElementById('place_to').value && document.getElementById('place_from').value !== "" && document.getElementById('place_to').value !== "") {
-        alert('Vị trí điểm đi không thể trùng vị trí đến');
+        notifywarn('Vị trí điểm đi không thể trùng vị trí đến');
+       
         return false;
     }
 
@@ -350,6 +355,7 @@ function timkiemtaixe() {
     //    document.getElementById('Loaixe_socho').focus();
     //    return false;
     //}
+       
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -376,7 +382,7 @@ function timkiemtaixe() {
             url += "?lat1=" + document.getElementById('lat1').value + "&lng1=" + document.getElementById('lng1').value + "&lat2=" + document.getElementById('lat2').value + "&lng2=" + document.getElementById('lng2').value;
             url += "&from=" + document.getElementById('place_from').value + "&to=" + document.getElementById('place_to').value;
             url += "&loaixe=" + document.getElementById('Loaixe_socho').value + "&kc=" + khoangcach;
-
+            url += "&nhaxe=" + document.getElementById('nhaxe').value;
             window.location.href = url;
             //alert(khoangcach);
 

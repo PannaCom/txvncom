@@ -233,7 +233,6 @@ namespace ThueXeVn.Controllers
         [HttpPost]
         public ActionResult sendsmstoancau(string content, string phone) 
         {
-            
             // load ds cuoi cung
             int txend = -1;
 
@@ -256,52 +255,88 @@ namespace ThueXeVn.Controllers
             }
             StringBuilder sb = new StringBuilder();
             string strstatus = "chưa gửi được";
-            //var acountsms = (from s in db.value_config select s).FirstOrDefault();
+            int countTaixe = 0;
+            var acountsms = (from s in db.value_config select s).FirstOrDefault();
             try
             {
-                //var accountSid = acountsms.value_id; // Your Account SID from www.twilio.com/console
-                //var authToken = acountsms.value_token;  // Your Auth Token from www.twilio.com/console
+                var accountSid = acountsms.value_id; // Your Account SID from www.twilio.com/console
+                var authToken = acountsms.value_token;  // Your Auth Token from www.twilio.com/console
 
-                //TwilioRestClient twilio = new TwilioRestClient(accountSid, authToken);
+                TwilioRestClient twilio = new TwilioRestClient(accountSid, authToken);
                 if (dstx.Count > 0)
                 {
                     foreach (var item in dstx)
                     {
-                        var i = 1;
+                        //var i = 1;
                         var _sophone = getPhoneNumber(item.F4);
                         string jsonCustomer = JsonConvert.
                                   SerializeObject(_sophone);
                         sb.AppendFormat("data: {0}\n\n", jsonCustomer);
 
-                        //var message = twilio.SendSmsMessage(
-                        //"+12566702599", // From (Replace with your Twilio number)
-                        //"+84" + _sophone, // To (Replace with your phone number)
-                        //    content
-                        //);
-                        //strstatus = "Đã gửi thành công.";
-                        
-                        //Config.SavePhoneToanCau(_sophone, strstatus);
-                        //i++;
-                        //if (message.RestException != null)
-                        //{
-                        //    Config.SaveLogSendedEnd(item.F1);
-                        //    break;
+                        var message = twilio.SendSmsMessage(
+                        "+12566702599", // From (Replace with your Twilio number)
+                        "+84" + _sophone, // To (Replace with your phone number)
+                            content
+                        );
 
-                        //}
-                        
+                        if (message.RestException != null)
+                        {
+                            Config.SaveLogSendedEnd(item.F1);
+                            break;
+                        }
+                        else
+                        {
+                            strstatus = "Đã gửi thành công.";
+                            Config.SavePhoneToanCau(_sophone, strstatus);
+                            countTaixe += 1;
+                        }
+
                     }
                 }
-                
-                
+
+
             }
             catch (Exception ex)
             {
                 Config.SaveTolog(ex.ToString());
             }
-            System.Threading.Thread.Sleep(5000);
-            return Content(sb.ToString(), "text/event-stream");
-            //return Json(new { message = strstatus }, JsonRequestBehavior.AllowGet);
+            //return Content(sb.ToString(), "text/event-stream");
+            return Json(new { message = strstatus, count = countTaixe }, JsonRequestBehavior.AllowGet);
         }
+
+        //public void Process()
+        //{
+        //    Response.ContentType = "text/event-stream";
+        //    using (thuexevnEntities db = new thuexevnEntities())
+        //    {
+        //        foreach (var obj in db.tai_xe_toan_cau)
+        //        {
+        //            string jsonCustomer = JsonConvert.
+        //                         SerializeObject(obj);
+        //            string data = string.Format("data: {jsonCustomer}\n\n", jsonCustomer);
+        //            System.Threading.Thread.Sleep(5000);
+        //            Response.Write(data);
+        //            Response.Flush();
+        //        }
+        //        Response.Close();
+        //    }
+        //}
+
+        //public ActionResult Process()
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    using (thuexevnEntities db = new thuexevnEntities())
+        //    {
+        //        foreach (var obj in db.tai_xe_toan_cau)
+        //        {
+        //            string jsonCustomer = JsonConvert.
+        //                                  SerializeObject(obj);
+        //            sb.AppendFormat("data: {0}\n\n", jsonCustomer);
+        //        }
+        //    }
+        //    return Content(sb.ToString(), "text/event-stream");
+        //}
+
 
         public string getPhoneNumber(string subjectString)
         {
@@ -314,6 +349,10 @@ namespace ThueXeVn.Controllers
             if (resultString.Contains("."))
             {
                 resultString = resultString.Replace(".", "");
+            }
+            if (resultString.Contains(":"))
+            {
+                resultString = resultString.Replace(":", "");
             }
             if (resultString.Contains("/"))
             {

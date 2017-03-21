@@ -6,7 +6,7 @@
     string link = "";
 }
 
-<div class="map_canvas" style="display:none;"></div>
+
 
 
 @*<label for="autocomplete">Select a programming language: </label>
@@ -24,14 +24,14 @@
     </script>*@
 
 
-@section sliderHome {
+@*@section sliderHome {
 
     <div id="divMainContent" style="height: auto;">
         <div id="divContentBody" class="container-fluid" style="min-height: 304px; padding: 0;">
             <div id="divBannerImages" class="home-banner" style="height: auto;">
                 <div class="container">
                     <div class="row">
-                        @*<div class="col-sm-6 col-sm-push-6">
+                        <div class="col-sm-6 col-sm-push-6">
                                 <div id="form_timxe">
                                     <input id="address" name="address" class="form-control col-sm-3" placeholder="Bạn đang ở đâu? Gõ địa chỉ muốn đón" autocomplete="on" />
                                     <input type="hidden" id="lon" name="lon" value="" />
@@ -44,7 +44,7 @@
                                     </select>
                                     <input type="button" value="TÌM XE" class="form-control btn btn-primary btn-block" style="background-color:#449d44;color:#ffffff;" onclick="search();" id="search" />
                                 </div>
-                            </div>*@
+                            </div>
                         <div class="col-md-12">
                             <div class="span5 about-carousel">
                                 <div id="divBannerTextCarousel" class="carousel slide">
@@ -91,69 +91,88 @@
         </div>
     </div>
 
-}
+}*@
 
-<section id="timtaixe_search" style="margin-top: -155px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" id="form_search_taxe">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="fa fa-2x fa-car"></i> Tìm kiếm tài xế
-                        </h3>
+<div id="timtaixe_search" class="homepage-bg-desktop">
+    <div class="container homepage">
+        <section class="introduction">
+
+            <h1 class="introduction__heading">Dịch vụ cho thuê xe giá rẻ (uy tín nhất) tại Việt Nam</h1>
+            <h2 class="introduction__strapline">
+                <!-- react-text: 43 -->Gọi xe quanh đây với ứng dụng <span style="cursor: pointer; border-bottom: 1px dashed white;">thông minh</span>,
+                <!-- react-text: 45 -->&nbsp; đặt xe&nbsp;<span style="cursor: pointer; border-bottom: 1px dashed white;">Nhanh chóng</span> Đơn giản,
+                &nbsp; hãng xe đẹp mới và lịch sự.
+                <!-- /react-text -->
+            </h2>
+        </section>
+        
+        <div class="booking-homepage" id="bookingForm">
+            <form id="bookingFormFrm" class="form-horizontal">
+                <fieldset>
+                    <div class="title">
+                        <h2 class="headding"><i class="fa fa-car"></i> Tìm kiếm tài xế</h2>
                     </div>
-                    <div class="panel-body">
-                        <div class="form-horizontal">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="place_from">Địa điểm đi</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
-                                        <span class="input-group-addon" id="getmaplocation" style="padding: 14px 15px; cursor: pointer;"><i class="fa fa-map-marker"></i></span>
-                                        <input type="hidden" name="lat1" id="lat1" />
-                                        <input type="hidden" name="lng1" id="lng1" />
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="place_to">Địa điểm đến</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
-                                        <span class="input-group-addon" id="movemaplocation" style="cursor: pointer;" onclick="swapValues();"><i class="fa fa-exchange"></i></span>
-                                        <input type="hidden" name="lat2" id="lat2" />
-                                        <input type="hidden" name="lng2" id="lng2" />
-                                    </div>
-                                </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label" for="place_from">Địa điểm đi:</label>
+                            <div class="field_row">
+                                <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
+                                <i class="fa fa-map-marker" id="getmaplocation"></i>
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="Loaixe_socho" class="control-label">Loại xe</label>
-                                    <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
-                                        <option value="">Tất cả loại xe</option>
-                                        @*<option value="4">Xe 4 chỗ (giá siêu rẻ, có cốp)</option>
-                                        <option value="5">Xe 5 chỗ (có cốp)</option>
-                                        <option value="7">Xe 7 chỗ</option>
-                                        <option value="16">Xe 16 chỗ</option>
-                                        <option value="29">Xe 29 chỗ</option>*@
-                                    </select>
-                                </div>
-                            </div>
+                            <input type="hidden" name="lat1" id="lat1" />
+                            <input type="hidden" name="lng1" id="lng1" />
 
                         </div>
-                    </div>
-                    <div class="panel-footer" style="padding: 0;">
-                        <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe();" style="padding: 16px; border: 1px solid #ffcc33; font-size: 160%;"><i class="fa fa-search"></i> Bắt đầu tìm kiếm</button>
-                    </div>
-                </div>
+                        <div class="col-md-5">
+                            <label class="control-label" for="place_to">Địa điểm đến:</label>
+                            <div class="field_row">
+                                <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
+                                <i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i>
+                            </div>
+                            <input type="hidden" name="lat2" id="lat2" />
+                            <input type="hidden" name="lng2" id="lng2" />
+                        </div>
 
-            </div>
+                        <div class="col-md-1">
+                            <label class="control-label" for="place_to">Thêm</label>
+                            <button class="btn btn-primary" onclick="addsearch(event);"><i class="fa fa-plus"></i></button>
+
+                        </div>
+
+                    </div>
+                    <div id="addoptions" style="display: none;">
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
+                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                                    <option value="">Tất cả loại xe</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nhaxe" class="control-label">Nhà xe</label>
+                                <select class="form-control" name="nhaxe" id="nhaxe">
+                                    <option value="">Chọn nhà xe</option>
+                                    <option value="1">Nhà xe (đã xác thực thông tin)</option>
+                                    <option value="0">Tài xế</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>               
+
+                <button class="btn btn-block btn-default border_radius_none" onclick="timkiemtaixe(event);" id="btn_search_taixe"><i class="fa fa-search"></i> Bắt đầu tìm kiếm</button>
+                
+            </form>
+
+            
+
         </div>
+     
     </div>
-</section>
+</div>
 
 <section class="mh_show_customer_best">
     <div class="container">
@@ -274,7 +293,7 @@
 <div id="map-canvas" style="display: none;">
     Bản đồ
 </div>
-
+<div class="map_canvas" style="display:none;"></div>
 
 @section Scripts {
     @*<script>
@@ -313,6 +332,11 @@
         });
     </script>*@
 
-
+    <script>
+        function addsearch(e) {
+            e.preventDefault();
+            $('#addoptions').slideToggle('300');
+        }
+    </script>
 }
 

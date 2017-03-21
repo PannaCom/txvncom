@@ -31,7 +31,7 @@ namespace ThueXeVn
                 "~/Content/fontend/css/owl.theme.css",
                 "~/Content/fontend/css/style.css",
                 "~/Content/fontend/css/responsive.css",
-                "~/Content/fontend/css/stylemh.css"                
+                "~/Content/fontend/css/stylemh.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/Content/fontend/js/scripts").Include(
@@ -43,7 +43,7 @@ namespace ThueXeVn
 
             bundles.Add(new ScriptBundle("~/Scripts/main").Include("~/Scripts/script2.js"));
 
-            BundleTable.EnableOptimizations = true;
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

@@ -125,6 +125,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label for="nhaxe" class="control-label">Nhà xe</label>
+                                <select class="form-control" name="nhaxe" id="nhaxe">
+                                    <option value="">Chọn nhà xe</option>
+                                    <option value="1">Nhà xe (đã xác thực)</option>
+                                    <option value="0">Tài xế</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -363,6 +375,15 @@
     </script>
 }
 
+@if (ViewBag.nhaxe != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#nhaxe').val('@Html.Raw(ViewBag.nhaxe)');
+        })
+    </script>
+}
+
 @section scripts {
     @*<script>
             if (location.protocol != 'https:') {
@@ -383,13 +404,13 @@
                 }
             })
 
-            //Loaixe_socho
-            $.ajax({
-                url: "/Home/getCarSize",
-                cache: false
-            }).done(function (html) {
-                $('#Loaixe_socho').append(html);
-            });
+            ////Loaixe_socho
+            //$.ajax({
+            //    url: "/Home/getCarSize",
+            //    cache: false
+            //}).done(function (html) {
+            //    $('#Loaixe_socho').append(html);
+            //});
 
             setTimeout(function () {
                 @if (ViewBag.loaixe != null)

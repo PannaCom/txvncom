@@ -975,7 +975,7 @@ namespace ThueXeVn.Controllers
             return PartialView("_LoadPromotionDriver", html);
         }
 
-        public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg, string gia_select)
+        public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg, string gia_select, string nhaxe)
         {
             if (lat1 == null || lng1 == null) return RedirectToAction("Index");
 
@@ -988,7 +988,7 @@ namespace ThueXeVn.Controllers
             if (lat1 == null) lat1 = "21.0277644"; if (lng1 == null) lng1 = "105.83415979999995";
             if (lat2 == null) lat2 = ""; if (lng2 == null) lng2 = "";
             if (from == null) from = ""; if (to == null) to = ""; if (loaixe == null) loaixe = "";
-            if (gia_select == null) gia_select = "1";
+            if (gia_select == null) gia_select = "1"; if (nhaxe == null) nhaxe = "";
             string sql = "";
 
             sql = "SELECT t1.id as id, t1.name as name, t1.driver_type as driver_type, t1.car_years as car_years, t1.phone as phone, t1.email as email,t1.address as address, CAST( CASE WHEN t2.cp_car_type is null THEN t1.car_size ELSE t2.cp_car_type END AS int) as car_size, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 where status = 0";
@@ -1018,6 +1018,22 @@ namespace ThueXeVn.Controllers
                 //sql += " and t1.car_size = " + loaixe + " or t2.cp_car_type = " + loaixe;
                 data = data.Where(x => x.car_size.Equals(iloaixe)).ToList();
             }
+
+            // tim kiem theo nhaxe
+            try
+            {
+                if (nhaxe != null && nhaxe != "")
+                {
+                    int? inhaxe = int.Parse(nhaxe);
+                    data = data.Where(x => x.driver_type == inhaxe).ToList();
+                    ViewBag.nhaxe = nhaxe;
+                }
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                return View();
+            }            
                         
             // Sắp xếp tăng dần theo giá xe               
 
@@ -1037,6 +1053,9 @@ namespace ThueXeVn.Controllers
             {
                 return View();
             }            
+
+            
+
             //xuly loi khi nguoi dung co tinh xoa dia chi url de cho ket qua sai
 
             ViewBag.sotaixe = data.Count;
