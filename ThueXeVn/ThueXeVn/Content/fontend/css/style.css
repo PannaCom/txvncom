@@ -24,9 +24,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 @media (min-width: 1200px) {
-    .container {
+    /*.container {
         width: 1100px;
-    }
+    }*/
 
     .item_img {
         height: 500px;
@@ -2285,7 +2285,7 @@ ul.img-product-n > li > a > img {
     }
 
 .fa_red {
-    color: #d2550a !important;
+    color: #FFB933!important;
 }
 
 #panel_danhgia {
@@ -2517,7 +2517,18 @@ ul.img-product-n > li > a > img {
     background-repeat: no-repeat;
 }
 
+#search_page_timtaixe .page-header {
+        margin-top: 0;
+    margin-bottom: 0;
+}
+
+#search_page_timtaixe .page-header h2 {
+    line-height: 1em;
+    font-size: 14px;
+}
+
 #bookingFormFrm {
+
 }
 
     #bookingFormFrm h2 {
@@ -2533,6 +2544,7 @@ ul.img-product-n > li > a > img {
         margin-top: 1.5em;
         line-height: 2em;
         border-bottom: 0;
+        border-radius: 0;
     }
 
         #bookingFormFrm .btn.btn-default:active:focus {
@@ -2561,7 +2573,8 @@ ul.img-product-n > li > a > img {
         }
 
     #bookingFormFrm label {
-        line-height: 2.6em;
+       line-height: 2.6em;
+    font-weight: 400;
     }
 
 .border_radius_none {
@@ -2665,6 +2678,195 @@ ul.img-product-n > li > a > img {
     background: #fff;
 }
 
+.quotes-section {
+        padding-left: 0;
+    padding-right: 0;
+}
+
+
+.booking-progress-bar {
+    z-index: 0;
+    margin-bottom: 10px;
+}
+
+.progressBar {
+    width: 100%;
+    list-style: none;
+    margin: 15px 0;
+    padding: 0 0 40px;
+}
+
+ol.progressBar[data-steps="4"] li {
+    width: 24%;
+}
+
+.progressBar li {
+    float: left;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    font-family: "Open Sans",sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.progressBar .name {
+    font-size: 1.2em;
+    display: block;
+    vertical-align: bottom;
+    text-align: center;
+    color: #b1b1b1;
+}
+
+.progressBar .active .name, .progressBar .active .step span {
+    color: #0090FF;
+}
+
+.progressBar li a {
+    color: #fff;
+}
+
+.progressBar .active .step, .progressBar .done .step {
+    border: 2px solid #0090FF;
+}
+
+.progressBar .active .step, 
+.progressBar .active .step:before, 
+.progressBar .done .step, 
+.progressBar .done .step:after, 
+.progressBar .done .step:before {
+    background-color: #0090FF;
+}
+
+.progressBar li:first-child .step:before {
+    left: 135px;
+}
+
+
+.progressBar li:last-child .step:after {
+    right: 135px;
+}
+
+.progressBar .step {
+    color: #0090ff;
+    border: 2px solid #d2d2d2;
+    background-color: #d2d2d2;
+    border-radius: 50%;
+    line-height: .7em;
+    width: 1.1em;
+    height: 1.1em;
+    display: inline-block;
+    z-index: 2;
+}
+
+.progressBar .step:after, .progressBar .step:before {
+    content: "";
+    display: block;
+    background-color: #d2d2d2;
+    height: .4em;
+    width: 50%;
+    position: absolute;
+    bottom: .4em;
+    z-index: -1;
+}
+
+.progressBar .step:before {
+    left: 0;
+}
+
+.progressBar .step:after {
+    right: 0;
+}
+
+.progressBar .step span {
+    opacity: 0;
+}
+
+.quote-summary--section {
+    background-color: #1F7BDC;
+    color: #FFF;
+    padding-bottom: 0;
+    margin-bottom: 10px!important;
+    border: none;
+}
+
+.quote-summary--section fieldset {
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+}
+
+#search_page_timtaixe .quotes {
+    background-color: transparent;
+}
+
+#search_page_timtaixe .quotes .panel {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: 0;
+}
+
+    #search_page_timtaixe .quotes .panel .panel-heading {
+        border-radius: 0;
+        margin-bottom: -1px;
+        padding: 15px;
+    }
+
+     #search_page_timtaixe .quotes .panel .panel-heading > h2 {
+         font-weight: 500;
+         font-size: 20px;
+     }
+
+     #search_page_timtaixe .quotes .panel .panel-heading > h2 > span,
+     #search_page_timtaixe .quotes .panel .panel-heading > h2 > label {
+         font-weight: 300;
+         font-size: medium;
+     }
+/*checkbox like ios*/
+
+.margintop10 {
+    margin-top: 10px;
+}
+
+.row.results_card {
+    background-color: #FFF;
+    background-position-y: 137px;
+    padding-top: 7px;
+    margin: 0;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 15px;
+    color: #333;
+    -moz-transition: background-color ease .5s;
+    -o-transition: background-color ease .5s;
+    -webkit-transition: background-color ease .5s;
+    transition: background-color ease .5s;
+}
+
+    .row.results_card .nhaxe_name a:hover {
+        border-bottom: 1px solid #cbcbcb;
+    }
+
+.row.results_card:hover {
+    background-color: #f5f5f5;
+}
+
+.row.results_card section {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.row.results_card .nhaxe_name {
+    margin: 0;
+}
+
+.row.results_card h2.price_nhaxe {
+    font-weight: 600;
+
+}
+
+.row.results_card h2.price_nhaxe small {
+     color: #317eac;
+    font-weight: 500;
+}
 
 @media (min-width: 768px) {
     .homepage-bg-desktop {
@@ -2718,17 +2920,60 @@ ul.img-product-n > li > a > img {
         padding: 1.25em 1em;
     }
 
-    .item__card .to {
-    position: absolute;
-    left: 21em;
-    display: inline-block;
-    padding: 0;
+        .item__card .to {
+            position: absolute;
+            left: 21em;
+            display: inline-block;
+            padding: 0;
+        }
+
+        .item__card .next {
+            position: absolute;
+            left: 42em;
+            display: inline-block;
+            padding: 0;
+        }
+
+    #search_page_timtaixe .page-header h2 {
+        line-height: 1.2em;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .row.results_card {
+    background-image: none;
+    padding-top: 22px;
+    border: 1px solid #CCC;
+    border-top: 0;
 }
 
-    .item__card .next {
-     position: absolute;
-    left: 42em;
-    display: inline-block;
-    padding: 0;
+    .row.results_card .nhaxe_name a {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1F7BDC;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+.row.results_card  .nhaxe_diachi {
+         font-size: 14px;
+    color: grey;
+    margin-bottom: 5px;
 }
+
+.row.results_card h2.price_nhaxe {
+        line-height: 1.5em;
+    margin-top: 0;    font-size: 20px;
+}
+
+.row.results_card h2.price_nhaxe span {
+        font-size: 44px;
+}
+}
+
+@media (max-width: 512px) {
+    #search_page_timtaixe .quotes .panel .panel-heading {
+        display: flex;
+    }
+
 }

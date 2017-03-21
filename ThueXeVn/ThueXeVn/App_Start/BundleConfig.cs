@@ -31,17 +31,19 @@ namespace ThueXeVn
                 "~/Content/fontend/css/owl.theme.css",
                 "~/Content/fontend/css/style.css",
                 "~/Content/fontend/css/responsive.css",
-                "~/Content/fontend/css/stylemh.css"
+                "~/Content/fontend/css/stylemh.css",
+                "~/Content/fontend/css/bootstrap-switch.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/Content/fontend/js/scripts").Include(
                 "~/Content/fontend/js/owl.carousel.js",
+                "~/Content/fontend/js/bootstrap-switch.js",
                 "~/Content/fontend/js/main.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Scripts/main").Include("~/Scripts/script2.js"));
 
-            BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
