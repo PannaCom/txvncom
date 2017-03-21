@@ -217,6 +217,14 @@
           <Property Name="cm_dislike" Type="int" />
           <Property Name="cm_date" Type="datetime" />
         </EntityType>
+        <EntityType Name="driver_view">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="driver_id" Type="bigint" />
+          <Property Name="views" Type="int" />
+        </EntityType>
         <EntityType Name="drivers">
           <Key>
             <PropertyRef Name="id" />
@@ -433,6 +441,7 @@
           <EntitySet Name="driver_info" EntityType="Self.driver_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_promotion" EntityType="Self.driver_promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_rate_comment" EntityType="Self.driver_rate_comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_view" EntityType="Self.driver_view" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="find_bus" EntityType="Self.find_bus" Schema="dbo" store:Type="Tables" />
@@ -564,6 +573,7 @@
           <EntitySet Name="drivers" EntityType="thuexevnModel.driver" />
           <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
           <EntitySet Name="tai_xe_toan_cau" EntityType="thuexevnModel.tai_xe_toan_cau" />
+          <EntitySet Name="driver_view" EntityType="thuexevnModel.driver_view" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -898,6 +908,14 @@
           <Property Name="F13" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="F14" Type="Double" />
           <Property Name="F15" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="driver_view">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="driver_id" Type="Int64" />
+          <Property Name="views" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1345,6 +1363,15 @@
                 <ScalarProperty Name="F3" ColumnName="F3" />
                 <ScalarProperty Name="F2" ColumnName="F2" />
                 <ScalarProperty Name="F1" ColumnName="F1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_view">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_view">
+              <MappingFragment StoreEntitySet="driver_view">
+                <ScalarProperty Name="views" ColumnName="views" />
+                <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

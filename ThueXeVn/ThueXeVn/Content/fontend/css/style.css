@@ -97,7 +97,7 @@ a {
 
 .navbar-brand img {
     height: 100%;
-    width: 100;
+    width: 46px;
 }
 
 #tf-menu {
@@ -2138,6 +2138,10 @@ ul.img-product-n > li > a > img {
     .img-c1 {
         width: 200px;
     }
+
+    img {
+        max-width: 200px;
+    }
 }
 
 #owl-demo .item {
@@ -2508,77 +2512,166 @@ ul.img-product-n > li > a > img {
     margin-bottom: 0;
 }
 
-#bookingFormFrm {
-
+.homepage-bg-desktop {
+    background-image: url(/Content/fontend/img/bg_home.jpg);
+    background-repeat: no-repeat;
 }
 
-#bookingFormFrm h2{
+#bookingFormFrm {
+}
+
+    #bookingFormFrm h2 {
         color: #fff;
         margin-left: 0;
-} 
+    }
 
-#bookingFormFrm .btn.btn-default {
-    padding: 11px 15px;
-    color: #ffffff;
-    background: #FFA700;
-    margin-bottom: 0;
-    margin-top: 1.5em;
-    line-height: 2em;
-    border-bottom: 0;
-}
+    #bookingFormFrm .btn.btn-default {
+        padding: 11px 15px;
+        color: #ffffff;
+        background: #FFA700;
+        margin-bottom: 0;
+        margin-top: 1.5em;
+        line-height: 2em;
+        border-bottom: 0;
+    }
 
-#bookingFormFrm .btn.btn-default:active:focus{
-    background-color: #e59d14;
-    border-color: #FFA700;
-}
+        #bookingFormFrm .btn.btn-default:active:focus {
+            background-color: #e59d14;
+            border-color: #FFA700;
+        }
 
-#bookingFormFrm fieldset {
-    padding: 0 15px;
-    color: #fff;
-}
+    #bookingFormFrm fieldset {
+        padding: 0 15px;
+        color: #fff;
+    }
 
 
-#bookingFormFrm .field_row {
-    position: relative;
-}
+    #bookingFormFrm .field_row {
+        position: relative;
+    }
 
-#bookingFormFrm .field_row i {
-      position: absolute;
-    right: 0;
-    top: 0;
-    color: #26a0e6;
-    padding: 12px 15px;
-    cursor: pointer;
-    margin: 0;
-}
+        #bookingFormFrm .field_row i {
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: #26a0e6;
+            padding: 12px 15px;
+            cursor: pointer;
+            margin: 0;
+        }
 
-#bookingFormFrm label {
+    #bookingFormFrm label {
         line-height: 2.6em;
-}
+    }
 
 .border_radius_none {
     border-radius: 0;
 }
 
-.booking-homepage .title{
-        line-height: 3em;
+.booking-homepage .title {
+    line-height: 3em;
 }
 
-.booking-homepage .title h2 {
-    display: inline;
-    font-size: 18px;
-    font-weight: 300;
+    .booking-homepage .title h2 {
+        display: inline;
+        font-size: 18px;
+        font-weight: 300;
+        vertical-align: middle;
+        margin: 0 10px;
+    }
+
+.fun_home_page .list-group .list-group-item {
+    border-radius: 0; padding: 0;border: 0;
+}
+
+    .fun_home_page .list-group .list-group-item.active {
+        background: #094185;
+        padding: 1em;
+        margin-bottom: 0;
+    }
+
+        .fun_home_page .list-group .list-group-item.active h3 {
+            color: #F3F9FF;
+            margin: 0;
+        }
+
+.item__card {
+    position: relative;
+    background: #1F7BDC;
+    border-top: solid 3px #F3F9FF;
+    padding: 2em;
+}
+
+    .item__card, .item__card h4 {
+        color: #F3F9FF;
+    }
+
+    .fun_home_page .list-group {
+        margin-bottom: 0;
+    }
+
+.fun_home_page .location {
+    width: 100%;
+}
+
+.item__card .from {
+    display: inline-block;
+}
+
+.item__card .to {
+    left: 3em;
+    padding-top: 1em;
+}
+
+.item__card .next {
+    left: 3em;
+    padding-top: 1em;
+}
+
+.fun_home_page .fa-angle-right {
+    font-size: 32px;
+    font-weight: 100;
+    color: #FFF;
+}
+
+.fun_home_page .item__card > * {
+    display: table-cell;
     vertical-align: middle;
-    margin: 0 10px;
+}
+
+.fun_home_page .price {
+    font-size: 2em;
+    padding-right: 10px;
+}
+
+.fun_home_page .price i {
+    display: inline;
+}
+
+.fun_home_page h4 {
+    margin: 0;
+}
+
+.item__card h4 {
+    font-weight: 400;
+    font-size: 1.15em;
+}
+
+.item__card:hover {
+    background: #008FFF;
+}
+
+#experiecess, #hotdeal {
+    background: #fff;
 }
 
 
 @media (min-width: 768px) {
     .homepage-bg-desktop {
-       background-position: right center;
-    background-repeat: repeat-x;
-    background-image: url(/Content/fontend/img/bg_home.jpg);
-    background-position-y: 0;
+        background-position: right center;
+        background-repeat: repeat-x;
+        background-position-y: 0;
+        background-image: url(/Content/fontend/img/bg_home.jpg);
     }
 
     .container.homepage {
@@ -2609,4 +2702,33 @@ ul.img-product-n > li > a > img {
     .booking-homepage .title h2 {
         font-size: 1.6em;
     }
+
+    .fun_home_page .list-group .list-group-item.active h3 {
+        font-weight: 400;
+        font-size: 1.7em;
+    }
+
+    .fun_home_page .price {
+        top: .7em;
+        right: 10em;
+    }
+
+    .item__card {
+        border-top: solid 1px #F3F9FF;
+        padding: 1.25em 1em;
+    }
+
+    .item__card .to {
+    position: absolute;
+    left: 21em;
+    display: inline-block;
+    padding: 0;
+}
+
+    .item__card .next {
+     position: absolute;
+    left: 42em;
+    display: inline-block;
+    padding: 0;
+}
 }

@@ -39,8 +39,6 @@ namespace ThueXeVn
                 "~/Content/fontend/js/main.js"
                 ));
 
-
-
             bundles.Add(new ScriptBundle("~/Scripts/main").Include("~/Scripts/script2.js"));
 
             BundleTable.EnableOptimizations = false;

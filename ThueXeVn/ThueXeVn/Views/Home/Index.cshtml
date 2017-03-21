@@ -119,10 +119,11 @@
                             <div class="field_row">
                                 <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
                                 <i class="fa fa-map-marker" id="getmaplocation"></i>
+                                
                             </div>
                             <input type="hidden" name="lat1" id="lat1" />
                             <input type="hidden" name="lng1" id="lng1" />
-
+                           
                         </div>
                         <div class="col-md-5">
                             <label class="control-label" for="place_to">Địa điểm đến:</label>
@@ -203,6 +204,61 @@
     </div>
 </section>
 
+@{Html.RenderAction("Loadhotdeal");}
+
+<section id="experiecess" class="fun_home_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list-group">
+
+                    <a href="#" class="list-group-item active">
+                        <h3>
+                            <i class="fa fa-search-plus"></i> Các chuyến đi được tìm nhiều nhất
+                        </h3>
+                    </a>
+                    <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=20.2791804&lng2=106.20514839999998&from=H%C3%A0%20N%E1%BB%99i,%20Vi%E1%BB%87t%20Nam&to=Nam%20%C4%90%E1%BB%8Bnh,%20Vi%E1%BB%87t%20Nam&loaixe=&kc=109%20&nhaxe=" class="list-group-item">
+                        <div class="item__card">
+                            <div class="location">
+                                <div class="from"><h4>Từ: Hà Nội</h4></div>
+                                <div class="to"><h4>Đến: Nam Định</h4></div>
+                                <div class="next"><h4></h4></div>
+                            </div>
+                            <div class="price"><i class="fa fa-car"></i>&nbsp;158</div>
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </a>
+                    <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=21.006382&lng2=107.29251440000007&from=H%C3%A0%20N%E1%BB%99i&to=Qu%E1%BA%A3ng%20Ninh&loaixe=5&kc=195%20&nhaxe=" class="list-group-item">
+                        <div class="item__card">
+                            <div class="location">
+                                <div class="from"><h4>Từ: Hà Nội</h4></div>
+                                <div class="to"><h4>Đến: Quảng Ninh</h4></div>
+                                <div class="next"><h4>Xe 5 chỗ</h4></div>
+                            </div>
+                            <div class="price"><i class="fa fa-car"></i>&nbsp;86</div>
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </a>
+
+                    <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=21.268443&lng2=105.20455730000003&from=H%C3%A0%20N%E1%BB%99i&to=Ph%C3%BA%20Th%E1%BB%8D&loaixe=16&kc=90,2%20&nhaxe=" class="list-group-item">
+                        <div class="item__card">
+                            <div class="location">
+                                <div class="from"><h4>Từ: Hà Nội</h4></div>
+                                <div class="to"><h4>Đến: Phú Thọ</h4></div>
+                                <div class="next"><h4>Xe 16 chỗ</h4></div>
+                            </div>
+                            <div class="price"><i class="fa fa-car"></i>&nbsp;6</div>
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
 @*<div class="content-heading text-center">
         <!-- Input Your Home Content Here -->
         <div class="row text-center" style="min-height:667px;">
@@ -231,7 +287,7 @@
 
 @*@{Html.RenderAction("LoadBooking");}*@
 
-@Html.Partial("_mh_show_carrental")
+@*@Html.Partial("_mh_show_carrental")*@
 
 @*@Html.Partial("_LoadBooking")*@
 

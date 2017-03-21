@@ -1342,6 +1342,22 @@ namespace ThueXeVn.Controllers
                 ViewBag.lon = 105.3724793;
                 ViewBag.lat = 20.9740874;
             }
+            //Cập nhật driver_view
+            var luotxem = db.driver_view.Where(x => x.driver_id == id).FirstOrDefault();
+            if (luotxem == null)
+            {
+                driver_view addview = new driver_view();
+                addview.driver_id = id;
+                addview.views = 1;
+                db.driver_view.Add(addview);
+                db.SaveChanges();
+            }
+            else
+            {
+                luotxem.views += 1;
+                db.Entry(luotxem).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return View(driver);
         }
 
@@ -1723,6 +1739,17 @@ namespace ThueXeVn.Controllers
 
 
             return Json("1", JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult Loadhotdeal()
+        {
+            var data = (from s in db.driver_view join d in db.drivers on s.driver_id equals d.id select new hotdeal(){
+                driver_id = s.driver_id,
+                driver_name = d.name,
+                driver_view = s.views
+            }).OrderByDescending(x=>x.driver_view).Take(5).ToList();
+            return PartialView("_Loadhotdeal", data);
         }
 
     }

@@ -15,8 +15,6 @@
 }
 
 <link href="~/Content/bxslider/jquery.bxslider.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/Content/jquery.datetimepicker.css" />
-<script src="/Scripts/jquery.datetimepicker.js"></script>
 <link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-rating.min.js"></script>
 <style>
@@ -140,7 +138,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe();"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
+                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe(event);"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
                 </div>
             </div>
 
@@ -393,7 +391,6 @@
 @*<script src="~/Content/slick/slick.min.js"></script>*@
     <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-    <script src="/Scripts/jquery.geocomplete.js"></script>
     <script src="~/Scripts/script2.js"></script>
     <script>
         $(document).ready(function () {

@@ -211,4 +211,12 @@ namespace ThueXeVn.Models
         public string so2 { get; set; }
     }
 
+    public class hotdeal
+    {
+        public long? driver_id { get; set; }
+        public string driver_name { get; set; }
+        public int? driver_view { get; set; }
+
+    }
+
 }

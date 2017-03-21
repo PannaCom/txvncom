@@ -332,14 +332,22 @@
 function timkiemtaixe(e) {
     e.preventDefault();
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-        notifywarn('Vui lòng nhập địa chỉ đi');
-        
+        //notifywarn('Vui lòng nhập địa chỉ đi');
+        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
+        $('#place_from').parent('.field_row').append(msb).fadeIn('300');
+        setTimeout(function () {
+            $('#place_from').siblings('.alert').alert('close');
+        }, 1500);
         document.getElementById('place_from').focus();
         return false;
     }
     if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-        notifywarn('Vui lòng nhập địa chỉ đến');
-        
+        //notifywarn('Vui lòng nhập địa chỉ đến');
+        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
+        $('#place_to').parent('.field_row').append(msb).fadeIn('300');
+        setTimeout(function () {
+            $('#place_to').siblings('.alert').alert('close');
+        }, 1500);
         document.getElementById('place_to').focus();
         return false;
     }

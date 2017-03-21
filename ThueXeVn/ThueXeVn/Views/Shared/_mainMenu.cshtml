@@ -1,0 +1,91 @@
+﻿<nav id="tf-menu" class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img class="brand-logo" src="~/Content/Images/logo.png" /></a>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                @*<li>@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                <li><a href="/dat-xe" class="scroll">Đặt thuê xe</a></li>
+                <li><a href="/home/banggiaxe">Bảng giá xe</a></li>
+                @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hướng dẫn <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Khách thuê xe", "Customer", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                        <li>@Html.ActionLink("Tài xế đăng ký", "Driver", "Home", new { area = "" }, new { @class = "scroll" })</li>
+                    </ul>
+                </li>
+
+                <li><a href="/tin/page=1">Tin tức</a></li>
+                <li><a href="/taxi-noi-bai-gia-re-taxi-san-bay-gia-re">Xe taxi nội bài</a></li>
+                @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
+                @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
+                @if (Config.getCookie("taixelogged") != "")
+                {
+                    { Html.RenderAction("InfoTaixelogin", "Home"); }
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tài xế <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/Home/Create" data-toggle="tooltip" data-placement="bottom" title="Đăng ký"><i class="fa fa-user-plus"></i> Đăng ký tài xế</a>
+                            </li>
+                            <li><a href="/tai-xe/dang-nhap">Đăng nhập</a></li>
+                            <li><a href="/dang-ky-uber-grab">Đăng ký uber Grab</a></li>
+                        </ul>
+                    </li>
+                }
+                @if (Config.getCookie("ctvlogged") != "")
+                {
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown">Cộng tác viên</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/cong-tac-vien">Lấy địa chỉ liên kết</a></li>
+                            <li><a href="#" onclick="ctv_dangxuat();">Đăng xuất</a></li>
+
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cộng tác viên <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/cong-tac-vien/dang-ky" data-toggle="tooltip" data-placement="bottom" title="Đăng ký cộng tác viên tiếp thị liên kết"><i class="fa fa-user-plus"></i> Đăng ký cộng tác viên</a>
+                            </li>
+                            <li><a href="/cong-tac-vien/dang-nhap">Đăng nhập</a></li>
+                        </ul>
+                    </li>
+                }
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tiện ích <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Tìm xe buýt", "List", "XeBuyt", new { area = "" }, new { @class = "scroll" })</li>
+                        <li><a href="/Home/TimTaiXe">Tìm tài xế</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="http://en.thuexevn.com" rel="nofollow"><img src="~/Images/flag_eng.png" /></a></li>
+            </ul>
+        </div>
+
+
+
+        <!-- /.container-fluid -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- /.navbar-collapse -->
+    </div>
+</nav>
