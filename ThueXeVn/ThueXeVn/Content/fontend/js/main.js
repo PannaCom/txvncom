@@ -117,10 +117,81 @@ function main() {
                     return false;
                 })
             }
-            
-            
-            
 
+
+            //share social                
+            //share this
+            if ($('#sharethis').length) {
+                $('#sharethis').on('click', function () {
+                    var html = "<form id=\"frmShareLink\">"
++ "<div class=\"form-horizontal\">"
++ "<div class=\"form-group\">"
++ "<div class=\"input-group\">"
++ "<input type=\"text\" class=\"form-control\" id=\"inputShareLink\" name=\"inputShareLink\" disabled>"
++ "<span class=\"input-group-btn\">"
++ "<button type=\"button\" class=\"btn btn-default\" id=\"btnShareLink\"><i class=\"fa fa-copy\"></i></button>"
++ "</span>"
++ "</div>"
++ "</div>"
++ "</div>"
++ "</form>";
+                    $('#modal_sharesocial .modal-body').empty().html(html);
+                    $('#modal_sharesocial .modal-header').find('.modal-title').empty().html("Sao chép liên kết bên dưới vào khay nhớ tạm thời của bạn để chia sẻ những kết quả này");
+                    if ($('#inputShareLink').length) {
+                        var url = window.location.href;
+                        $('#inputShareLink').val(url);
+                    }
+                    $('#modal_sharesocial').modal('show', { backdrop: 'static', keyboard: false });
+                    if ($('#btnShareLink').length) {
+                        var copyTextareaBtn = document.querySelector('#btnShareLink');
+
+                        copyTextareaBtn.addEventListener('click', function (event) {
+                            var copyTextarea = document.querySelector('#inputShareLink');
+                            copyTextarea.select();
+
+                            try {
+                                var successful = document.execCommand('copy');
+                                var msg = successful ? 'Đã sao chép để chia sẻ' : 'unsuccessful';
+                                notifysucc(msg);
+                            } catch (err) {
+                                console.log('Oops, unable to copy');
+                            }
+                        });
+
+                    }
+
+                });
+            }
+
+            //share email
+
+            //share facebooj
+            if ($('.social-share').length) {
+                var t=$('[data-js="share"]').attr("data-permalink"),e=encodeURIComponent(
+		$('[data-js="share"]').attr("data-title"));
+                bitly(t,function(){
+                    $('[data-js="share-twitter"]').attr("href","https://twitter.com/share?text="+e+"%20-&url="+t+"&via=ngnguyenvannam&related=ngnguyenvannam"),
+                    $('[data-js="share-google"]').attr("href","https://plus.google.com/share?url="+t)
+                }),
+
+                $('[data-js="share-twitter"]').click(function(){
+                    return window.open($(this).attr("href"),"sharer","toolbar=0,status=0,width=620,height=430"),!1}),
+                $('[data-js="share-google"]').click(function(){
+                    return window.open($(this).attr("href"),"sharer","toolbar=0,status=0,width=620,height=430"),!1})
+            }
+
+            if ($('#sharefacebook').length) {
+                $('#sharefacebook').on('click', function () {
+                    FB.ui({
+                        method: 'share',
+                        mobile_iframe: true,
+                        href: $(this).attr('data-href'),
+                    }, function (response) { });
+                })
+                
+            }
+
+            
         });
 
 
@@ -131,6 +202,20 @@ function main() {
 
 }
 main();
+
+/**function bitly(t, e) {
+//    var a = "o_21307vlum1", n = "R_e3ba276d5631459d9bed062157f85f1a";
+//    $.getJSON("https://api-ssl.bitly.com/v3/shorten?callback=?",
+//		{ format: "json", apiKey: n, login: a, longUrl: t },
+//		function (t) { e(t.data.url) })
+//}*/
+
+function bitly(t, e) {
+    var a = "o_21307vlum1", n = "R_e3ba276d5631459d9bed062157f85f1a";
+    $.getJSON("https://api-ssl.bitly.com/v3/shorten?callback=?",
+		{ format: "json", apiKey: n, login: a, longUrl: t },
+		function (t) { e(t.data.url) })
+}
 
 function logout() {
     window.location.href = "/Home/logouttaixe";
@@ -170,7 +255,7 @@ toastr.options = {
     positionClass: "toast-top-center"
 };
 
-function notifywarn(msg, type) {
+function notifywarn(msg) {
     toastr.clear();
     var notify = toastr.warning(msg);
 
@@ -180,4 +265,45 @@ function notifywarn(msg, type) {
         var containerWidth = jQuery(notify).width() + 20;
         $notifyContainer.css("margin-left", -containerWidth / 2);
     }
+}
+
+function notifysucc(msg) {
+    toastr.clear();
+    var notify = toastr.success(msg);
+
+    var $notifyContainer = jQuery(notify).closest('.toast-top-center');
+    if ($notifyContainer) {
+        // align center
+        var containerWidth = jQuery(notify).width() + 20;
+        $notifyContainer.css("margin-left", -containerWidth / 2);
+    }
+}
+
+function getsearchOption(s, i) {
+    var url = "";
+    if (s === "giaxe") {
+        switch (i) {
+            case "1":
+                url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 1);
+                break;
+            case "2":
+                url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 2);
+                break;
+            default:
+                break;
+        }
+    } else if (s === "nhaxe") {
+        switch (i) {
+            case "1":
+                url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 1);
+                break;
+            case "0":
+                url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 0);
+                break;
+            default:
+                break;
+        }
+    }
+    //console.log(url);
+    window.location.href = url;
 }

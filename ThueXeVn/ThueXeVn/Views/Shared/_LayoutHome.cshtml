@@ -3,11 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@Html.Raw(ViewBag.Title)</title>
-    <meta name="description" content="@Html.Raw(ViewBag.Description)">
+    <title>@Html.Raw(ViewBag.title)</title>
+    <meta name="description" content="@Html.Raw(ViewBag.des)">
     @*<meta name="description" content="Cho Thuê Xe Du Lịch, Cho Thuê Xe 7 Chỗ, Thuê Xe 16 Chỗ, Thuê Xe Giá Rẻ, Thuê Xe 29 Chỗ, Cho Thuê Xe 4 Chỗ, Thuê Xe Hà Nội, Taxi Đường Dài Giá Rẻ, Uy Tín">*@
-    <meta name="keywords" content="@Html.Raw(ViewBag.keyword)">
+    <meta name="keywords" content="@Html.Raw(ViewBag.keywords)">
     <meta name="author" content="ThueXeVn.Com">
+
+    <!-- Meta property -->
+    <meta property="og:title" content="@Html.Raw(ViewBag.title)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="thuexevn.com" />
+    <meta property="og:url" content="@Html.Raw(ViewBag.url)" />
+    <meta property="og:description" content="@Html.Raw(ViewBag.des)" />
 
     <!-- Favicons
     ================================================== -->

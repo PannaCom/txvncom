@@ -18,6 +18,24 @@
 <script src="~/Content/bootstrap-rating.min.js"></script>
 <script src="~/Content/sld/jquery.flexslider-min.js"></script>
 
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1259076600796364',
+            xfbml: true,
+            version: 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 @{
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
@@ -51,6 +69,19 @@
 
     ViewBag.title += title;
     ViewBag.des += title;
+
+    string nhaxe = "";
+    string giaxe = "";    
+    if (ViewBag.nhaxe != null)
+    {
+        nhaxe = ViewBag.nhaxe;
+    }
+
+    if (ViewBag.gia_select != null)
+    {
+        giaxe = ViewBag.gia_select;
+    }
+    
 }
 
 @{
@@ -62,7 +93,6 @@
 }
 
 @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
-<link href="~/Content/style1.css" rel="stylesheet" />
 <input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem_view" />
 
 
@@ -93,6 +123,15 @@
                 <div class="page-header">
                     <h2>Danh sách tài xế/nhà xe @title</h2>
                 </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 booking-progress-bar" id="section_sp">
+                <ul class="search_options">
+                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-angle-up"></i>&nbsp;Giá tiền tăng dần</a></li>
+                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-angle-down"></i>&nbsp;Giá tiền giảm dần</a></li>
+                    <li class="@if(@nhaxe == "0"){<text>active</text>}" data-sort="fdhdfhdf" data-sort-name="dsfsdgsdg" onclick="getsearchOption('nhaxe', '0');"><a href=" #"><i class="fa fa-car"></i>&nbsp;Tài xế</a></li>
+                    <li class="@if(@nhaxe == "1"){<text>active</text>}" data-sort="436346436" data-sort-name="gsdgsdg" onclick="getsearchOption('nhaxe', '1');"><a href=" #"><i class="fa fa-train"></i>&nbsp;Nhà xe</a></li>
+                </ul>
             </div>
 
 
@@ -156,12 +195,41 @@
                                 </div>
                             </div>*@
                     </fieldset>
-                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe(event);"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
+                    <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe2(event);"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
                 </form>
 
-                <div class="">
-                    <h2>Chia sẻ</h2>
+                <div class="share-quote">
+                    <h2 class="padding-top-bot-20">Chia sẻ</h2>
+                    <div class="social-share" data-js="share" data-permalink="@url" data-title="Chuyến xe từ @title">
+                        <div class="links" id="sharethis" data-di-id="sharethis">
+                            <a class="share-this" data-js="share-this" href="#" rel="nofollow" title="Chia sẻ link">
+                                <i class="fa fa-share-alt"></i>
+                            </a>
+                        </div>
 
+                        <div class="mail" id="shareemail" data-di-id="#shareemail">
+                            <a class="share-email" data-js="share-email" href="#" rel="nofollow" title="Chia sẻ danh sách cho bạn bè">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </div>
+
+                        <div class="facebook" id="sharefacebook" data-di-id="#sharefacebook" data-href="@url">
+                            <a class="share-facebook" data-js="share-facebook" href="javascript:void(0)" rel="nofollow" title="Chia sẻ lên Facebook">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+
+                        </div>
+                        <div class="twitter" id="sharetwitter" data-di-id="#sharetwitter">
+                            <a class="share-twitter" data-js="share-twitter" href="#" rel="nofollow" title="Chia sẻ lên twitter">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="google" id="sharegoogle" data-di-id="#sharegoogle">
+                            <a class="share-google" data-js="share-google" href="#" rel="nofollow" title="Chia sẻ lên Google+">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -176,11 +244,11 @@
                                 {
                                     <text>Kết quả:&nbsp;<span>10/@ViewBag.sotaixe nhà xe (tài xế).</span></text>
                                 }
-                                <label class="pull-right">
+                                @*<label class="pull-right">
                                     <span>Sắp xếp theo giá:&nbsp;</span><input name="gia_select" id="gia_select" type="checkbox" checked>,&nbsp;kiểu:&nbsp;
                                     <input name="nhaxe" id="nhaxe" type="checkbox" checked>
-                                </label>
-                                
+                                </label>*@
+
                                 @*<select name="gia_select" id="gia_select" class="pull-right">
                                         <option value="1">Giá tăng dần</option>
                                         <option value="2">Giá giảm dần</option>
@@ -214,8 +282,15 @@
                                                             else
                                                             {<text>Nhà xe</text>} @item.name
                                                         </a>
+                                                        @if (item.driver_type == 1)
+                                                        {
+                                                            <strong>Đã xác thực tài khoản</strong>
+                                                        }
                                                         <a href="@url_profile" class="btn btn-default pull-right">Xem chi tiết</a>
+
                                                     </h4>
+
+
 
                                                     @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
                                                     @if (item.address != null && item.address != "")
@@ -328,12 +403,63 @@
     </div>
 </div>
 
-@if (ViewBag.from != null || ViewBag.to != null || ViewBag.loaixe != null)
+<div class="modal fade" id="modal_sharesocial" tabindex="-1" role="dialog" aria-labelledby="modal_sharesocialLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modal_sharesocialLabel"></h4>
+            </div>
+
+            <div class="modal-body">
+
+                Content is loading...                
+                @*<form id="frmShareLink">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="inputShareLink" name="inputShareLink">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" id="btnShareLink"><i class="fa fa-copy"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>*@
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.to != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#place_to').val('@Html.Raw(ViewBag.to)');
+        })
+    </script>
+}
+
+@if (ViewBag.from != null)
 {
     <script>
         $(document).ready(function () {
             $('#place_from').val('@Html.Raw(ViewBag.from)');
-            $('#place_to').val('@Html.Raw(ViewBag.to)');
+        })
+    </script>
+}
+
+@if (ViewBag.loaixe != null)
+{
+    <script>
+        $(document).ready(function () {
             $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');
         })
     </script>
@@ -393,7 +519,8 @@
         @*<script src="~/Content/slick/slick.min.js"></script>*@
         <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
-        <script src="~/Scripts/script2.js"></script>
+        @*<script src="~/Scripts/script2.js"></script>*@
+        @Scripts.Render("~/Scripts/main")
         <script>
             $(document).ready(function () {
                 //$('#gia_select').on('change', function () {
@@ -433,199 +560,198 @@
 
         @*//dat xe nhanh*@
         <script>
-    function func_datxenhanh(id) {
+            function func_datxenhanh(id) {
 
-        if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-            alert('Vui lòng nhập điểm đi.');
-            return false;
+                if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
+                    alert('Vui lòng nhập điểm đi.');
+                    return false;
 
-        }
-        if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-            alert('Vui lòng nhập điểm đến.');
-            return false;
-
-        }
-        if (id) {
-            $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
-                $('#modal-7 .modal-body').html(html);
-                $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
-            })
-        }
-
-    }
-
-    function saveBookingToDriver(id) {
-        document.getElementById('lon_from').value = document.getElementById('lng1').value;
-        document.getElementById('lat_from').value = document.getElementById('lat1').value;
-        document.getElementById('lon_to').value = document.getElementById('lng2').value;
-        document.getElementById('lat_to').value = document.getElementById('lat2').value;
-        document.getElementById('from_place').value = document.getElementById('place_from').value;
-        document.getElementById('to_place').value = document.getElementById('place_to').value;
-        document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
-        document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
-        document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
-        document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
-        document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_' + id).value;
-
-        var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
-        if (document.getElementById('customer_name').value === "") {
-            alert("Vui lòng nhập họ tên khách hàng.");
-            document.getElementById('customer_name').focus();
-            return false;
-        }
-        if (document.getElementById('customer_phone').value === "") {
-            alert("Vui lòng nhập số điện thoại khách hàng.");
-            document.getElementById('customer_phone').focus();
-            return false;
-        }
-        if (document.getElementById('from_date').value === "") {
-            alert("Vui lòng nhập ngày đến.");
-            document.getElementById('from_date').focus();
-            return false;
-        }
-        if (document.getElementById('to_date').value === "") {
-            alert("Vui lòng nhập ngày đi.");
-            document.getElementById('to_date').focus();
-            return false;
-        }
-        if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
-            alert("Ngày đi phải sau ngày đến");
-            document.getElementById('from_date').focus();
-            return false;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
-            success: function (data) {
-                if (data == 1) {
-                    $('#modal-7').modal('hide');
-
-                    //reset value
-                    document.getElementById('customer_name').value = "";
-                    document.getElementById('customer_phone').value = "";
-                    document.getElementById('from_date').value = "";
-                    var d = new Date();
-                    var s = d.toLocaleString();
-                    $('#to_date').datetimepicker({ value: s, step: 10 });
-                    //end value
-                    setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
-                    $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
                 }
-                //console.log(data);
+                if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
+                    alert('Vui lòng nhập điểm đến.');
+                    return false;
+
+                }
+                if (id) {
+                    $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
+                        $('#modal-7 .modal-body').html(html);
+                        $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
+                    })
+                }
+
             }
-        });
-    }
 
-    //$(document).ready(function(){
-    //    $('.multiple-items').slick({
-    //        infinite: true,
-    //        slidesToShow: 1,
-    //        slidesToScroll: 1
-    //    });
-    //});
+            function saveBookingToDriver(id) {
+                document.getElementById('lon_from').value = document.getElementById('lng1').value;
+                document.getElementById('lat_from').value = document.getElementById('lat1').value;
+                document.getElementById('lon_to').value = document.getElementById('lng2').value;
+                document.getElementById('lat_to').value = document.getElementById('lat2').value;
+                document.getElementById('from_place').value = document.getElementById('place_from').value;
+                document.getElementById('to_place').value = document.getElementById('place_to').value;
+                document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
+                document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
+                document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
+                document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
+                document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_' + id).value;
 
-    $(document).ready(function () {
+                var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
+                if (document.getElementById('customer_name').value === "") {
+                    alert("Vui lòng nhập họ tên khách hàng.");
+                    document.getElementById('customer_name').focus();
+                    return false;
+                }
+                if (document.getElementById('customer_phone').value === "") {
+                    alert("Vui lòng nhập số điện thoại khách hàng.");
+                    document.getElementById('customer_phone').focus();
+                    return false;
+                }
+                if (document.getElementById('from_date').value === "") {
+                    alert("Vui lòng nhập ngày đến.");
+                    document.getElementById('from_date').focus();
+                    return false;
+                }
+                if (document.getElementById('to_date').value === "") {
+                    alert("Vui lòng nhập ngày đi.");
+                    document.getElementById('to_date').focus();
+                    return false;
+                }
+                if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
+                    alert("Ngày đi phải sau ngày đến");
+                    document.getElementById('from_date').focus();
+                    return false;
+                }
 
-        setTimeout(function () {
-            @if (ViewBag.loaixe != null)
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        if (data == 1) {
+                            $('#modal-7').modal('hide');
+
+                            //reset value
+                            document.getElementById('customer_name').value = "";
+                            document.getElementById('customer_phone').value = "";
+                            document.getElementById('from_date').value = "";
+                            var d = new Date();
+                            var s = d.toLocaleString();
+                            $('#to_date').datetimepicker({ value: s, step: 10 });
+                            //end value
+                            setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
+                            $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
+                        }
+                        //console.log(data);
+                    }
+                });
+            }
+
+            //$(document).ready(function(){
+            //    $('.multiple-items').slick({
+            //        infinite: true,
+            //        slidesToShow: 1,
+            //        slidesToScroll: 1
+            //    });
+            //});
+
+            $(document).ready(function () {
+
+                setTimeout(function () {
+                    @if (ViewBag.loaixe != null)
                 {
                     <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
                 }
-        }, 1000)
+                }, 1000)
 
-        $('.bxslider').bxSlider({
-            infiniteLoop: false,
-            slideMargin: 10,
-            minSlides: 1,
-            slideWidth: 250,
-            controls: false
-        });
+                $('.bxslider').bxSlider({
+                    infiniteLoop: false,
+                    slideMargin: 10,
+                    minSlides: 1,
+                    slideWidth: 250,
+                    controls: false
+                });
 
-        //$('.profile_page').hover(function () {
-        //    $(this).siblings('a').css('display', 'inline-block');
-        //}, function () {
-        //    $(this).siblings('a').css('display', 'none');
-        //});
+                //$('.profile_page').hover(function () {
+                //    $(this).siblings('a').css('display', 'inline-block');
+                //}, function () {
+                //    $(this).siblings('a').css('display', 'none');
+                //});
 
-        var _state = true;
-        @if (ViewBag.gia_select != null)
+                @*var _state = true;
+                @if (ViewBag.gia_select != null)
             {
                 <text>
-        var gia = "@ViewBag.gia_select";
-        if (gia === '1') {
-            _state = true;
-        } else {
-            _state = false;
-        }
-        </text>
+                var gia = "@ViewBag.gia_select";
+                if (gia === '1') {
+                    _state = true;
+                } else {
+                    _state = false;
+                }
+                </text>
             }
 
-        var _nhaxe = true;
-        @if (ViewBag.nhaxe != null)
+                var _nhaxe = true;
+                @if (ViewBag.nhaxe != null)
 	        {
 		        <text>
-        var nx = '@ViewBag.nhaxe';
-        if (nx === '0') {
-            _nhaxe = false;
-        }
-            </text>
-	        }
+                var nx = '@ViewBag.nhaxe';
+                if (nx === '0') {
+                    _nhaxe = false;
+                }
+                </text>
+	        }*@
 
-        $('input[name="gia_select"]').bootstrapSwitch({
-            size: 'mini',
-            onText: 'Tăng dần',
-            offText: 'Giảm dần',
-            state: _state
-        });
-        $('input[name="nhaxe"]').bootstrapSwitch({
-            size: 'mini',
-            onText: 'Nhà xe',
-            offText: 'Tài xế',
-            state: _nhaxe
-        });
-        
+                //$('input[name="gia_select"]').bootstrapSwitch({
+                //    size: 'mini',
+                //    onText: 'Tăng dần',
+                //    offText: 'Giảm dần',
+                //    state: _state
+                //});
+                //$('input[name="nhaxe"]').bootstrapSwitch({
+                //    size: 'mini',
+                //    onText: 'Nhà xe',
+                //    offText: 'Tài xế',
+                //    state: _nhaxe
+                //});
 
-        $('input[name="gia_select"]').on('switchChange.bootstrapSwitch', function (event, state) {
-            console.log(state); // true | false
-            var url = "";
-            if (state == false) {
-                url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 2);
-            } else {
-                url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 1);
-            }
-            window.location.href = url;
-        });
+                //$('input[name="gia_select"]').on('switchChange.bootstrapSwitch', function (event, state) {
+                //    console.log(state); // true | false
+                //    var url = "";
+                //    if (state == false) {
+                //        url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 2);
+                //    } else {
+                //        url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 1);
+                //    }
+                //    window.location.href = url;
+                //});
 
-        $('input[name="nhaxe"]').on('switchChange.bootstrapSwitch', function (event, state) {
-            console.log(state); // true | false
-            var url = "";
-            if (state == true) {
-                url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 1);
-            } else {
-                url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 0);
-            }
-            window.location.href = url;
-        });
+                //$('input[name="nhaxe"]').on('switchChange.bootstrapSwitch', function (event, state) {
+                //    console.log(state); // true | false
+                //    var url = "";
+                //    if (state == true) {
+                //        url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 1);
+                //    } else {
+                //        url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 0);
+                //    }
+                //    window.location.href = url;
+                //});
 
-        $('.album_driver').flexslider({
-            animation: Modernizr.touch ? "slide" : "fade",
-            animationSpeed: Modernizr.touch ? 400 : 1000,
-            controlNav: false,
-            directionNav: true,
-            draggable: true,
-        });
-
-
-        //$('.quotes').affix({
-        //    offset: {
-        //        top: 100,
-        //    }
-        //})
+                $('.album_driver').flexslider({
+                    animation: Modernizr.touch ? "slide" : "fade",
+                    animationSpeed: Modernizr.touch ? 400 : 1000,
+                    controlNav: false,
+                    directionNav: true,
+                    draggable: true,
+                });                
 
 
-    });
+                //$('.quotes').affix({
+                //    offset: {
+                //        top: 100,
+                //    }
+                //})
+
+
+            });
 
         </script>
     }
