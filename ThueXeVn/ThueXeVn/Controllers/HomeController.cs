@@ -975,6 +975,17 @@ namespace ThueXeVn.Controllers
             return PartialView("_LoadPromotionDriver", html);
         }
 
+        public ActionResult LoadViewDriver(long? id)
+        {
+            int? count = 0;
+            var viewer = db.driver_view.Where(x => x.driver_id == id).FirstOrDefault();
+            if (viewer != null)
+            {
+                count = viewer.views;
+            }
+            return PartialView("_LoadViewDriver", count);
+        }
+
         public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg, string gia_select, string nhaxe)
         {
             if (lat1 == null || lng1 == null) return RedirectToAction("Index");
@@ -1445,7 +1456,8 @@ namespace ThueXeVn.Controllers
                 dg = new danhgiavm()
                 {
                     so1 = n,
-                    so2 = id + _rd
+                    so2 = id + _rd,
+                    totalrate = dt.Count
                 };
             }           
             
@@ -1750,6 +1762,20 @@ namespace ThueXeVn.Controllers
                 driver_view = s.views
             }).OrderByDescending(x=>x.driver_view).Take(5).ToList();
             return PartialView("_Loadhotdeal", data);
+        }
+
+        public ActionResult LoadDriverVertified(long? id)
+        {
+            int? tien = 0;
+            var data = db.drivers_money.Where(x => x.driver_id == id).FirstOrDefault();
+            if (data != null)
+            {
+                if (data.total_money > 0)
+                {
+                    tien = data.total_money;
+                }
+            }
+            return PartialView("_LoadDriverVertified", tien);
         }
 
     }

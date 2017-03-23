@@ -1,4 +1,7 @@
 ﻿@if (Model != null)
 {
-    <section class="col-xs-12 col-md-12">@Html.Raw(Model)</section>
+    if (Model != "")
+    {
+        <section class="col-xs-12 col-md-12 quote_section__promotion"><p>@Html.Raw(Model)</p></section>
+    }
 }

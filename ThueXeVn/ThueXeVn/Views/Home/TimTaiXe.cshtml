@@ -71,7 +71,7 @@
     ViewBag.des += title;
 
     string nhaxe = "";
-    string giaxe = "";    
+    string giaxe = "";
     if (ViewBag.nhaxe != null)
     {
         nhaxe = ViewBag.nhaxe;
@@ -81,7 +81,7 @@
     {
         giaxe = ViewBag.gia_select;
     }
-    
+
 }
 
 @{
@@ -90,6 +90,7 @@
     {
         kc_timkiem = Convert.ToDouble(ViewBag.kc_timkiem);
     }
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 
 @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
@@ -119,19 +120,20 @@
                 </ol>
             </div>
 
-            <div class="col-md-12 col-xs-12 booking-progress-bar">
+            <div class="col-md-12 col-xs-12 booking-progress-bar section_sp">
                 <div class="page-header">
                     <h2>Danh sách tài xế/nhà xe @title</h2>
                 </div>
             </div>
 
-            <div class="col-md-12 col-xs-12 booking-progress-bar" id="section_sp">
+            <div class="col-md-12 col-xs-12 booking-progress-bar section_sp">
                 <ul class="search_options">
                     <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-angle-up"></i>&nbsp;Giá tiền tăng dần</a></li>
                     <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-angle-down"></i>&nbsp;Giá tiền giảm dần</a></li>
                     <li class="@if(@nhaxe == "0"){<text>active</text>}" data-sort="fdhdfhdf" data-sort-name="dsfsdgsdg" onclick="getsearchOption('nhaxe', '0');"><a href=" #"><i class="fa fa-car"></i>&nbsp;Tài xế</a></li>
                     <li class="@if(@nhaxe == "1"){<text>active</text>}" data-sort="436346436" data-sort-name="gsdgsdg" onclick="getsearchOption('nhaxe', '1');"><a href=" #"><i class="fa fa-train"></i>&nbsp;Nhà xe</a></li>
                 </ul>
+
             </div>
 
 
@@ -245,103 +247,124 @@
                                     <text>Kết quả:&nbsp;<span>10/@ViewBag.sotaixe nhà xe (tài xế).</span></text>
                                 }
                                 @*<label class="pull-right">
-                                    <span>Sắp xếp theo giá:&nbsp;</span><input name="gia_select" id="gia_select" type="checkbox" checked>,&nbsp;kiểu:&nbsp;
-                                    <input name="nhaxe" id="nhaxe" type="checkbox" checked>
-                                </label>*@
+                                        <span>Sắp xếp theo giá:&nbsp;</span><input name="gia_select" id="gia_select" type="checkbox" checked>,&nbsp;kiểu:&nbsp;
+                                        <input name="nhaxe" id="nhaxe" type="checkbox" checked>
+                                    </label>*@
 
-                                @*<select name="gia_select" id="gia_select" class="pull-right">
-                                        <option value="1">Giá tăng dần</option>
-                                        <option value="2">Giá giảm dần</option>
-                                    </select>*@
-                            </h2>
+                                    @*<select name="gia_select" id="gia_select" class="pull-right">
+                                            <option value="1">Giá tăng dần</option>
+                                            <option value="2">Giá giảm dần</option>
+                                        </select>*@
+                                </h2>
 
-                        </div>
-                        <div class="list-group">
-                            @if (Model != null)
-                            {
-                                if (Model.Count > 0)
+                            </div>
+                            <div class="list-group">
+                                @if (Model != null)
                                 {
-                                    foreach (var item in Model)
+                                    if (Model.Count > 0)
                                     {
-                                        double giaTaiXe = 1;
-                                        string url_profile = string.Format("/nha-xe/{0}-{1}", @Config.unicodeToNoMark(item.name), item.id);
-                                        if (item.cp_price != null)
+                                        foreach (var item in Model)
                                         {
-                                            double d_gia = Convert.ToDouble(item.cp_price);
-                                            giaTaiXe *= kc_timkiem * d_gia;
+                                            double giaTaiXe = 1;
+                                            string url_profile = string.Format("/nha-xe/{0}-{1}", @Config.unicodeToNoMark(item.name), item.id);
+                                            if (item.cp_price != null)
+                                            {
+                                                double d_gia = Convert.ToDouble(item.cp_price);
+                                                giaTaiXe *= kc_timkiem * d_gia;
+                                            }
+
+                                            <div class="row results_card">
+                                                @if (item.driver_type == 1)
+                                                {
+                                                    <div class="col-xs-12 col-md-12 quotes-section quote_section__vertified">
+                                                        @*<p>
+                                                                <strong>Đã xác thực tài khoản</strong>
+                                                            </p>*@
+                                                        <div class="ct-ribbon ct-ribbon-blue">
+                                                            <i class="fa fa-check-circle ct-icon-best-seller"></i><p class="">Đã xác thực tài khoản</p>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                                @{Html.RenderAction("LoadDriverVertified", @item.id);}
+                                                @*<section class="col-xs-12 col-md-12 quote_section__promotion"><p>xxxxxx</p></section>*@
+                                                @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
+                                                <div class="col-xs-12 col-md-8 quotes-section">
+
+                                                    <section class="col-xs-12 col-md-12">
+                                                        <h4 class="nhaxe_name">
+                                                            <a href="@url_profile" class="profile_page">
+                                                                @if (item.driver_type == 0)
+                                                                {<text>Tài xế</text>}
+                                                                else
+                                                                {<text>Nhà xe</text>} @item.name
+                                                            </a>
+                                                        </h4>
+
+
+                                                        @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
+                                                        @if (item.address != null && item.address != "")
+                                                        {
+                                                            <text><h4 class="nhaxe_diachi"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
+                                                        }
+                                                    </section>
+
+
+
+                                                    <section class="col-xs-12 col-md-6">
+                                                        <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
+                                                        @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
+                                                    </section>
+
+                                                    <section class="col-xs-12 col-md-6">
+                                                        <p>
+                                                            <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Loại xe:&nbsp;<b>@item.car_size</b> chỗ</span>
+                                                        </p>
+                                                        <p><span id="price_driver_@item.id"><i class="fa fa-dollar"></i>&nbsp;Giá 1km:&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)&nbsp;Đồng/km</b></span></p>
+
+                                                        @{Html.RenderAction("LoadViewDriver", @item.id);}
+                                                    </section>
+
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-4 quote_section__price">
+                                                    <h2 class="price_nhaxe">
+
+                                                        @if (giaTaiXe != 1)
+                                                        {
+                                                            <text><span id="total_money_driver_@item.id" class="currency">@string.Format(info, "{0:#,##}", giaTaiXe)<small>đ</small></span></text>
+                                                           
+                                                        }
+                                                    </h2>
+
+                                                    <a href="@url_profile" class="btn btn-default btn-block">Xem chi tiết</a>
+                                                    <a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>
+                                                    <a href="#" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-12 hidden-xs margintop10">
+                                                    @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
+                                                </div>
+
+
+
+                                            </div>
+
+
+
+
                                         }
 
-                                        <div class="row results_card">
-                                            <div class="col-xs-12 col-md-8 quotes-section">
-
-                                                <section class="col-xs-12 col-md-12">
-                                                    <h4 class="nhaxe_name">
-                                                        <a href="@url_profile" class="profile_page">
-                                                            @if (item.driver_type == 0)
-                                                            {<text>Tài xế</text>}
-                                                            else
-                                                            {<text>Nhà xe</text>} @item.name
-                                                        </a>
-                                                        @if (item.driver_type == 1)
-                                                        {
-                                                            <strong>Đã xác thực tài khoản</strong>
-                                                        }
-                                                        <a href="@url_profile" class="btn btn-default pull-right">Xem chi tiết</a>
-
-                                                    </h4>
-
-
-
-                                                    @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
-                                                    @if (item.address != null && item.address != "")
-                                                    {
-                                                        <text><h4 class="nhaxe_diachi"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
-                                                    }
-                                                </section>
-
-                                                @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
-
-                                                <section class="col-xs-12 col-md-12">
-                                                    <p id="car_type_made_model_@item.id">@item.car_made @item.car_model @item.car_years</p>
-                                                    @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
-                                                </section>
-
-                                            </div>
-
-                                            <div class="col-xs-12 col-md-4">
-                                                <h2 class="price_nhaxe">
-                                                    Tổng giá:
-                                                    @if (giaTaiXe != 1)
-                                                    {
-                                                        <text><span id="total_money_driver_@item.id">@string.Format("{0:#,###}", giaTaiXe)</span><small>Đồng.</small></text>
-                                                    }
-                                                </h2>
-                                                <p>
-                                                    Loại xe: xe <span id="car_size_driver_@item.id">@item.car_size</span> chỗ
-                                                </p>
-                                                <p>Giá 1km: <span id="price_driver_@item.id">@string.Format("{0:#,###}", item.cp_price)</span> Đồng.</p>
-                                                <p>
-                                                    <a href="tel:0964108688" class="btn btn-default color_button_stx btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>
-                                                </p>
-                                                <p>
-                                                    <span style="color: #fff;" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id);"><i class="fa fa-car"></i> Đặt xe</span>
-                                                </p>
-                                            </div>
-
-                                            <div class="col-xs-12 col-md-12 hidden-xs margintop10">
-                                                @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
-                                            </div>
-
-
-
-                                        </div>
-
-
-
+                                        @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select, nhaxe = ViewBag.nhaxe }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
 
                                     }
-
-                                    @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select, nhaxe = ViewBag.nhaxe }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                                    else
+                                    {
+                                        <div class="row results_card mco_out">
+                                            Không có tài xế nào.
+                                        </div>
+                                    }
 
                                 }
                                 else
@@ -351,155 +374,147 @@
                                     </div>
                                 }
 
-                            }
-                            else
-                            {
-                                <div class="row results_card mco_out">
-                                    Không có tài xế nào.
-                                </div>
-                            }
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            @*col-sm-pull-8*@
-
-
-
-        </div>
-    </div>
-</section>
-
-<div id="map-canvas" style="display: none;">
-    Bản đồ
-</div>
-
-<div class="modal fade" id="modal-7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="exampleModalLabel" style="color: #333; font-weight: 600;">Đặt xe</h4>
-            </div>
-
-            <div class="modal-body">
-
-                Content is loading...
-                <div class="form-group">
-
-                </div>
-
-            </div>
-
-            @*<div class="modal-footer">
-                    <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
-
-                </div>*@
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modal_sharesocial" tabindex="-1" role="dialog" aria-labelledby="modal_sharesocialLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="modal_sharesocialLabel"></h4>
-            </div>
-
-            <div class="modal-body">
-
-                Content is loading...                
-                @*<form id="frmShareLink">
-                    <div class="col-md-12 col-xs-12">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="inputShareLink" name="inputShareLink">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" id="btnShareLink"><i class="fa fa-copy"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </form>*@
 
+                </div>
             </div>
-            
+            @*col-sm-pull-8*@
+
+
+        </div>
+    </section>
+
+
+
+    <div id="map-canvas" style="display: none;">
+        Bản đồ
+    </div>
+
+    <div class="modal fade" id="modal-7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="exampleModalLabel" style="color: #333; font-weight: 600;">Đặt xe</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    Content is loading...
+                    <div class="form-group">
+
+                    </div>
+
+                </div>
+
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
+
+                    </div>*@
+            </div>
         </div>
     </div>
-</div>
 
-@if (ViewBag.to != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#place_to').val('@Html.Raw(ViewBag.to)');
-        })
-    </script>
-}
+    <div class="modal fade" id="modal_sharesocial" tabindex="-1" role="dialog" aria-labelledby="modal_sharesocialLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-@if (ViewBag.from != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#place_from').val('@Html.Raw(ViewBag.from)');
-        })
-    </script>
-}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="modal_sharesocialLabel"></h4>
+                </div>
 
-@if (ViewBag.loaixe != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');
-        })
-    </script>
-}
+                <div class="modal-body">
 
-@if (ViewBag.lat1 != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#lat1').val('@Html.Raw(ViewBag.lat1)');
-        })
-    </script>
-}
+                    Content is loading...
+                    @*<form id="frmShareLink">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="inputShareLink" name="inputShareLink">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" id="btnShareLink"><i class="fa fa-copy"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>*@
 
-@if (ViewBag.lng1 != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#lng1').val('@Html.Raw(ViewBag.lng1)');
-        })
-    </script>
-}
+                </div>
 
-@if (ViewBag.lat2 != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#lat2').val('@Html.Raw(ViewBag.lat2)');
-        })
-    </script>
-}
+            </div>
+        </div>
+    </div>
 
-@if (ViewBag.lng2 != null)
-{
-    <script>
-        $(document).ready(function () {
-            $('#lng2').val('@Html.Raw(ViewBag.lng2)');
-        })
-    </script>
-}
+    @if (ViewBag.to != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#place_to').val('@Html.Raw(ViewBag.to)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.from != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#place_from').val('@Html.Raw(ViewBag.from)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.loaixe != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.lat1 != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#lat1').val('@Html.Raw(ViewBag.lat1)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.lng1 != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#lng1').val('@Html.Raw(ViewBag.lng1)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.lat2 != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#lat2').val('@Html.Raw(ViewBag.lat2)');
+            })
+        </script>
+    }
+
+    @if (ViewBag.lng2 != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#lng2').val('@Html.Raw(ViewBag.lng2)');
+            })
+        </script>
+    }
 
     @*@if (ViewBag.nhaxe != null)
         {
@@ -560,8 +575,8 @@
 
         @*//dat xe nhanh*@
         <script>
-            function func_datxenhanh(id) {
-
+            function func_datxenhanh(id,e) {
+                e.preventDefault();
                 if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
                     alert('Vui lòng nhập điểm đi.');
                     return false;
@@ -741,7 +756,7 @@
                     controlNav: false,
                     directionNav: true,
                     draggable: true,
-                });                
+                });
 
 
                 //$('.quotes').affix({

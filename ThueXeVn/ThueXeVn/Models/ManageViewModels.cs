@@ -209,6 +209,8 @@ namespace ThueXeVn.Models
     {
         public int? so1 { get; set; }
         public string so2 { get; set; }
+
+        public int? totalrate { get; set; }
     }
 
     public class hotdeal

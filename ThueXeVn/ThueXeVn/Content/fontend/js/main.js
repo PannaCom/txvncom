@@ -191,6 +191,15 @@ function main() {
                 
             }
 
+
+            $(document).on("scroll", function () {
+                if ($(document).scrollTop() > 200) {
+                    $(".search_options").addClass("navbar-fixed-top");
+                } else {
+                    $(".search_options").removeClass("navbar-fixed-top");
+                }
+            });
+
             
         });
 
