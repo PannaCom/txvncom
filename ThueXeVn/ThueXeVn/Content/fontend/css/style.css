@@ -3137,6 +3137,7 @@ ol.progressBar[data-steps="4"] li {
     .row.results_card {
         background-image: none;
         padding-top: 0;
+        padding-bottom: 0;
         border: 1px solid #CCC;
         border-top: 0;
     }
