@@ -3056,6 +3056,11 @@ ol.progressBar[data-steps="4"] li {
 
 }
     
+.section_detail span i, .section_detail i {
+        padding-right: 10px;
+    width: 20px;
+    text-align: center;
+}
 
 @media (min-width: 768px) {
     .homepage-bg-desktop {
@@ -3118,7 +3123,7 @@ ol.progressBar[data-steps="4"] li {
 
         .item__card .next {
             position: absolute;
-            left: 42em;
+            left: 45em;
             display: inline-block;
             padding: 0;
         }
@@ -3163,8 +3168,6 @@ ol.progressBar[data-steps="4"] li {
             .row.results_card h2.price_nhaxe span {
                     font-size: 44px;
                     padding: 7px;
-                    border: 3px solid #0477bc;
-                    border-bottom-left-radius: 25px;
             }
 
     .section_sp {
