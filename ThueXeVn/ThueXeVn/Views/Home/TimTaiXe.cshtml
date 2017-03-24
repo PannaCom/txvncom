@@ -291,7 +291,7 @@
                                                 @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
                                                 <div class="col-xs-12 col-md-8 quotes-section">
 
-                                                    <section class="col-xs-12 col-md-12">
+                                                    <section class="col-xs-12 col-md-12 section_detail">
                                                         <h4 class="nhaxe_name">
                                                             <a href="@url_profile" class="profile_page">
                                                                 @if (item.driver_type == 0)
@@ -311,16 +311,16 @@
 
 
 
-                                                    <section class="col-xs-12 col-md-6">
+                                                    <section class="col-xs-12 col-md-6 section_detail">
                                                         <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
                                                         @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
                                                     </section>
 
-                                                    <section class="col-xs-12 col-md-6">
+                                                    <section class="col-xs-12 col-md-6 section_detail">
                                                         <p>
                                                             <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Loại xe:&nbsp;<b>@item.car_size</b> chỗ</span>
                                                         </p>
-                                                        <p><span id="price_driver_@item.id"><i class="fa fa-dollar"></i>&nbsp;Giá 1km:&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)&nbsp;Đồng/km</b></span></p>
+                                                        <p><span id="price_driver_@item.id"><i class="fa fa-dollar"></i>&nbsp;Giá 1km:&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/km</span></p>
 
                                                         @{Html.RenderAction("LoadViewDriver", @item.id);}
                                                     </section>
@@ -758,12 +758,18 @@
                     draggable: true,
                 });
 
+                //save url tim kiem
+                //$.ajax({
+                    
+                //})
+
 
                 //$('.quotes').affix({
                 //    offset: {
                 //        top: 100,
                 //    }
                 //})
+                
 
 
             });
