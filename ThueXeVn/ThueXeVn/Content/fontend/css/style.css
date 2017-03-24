@@ -2156,8 +2156,6 @@ ul.img-product-n > li > a > img {
 #comment-customers {
     min-height: 46%;
     width: 100%;
-    padding: 55px 0px;
-    padding-bottom: 20px;
     /* background-color: #ffffff; */
     background-color: #FFFFFF;
 }
@@ -2513,8 +2511,24 @@ ul.img-product-n > li > a > img {
 }
 
 .homepage-bg-desktop {
-    background-image: url(/Content/fontend/img/bg_home.jpg);
-    background-repeat: no-repeat;
+    background-image: url(/Content/fontend/img/bg_home_mb.jpg);
+    background-repeat: repeat-x;
+}
+
+.field_row input::-webkit-input-placeholder {
+    color: #333 !important;
+}
+
+.field_row input:-moz-placeholder { /* Firefox 18- */
+    color: #333 !important;
+}
+
+.field_row input::-moz-placeholder { /* Firefox 19+ */
+    color: #333 !important;
+}
+
+.field_row input:-ms-input-placeholder {
+    color: #333 !important;
 }
 
 #search_page_timtaixe .page-header {
@@ -2971,7 +2985,7 @@ ol.progressBar[data-steps="4"] li {
         .search_options li.active {
             background-color: #f2f2f2;
             font-weight: 500;
-                pointer-events: none;
+            pointer-events: none;
         }
 
 .padding10 {
@@ -2979,16 +2993,16 @@ ol.progressBar[data-steps="4"] li {
 }
 
 .row.results_card .quote_section__price {
-        background: #F8F8F8;
+    background: #F8F8F8;
     padding-bottom: 10px;
 }
 
-.row.results_card .quote_section__price h2 {
-    padding-top: 5px;
-}
+    .row.results_card .quote_section__price h2 {
+        padding-top: 5px;
+    }
 
 .row.results_card .quote_section__promotion {
-        color: #fff;
+    color: #fff;
     background: #ffb933;
     padding-top: 0;
     padding-bottom: 0;
@@ -2998,7 +3012,7 @@ ol.progressBar[data-steps="4"] li {
     position: relative;
 }
 
-.quote_section__vertified .ct-ribbon {
+    .quote_section__vertified .ct-ribbon {
         background: #0477bc;
     }
 
@@ -3053,21 +3067,36 @@ ol.progressBar[data-steps="4"] li {
 }
 
 .currency small {
-
 }
-    
+
 .section_detail span i, .section_detail i {
-        padding-right: 10px;
+    padding-right: 10px;
     width: 20px;
     text-align: center;
 }
 
+.navbar-logo {
+    color: #fff!important;
+    display: block;
+    max-height: 20px;
+    font-size: 18px;
+}
+
+.navbar-logo .text__alex {
+
+}
+
+.navbar-logo .text__com {
+    color: #b9e5ff!important
+}
+
 @media (min-width: 768px) {
     .homepage-bg-desktop {
-        background-position: right center;
+        background-position: left center;
         background-repeat: repeat-x;
-        background-position-y: 0;
+        background-position-y: -100px;
         background-image: url(/Content/fontend/img/bg_home.jpg);
+        background-size: cover;
     }
 
     .container.homepage {
@@ -3167,8 +3196,8 @@ ol.progressBar[data-steps="4"] li {
         }
 
             .row.results_card h2.price_nhaxe span {
-                    font-size: 44px;
-                    padding: 7px;
+                font-size: 44px;
+                padding: 7px;
             }
 
     .section_sp {
@@ -3199,9 +3228,6 @@ ol.progressBar[data-steps="4"] li {
         right: 0;
         z-index: 9;
     }
-
-    
-    
 }
 
 @media (max-width: 512px) {
@@ -3229,7 +3255,73 @@ ol.progressBar[data-steps="4"] li {
                 padding: 4px;
             }
 
-            .ct-ribbon i.ct-icon-best-seller {
-                display: none;
-            }
+    .ct-ribbon i.ct-icon-best-seller {
+        display: none;
+    }
+
+    #bookingFormFrm button {
+        border-left-color: transparent;
+        border-right-color: transparent;
+    }
+
+    .field_row {
+        margin-bottom: 2px;
+    }
+
+    .mb2 {
+        margin-bottom: 2px;
+    }
+
+    .homepage-bg-desktop {
+        background-color: #FFA700;
+    }
+
+    #bookingForm {
+        margin-top: 10px;
+    }
+
+    .item__card {
+        padding: 4px 5px;
+    }
+
+    .fun_home_page .price  {
+            padding: 0 10px 0 0;
+            font-size: 11px;
+    }
+
+    .item__card h4 {
+        font-size: 11px;
+    }
+
+    .container.homepage {
+        padding: 0!important;
+    }
+
+    .fun_home_page .list-group .list-group-item.active h3 {
+        font-size: 1em;
+    }
+
+    .fun_home_page .location p {
+        margin-bottom: 0;
+    }
+
+    .kf_num_count_wrap i {
+            padding: 2px!important;
+            font-size: 18px!important;
+    }
+
+    .kf_num_count_wrap a {
+        padding: 1px!important;
+    }
+
+    .kf_num_count_wrap a  span {
+        font-size: 11px;
+    }
+
+    .fun_home_page .fa-angle-right {
+        font-size: 19px;
+    }
+
+    .navbar-logo  {text-align: center; padding-left: 5px;}
+    
 }

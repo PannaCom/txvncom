@@ -165,7 +165,7 @@ function main() {
 
             //share email
 
-            //share facebooj
+            //share facebook
             if ($('.social-share').length) {
                 var t=$('[data-js="share"]').attr("data-permalink"),e=encodeURIComponent(
 		$('[data-js="share"]').attr("data-title"));

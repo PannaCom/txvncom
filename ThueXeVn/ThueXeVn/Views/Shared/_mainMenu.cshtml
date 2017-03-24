@@ -8,16 +8,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img class="brand-logo" src="~/Content/Images/logo.png" /></a>
+            <a class="navbar-text navbar-logo" href="/">
+                @*<img class="brand-logo" src="~/Content/Images/logo.png" />*@
+                <span class="text__alex">Thuexevn</span><span class="text__com">.com</span>
+            </a>
         </div>
 
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                @*<li>@Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 <li><a href="/dat-xe" class="scroll">Đặt thuê xe</a></li>
                 <li><a href="/home/banggiaxe">Bảng giá xe</a></li>
-                @*<li>@Html.ActionLink("Giới thiệu", "About", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hướng dẫn <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -28,8 +29,6 @@
 
                 <li><a href="/tin/page=1">Tin tức</a></li>
                 <li><a href="/taxi-noi-bai-gia-re-taxi-san-bay-gia-re">Xe taxi nội bài</a></li>
-                @*<li>@Html.ActionLink("Liên hệ", "Contact", "Home", new { area = "" }, new { @class = "scroll" })</li>*@
-                @*<li><a href="/product" class="scroll"><i class="fa fa-plus"></i> Đăng sản phẩm</a></li>*@
                 @if (Config.getCookie("taixelogged") != "")
                 {
                     { Html.RenderAction("InfoTaixelogin", "Home"); }

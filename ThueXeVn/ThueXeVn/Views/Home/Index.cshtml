@@ -114,7 +114,7 @@
 
                     <div class="form-group">
                         <div class="col-md-6">
-                            <label class="control-label" for="place_from">Địa điểm đi:</label>
+                            @*<label class="control-label" for="place_from">Địa điểm đi:</label>*@
                             <div class="field_row">
                                 <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
                                 <i class="fa fa-map-marker" id="getmaplocation"></i>
@@ -125,9 +125,9 @@
                            
                         </div>
                         <div class="col-md-5">
-                            <label class="control-label" for="place_to">Địa điểm đến:</label>
+                            @*<label class="control-label" for="place_to">Địa điểm đến:</label>*@
                             <div class="field_row">
-                                <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
+                                <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm đến" onchange="showaddsearch();">
                                 <i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i>
                             </div>
                             <input type="hidden" name="lat2" id="lat2" />
@@ -135,8 +135,8 @@
                         </div>
 
                         <div class="col-md-1">
-                            <label class="control-label" for="place_to">Thêm</label>
-                            <button class="btn btn-primary" onclick="addsearch(event);"><i class="fa fa-plus"></i></button>
+                            @*<label class="control-label" for="place_to">Thêm</label>*@
+                            <button class="btn btn-primary btn-sm" onclick="addsearch(event);"><i class="fa fa-plus"></i></button>
 
                         </div>
 
@@ -145,14 +145,14 @@
 
                         <div class="form-group">
                             <div class="col-md-6">
-                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
-                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                                @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
+                                <select class="form-control mb2" name="Loaixe_socho" id="Loaixe_socho">
                                     <option value="">Tất cả loại xe</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="nhaxe" class="control-label">Nhà xe</label>
-                                <select class="form-control" name="nhaxe" id="nhaxe">
+                                @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
+                                <select class="form-control mb2" name="nhaxe" id="nhaxe">
                                     <option value="">Chọn nhà xe</option>
                                     <option value="1">Nhà xe (đã xác thực thông tin)</option>
                                     <option value="0">Tài xế</option>
@@ -174,34 +174,6 @@
     </div>
 </div>
 
-<section class="mh_show_customer_best">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
-                <div class="kf_num_count_wrap">
-                    <i class="fa fa-car"></i>
-                    <a href="#"><h2 class="counter">156</h2> Số tài xế</a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="kf_num_count_wrap">
-                    <i class="fa fa-phone"></i>
-                    <a href="#"><h2 class="counter">1261</h2> Số cuộc gọi</a>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="kf_num_count_wrap">
-                    <i class="fa fa-users"></i>
-                    <a href="#">
-                        <h2 class="counter">912</h2> Số khách hàng
-
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
 
 @{Html.RenderAction("Loadhotdeal");}
 
@@ -211,54 +183,66 @@
             <div class="col-md-12">
                 <div class="list-group">
 
-                    <a href="#" class="list-group-item active">
+                    <a href="#" class="list-group-item active" style="pointer-events: none;">
                         <h3>
                             <i class="fa fa-search-plus"></i> Các chuyến đi thông dụng nhất
                         </h3>
                     </a>
-                    <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=21.053238&lng2=105.82609430000002&from=H%C3%A0%20N%E1%BB%99i&to=H%E1%BB%93%20T%C3%A2y,%20T%C3%A2y%20H%E1%BB%93,%20H%C3%A0%20N%E1%BB%99i,%20Vi%E1%BB%87t%20Nam&loaixe=8&kc=6,2" class="list-group-item">
+                    <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=20.6041258&lng2=105.76445960000001&from=Hà%20Nội&to=Hương%20Sơn,%20Hà%20Nội&loaixe=16&kc=67,5" class="list-group-item">
                         <div class="item__card">
-                            <div class="location">
+                            <div class="location hidden-xs">
                                 <div class="from"><h4>Từ: Hà Nội</h4></div>
-                                <div class="to"><h4>Đến: Hồ Tây</h4></div>
-                                <div class="next"><h4>Xe 8 chỗ</h4></div>
+                                <div class="to"><h4>Đến: Chùa Hương</h4></div>
+                                <div class="next"><h4>Xe 16 chỗ</h4></div>
                             </div>
-                            <div class="price"><i class="fa fa-car"></i>&nbsp;158</div>
+                            <div class="location visible-xs">
+                                <p>Từ Hà Nội - đến Chùa Hương - xe 16 chỗ</p>
+                            </div>
+                            <div class="price"><i class="fa fa-search"></i>&nbsp;356</div>
                             <i class="fa fa-angle-right"></i>
                         </div>
                     </a>
                     <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=20.2781054&lng2=105.85816109999996&from=H%C3%A0%20N%E1%BB%99i&to=B%C3%A1i%20%C4%90%C3%ADnh%20-%20C%C3%BAc%20Ph%C6%B0%C6%A1ng,%20Ninh%20B%C3%ACnh&loaixe=16&kc=95,6" class="list-group-item">
                         <div class="item__card">
-                            <div class="location">
+                            <div class="location hidden-xs">
                                 <div class="from"><h4>Từ: Hà Nội</h4></div>
-                                <div class="to"><h4>Đến: Bái Đính Cúc Phương</h4></div>
+                                <div class="to"><h4>Đến: Tràng an, Ninh Bình</h4></div>
                                 <div class="next"><h4>Xe 16 chỗ</h4></div>
                             </div>
-                            <div class="price"><i class="fa fa-car"></i>&nbsp;6</div>
+                            <div class="location visible-xs">
+                                <p>Từ Hà Nội - đến Tràng An - xe 16 chỗ</p>
+                            </div>
+                            <div class="price"><i class="fa fa-search"></i>&nbsp;351</div>
                             <i class="fa fa-angle-right"></i>
                         </div>
                     </a>
 
                     <a href="http://thuexevn.com/Home/TimTaiXe?lat1=21.0277644&lng1=105.83415979999995&lat2=20.91005119999999&lng2=107.18390239999997&from=H%C3%A0%20N%E1%BB%99i&to=V%E1%BB%8Bnh%20H%E1%BA%A1%20Long,%20Tu%E1%BA%A7n%20Ch%C3%A2u,%20Qu%E1%BA%A3ng%20Ninh,%20Vi%E1%BB%87t%20Nam&loaixe=16&kc=182" class="list-group-item">
                         <div class="item__card">
-                            <div class="location">
+                            <div class="location hidden-xs">
                                 <div class="from"><h4>Từ: Hà Nội</h4></div>
-                                <div class="to"><h4>Đến: Vịnh Hạ Long, Tuần Châu, Quảng Ninh</h4></div>
+                                <div class="to"><h4>Đến: Vịnh Hạ Long</h4></div>
                                 <div class="next"><h4>Xe 16 chỗ</h4></div>
                             </div>
-                            <div class="price"><i class="fa fa-car"></i>&nbsp;6</div>
+                            <div class="location visible-xs">
+                                <p>Từ: Hà Nội - đến Vịnh Hà Long - xe 16 chỗ</p>
+                            </div>
+                            <div class="price"><i class="fa fa-search"></i>&nbsp;266</div>
                             <i class="fa fa-angle-right"></i>
                         </div>
                     </a>
 
                     <a href="http://thuexevn.com/Home/TimTaiXe?lat1=10.8230989&lng1=106.6296638&lat2=10.4113797&lng2=107.13622399999997&from=S%C3%A0i%20G%C3%B2n,%20H%E1%BB%93%20Ch%C3%AD%20Minh,%20Vi%E1%BB%87t%20Nam&to=V%C5%A9ng%20T%C3%A0u,%20B%C3%A0%20R%E1%BB%8Ba%20-%20V%C5%A9ng%20T%C3%A0u,%20Vi%E1%BB%87t%20Nam&loaixe=16&kc=95,9" class="list-group-item">
                         <div class="item__card">
-                            <div class="location">
+                            <div class="location hidden-xs">
                                 <div class="from"><h4>Từ: TP. Hồ Chí Minh</h4></div>
-                                <div class="to"><h4>Đến: Vũng Tàu, Bà Rịa - Vũng Tàu</h4></div>
+                                <div class="to"><h4>Đến: Vũng Tàu</h4></div>
                                 <div class="next"><h4>Xe 16 chỗ</h4></div>
                             </div>
-                            <div class="price"><i class="fa fa-car"></i>&nbsp;6</div>
+                            <div class="location visible-xs">
+                                <p>TP. Hồ Chí Minh - đến Vũng Tàu - xe 16 chỗ</p>
+                            </div>
+                            <div class="price"><i class="fa fa-search"></i>&nbsp;116</div>
                             <i class="fa fa-angle-right"></i>
                         </div>
                     </a>                    
@@ -302,10 +286,41 @@
 
 @*@Html.Partial("_LoadBooking")*@
 
-<div id="comment-customers" class="clearfix">
+<section class="mh_show_customer_best">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 lead text-justify">
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-car"></i>
+                    <a href="#" class="hidden-xs"><h2 class="counter">156</h2> Số tài xế</a>
+                    <a href="#" class="visible-xs"><b>156</b> <span>Số tài xế</span></a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-phone"></i>
+                    <a href="#" class="hidden-xs"><h2 class="counter">1261</h2> Số cuộc gọi</a>
+                    <a href="#" class="visible-xs"><b>1261</b> <span>Số cuộc gọi</span></a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="kf_num_count_wrap">
+                    <i class="fa fa-users"></i>
+                    <a href="#" class="hidden-xs">
+                        <h2 class="counter">912</h2> Số khách hàng
+                    </a>
+                    <a href="#" class="visible-xs"><b>912</b> <span>Số khách hàng</span></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="comment-customers" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 lead text-justify" style="padding: 0;">
                 <div id="gioithieu" style="padding: 15px; color: #333; border-radius: 11px;">
                     <p style="text-indent: 15px;">
                         Tự hào là đơn vị cung cấp dịch vụ <strong>cho thuê xe</strong> uy tín chất lượng hàng đầu tại Việt Nam trong nhiều năm qua.
@@ -355,7 +370,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <div id="map-canvas" style="display: none;">
     Bản đồ
@@ -375,7 +390,7 @@
     @*<script src="~/Content/Theme/admin/vendor/datatable/jquery.dataTables.min.js"></script>*@
     @*<script src="~/Content/Theme/admin/vendor/datatable/dataTables.bootstrap.min.js"></script>*@
     @*<script src="/Scripts/jquery.geocomplete.js"></script>*@
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places&region=vn&language=vi" type="text/javascript"></script>
     @Scripts.Render("~/Scripts/main")
     @*<script src="~/Scripts/script2.js"></script>*@
 
@@ -403,6 +418,10 @@
         function addsearch(e) {
             e.preventDefault();
             $('#addoptions').slideToggle('300');
+        }
+
+        function showaddsearch() {
+            $('#addoptions').slideDown('300');
         }
     </script>
 }

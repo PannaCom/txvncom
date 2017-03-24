@@ -6,6 +6,10 @@
     }
     .navbar-toggle {
         display: block;
+    float: left;
+    margin-right: 0;
+    /* padding: 5px; */
+    margin-left: 5px;
     }
     .navbar-collapse {
         border-top: 1px solid transparent;
