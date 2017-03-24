@@ -217,6 +217,17 @@
           <Property Name="cm_dislike" Type="int" />
           <Property Name="cm_date" Type="datetime" />
         </EntityType>
+        <EntityType Name="driver_search">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="url_search" Type="nvarchar" MaxLength="1000" />
+          <Property Name="count_view" Type="int" />
+          <Property Name="search_from" Type="nvarchar" MaxLength="250" />
+          <Property Name="search_to" Type="nvarchar" MaxLength="250" />
+          <Property Name="driver_size" Type="int" />
+        </EntityType>
         <EntityType Name="driver_view">
           <Key>
             <PropertyRef Name="id" />
@@ -441,6 +452,7 @@
           <EntitySet Name="driver_info" EntityType="Self.driver_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_promotion" EntityType="Self.driver_promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_rate_comment" EntityType="Self.driver_rate_comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="driver_search" EntityType="Self.driver_search" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="driver_view" EntityType="Self.driver_view" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers" EntityType="Self.drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="drivers_money" EntityType="Self.drivers_money" Schema="dbo" store:Type="Tables" />
@@ -574,6 +586,7 @@
           <EntitySet Name="drivers_money" EntityType="thuexevnModel.drivers_money" />
           <EntitySet Name="tai_xe_toan_cau" EntityType="thuexevnModel.tai_xe_toan_cau" />
           <EntitySet Name="driver_view" EntityType="thuexevnModel.driver_view" />
+          <EntitySet Name="driver_search" EntityType="thuexevnModel.driver_search" />
         </EntityContainer>
         <EntityType Name="activecode">
           <Key>
@@ -916,6 +929,17 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="driver_id" Type="Int64" />
           <Property Name="views" Type="Int32" />
+        </EntityType>
+        <EntityType Name="driver_search">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="url_search" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="count_view" Type="Int32" />
+          <Property Name="search_from" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="search_to" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="driver_size" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1371,6 +1395,18 @@
               <MappingFragment StoreEntitySet="driver_view">
                 <ScalarProperty Name="views" ColumnName="views" />
                 <ScalarProperty Name="driver_id" ColumnName="driver_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="driver_search">
+            <EntityTypeMapping TypeName="thuexevnModel.driver_search">
+              <MappingFragment StoreEntitySet="driver_search">
+                <ScalarProperty Name="driver_size" ColumnName="driver_size" />
+                <ScalarProperty Name="search_to" ColumnName="search_to" />
+                <ScalarProperty Name="search_from" ColumnName="search_from" />
+                <ScalarProperty Name="count_view" ColumnName="count_view" />
+                <ScalarProperty Name="url_search" ColumnName="url_search" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

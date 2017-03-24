@@ -60,5 +60,6 @@ namespace ThueXeVn.Models
         public virtual DbSet<drivers_money> drivers_money { get; set; }
         public virtual DbSet<tai_xe_toan_cau> tai_xe_toan_cau { get; set; }
         public virtual DbSet<driver_view> driver_view { get; set; }
+        public virtual DbSet<driver_search> driver_search { get; set; }
     }
 }

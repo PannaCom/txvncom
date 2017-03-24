@@ -40,6 +40,7 @@
         <EntityTypeShape EntityType="thuexevnModel.drivers_money" Width="1.5" PointX="17.375" PointY="4.75" />
         <EntityTypeShape EntityType="thuexevnModel.tai_xe_toan_cau" Width="1.5" PointX="5.375" PointY="17.75" />
         <EntityTypeShape EntityType="thuexevnModel.driver_view" Width="1.5" PointX="17.375" PointY="7.75" />
+        <EntityTypeShape EntityType="thuexevnModel.driver_search" Width="1.5" PointX="17.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
