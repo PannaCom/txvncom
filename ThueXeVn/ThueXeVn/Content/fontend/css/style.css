@@ -2511,8 +2511,9 @@ ul.img-product-n > li > a > img {
 }
 
 .homepage-bg-desktop {
-    background-image: url(/Content/fontend/img/bg_home_mb.jpg);
+        background: url(/Content/fontend/img/bg_home_mb.jpg);
     background-repeat: repeat-x;
+    background-size: 100% 100%;
 }
 
 .field_row input::-webkit-input-placeholder {
@@ -3092,11 +3093,9 @@ ol.progressBar[data-steps="4"] li {
 
 @media (min-width: 768px) {
     .homepage-bg-desktop {
-        background-position: left center;
-        background-repeat: repeat-x;
-        background-position-y: -100px;
-        background-image: url(/Content/fontend/img/bg_home.jpg);
+        background: url(/Content/fontend/img/bg_home.jpg) 100% 100%;
         background-size: cover;
+        height: 600px;
     }
 
     .container.homepage {
@@ -3272,9 +3271,9 @@ ol.progressBar[data-steps="4"] li {
         margin-bottom: 2px;
     }
 
-    .homepage-bg-desktop {
+    /*.homepage-bg-desktop {
         background-color: #FFA700;
-    }
+    }*/
 
     #bookingForm {
         margin-top: 10px;
