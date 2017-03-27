@@ -128,8 +128,8 @@
 
             <div class="col-md-12 col-xs-12 booking-progress-bar section_sp">
                 <ul class="search_options">
-                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-angle-up"></i>&nbsp;Giá tiền tăng dần</a></li>
-                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-angle-down"></i>&nbsp;Giá tiền giảm dần</a></li>
+                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-sort-up"></i>&nbsp;Giá tiền</a></li>
+                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-sort-down"></i>&nbsp;Giá tiền</a></li>
                     <li class="@if(@nhaxe == "0"){<text>active</text>}" data-sort="fdhdfhdf" data-sort-name="dsfsdgsdg" onclick="getsearchOption('nhaxe', '0');"><a href=" #"><i class="fa fa-car"></i>&nbsp;Tài xế</a></li>
                     <li class="@if(@nhaxe == "1"){<text>active</text>}" data-sort="436346436" data-sort-name="gsdgsdg" onclick="getsearchOption('nhaxe', '1');"><a href=" #"><i class="fa fa-train"></i>&nbsp;Nhà xe</a></li>
                 </ul>
@@ -147,7 +147,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label class="control-label" for="place_from">Địa điểm đi</label>
+                                @*<label class="control-label" for="place_from">Địa điểm đi</label>*@
                                 <div class="field_row">
                                     <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
                                     <i class="fa fa-map-marker" id="getmaplocation"></i>
@@ -160,7 +160,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label class="control-label" for="place_to">Địa điểm đến</label>
+                                @*<label class="control-label" for="place_to">Địa điểm đến</label>*@
                                 <div class="field_row">
                                     <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
                                     <i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i>
@@ -172,7 +172,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <label for="Loaixe_socho" class="control-label">Loại xe</label>
+                                @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
                                 <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
                                     <option value="">Tất cả loại xe</option>
                                     @*<option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
@@ -200,7 +200,7 @@
                     <button class="btn btn-block btn-default color_button_stx" onclick="timkiemtaixe2(event);"><i class="fa fa-search"></i> Cập nhật tìm kiếm</button>
                 </form>
 
-                <div class="share-quote">
+                <div class="share-quote hidden-xs">
                     <h2 class="padding-top-bot-20">Chia sẻ</h2>
                     <div class="social-share" data-js="share" data-permalink="@url" data-title="Chuyến xe từ @title">
                         <div class="links" id="sharethis" data-di-id="sharethis">
@@ -263,6 +263,7 @@
                                 {
                                     if (Model.Count > 0)
                                     {
+                                        int i = 0;
                                         foreach (var item in Model)
                                         {
                                             double giaTaiXe = 1;
@@ -277,19 +278,50 @@
                                                 @if (item.driver_type == 1)
                                                 {
                                                     <div class="col-xs-12 col-md-12 quotes-section quote_section__vertified">
-                                                        @*<p>
-                                                                <strong>Đã xác thực tài khoản</strong>
-                                                            </p>*@
                                                         <div class="ct-ribbon ct-ribbon-blue">
                                                             <i class="fa fa-check-circle ct-icon-best-seller"></i><p class="">Đã xác thực tài khoản</p>
                                                         </div>
                                                     </div>
 
                                                 }
-                                                @{Html.RenderAction("LoadDriverVertified", @item.id);}
+                                                @if (item.money != null && item.money > 0)
+                                                {
+                                                    <div class="col-xs-12 col-md-12 quotes-section quote_section__vertified">
+                                                        <div class="ct-ribbon ct-ribbon-blue">
+                                                            <i class="fa fa-check-circle ct-icon-best-seller"></i><p class="">Đã xác thực tài khoản</p>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @*@{Html.RenderAction("LoadDriverVertified", @item.id);}*@
                                                 @*<section class="col-xs-12 col-md-12 quote_section__promotion"><p>xxxxxx</p></section>*@
                                                 @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
-                                                <div class="col-xs-12 col-md-8 quotes-section">
+
+                                                <div class="col-xs-12 col-md-4 quote_section__price col-md-push-8">
+                                                    
+                                                    <h2 class="price_nhaxe">
+                                                        @if (i == 0)
+                                                        {
+                                                            <span class="best_price"><i class="fa fa-euro"></i>&nbsp;Giá tốt nhất</span>
+                                                        }
+                                                        @if (giaTaiXe != 1)
+                                                        {
+                                                            <text>
+                                                                <span id="total_money_driver_@item.id" class="currency">
+                                                                    @string.Format(info, "{0:#,##}", giaTaiXe)<small>đ</small>
+                                                                    <span class="visible-xs prime_smalll"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span>
+                                                                </span></text>
+                                                        }
+
+                                                    </h2>
+                                                    
+
+                                                    <a href="@url_profile" class="btn btn-default btn-block hidden-xs">Xem chi tiết</a>
+                                                    @*<a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>*@
+                                                    <a href="#" class="btn btn-primary dat_xe btn-block hidden-xs" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+
+                                                </div>
+
+                                                <div class="col-xs-12 col-md-8 quotes-section col-md-pull-4">
 
                                                     <section class="col-xs-12 col-md-12 section_detail">
                                                         <h4 class="nhaxe_name">
@@ -305,43 +337,37 @@
                                                         @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
                                                         @if (item.address != null && item.address != "")
                                                         {
-                                                            <text><h4 class="nhaxe_diachi"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
+                                                            <text><h4 class="nhaxe_diachi hidden-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
                                                         }
                                                     </section>
 
 
 
                                                     <section class="col-xs-12 col-md-6 section_detail">
-                                                        <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
+
                                                         @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
+                                                        <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
                                                     </section>
 
                                                     <section class="col-xs-12 col-md-6 section_detail">
+                                                        @if (item.address != null && item.address != "")
+                                                        {
+                                                            <text><h6 class="nhaxe_diachi visible-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h6></text>
+                                                        }
                                                         <p>
-                                                            <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Loại xe:&nbsp;<b>@item.car_size</b> chỗ</span>
+                                                            <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Xe <b>@item.car_size</b> chỗ</span>
                                                         </p>
-                                                        <p><span id="price_driver_@item.id"><i class="fa fa-dollar"></i>&nbsp;Giá 1km:&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/km</span></p>
+                                                        <p><span id="price_driver_@item.id" class="hidden-xs"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span></p>
 
                                                         @{Html.RenderAction("LoadViewDriver", @item.id);}
+
+                                                        <a href="#" class="btn btn-primary dat_xe visible-xs" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+
                                                     </section>
 
                                                 </div>
 
-                                                <div class="col-xs-12 col-md-4 quote_section__price">
-                                                    <h2 class="price_nhaxe">
-
-                                                        @if (giaTaiXe != 1)
-                                                        {
-                                                            <text><span id="total_money_driver_@item.id" class="currency">@string.Format(info, "{0:#,##}", giaTaiXe)<small>đ</small></span></text>
-                                                           
-                                                        }
-                                                    </h2>
-
-                                                    <a href="@url_profile" class="btn btn-default btn-block">Xem chi tiết</a>
-                                                    <a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>
-                                                    <a href="#" class="btn btn-primary dat_xe btn-block" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
-
-                                                </div>
+                                                
 
                                                 @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
                                                 
@@ -349,7 +375,7 @@
 
 
                                             </div>
-
+                                            i++;
 
 
 

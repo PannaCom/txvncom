@@ -178,6 +178,7 @@ namespace ThueXeVn.Models
         public string car_made { get; set; }
         public int? car_years { get; set; }
         public int? driver_type { get; set; }
+        public int? money { get; set; }
     }
 
     //public class timkiemDrivers

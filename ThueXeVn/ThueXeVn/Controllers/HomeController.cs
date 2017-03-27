@@ -1002,7 +1002,7 @@ namespace ThueXeVn.Controllers
             if (gia_select == null) gia_select = "1"; if (nhaxe == null) nhaxe = "";
             string sql = "";
 
-            sql = "SELECT t1.id as id, t1.name as name, t1.driver_type as driver_type, t1.car_years as car_years, t1.phone as phone, t1.email as email,t1.address as address, CAST( CASE WHEN t2.cp_car_type is null THEN t1.car_size ELSE t2.cp_car_type END AS int) as car_size, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 where status = 0";
+            sql = "SELECT t1.id as id, t1.name as name, t1.driver_type as driver_type, t1.car_years as car_years, t1.phone as phone, t1.email as email,t1.address as address, CAST( CASE WHEN t2.cp_car_type is null THEN t1.car_size ELSE t2.cp_car_type END AS int) as car_size, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate, t5.total_money as money FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 full OUTER join drivers_money t5 on t1.id = t5.driver_id where t3.status = 0";
 
             // and t1.car_price >= 8000 
             List<timkiemDrivers> data = new List<timkiemDrivers>();
@@ -1044,8 +1044,9 @@ namespace ThueXeVn.Controllers
             {
                 Config.SaveTolog(ex.ToString());
                 return View();
-            }            
-                        
+            }    
+        
+                                    
             // Sắp xếp tăng dần theo giá xe               
 
             try
@@ -1065,7 +1066,7 @@ namespace ThueXeVn.Controllers
                 return View();
             }            
 
-            
+
 
             //xuly loi khi nguoi dung co tinh xoa dia chi url de cho ket qua sai
 
@@ -1110,7 +1111,10 @@ namespace ThueXeVn.Controllers
             }
             ViewBag.gia_select = gia_select;
             //if (search == null) search = ""; if (tt == null) tt = ""; if (car_hire_type == null) car_hire_type = "";
-            data = data.OrderByDescending(x => x.driver_type).ToList();
+            data = data.OrderByDescending(x => x.money).OrderByDescending(x => x.driver_type).ToList();
+
+            // taixe đã nộp tiền giảm dần
+
             return View(data.ToPagedList(pageNumber, pageSize)); 
 
         }

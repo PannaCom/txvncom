@@ -2511,7 +2511,7 @@ ul.img-product-n > li > a > img {
 }
 
 .homepage-bg-desktop {
-        background: url(/Content/fontend/img/bg_home_mb.jpg);
+    background: url(/Content/fontend/img/bg_home_mb.jpg);
     background-repeat: repeat-x;
     background-size: 100% 100%;
 }
@@ -2993,10 +2993,7 @@ ol.progressBar[data-steps="4"] li {
     padding: 10px;
 }
 
-.row.results_card .quote_section__price {
-    background: #F8F8F8;
-    padding-bottom: 10px;
-}
+
 
     .row.results_card .quote_section__price h2 {
         padding-top: 5px;
@@ -3077,19 +3074,18 @@ ol.progressBar[data-steps="4"] li {
 }
 
 .navbar-logo {
-    color: #fff!important;
+    color: #fff !important;
     display: block;
     max-height: 20px;
     font-size: 18px;
 }
 
-.navbar-logo .text__alex {
+    .navbar-logo .text__alex {
+    }
 
-}
-
-.navbar-logo .text__com {
-    color: #b9e5ff!important
-}
+    .navbar-logo .text__com {
+        color: #b9e5ff !important;
+    }
 
 @media (min-width: 768px) {
     .homepage-bg-desktop {
@@ -3191,13 +3187,19 @@ ol.progressBar[data-steps="4"] li {
             text-align: center;
             right: 0;
             width: 100%;
-            padding: 25px 0;
+            padding: 72px 0 0;
         }
 
             .row.results_card h2.price_nhaxe span {
                 font-size: 44px;
                 padding: 7px;
             }
+
+                .row.results_card h2.price_nhaxe span.best_price {
+                    display: block;
+                    font-size: 1vw;
+                    text-transform: uppercase;
+                }
 
     .section_sp {
         padding-right: 0;
@@ -3223,9 +3225,14 @@ ol.progressBar[data-steps="4"] li {
 
     .quote_section__vertified .ct-ribbon {
         position: absolute;
-        top: -1.1em;
+        top: 1.4vh;
         right: 0;
         z-index: 9;
+    }
+
+    .row.results_card .quote_section__price {
+        background: #F8F8F8;
+        padding-bottom: 10px;
     }
 }
 
@@ -3283,9 +3290,9 @@ ol.progressBar[data-steps="4"] li {
         padding: 4px 5px;
     }
 
-    .fun_home_page .price  {
-            padding: 0 10px 0 0;
-            font-size: 11px;
+    .fun_home_page .price {
+        padding: 0 10px 0 0;
+        font-size: 11px;
     }
 
     .item__card h4 {
@@ -3293,7 +3300,7 @@ ol.progressBar[data-steps="4"] li {
     }
 
     .container.homepage {
-        padding: 0!important;
+        padding: 0 !important;
     }
 
     .fun_home_page .list-group .list-group-item.active h3 {
@@ -3305,22 +3312,49 @@ ol.progressBar[data-steps="4"] li {
     }
 
     .kf_num_count_wrap i {
-            padding: 2px!important;
-            font-size: 18px!important;
+        padding: 2px !important;
+        font-size: 18px !important;
     }
 
     .kf_num_count_wrap a {
-        padding: 1px!important;
+        padding: 1px !important;
     }
 
-    .kf_num_count_wrap a  span {
-        font-size: 11px;
-    }
+        .kf_num_count_wrap a span {
+            font-size: 11px;
+        }
 
     .fun_home_page .fa-angle-right {
         font-size: 19px;
     }
 
-    .navbar-logo  {text-align: center; padding-left: 5px;}
-    
+    .navbar-logo {
+        text-align: center;
+        padding-left: 5px;
+    }
+
+    .row.results_card {
+        text-align: center !important;
+    }
+
+        .row.results_card h2.price_nhaxe span.currency {
+                background: #0477bc;
+                color: #fff;
+                font-size: 9vw;
+                padding: 5vw;
+        }
+        
+
+        .row.results_card h2.price_nhaxe span.currency small {
+             color: #fff;
+        }
+
+        .row.results_card h2.price_nhaxe span{
+            display: block; width: 100%;
+        }
+
+         .row.results_card h2.price_nhaxe span.currency span.prime_smalll {
+                 font-size: 4vw;
+    margin-top: 3vh;
+        }
 }
