@@ -978,11 +978,19 @@ namespace ThueXeVn.Controllers
         public ActionResult LoadViewDriver(long? id)
         {
             int? count = 0;
-            var viewer = db.driver_view.Where(x => x.driver_id == id).FirstOrDefault();
-            if (viewer != null)
+            //throw new Exception("loi");
+            try
             {
-                count = viewer.views;
+                var viewer = db.driver_view.Where(x => x.driver_id == id).FirstOrDefault();
+                if (viewer != null)
+                {
+                    count = viewer.views;
+                }
             }
+            catch
+            {                
+            }
+            
             return PartialView("_LoadViewDriver", count);
         }
 

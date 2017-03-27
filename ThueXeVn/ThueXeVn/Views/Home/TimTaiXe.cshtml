@@ -128,8 +128,8 @@
 
             <div class="col-md-12 col-xs-12 booking-progress-bar section_sp">
                 <ul class="search_options">
-                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-sort-up"></i>&nbsp;Giá tiền</a></li>
-                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-sort-down"></i>&nbsp;Giá tiền</a></li>
+                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-sort-amount-asc"></i>&nbsp;Giá tiền</a></li>
+                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-sort-amount-desc"></i>&nbsp;Giá tiền</a></li>
                     <li class="@if(@nhaxe == "0"){<text>active</text>}" data-sort="fdhdfhdf" data-sort-name="dsfsdgsdg" onclick="getsearchOption('nhaxe', '0');"><a href=" #"><i class="fa fa-car"></i>&nbsp;Tài xế</a></li>
                     <li class="@if(@nhaxe == "1"){<text>active</text>}" data-sort="436346436" data-sort-name="gsdgsdg" onclick="getsearchOption('nhaxe', '1');"><a href=" #"><i class="fa fa-train"></i>&nbsp;Nhà xe</a></li>
                 </ul>
@@ -359,7 +359,7 @@
                                                         </p>
                                                         <p><span id="price_driver_@item.id" class="hidden-xs"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span></p>
 
-                                                        @{Html.RenderAction("LoadViewDriver", @item.id);}
+                                                        @{Html.RenderAction("LoadViewDriver", new { id = item.id });}
 
                                                         <a href="#" class="btn btn-primary dat_xe visible-xs" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
 
