@@ -28,15 +28,19 @@ namespace ThueXeVn
             bundles.Add(new StyleBundle("~/Content/fontend/css/main").Include(
                 "~/Content/fontend/css/jquery.datetimepicker.css",
                 "~/Content/fontend/css/owl.carousel.css",
-                "~/Content/fontend/css/owl.theme.css",
+                "~/Content/fontend/css/owl.theme.default.css",
                 "~/Content/fontend/css/style.css",
                 "~/Content/fontend/css/responsive.css",
                 "~/Content/fontend/css/stylemh.css",
-                "~/Content/fontend/css/iconmoon.css"
+                "~/Content/fontend/css/iconmoon.css",
+                "~/Content/fontend/css/zoomify.css",
+                "~/Content/fontend/css/flexslider.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/Content/fontend/js/scripts").Include(
-                "~/Content/fontend/js/owl.carousel.js",                
+                "~/Content/fontend/js/owl.carousel.js",
+                "~/Content/fontend/js/zoomify.js",
+                "~/Content/fontend/js/jquery.flexslider.js",                
                 "~/Content/fontend/js/main.js"
                 ));
 

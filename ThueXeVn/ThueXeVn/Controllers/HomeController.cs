@@ -1365,6 +1365,18 @@ namespace ThueXeVn.Controllers
                 ViewBag.lon = 105.3724793;
                 ViewBag.lat = 20.9740874;
             }
+
+            //get anh bia, anh dai dien
+            ViewBag.fbImageLg = "/Content/fontend/img/bg_home_1.jpg";
+            ViewBag.fbImageProfile = "/Content/fontend/img/logo.png";
+            var driver_info = db.driver_info.Where(x => x.driver_id == id).FirstOrDefault();
+
+            if (driver_info != null)
+            {
+                ViewBag.fbImageLg = driver_info.driver_img_cover ?? "/Content/fontend/img/bg_home_1.jpg";
+                ViewBag.fbImageProfile = driver_info.driver_img_profile ?? "/Content/fontend/img/logo.png";
+            }
+
             //Cập nhật driver_view
             var luotxem = db.driver_view.Where(x => x.driver_id == id).FirstOrDefault();
             if (luotxem == null)
@@ -1386,7 +1398,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult LoadAlbumDriver(long? driver_id)
         {
-            var data = from s in db.driver_images where s.driver_id == driver_id select s;
+            var data = from s in db.driver_images where s.driver_id == driver_id orderby s.id descending select s;
             return PartialView("_LoadAlbumDriver", data.ToList());
         }
 
@@ -1398,7 +1410,7 @@ namespace ThueXeVn.Controllers
 
         public ActionResult LoadCommentDriver(long? driver_id, int? p)
         {
-            var data = (from s in db.driver_rate_comment where s.cus_driver_id == driver_id orderby s.cm_date descending select s).ToList();
+            var data = (from s in db.driver_rate_comment where s.cus_driver_id == driver_id orderby s.cus_cm_id descending select s).Take(5).ToList();
 
             //int pageSize = 1;
             //int pageNumber = (p ?? 1);

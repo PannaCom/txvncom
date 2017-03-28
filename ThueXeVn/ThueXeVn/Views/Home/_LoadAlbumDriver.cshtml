@@ -1,34 +1,29 @@
 ﻿@model List<ThueXeVn.Models.driver_images>
 @using ThueXeVn;
 
+
+
 @if (Model != null)
 {
-    <div class="flexslider sectionMarginTop album_driver" id="album_driver" style="margin-bottom: 0; border: 0;">
-        <ul class="slides">
-            @if (Model.Count > 0)
-            {
-                foreach (var item in Model)
-                {
-                    <li data-thumb="@item.img_url">
-                        <div style="position: relative;">
-                            <img src="@item.img_url" class="item_img" style="height: 350px;" />
+    if (Model.Count > 0)
+    {
+        <div class="row profile--item">
+            <div class="col-md-3">
+                <h2 class="item_label">Hình ảnh:</h2>
+            </div>
+            <div class="col-md-9">
+
+                <!-- Place somewhere in the <body> of your page -->
+                <div id="carousel" class="gallery_driver">
+                    @foreach (var item in Model)
+                    {
+                        <div class="gallery_product col-lg-3 col-md-3 col-sm-3 col-xs-6 filter hdpe">
+                            <img src="@item.img_url" class="img-responsive img-driver-item">
                         </div>
-                    </li>
-                }
-            }
-            else
-            {
-                <li data-thumb="/Images/nhaxe/slider_nhaxe.jpg">
-                    <div style="position: relative;">
-                        <img src="~/Images/nhaxe/slider_nhaxe.jpg" class="item_img" style="height: 350px;" />
-                    </div>
-                </li>
-                <li data-thumb="/Images/nhaxe/slide-7.jpg">
-                    <div style="position: relative;">
-                        <img src="~/Images/nhaxe/slide-7.jpg" class="item_img" style="height: 350px;" />
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+    }
 }

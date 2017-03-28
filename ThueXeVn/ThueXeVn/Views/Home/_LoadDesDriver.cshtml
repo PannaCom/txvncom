@@ -4,12 +4,12 @@
 {
     if (Model.driver_note != null && Model.driver_note != "")
     {
-        <div class="row item_profile">
-            <div class="col-sm-3">
-                <h3>Ghi chú bảng giá:</h3>
+        <div class="row profile--item">
+            <div class="col-md-3">
+                <h2 class="item_label">Ghi chú bảng giá:</h2>
             </div>
             <div class="col-sm-9">
-                <div style="margin-top: 20px;">
+                <div class="profile_des">
                     @Html.Raw(@Model.driver_note)
                 </div>
             </div>
@@ -18,12 +18,12 @@
 
     if (Model.driver_des != null && Model.driver_des != "")
     {
-        <div class="row item_profile">
-            <div class="col-sm-3">
-                <h3>Giới thiệu:</h3>
+        <div class="row profile--item">
+            <div class="col-md-3">
+                <h2 class="item_label">Giới thiệu:</h2>
             </div>
-            <div class="col-sm-9">
-                <div style="margin-top: 20px;">
+            <div class="col-md-9">
+                <div class="profile_des">
                     @Html.Raw(@Model.driver_des)
                 </div>
             </div>

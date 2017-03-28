@@ -200,6 +200,8 @@ function main() {
                 }
             });
 
+            $('img.img-driver-item').zoomify({ duration: 1000 }); // 1s duration
+
             
         });
 

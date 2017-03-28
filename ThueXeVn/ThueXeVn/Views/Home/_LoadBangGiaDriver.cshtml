@@ -4,20 +4,36 @@
 {
     if (Model.Count > 0)
     {
-        <div class="row item_profile">
-            <div class="col-sm-3">
-                <h3>Bảng giá xe</h3>
+        <div class="row profile--item">
+            <div class="col-md-3">
+                <h2 class="item_label">Bảng giá xe:</h2>
             </div>
-            <div class="col-sm-9">
-                <div style="margin-top: 20px;">
-                    @foreach (var item in @Model)
-                    {
-                        string tenxe = "Xe " + item.cp_car_type + " chỗ";
-                        if (item.cp_car_type == 4) { tenxe += " (giá siêu rẻ, có cốp)"; }
-                        if (item.cp_car_type == 5) { tenxe += " (có cốp)"; }
-                        <p style="border-bottom: 1px dotted;padding-bottom: 5px;"><b>@tenxe</b>: <span>@string.Format("{0:#,###} đồng/km.", item.cp_price)</span></p>
-                    }
+            <div class="col-md-9">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                @foreach (var item in @Model)
+                                {
+                                    string tenxe = "Xe " + item.cp_car_type + " chỗ";
+                                    if (item.cp_car_type == 4) { tenxe += " (giá siêu rẻ, có cốp)"; }
+                                    if (item.cp_car_type == 5) { tenxe += " (có cốp)"; }
+                                    <th>@tenxe</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (var item in @Model)
+                                {
+                                    <td>@string.Format("{0:#,###} đồng/km.", item.cp_price)</td>
+                                    @*<p style="border-bottom: 1px dotted;padding-bottom: 5px;"><b>@tenxe</b>: <span>@string.Format("{0:#,###} đồng/km.", item.cp_price)</span></p>*@
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+               
             </div>
         </div>
     }

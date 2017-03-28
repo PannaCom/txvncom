@@ -122,46 +122,67 @@
     
 </div>
 
+
+
+
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-md-12 col-xs-12">
         <div class="form-horizontal">
-            <form id="updatenote">
-                <div class="form-group">
-                    <label class="control-label">Ghi chú bảng giá</label>
-                    <textarea class="form-control editor" rows="5" id="note_driver" name="note_driver"></textarea>
-                </div>
+            <form id="form_update_driver_info" method="post" name="form_update_driver_info" enctype="multipart/form-data">
+                
+                <fieldset>
+                    <legend>Cập nhật thông tin tài xế</legend>
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="driver_info_id" id="driver_info_id" value="0" />
+                    <input type="hidden" name="driver_id" id="driver_id" value="@id_driver" />
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">Cập nhật ảnh bìa</label>
+                            <input type="file" name="driver_img_cover" id="driver_img_cover" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <img class="img-responsive" id="blah_cover" style="width: 100%; height: 100px; display: none;">
+                        </div>
+                    </div>
 
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="updateNote(@id_driver);">Cập nhật</button>
-                </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="control-label">Cập nhật ảnh đại diện</label>
+                            <input type="file" name="driver_img_profile" id="driver_img_profile" class="form-control" />
+                        </div>
+                        <div class="col-md-6">
+                            <img class="img-responsive" src="" id="blah" style="width: 100px; height: 100px; display: none;">
+                        </div>
+                    </div>
 
-                <script>
-                    CKEDITOR.replace('note_driver');
-                </script>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="control-label">Giới thiệu nhà xe</label>
+                            <textarea class="form-control editor" rows="5" id="driver_des" name="driver_des"></textarea>
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="control-label">Ghi chú bảng giá</label>
+                            <textarea class="form-control editor" rows="5" id="driver_note" name="driver_note"></textarea>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" onclick="update_driver_info(event);" id="btn_update_driver_info">Cập nhật</button>
+                    </div>
+
+                </fieldset>
+
             </form>
-        </div>
-
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-horizontal">
-            <div class="form-group">
-                <label class="control-label">Giới thiệu nhà xe</label>
-                <textarea class="form-control editor" rows="5" id="info_driver" name="info_driver"></textarea>
-            </div>           
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="updateInfo(@id_driver);">Cập nhật</button>
-            </div>
             
+
         </div>
-        <script>
-            CKEDITOR.replace('info_driver');
-        </script>
-
-
+        
 
     </div>
 
@@ -171,75 +192,248 @@
 <script src="~/Scripts/ckeditor/ckaajx.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: "/TaiXeBangGia/getNoteTaiXe?id=@id_driver",
-                cache: false
-            }).done(function (html) {
-                CKEDITOR.instances['note_driver'].setData(html);
-            });
-        })
-
         $(document).ready(function () {
+            CKEDITOR.replace('driver_des');
+            CKEDITOR.replace('driver_note');
             $.ajax({
                 url: "/TaiXeBangGia/getInfoTaiXe?id=@id_driver",
                 cache: false
-            }).done(function (html) {
-                CKEDITOR.instances['info_driver'].setData(html);
+            }).done(function (data) {
+                //console.log(data);
+                if (data !== null) {
+                    CKEDITOR.instances['driver_des'].setData(data.driver_des);
+                    CKEDITOR.instances['driver_note'].setData(data.driver_note);
+                    document.getElementById('driver_id').value = data.driver_id;
+                    document.getElementById('driver_info_id').value = data.id;
+                    if (data.driver_img_cover !== null) {
+                        $('#blah_cover').attr('src', data.driver_img_cover).show();
+                    }
+                    if (data.driver_img_profile !== null) {
+                        $('#blah').attr('src', data.driver_img_profile).show();
+                    }
+                    
+                }
             });
+
+            $("#driver_img_cover").change(function () {
+                readURL_cover(this);
+            });
+
+            $("#driver_img_profile").change(function () {
+                readURL_profile(this);
+            });
+            
         })
 
-        function updateInfo(id) {
-            var url = "/TaiXeBangGia/updateInfo"; // the script where you handle the form input.
+        function readURL_cover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                if (!input.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+                    alert('Tệp bạn chọn không đúng định dạng ảnh.');
+                    return false;
+                }
+                if (!input.files[0].type.match('image.*')) {
+                    alert('Tệp bạn chọn không phải là ảnh.');
+                    return false;
+                }
+                reader.onload = function (e) {
+                    $('#blah_cover').attr('src', e.target.result).show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL_profile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                if (!input.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+                    alert('Tệp bạn chọn không đúng định dạng ảnh.');
+                    return false;
+                }
+                if (!input.files[0].type.match('image.*')) {
+                    alert('Tệp bạn chọn không phải là ảnh.');
+                    return false;
+                }
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result).show();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function update_driver_info(e) {
+            for (var instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+            e.preventDefault();
+            var $filecover = document.getElementById('driver_img_cover'),
+            $fileprofile = document.getElementById('driver_img_profile'),
+            $formData = new FormData();
+
+            if ($('#blah').attr('src') == "") {
+                alert('Vui lòng chọn hình ảnh tải lên.');
+                return false;
+            }
+
+            if ($('#blah_cover').attr('src') == "") {
+                alert('Vui lòng chọn hình ảnh tải lên.');
+                return false;
+            }
+
+            if ($filecover.files.length > 0) {
+                if (!$filecover.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+                    alert('Tệp bạn chọn không đúng định dạng ảnh.');
+                    return false;
+                }
+                if (!$filecover.files[0].type.match('image.*')) {
+                    alert('Tệp bạn chọn không phải là ảnh.');
+                    return false;
+                }
+                if ($filecover.files.length > 0) {
+                    for (var i = 0; i < $filecover.files.length; i++) {
+                        $formData.append('filecover-' + i, $filecover.files[i]);
+                       // console.log($filecover.files[i]);
+                    }
+                }
+            }
+
+            if ($fileprofile.files.length > 0) {
+                if (!$fileprofile.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)) {
+                    alert('Tệp bạn chọn không đúng định dạng ảnh.');
+                    return false;
+                }
+                if (!$fileprofile.files[0].type.match('image.*')) {
+                    alert('Tệp bạn chọn không phải là ảnh.');
+                    return false;
+                }
+                if ($fileprofile.files.length > 0) {
+                    for (var i = 0; i < $fileprofile.files.length; i++) {
+                        $formData.append('fileprofile-' + i, $fileprofile.files[i]);
+                        //console.log($fileprofile.files[i]);
+                    }
+                }
+            }
+
+   
+            //document.getElementById("driver_des").value = CKEDITOR.instances.driver_des.getData();
+            //document.getElementById("driver_note").value = CKEDITOR.instances.driver_note.getData();
+            $formData.append("id", document.getElementById("driver_info_id").value);
+            $formData.append("driver_id", document.getElementById("driver_id").value);
+            $formData.append("driver_des", CKEDITOR.instances.driver_des.getData());
+            $formData.append("driver_note", CKEDITOR.instances.driver_note.getData());
             
-            var value = CKEDITOR.instances['info_driver'].getData()
-            if (value === "") {
-                alert("Vui lòng nhập thông tin nhà xe");
-                return false;
-            }
-            CKEDITOR.ajax.post(url, JSON.stringify({ id: id, des: value }), 'application/json', function (data) {
-                if (data !== "") {
-                    alert('Đã cập nhật thông tin nhà xe.');
+            
+            //console.log($('#form_update_driver_info').serialize());
+            document.getElementById('btn_update_driver_info').innerHTML = 'Đang cập nhật thông tin...';
+            document.getElementById('btn_update_driver_info').disabled = true;
+            $.ajax({
+                url: '/TaiXeBangGia/update_driver_info',
+                type: 'POST',
+                data: $formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data) {
+
+                        CKEDITOR.instances['driver_des'].setData(data.driver_des);
+                        CKEDITOR.instances['driver_note'].setData(data.driver_note);
+                        document.getElementById('driver_id').value = data.driver_id;
+                        document.getElementById('driver_info_id').value = data.id;
+                        document.getElementById('driver_img_cover').value = "";
+                        document.getElementById('driver_img_profile').value = "";
+                        $('#blah_cover').attr('src', data.driver_img_cover).show();
+                        $('#blah').attr('src', data.driver_img_profile).show();
+
+                        document.getElementById('btn_update_driver_info').innerHTML = 'Cập nhật';
+                        document.getElementById('btn_update_driver_info').disabled = false;
+
+                        alert('Đã cập nhật thành công.');
+                    }
+
+
+
+                },
+                error: function (error) {
+                    alert('Vui lòng kiểm tra lại kết nối internet, error: ' + error, 5000);
                 }
             });
-            //$.ajax({
-            //    type: "POST",
-            //    url: url,
-            //    data: { id: id, des: value }, // serializes the form's elements.
-            //    success: function (data) {
-            //        if (data !== "") {
-            //            alert('Đã cập nhật thông tin nhà xe.');
-            //        }
-            //        //console.log(data);
-            //    }
-            //});
+
+
         }
 
-        function updateNote(id) {
-            var url = "/TaiXeBangGia/updateNote"; // the script where you handle the form input.
-            var value = CKEDITOR.instances['note_driver'].getData()
-            if (value === "") {
-                alert("Vui lòng nhập ghi chú nhà xe");
-                return false;
-            }
-            CKEDITOR.ajax.post(url, JSON.stringify({ id: id, note_driver: value }), 'application/json', function (data) {
-                if (data !== "") {
-                    alert('Đã cập nhật ghi chú nhà xe.');
-                }
+        var entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+
+        function escapeHtml(string) {
+            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return entityMap[s];
             });
-
-            //$.ajax({
-            //    type: "POST",
-            //    url: url,
-            //    data: {id: id, note_driver: '"'+ value + '"'}, // serializes the form's elements.
-            //    success: function (data) {
-            //        if (data !== "") {
-            //            alert('Đã cập nhật ghi chú nhà xe.');
-            //        }
-            //        //console.log(data);
-            //    }
-            //});
         }
+
+
+        
+        //function updateInfo(id) {
+        //    var url = "/TaiXeBangGia/updateInfo"; // the script where you handle the form input.
+            
+        //    var value = CKEDITOR.instances['info_driver'].getData()
+        //    if (value === "") {
+        //        alert("Vui lòng nhập thông tin nhà xe");
+        //        return false;
+        //    }
+        //    CKEDITOR.ajax.post(url, JSON.stringify({ id: id, des: value }), 'application/json', function (data) {
+        //        if (data !== "") {
+        //            alert('Đã cập nhật thông tin nhà xe.');
+        //        }
+        //    });
+        //    //$.ajax({
+        //    //    type: "POST",
+        //    //    url: url,
+        //    //    data: { id: id, des: value }, // serializes the form's elements.
+        //    //    success: function (data) {
+        //    //        if (data !== "") {
+        //    //            alert('Đã cập nhật thông tin nhà xe.');
+        //    //        }
+        //    //        //console.log(data);
+        //    //    }
+        //    //});
+        //}
+
+        //function updateNote(id) {
+        //    var url = "/TaiXeBangGia/updateNote"; // the script where you handle the form input.
+        //    var value = CKEDITOR.instances['note_driver'].getData()
+        //    if (value === "") {
+        //        alert("Vui lòng nhập ghi chú nhà xe");
+        //        return false;
+        //    }
+        //    CKEDITOR.ajax.post(url, JSON.stringify({ id: id, note_driver: value }), 'application/json', function (data) {
+        //        if (data !== "") {
+        //            alert('Đã cập nhật ghi chú nhà xe.');
+        //        }
+        //    });
+
+        //    //$.ajax({
+        //    //    type: "POST",
+        //    //    url: url,
+        //    //    data: {id: id, note_driver: '"'+ value + '"'}, // serializes the form's elements.
+        //    //    success: function (data) {
+        //    //        if (data !== "") {
+        //    //            alert('Đã cập nhật ghi chú nhà xe.');
+        //    //        }
+        //    //        //console.log(data);
+        //    //    }
+        //    //});
+        //}
 
     </script>
 

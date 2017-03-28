@@ -17,35 +17,21 @@
     }
 }
 
-<link href="~/Content/sld/flexslider.css" rel="stylesheet" />
+
 <link href="~/Content/bootstrap-rating.css" rel="stylesheet" />
 <script src="~/Content/bootstrap-rating.min.js"></script>
-<script src="~/Content/sld/jquery.flexslider-min.js"></script>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 
 
-<style>
-    .item_profile ul {
-        list-style-type: none;
-        padding: 0;
-        font-size: 14px;
-    }
-
-    .item_profile ul li {
-        padding-left: 10px;
-    }
-
-</style>
-
 <div id="fb-root"></div>
 <script>
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=404216066584603";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=404216066584603";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 @{
     Layout = "~/Views/Shared/_LayoutProfile.cshtml";
@@ -53,6 +39,8 @@
     ViewBag.des = "Trang nhà xe";
     ViewBag.keywords = "";
     ViewBag.url = @url;
+    ViewBag.image = "http://thuexevn.com/"+ViewBag.fbImageLg;
+    var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 
 
@@ -61,68 +49,137 @@
 {
     ViewBag.title += " " + @Model.name;
     ViewBag.des += " " + @Model.name;
+
 }
 
-<div id="content" style="color: #333; background: #fff;">
-    @if (Model != null)
-    {
+
+
+@if (Model != null)
+{
+    <div class="fb-profile">
+
+
         <div class="container-fluid">
-            <div class="row">
-                @{Html.RenderAction("LoadAlbumDriver", new { driver_id = Model.id });}
+            <img align="left" class="fb-image-lg" src="@ViewBag.fbImageLg" alt="@Model.name" />
+            <img align="left" class="fb-image-profile thumbnail" src="@ViewBag.fbImageProfile" alt="@Model.name" />
+            <div class="profile--price visible-xs">
+                <h2>
+                    @if (Model.car_price == -1)
+                    {
+                    <text>Thỏa thuận.</text>
+                    }
+                    else
+                    {
+                    <text>@string.Format(info, "{0:#,##}", Model.car_price)&nbsp;<small>đồng/1 km.</small></text>
+                    }
+                </h2>
+
             </div>
         </div>
-    <div style="background: #f5f5f5 url(/Images/bg_profile.jpg) no-repeat center center;background-size: cover;">
-        <div class="container">
 
+        <div class="container">
             <div class="row">
-                <div class="col-md-7">
-                    <div class="row item_profile item_profile_first">
-                        <div class="col-sm-3">
-                            <h3>
+                <div class="col-md-9 col-xs-12 profile--item--left">
+                    <div class="row profile--item">
+                        <div class="col-md-3">
+                            <h2 class="item_label">
                                 @if (Model.driver_type == 0)
                                 {<text>Tài xế</text>}
                                 else
                                 {<text>Nhà xe</text>}:
-                            </h3>
+                            </h2>
 
                         </div>
-                        <div class="col-sm-9">
-                            <h3>@Model.name</h3>
+                        <div class="col-md-9">
+                            <h2>@Model.name</h2>
                             @if (Model.address != null && Model.address != "")
                             {
-                                <address><i class="fa fa-address-card"></i> @Model.address <a href="#map-canvas"> - Xem bản đồ</a></address>
+                                <p>
+                                    <i class="fa fa-map-marker"></i>
+                                    @Model.address
+                                </p>
                             }
-                            <p>Xe @Model.car_made @Model.car_model @Model.car_years</p>
+                            <p><i class="fa fa-car"></i> Xe @Model.car_made @Model.car_model @Model.car_years</p>
                             @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
                         </div>
                     </div>
 
                     @{Html.RenderAction("LoadBangGiaDriver", new { driver_id = Model.id });}
                     @{Html.RenderAction("LoadDesDriver", new { driver_id = Model.id });}
+                    @{Html.RenderAction("LoadAlbumDriver", new { driver_id = Model.id });}
+
+                    <div class="row profile--item">
+                        <div class="col-md-3">
+                            <h2 class="item_label">Đánh giá/nhận xét:</h2>
+                        </div>
+
+                        <div class="col-md-9">
+                            <form name="addcomment" class="form-horizontal" id="addcomment" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa_red" data-empty="fa fa-star-o fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
+                                </div>
+
+                                <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
+                                <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
+                                <div class="form-group">
+                                    <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
+                                </div>
+
+
+                            </form>
+
+                            @{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}
+
+                        </div>
+                    </div>
+
+                    <div class="row profile--item">
+                        <div class="col-md-3">
+                            <h2 class="item_label">Thảo luận</h2>
+                        </div>
+                        <div class="col-md-9">
+                            <div id="fb_page">
+                                <div class="fb-comments" data-href="@url" data-numposts="5"></div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="col-md-5 sidebar">
-                    <div>
-                        <h3 class="profile_gia">
-                            Giá trung bình:&nbsp;
-                            @if (Model.car_price == -1)
-                            {
-                                <text>thỏa thuận.</text>
-                            }
-                            else
-                            {
-                                <text>@string.Format("{0:#,###} đồng/km.", Model.car_price)</text>
-                            }
-                        </h3>
-                    </div>
+                <div class="col-md-3 col-xs-12 profile--item--right">
                     @*Datxe*@
                     <form class="form-horizontal form_profile" method="post" id="form_dat_thue_xe" name="form_dat_thue_xe" enctype="multipart/form-data">
+                        <div class="price_car hidden-xs">
+                            <h2>
+                                @if (Model.car_price == -1)
+                                {
+                                    <text>Thỏa thuận.</text>
+                                }
+                                else
+                                {
+                                    <text>@string.Format(info, "{0:#,##}", Model.car_price)&nbsp;<small>đồng/1 km.</small></text>
+                                }
+                            </h2>
 
-                        <div class="text-center">
-                            <h1 style="color: #03a9f4;">Liên hệ ngay</h1>
-                            @*<a href="tel:@Model.phone" class="btn btn-info">@Model.phone</a>*@
                         </div>
-                        
+                        <h2 class="text-center">
+                            Liên hệ ngay
+                        </h2>
+
                         <input type="hidden" name="driver_id" id="driver_id" value="@Model.id" />
                         <input type="hidden" name="driver_name" id="driver_name" value="@Model.name" />
                         <input type="hidden" name="car_hire_type" id="car_hire_type" value="Một chiếu" />
@@ -130,58 +187,66 @@
                         <input type="hidden" name="price_driver" id="price_driver" value="@Model.car_price" />
                         <input type="hidden" name="distance" id="distance" />
                         <input type="hidden" name="total_money" id="total_money" />
-                        
+
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <label class="control-label">Họ tên khách: </label>
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Họ tên khách: </label>*@
                                 <input name="customer_name" id="customer_name" class="form-control" placeholder="Tên khách hàng" />
                             </div>
-                            <div class="col-sm-6">
-                                <label class="control-label">Số điện thoại: </label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Số điện thoại: </label>*@
                                 <input name="customer_phone" id="customer_phone" class="form-control" placeholder="Số điện thoại khách hàng" />
                             </div>
                         </div>
 
+                        <input type="hidden" name="lon_from" id="lon_from" value="" />
+                        <input type="hidden" name="lat_from" id="lat_from" value="" />
+                        <input type="hidden" name="lon_to" id="lon_to" value="" />
+                        <input type="hidden" name="lat_to" id="lat_to" value="" />
+
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <label class="control-label">Điểm đi: </label>
-                                <input name="from_place" id="from_place" class="form-control" placeholder="Điểm đi" />
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Điểm đi: </label>*@
+                                <input name="from_place" id="from_place" class="form-control" placeholder="Nhập điểm đi" />
                             </div>
-                            <div class="col-sm-6">
-                                <label class="control-label">Điểm đến: </label>
-                                <input name="to_place" id="to_place" class="form-control" placeholder="Điểm đến" />
-                            </div>
-                            <input type="hidden" name="lon_from" id="lon_from" value="" />
-                            <input type="hidden" name="lat_from" id="lat_from" value="" />
-                            <input type="hidden" name="lon_to" id="lon_to" value="" />
-                            <input type="hidden" name="lat_to" id="lat_to" value="" />
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <label class="control-label">Từ ngày: </label>
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Điểm đến: </label>*@
+                                <input name="to_place" id="to_place" class="form-control" placeholder="Nhập điểm đến" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Từ ngày: </label>*@
                                 <input name="from_date" id="from_date" class="form-control" placeholder="Từ ngày" />
                             </div>
-                            <div class="col-sm-6">
-                                <label class="control-label">Đến ngày: </label>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Đến ngày: </label>*@
                                 <input name="to_date" id="to_date" class="form-control" placeholder="Đến ngày" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <label class="control-label">Loại xe: </label>
+                            <div class="col-md-12 col-xs-12">
+                                @*<label class="control-label">Loại xe: </label>*@
                                 <select class="form-control" id="car_size_driver" name="car_size_driver" onchange="getcpdriver(@Model.id);">
                                     <option value="">Tất cả loại xe</option>
                                 </select>
                             </div>
                         </div>
 
-                        
-
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <button type="button" style="background: #03a9f4;border-color: #03a9f4;border-radius: 0;" class="btn btn-lg btn-primary btn-block" id="btn_bookingtodriver" onclick="saveBookingToDriver(@Model.id);">Đặt xe</button>
+                                <button type="button" class="btn btn-primary btn-block" id="btn_bookingtodriver" onclick="saveBookingToDriver(@Model.id);">Đặt xe</button>
                             </div>
                         </div>
 
@@ -189,96 +254,20 @@
 
                 </div>
 
-
-
-            </div>
-
-
-        </div>
-    </div>
-        <div class="container">
-            <div class="row">
-                <div id="panel_danhgia">
-                    <div class="col-md-4">
-                        <h3>Gửi đánh giá và nhận xét</h3>
-
-                        <form name="addcomment" id="addcomment" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label>Đánh giá nhà xe: </label>
-                                <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa-2x fa_red" data-empty="fa fa-star-o fa-2x fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
-                            </div>
-
-                            <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
-                            <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
-                            <div class="form-group">
-                                <label for="cus_name">Họ tên:</label>
-                                <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cus_email">Email:</label>
-                                <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cus_phone">Số điện thoại:</label>
-                                <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="cus_comment">Bình luận:</label>
-                                <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
-                            </div>
-
-                            <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
-
-                        </form>
-
-                    </div>
-                    @*@{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}*@
-                    <div class="col-md-8">
-                        <div class="comment_driver">
-                            @{Html.RenderAction("LoadCommentDriver", new { driver_id = Model.id });}
-                        </div>
-                    </div>
-
-
-                    @*<div class="col-md-8">
-                            <div class="comment_driver">
-                                <h3>Danh sách nhận xét</h3>
-                                <ul id="comment_driver_list">
-
-                                </ul>
-                            </div>
-                        </div>*@
-
-
-                </div>
             </div>
         </div>
 
-        if (ViewBag.lon != null && ViewBag.lat != null)
+
+        @if (ViewBag.lon != null && ViewBag.lat != null)
         {
             <div class="container-fluid" style="margin-top: 10px;">
-                <div class="row">
-                    <div class="map-canvas" id="map-canvas"></div>
-                </div>
+                <div class="map-canvas" id="map-canvas"></div>
             </div>
         }
 
-        <div class="container" style="margin-top: 10px; margin-bottom: 10px;">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Thảo luận</h3>
-                    <div id="fb_page">
-                        <div class="fb-comments" data-href="@url" data-numposts="5"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
-    }
-</div>
+}
 
 <div id="map-canvas" style="display: none;">
     Bản đồ
@@ -290,47 +279,6 @@
     <script>
 
         $(document).ready(function () {
-
-            $('.album_driver').flexslider({
-                animation: Modernizr.touch ? "slide" : "fade",
-                animationSpeed: Modernizr.touch ? 400 : 1000,
-                controlNav: false,
-                directionNav: true,
-                draggable: true,
-            });
-
-            //$('.danh_gia_chung').rating({
-            //    extendSymbol: function (rate) {
-            //        $(this).tooltip({
-            //            container: 'body',
-            //            placement: 'bottom',
-            //            title: 'Đánh giá ' + rate + ' sao.'
-            //        });
-            //    }
-            //});
-
-            //$('.danh_gia_chung').rating({
-
-            //    extendSymbol: function () {
-            //        var title;
-            //        $(this).tooltip({
-            //            container: 'body',
-            //            placement: 'bottom',
-            //            trigger: 'manual',
-            //            title: function () {
-            //                return title;
-            //            }
-            //        });
-            //        $(this).on('rating.rateenter', function (e, rate) {
-            //            title = 'Đánh giá ' + rate + ' sao.';
-            //            $(this).tooltip('show');
-            //        })
-            //        .on('rating.rateleave', function () {
-            //            $(this).tooltip('hide');
-            //        });
-            //    }
-            //});
-
 
             $('.danh_gia_chung').on('change', function () {
                 $('#danh_gia_chung_n').html($(this).val() + ' sao.');
@@ -383,6 +331,15 @@
             //    });
             //    return false;
             //});
+            //$('.gallery_driver').flexslider({
+            //    animation: "slide",
+            //    animationLoop: false,
+            //    itemWidth: 210,
+            //    itemMargin: 5,
+            //    minItems: 2,
+            //    maxItems: 4
+            //});
+
 
         })
 
@@ -403,10 +360,10 @@
                 }else {
 
                 }
-                
+
             }
         }
-        
+
 
         function addCommentdriver() {
             var url = "/Home/addCommentdriver"; // the script where you handle the form input.
@@ -537,7 +494,7 @@
 
         function search_khoangcach() {
             if (document.getElementById('lat_from').value != "" && document.getElementById('lon_from').value != "" && document.getElementById('lat_to').value != "" && document.getElementById('lon_to').value != "") {
-            
+
                 var directionsDisplay = new google.maps.DirectionsRenderer;
                 var directionsService = new google.maps.DirectionsService;
 
@@ -558,7 +515,7 @@
                     if (status == 'OK') {
                         directionsDisplay.setDirections(response);
                         var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "").replace(",",".").trim();
-                    
+
                         var _gia1 = document.getElementById("price_driver").value;
                         var so1 = parseFloat(khoangcach);
                         var so2 = parseFloat(_gia1);
@@ -623,7 +580,7 @@
                 document.getElementById('car_size_driver').focus();
                 return false;
             }
-            
+
             document.getElementById("btn_bookingtodriver").innerHTML = "Đang đặt xe xin chờ....";
             document.getElementById("btn_bookingtodriver").disabled = true;
             $.ajax({
@@ -648,38 +605,40 @@
             });
         }
 
+        // Can also be used with $(document).ready()
+
     </script>
 
 
-@if (ViewBag.lon != null && ViewBag.lat != null)
-{
+    @if (ViewBag.lon != null && ViewBag.lat != null)
+    {
 
     <!--Map JavaScript-->
-    <script>
-        initmap();
-        function initmap() {
-            var myVitri = new google.maps.LatLng(@ViewBag.lat, @ViewBag.lon);
-            var map = new google.maps.Map(document.getElementById('map-canvas'), {
-                center: { lat: myVitri.lat(), lng: myVitri.lng() },
-                zoom: 14,
-                draggable: true,
-                scrollwheel: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                animation: google.maps.Animation.DROP,
-            });
+        <script>
+            initmap();
+            function initmap() {
+                var myVitri = new google.maps.LatLng(@ViewBag.lat, @ViewBag.lon);
+                var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                    center: { lat: myVitri.lat(), lng: myVitri.lng() },
+                    zoom: 14,
+                    draggable: true,
+                    scrollwheel: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    animation: google.maps.Animation.DROP,
+                });
 
-            var infoWindow = new google.maps.InfoWindow({ map: map });
-            var pos = {
-                lat: myVitri.lat(),
-                lng: myVitri.lng()
-            };
+                var infoWindow = new google.maps.InfoWindow({ map: map });
+                var pos = {
+                    lat: myVitri.lat(),
+                    lng: myVitri.lng()
+                };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('<i class="fa fa-car fa-2x"></i> @Html.Raw(Model.name + ", <br /> Địa chỉ: " + Model.address)');
-            map.setCenter(pos);
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('<i class="fa fa-car fa-2x"></i> @Html.Raw(Model.name + ", <br /> Địa chỉ: " + Model.address)');
+                map.setCenter(pos);
 
-        }
-    </script>
+            }
+        </script>
 
-}
+    }
 }

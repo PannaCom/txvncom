@@ -499,77 +499,168 @@ namespace ThueXeVn.Controllers
             return Json(deleted, JsonRequestBehavior.AllowGet);
         }
 
-        public string getNoteTaiXe(long? id)
-        {
-            var driver_info = (from s in db.driver_info where s.driver_id == id select s.driver_note).FirstOrDefault();
-            return driver_info;
-        }
-
-        public string getInfoTaiXe(long? id)
-        {
-            var driver_info = (from s in db.driver_info where s.driver_id == id select s.driver_des).FirstOrDefault();
-            return driver_info;
-        }
+        //public string getNoteTaiXe(long? id)
+        //{
+        //    var driver_info = (from s in db.driver_info where s.driver_id == id select s.driver_note).FirstOrDefault();
+        //    return driver_info;
+        //}
 
         [HttpPost]
-        public ActionResult updateNote(long? id, string note_driver)
+        [ValidateInput(false)]
+        public ActionResult update_driver_info(HttpPostedFileBase _filecover, HttpPostedFileBase _fileprofile, driver_info model)
         {
-            string updated = "";
-            try
+            var data = new object() { };
+            string fCover = null;
+            string fProfile = null;
+            if (Request.Files.Count > 0)
             {
-                var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
-                if (update != null)
+                _filecover = Request.Files["filecover-0"];
+                _fileprofile = Request.Files["fileprofile-0"];
+            }
+            //Save file content goes here
+            if (_filecover != null && _filecover.ContentLength > 0)
+            {
+                var originalDirectory = new DirectoryInfo(string.Format("{0}Image\\nhaxe", Server.MapPath(@"\")));
+                string pathString = System.IO.Path.Combine(originalDirectory.ToString());
+                string basicUID = Guid.NewGuid().ToString("N");
+                var _fileName = basicUID + ".jpg";
+                bool isExists = System.IO.Directory.Exists(pathString);
+                if (!isExists)
+                    System.IO.Directory.CreateDirectory(pathString);
+
+                var path = string.Format("{0}\\{1}", pathString, _fileName);
+
+                _filecover.SaveAs(path);
+                fCover = "/Image/nhaxe/" + _fileName;
+            }
+
+            if (_fileprofile != null && _fileprofile.ContentLength > 0)
+            {
+                var originalDirectory = new DirectoryInfo(string.Format("{0}Image\\nhaxe", Server.MapPath(@"\")));
+                string pathString = System.IO.Path.Combine(originalDirectory.ToString());
+                string basicUID = Guid.NewGuid().ToString("N");
+                var _fileName = basicUID + ".jpg";
+                bool isExists = System.IO.Directory.Exists(pathString);
+                if (!isExists)
+                    System.IO.Directory.CreateDirectory(pathString);
+
+                var path = string.Format("{0}\\{1}", pathString, _fileName);
+
+                _fileprofile.SaveAs(path);
+                fProfile = "/Image/nhaxe/" + _fileName;
+            }
+
+            if (model.id == 0)
+            {
+                driver_info newdi = new driver_info();
+                newdi.driver_id = model.driver_id ?? null;
+                newdi.driver_img_cover = fCover ?? null;
+                newdi.driver_img_profile = fProfile ?? null;
+                newdi.driver_des = model.driver_des ?? null;
+                newdi.driver_note = model.driver_note ?? null;
+                db.driver_info.Add(newdi);
+                db.SaveChanges();
+                data = newdi;
+            }
+            else
+            {
+                var editdi = db.driver_info.Find(model.id);
+                if (editdi != null)
                 {
-                    update.driver_note = note_driver ?? null;
-                    db.Entry(update).State = EntityState.Modified;
+                    editdi.driver_id = model.driver_id ?? null;
+                    if (fCover != null)
+                    {
+                        editdi.driver_img_cover = fCover;
+                    }
+                    if (fProfile != null)
+                    {
+                        editdi.driver_img_profile = fProfile;
+                    }
+                    
+                    editdi.driver_des = model.driver_des ?? null;
+                    editdi.driver_note = model.driver_note ?? null;
+                    db.Entry(editdi).State = EntityState.Modified;
                     db.SaveChanges();
-                    updated = "1";
-                }
-                else
-                {
-                    driver_info ghichu = new driver_info();
-                    ghichu.driver_id = id;
-                    ghichu.driver_note = note_driver ?? null;
-                    db.driver_info.Add(ghichu);
-                    db.SaveChanges();
+                    data = editdi;
                 }
             }
-            catch (Exception ex)
-            {
-                Config.SaveTolog(ex.ToString());
-            }
-            return Json(updated, JsonRequestBehavior.AllowGet);
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult updateInfo(long? id, string des)
+        public ActionResult getInfoTaiXe(long? id)
         {
-            string updated = "";
+            var data = new object() { };
             try
             {
-                var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
-                if (update != null)
-                {
-                    update.driver_des = des ?? null;
-                    db.Entry(update).State = EntityState.Modified;
-                    db.SaveChanges();
-                    updated = "1";
-                }
-                else
-                {
-                    driver_info ghichu = new driver_info();
-                    ghichu.driver_id = id;
-                    ghichu.driver_des = des ?? null;
-                    db.driver_info.Add(ghichu);
-                    db.SaveChanges();
-                }
+                var driver_info = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
+                data = driver_info;
             }
-            catch (Exception ex)
-            {
-                Config.SaveTolog(ex.ToString());
+            catch
+            {                
             }
-            return Json(updated, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        //[HttpPost]
+        //public ActionResult updateNote(long? id, string note_driver)
+        //{
+        //    string updated = "";
+        //    try
+        //    {
+        //        var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
+        //        if (update != null)
+        //        {
+        //            update.driver_note = note_driver ?? null;
+        //            db.Entry(update).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            updated = "1";
+        //        }
+        //        else
+        //        {
+        //            driver_info ghichu = new driver_info();
+        //            ghichu.driver_id = id;
+        //            ghichu.driver_note = note_driver ?? null;
+        //            db.driver_info.Add(ghichu);
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Config.SaveTolog(ex.ToString());
+        //    }
+        //    return Json(updated, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //public ActionResult updateInfo(long? id, string des)
+        //{
+        //    string updated = "";
+        //    try
+        //    {
+        //        var update = (from s in db.driver_info where s.driver_id == id select s).FirstOrDefault();
+        //        if (update != null)
+        //        {
+        //            update.driver_des = des ?? null;
+        //            db.Entry(update).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            updated = "1";
+        //        }
+        //        else
+        //        {
+        //            driver_info ghichu = new driver_info();
+        //            ghichu.driver_id = id;
+        //            ghichu.driver_des = des ?? null;
+        //            db.driver_info.Add(ghichu);
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Config.SaveTolog(ex.ToString());
+        //    }
+        //    return Json(updated, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult driverEdit()
         {
