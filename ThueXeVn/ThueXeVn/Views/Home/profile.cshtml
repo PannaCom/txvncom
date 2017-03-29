@@ -39,7 +39,7 @@
     ViewBag.des = "Trang nhà xe";
     ViewBag.keywords = "";
     ViewBag.url = @url;
-    ViewBag.image = "http://thuexevn.com/"+ViewBag.fbImageLg;
+    ViewBag.image = "http://thuexevn.com/" + ViewBag.fbImageLg;
     var info = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 
@@ -66,11 +66,11 @@
                 <h2>
                     @if (Model.car_price == -1)
                     {
-                    <text>Thỏa thuận.</text>
+                        <text>Thỏa thuận.</text>
                     }
                     else
                     {
-                    <text>@string.Format(info, "{0:#,##}", Model.car_price)&nbsp;<small>đồng/1 km.</small></text>
+                        <text>@string.Format(info, "{0:#,##}", Model.car_price)&nbsp;<small>đồng/1 km.</small></text>
                     }
                 </h2>
 
@@ -100,6 +100,7 @@
                                 </p>
                             }
                             <p><i class="fa fa-car"></i> Xe @Model.car_made @Model.car_model @Model.car_years</p>
+                            <p><i class="fa fa-eye"></i> <span id="driver_view"></span></p>
                             @{Html.RenderAction("TotalDanhGia", new { id = Model.id });}
                         </div>
                     </div>
@@ -116,28 +117,38 @@
                         <div class="col-md-9">
                             <form name="addcomment" class="form-horizontal" id="addcomment" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa_red" data-empty="fa fa-star-o fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
+                                    <div class="col-md-12">
+                                        <input type="hidden" class="rating-tooltip cus_rate" id="cus_rate" name="cus_rate" data-filled="fa fa-star fa_red" data-empty="fa fa-star-o fa_red" data-fractions="1"> <span id="cus_rate_number"></span>
+                                    </div>
                                 </div>
 
                                 <input type="hidden" name="cus_driver_id" id="cus_driver_id" value="@driverId" />
                                 <input type="hidden" name="cus_cm_id" id="cus_cm_id" value="0" />
                                 <div class="form-group">
-                                    <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                                    <div class="col-md-12">
+                                        <input type="text" name="cus_name" id="cus_name" class="form-control" placeholder="Họ tên" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" name="cus_email" id="cus_email" class="form-control" placeholder="Email:" />
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="text" name="cus_phone" id="cus_phone" class="form-control" placeholder="Số điện thoại:" />
-                                </div>
-
-                                <div class="form-group">
-                                    <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
+                                    <div class="col-md-12">
+                                        <textarea rows="5" name="cus_comment" id="cus_comment" class="form-control" placeholder="Bình luận"></textarea>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary" type="button" onclick="addCommentdriver();" id="btnaddComment">Gửi bình luận</button>
+                                    </div>
                                 </div>
 
 
@@ -319,6 +330,14 @@
             }).done(function (html) {
                 $('#car_size_driver').append(html);
             });
+
+            $.ajax({
+                url: "/Home/getdriverview?id=@Model.id",
+                cache: false
+            }).done(function (html) {
+                $('#driver_view').append("<b>"+ html + "</b> lượt xem");
+            });
+            
 
             //$(document).on("click", "#contentPager a[href]", function () {
             //    $.ajax({

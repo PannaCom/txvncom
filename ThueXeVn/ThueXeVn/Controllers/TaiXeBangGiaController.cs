@@ -34,49 +34,48 @@ namespace ThueXeVn.Controllers
             int pageNumber = (pg ?? 1);
             ViewBag.pg = pg;
 
-            var sql = "SELECT id,cp_car_type,cp_price,cp_multiple,cp_multiple2,driver_id FROM driver_car_price where driver_id = " + id;
+            //var sql = "SELECT id,cp_car_type,cp_price,cp_multiple,cp_multiple2,driver_id FROM driver_car_price where driver_id = " + id;
 
-            var data = db.Database.SqlQuery<driver_car_price>(sql).ToList().OrderBy(s => s.cp_car_type);
+            //var data = db.Database.SqlQuery<driver_car_price>(sql).ToList().OrderBy(s => s.cp_car_type);
+            var data = (from s in db.driver_car_price where s.driver_id == id orderby s.cp_car_type ascending select s);
 
             return View(data.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Addbanggia()
         {
-            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");           
-
+            if (Config.getCookie("taixelogged") == "") return RedirectToRoute("taixedangnhap");
+            var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
+            long id = Convert.ToInt64(id_taixe);
+            var taxidn = db.drivers.Find(id);
+            if (taxidn == null)
+            {
+                Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
+            }
+            ViewBag.driver_id = id;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Addbanggia(string cp_car_type, string cp_price)
+        public ActionResult Addbanggia(driver_car_price model)
         {
-            
-            if (Config.getCookie("taixelogged") != null)
+            try
             {
-                var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
-                long id = Convert.ToInt64(id_taixe);
-                var taxidn = db.drivers.Find(id);
-                if (taxidn == null)
-                {
-                    Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
-                }
-                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; 
-                //if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
-                try
-                {
-                    var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + id+")";
-                    var addbanggiaxe = db.Database.ExecuteSqlCommand(sql);
-                    TempData["Updated"] = "Đã thêm mới bảng giá.";
-                    return RedirectToRoute("quanlybanggia");
-                }
-                catch(Exception ex)
-                {
-                    Config.SaveTolog(ex.ToString());
-                    ModelState.AddModelError("", "Vui lòng kiểm tra lại các trường.");
-                    return View();
-                }
+                driver_car_price newprice = new driver_car_price();
+                newprice.driver_id = model.driver_id ?? null;
+                newprice.cp_price = model.cp_price ?? null;
+                newprice.cp_night = model.cp_night ?? 0;
+                db.driver_car_price.Add(newprice);
+                db.SaveChanges();
+                //var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + id + ")";
+                //var addbanggiaxe = db.Database.ExecuteSqlCommand(sql);
+                TempData["Updated"] = "Đã thêm mới bảng giá.";
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                TempData["Error"] = "Vui lòng kiểm tra lại các trường.";
             }
             return RedirectToRoute("quanlybanggia");
         }
@@ -94,32 +93,26 @@ namespace ThueXeVn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(long? cp_id, string cp_car_type, string cp_price)
+        public ActionResult Edit(long? cp_id, driver_car_price model)
         {
-
-            if (Config.getCookie("taixelogged") != null)
+            try
             {
-                var id_taixe = Config.getCookie("taixelogged").Split(',').Last();
-                long id = Convert.ToInt64(id_taixe);
-                var taxidn = db.drivers.Find(id);
-                if (taxidn == null)
+                var editprice = db.driver_car_price.Find(cp_id);
+                if (editprice != null)
                 {
-                    Config.RemoveCookie("taixelogged"); return RedirectToRoute("taixedangnhap");
+                    editprice.cp_price = model.cp_price ?? null;
+                    editprice.cp_night = model.cp_night ?? 0;
+                    db.Entry(editprice).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
-                if (cp_car_type == "") cp_car_type = "null"; if (cp_price == "") cp_price = "null"; 
-                //if (cp_multiple == "") { cp_multiple = "null"; } if (cp_multiple2 == "") { cp_multiple2 = "null"; }
-                try
-                {
-                    var sql = "update driver_car_price set cp_car_type = " + cp_car_type + ", cp_price = " + cp_price + " where id = " + cp_id;
-                    var updatebanggiaxe = db.Database.ExecuteSqlCommand(sql);
-                    TempData["Updated"] = "Đã Cập nhật mới bảng giá.";
-                }
-                catch (Exception ex)
-                {
-                    Config.SaveTolog(ex.ToString());
-                    ModelState.AddModelError("", "Vui lòng kiểm tra lại các trường.");
-                    return View();
-                }
+                //var sql = "update driver_car_price set cp_car_type = " + cp_car_type + ", cp_price = " + cp_price + " where id = " + cp_id;
+                //var updatebanggiaxe = db.Database.ExecuteSqlCommand(sql);
+                TempData["Updated"] = "Đã Cập nhật mới bảng giá.";
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                TempData["Error"] = "Vui lòng kiểm tra lại các trường.";
             }
             return RedirectToRoute("quanlybanggia");
         }

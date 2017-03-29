@@ -64,6 +64,13 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
+                                    <label for="cp_night" class="control-label">Phí lưu đêm</label>
+                                    <input type="number" class="form-control" name="cp_night" id="cp_night" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
                                     <button class="btn btn-primary" id="dang_ky_btn">Cập nhật bảng giá</button>
                                 </div>
                             </div>
@@ -73,6 +80,7 @@
                         <script>
                             $(document).ready(function () {
                                 $('#cp_price').val('@Model.cp_price');
+                                $('#cp_night').val('@Model.cp_night');
                                 @*$('#cp_multiple').val('@Model.cp_multiple');
                                 $('#cp_multiple2').val('@Model.cp_multiple2');*@
                                 setTimeout(function () {

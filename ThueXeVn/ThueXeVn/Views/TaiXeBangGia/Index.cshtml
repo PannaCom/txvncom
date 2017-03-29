@@ -58,6 +58,7 @@
                         <th>STT</th>
                         <th>Loại xe (số chỗ)</th>
                         <th>Giá/1km 1 chiều (đồng)</th>
+                        <th>Phí lưu đêm (đồng)</th>
                         @*<th>Nhân ngày lễ</th>
                         <th>Nhân một chiều</th>*@
                         <th>Chức năng</th>
@@ -82,6 +83,7 @@
                                     <td>
                                         @item.cp_multiple2
                                     </td>*@
+                                    <td style="text-align: right;">@string.Format("{0:#,##}", item.cp_night)</td>
                                     <td>
                                         <a href="/TaiXeBangGia/Edit/@item.id" class="btn btn-primary"><i class="fa fa-edit"></i> Sửa</a>
                                         <a href="/TaiXeBangGia/Delete/@item.id" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</a>
@@ -118,8 +120,7 @@
             @Html.PagedListPager(Model, page => Url.RouteUrl("quanlybanggia", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
         }
     </div>
-
-    
+       
 </div>
 
 
@@ -133,6 +134,7 @@
                 <fieldset>
                     <legend>Cập nhật thông tin tài xế</legend>
                     @Html.AntiForgeryToken()
+
                     <input type="hidden" name="driver_info_id" id="driver_info_id" value="0" />
                     <input type="hidden" name="driver_id" id="driver_id" value="@id_driver" />
                     <div class="form-group">
@@ -167,14 +169,15 @@
                         <div class="col-md-12">
                             <label class="control-label">Ghi chú bảng giá</label>
                             <textarea class="form-control editor" rows="5" id="driver_note" name="driver_note"></textarea>
-                        </div>
-
+                        </div>                       
                     </div>
-
 
                     <div class="form-group">
-                        <button type="button" class="btn btn-primary" onclick="update_driver_info(event);" id="btn_update_driver_info">Cập nhật</button>
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" id="btn_update_driver_info" onclick="update_driver_info(event);">Cập nhật</button>
+                        </div>
                     </div>
+
 
                 </fieldset>
 

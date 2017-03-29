@@ -1802,5 +1802,16 @@ namespace ThueXeVn.Controllers
             return PartialView("_LoadDriverVertified", tien);
         }
 
+        public ActionResult getdriverview(long? id)
+        {
+            int? html = 0;
+            var viewer = db.driver_view.Where(x => x.driver_id == id).SingleOrDefault();
+            if (viewer != null)
+            {
+                html = viewer.views;
+            }
+            return Json(html, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

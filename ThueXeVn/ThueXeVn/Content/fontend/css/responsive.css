@@ -5,11 +5,10 @@
         float: none;
     }
     .navbar-toggle {
-        display: block;
-    float: left;
-    margin-right: 0;
-    /* padding: 5px; */
+            margin-right: 0;
     margin-left: 5px;
+    position: absolute;
+    display: block;
     }
     .navbar-collapse {
         border-top: 1px solid transparent;
@@ -128,10 +127,8 @@
 	a.goto-btn {
 	    margin-right: auto;
 	    margin: 0 10px;
-	}
-	a.goto-btn {
-	    display: inline-block;
-	}
+        display: inline-block;
+	}	
 	.blog .post-meta {min-height: 55px;}
     #headerct{ margin-top: 80px}
     #headerct2{ margin-top: 180px}
@@ -148,4 +145,341 @@
 	    padding: 5px 10px;
 	}
     .carmade{ display: none;}
+}
+
+@media (min-width: 768px) {
+
+    #addcomment {
+        margin-left: 15px;
+    }
+
+    .homepage-bg-desktop {
+        background: url(/Content/fontend/img/bg_home.jpg) 100% 100%;
+        background-size: cover;
+        height: 600px;
+    }
+
+    .container.homepage {
+        background: 0 0 !important;
+        padding-bottom: 30px !important;
+    }
+
+    .introduction {
+        text-align: right;
+        display: block;
+    }
+
+    .introduction__heading {
+        padding-bottom: .5em;
+        text-shadow: 0 0 7px #2f5450;
+    }
+
+    .introduction__strapline {
+        max-width: 30em;
+        float: right;
+        text-shadow: 0 0 7px #2f5450;
+    }
+
+    #bookingFormFrm fieldset {
+        padding: 0 25px;
+    }
+
+    .booking-homepage .title h2 {
+        font-size: 1.6em;
+    }
+
+    .fun_home_page .list-group .list-group-item.active h3 {
+        font-weight: 400;
+        font-size: 1.7em;
+    }
+
+    .fun_home_page .price {
+        top: .7em;
+        right: 10em;
+    }
+
+    .item__card {
+        border-top: solid 1px #F3F9FF;
+        padding: 1.25em 1em;
+    }
+
+        .item__card .to {
+            position: absolute;
+            left: 21em;
+            display: inline-block;
+            padding: 0;
+        }
+
+        .item__card .next {
+            position: absolute;
+            left: 45em;
+            display: inline-block;
+            padding: 0;
+        }
+
+    #search_page_timtaixe .page-header h2 {
+        line-height: 1.2em;
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .row.results_card {
+        background-image: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        border: 1px solid #CCC;
+        border-top: 0;
+    }
+
+        .row.results_card .nhaxe_name a {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1F7BDC;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .row.results_card .nhaxe_diachi {
+            font-size: 14px;
+            color: grey;
+            margin-bottom: 5px;
+        }
+
+        .row.results_card h2.price_nhaxe {
+            line-height: 1.5em;
+            margin-top: 0;
+            font-size: 20px;
+            text-align: center;
+            right: 0;
+            width: 100%;
+            padding: 72px 0 0;
+        }
+
+            .row.results_card h2.price_nhaxe span {
+                font-size: 44px;
+                padding: 7px;
+            }
+
+                .row.results_card h2.price_nhaxe span.best_price {
+                    display: block;
+                    font-size: 1vw;
+                    text-transform: uppercase;
+                }
+
+    .section_sp {
+        padding-right: 0;
+    }
+
+        .section_sp .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+    .search_options li a {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .row.results_card .nhaxe_name {
+        padding-top: 5px;
+    }
+
+    .row.results_card .quote_section__promotion p {
+        padding-top: 8px;
+    }
+
+    .quote_section__vertified .ct-ribbon {
+        position: absolute;
+        top: 1.4vh;
+        right: 0;
+        z-index: 9;
+    }
+
+    .row.results_card .quote_section__price {
+        background: #F8F8F8;
+        padding-bottom: 10px;
+    }
+
+    .fb-profile h2 {
+        color: #333;
+    }
+
+    .fb-profile {
+        position: relative;
+        background-color: #fff;
+        margin-left: 15px;
+        margin-right: 15px;
+        border: 1px solid #e1e2e4;
+    }
+
+    .profile--price {
+        width: 20%;
+    }
+
+    .profile--item .col-md-9, .profile--item .col-md-3 {
+        padding-right: 0;
+    }
+
+    
+
+    .profile--item--left {
+        padding-left: 0;
+    }
+
+    .profile--item--right {
+        padding-right: 0;
+    }
+
+    .form_profile {
+            margin-top: -31%;
+    }
+
+    .review .col-sm-9 {
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 512px) {
+    #search_page_timtaixe .quotes .panel .panel-heading {
+        display: flex;
+    }
+
+    .search_options {
+        border: 1px solid #dce0e0;
+    }
+
+        .search_options li {
+            /*width: 100%;*/
+            border-left: 0;
+            /*border-bottom: 1px solid #dce0e0;*/
+            border-bottom: 0;
+        }
+
+            .search_options li:last-child {
+                border-bottom: 0;
+                border-right: 0;
+            }
+
+            .search_options li a {
+                padding: 4px;
+            }
+
+    .ct-ribbon i.ct-icon-best-seller {
+        display: none;
+    }
+
+    #bookingFormFrm button {
+        border-left-color: transparent;
+        border-right-color: transparent;
+    }
+
+    .field_row {
+        margin-bottom: 2px;
+    }
+
+    .mb2 {
+        margin-bottom: 2px;
+    }
+
+    /*.homepage-bg-desktop {
+        background-color: #FFA700;
+    }*/
+
+    #bookingForm {
+        margin-top: 10px;
+    }
+
+    .item__card {
+        padding: 4px 5px;
+    }
+
+    .fun_home_page .price {
+        padding: 0 10px 0 0;
+        font-size: 11px;
+    }
+
+    .item__card h4 {
+        font-size: 11px;
+    }
+
+    .container.homepage {
+        padding: 0 !important;
+    }
+
+    .fun_home_page .list-group .list-group-item.active h3 {
+        font-size: 1em;
+    }
+
+    .fun_home_page .location p {
+        margin-bottom: 0;
+    }
+
+    .kf_num_count_wrap i {
+        padding: 2px !important;
+        font-size: 18px !important;
+    }
+
+    .kf_num_count_wrap a {
+        padding: 1px !important;
+    }
+
+        .kf_num_count_wrap a span {
+            font-size: 11px;
+        }
+
+    .fun_home_page .fa-angle-right {
+        font-size: 19px;
+    }
+
+    .navbar-logo {
+        text-align: center;
+        padding-left: 5px;
+    }
+
+    .row.results_card {
+        text-align: center !important;
+    }
+
+        .row.results_card h2.price_nhaxe span.currency {
+            background: #0477bc;
+            color: #fff;
+            font-size: 9vw;
+            padding: 5vw;
+        }
+
+
+            .row.results_card h2.price_nhaxe span.currency small {
+                color: #fff;
+            }
+
+        .row.results_card h2.price_nhaxe span {
+            display: block;
+            width: 100%;
+        }
+
+            .row.results_card h2.price_nhaxe span.currency span.prime_smalll {
+                font-size: 4vw;
+                margin-top: 3vh;
+            }
+
+
+    .fb-profile img {
+        max-width: 100%;
+    }
+
+    .fb-image-profile {
+        margin: -45px 10px 0 3%;
+        z-index: 9;
+        width: 20%;
+        float: left;
+    }
+
+    .profile--price {
+        width: 58%;
+        margin: -20% 2% 0 2%;
+    }
+
+    .profile--item h2.item_label {
+        font-size: 5vw; text-align: left;
+    }
 }

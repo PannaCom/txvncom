@@ -17,6 +17,7 @@ namespace ThueXeVn.Models
         public long id { get; set; }
         public Nullable<int> cp_car_type { get; set; }
         public Nullable<int> cp_price { get; set; }
+        public Nullable<int> cp_night { get; set; }
         public Nullable<int> cp_multiple { get; set; }
         public Nullable<int> cp_multiple2 { get; set; }
         public Nullable<long> driver_id { get; set; }
