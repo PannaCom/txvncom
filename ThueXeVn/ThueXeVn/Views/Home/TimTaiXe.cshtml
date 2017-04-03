@@ -79,7 +79,15 @@
 
     if (ViewBag.songaydi != null)
     {
-        title += ", số ngày đi khoảng " + ViewBag.songaydi;
+        if (ViewBag.songaydi == 0)
+        {
+            title += ", đi trong ngày";
+        }
+        else
+        {
+            title += ", số ngày đi khoảng " + ViewBag.songaydi;
+        }
+        
         songay = ViewBag.songaydi;
     }
 
