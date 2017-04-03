@@ -994,7 +994,7 @@ namespace ThueXeVn.Controllers
             return PartialView("_LoadViewDriver", count);
         }
 
-        public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg, string gia_select, string nhaxe)
+        public ActionResult TimTaiXe(string lat1, string lng1, string lat2, string lng2, string from, string to, string loaixe, string kc, int? pg, string gia_select, string nhaxe, string date_go, string date_to, int? type_go)
         {
             if (lat1 == null || lng1 == null) return RedirectToAction("Index");
 
@@ -1010,7 +1010,24 @@ namespace ThueXeVn.Controllers
             if (gia_select == null) gia_select = "1"; if (nhaxe == null) nhaxe = "";
             string sql = "";
 
-            sql = "SELECT t1.id as id, t1.name as name, t1.driver_type as driver_type, t1.car_years as car_years, t1.phone as phone, t1.email as email,t1.address as address, CAST( CASE WHEN t2.cp_car_type is null THEN t1.car_size ELSE t2.cp_car_type END AS int) as car_size, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate, t5.total_money as money FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 full OUTER join drivers_money t5 on t1.id = t5.driver_id where t3.status = 0";
+            if (!string.IsNullOrEmpty(date_go) && !string.IsNullOrEmpty(date_to))
+            { 
+              
+                ViewBag.date_go = date_go;
+                ViewBag.date_to = date_to;
+
+                DateTime _dt_date_go = Config.ConvertToDatetime(date_go);
+                DateTime _dt_date_to = Config.ConvertToDatetime(date_to);
+                var songaydi = Config.dateDiff(_dt_date_go, _dt_date_to);
+                ViewBag.songaydi = songaydi;
+            }           
+
+            if (type_go != null)
+            {
+                ViewBag.type_go = type_go;
+            }
+
+            sql = "SELECT t1.id as id, t1.name as name, t1.driver_type as driver_type, t1.car_years as car_years, t1.phone as phone, t1.email as email,t1.address as address, CAST( CASE WHEN t2.cp_car_type is null THEN t1.car_size ELSE t2.cp_car_type END AS int) as car_size, t1.car_model as car_model, t1.car_made as car_made, CAST( CASE WHEN t2.cp_price is null THEN t1.car_price ELSE t2.cp_price END AS int) as cp_price, CAST( CASE WHEN t2.cp_night is null THEN 0 ELSE t2.cp_night END AS int) as cp_night, t3.status as status, ACOS(SIN(PI()*" + lat1 + "/180.0)*SIN(PI()*t3.lat/180.0)+COS(PI()*" + lat1 + "/180.0)*COS(PI()*t3.lat/180.0)*COS(PI()*t3.lon/180.0-PI()*" + lng1 + "/180.0))*6371 as quangduong, DATEDIFF(day,t3.date_time,GETDATE()) AS DiffDate, t5.total_money as money FROM drivers t1 left JOIN driver_car_price t2 ON t1.id = t2.driver_id left JOIN list_online t3 on t1.phone = t3.phone and t1.car_number = t3.car_number and t3.lat <> 0 and t3.lon <> 0 full OUTER join drivers_money t5 on t1.id = t5.driver_id where t3.status = 0";
 
             // and t1.car_price >= 8000 
             List<timkiemDrivers> data = new List<timkiemDrivers>();
@@ -1083,7 +1100,7 @@ namespace ThueXeVn.Controllers
             if (kc != null && kc != "")
             {
                 kc = kc.Trim();
-                ViewBag.kc_timkiem_view = kc;
+                //ViewBag.kc_timkiem_view = kc;
                 if (kc.Contains(','))
                 {                    
                     kc = kc.Replace(',', '.');

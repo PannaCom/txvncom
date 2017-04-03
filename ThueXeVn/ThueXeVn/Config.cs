@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -286,6 +287,40 @@ namespace ThueXeVn
                 sw.Write(id);
                 sw.Close();
             }
+        }
+
+        public static DateTime ConvertToDatetime(string day)
+        {
+            if (day == null)
+            {
+                day = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            }
+            DateTime dt;
+            if (DateTime.TryParseExact(day, "d/M/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+            {
+                return dt;
+            }
+            else
+            {
+                return DateTime.Now;
+            }            
+
+        }
+
+        public static Double calDateDiffToDay(DateTime d1, DateTime d2)
+        {
+            d1 = d1.AddDays(1).AddMinutes(-1);
+            var totalDay = (d1 - d2).TotalDays;
+            //Math.Round(totalDay, 0);
+            return totalDay;
+        }
+
+        public static int dateDiff(DateTime date1, DateTime date2) { 
+            try { 
+                if (date1 == null || date2 == null) return 0; 
+                TimeSpan TS = new System.TimeSpan(date1.Ticks - date2.Ticks); 
+                return (int)Math.Abs(TS.TotalDays); } 
+            catch (Exception ex) { return 100; } 
         }
 
         //public static void ToExcel(HttpResponseBase Response, object clientsList, string fileName)

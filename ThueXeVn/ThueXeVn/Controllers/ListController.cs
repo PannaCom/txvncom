@@ -54,7 +54,7 @@ namespace ThueXeVn.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult bangke(DateTime date, string customer_name, string sex, string phone, DateTime time_to_pick, DateTime time_to_pay, string pickup, string paypoints, int so_cho, string form, string driver, float price, float vat, float sum, string note)
+        public ActionResult bangke(DateTime date, string customer_name, string sex, string phone, DateTime time_to_pick, DateTime time_to_pay, string pickup, string paypoints, int? so_cho, string form, string driver, float price, float vat, float sum, string note)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace ThueXeVn.Controllers
                 _new.time_to_pay = time_to_pay != null ? (DateTime?)Convert.ToDateTime(time_to_pay) : null;
                 _new.pickup = pickup ?? null;
                 _new.paypoints = paypoints ?? null;
-                _new.so_cho = (int?)so_cho ?? null;
+                _new.so_cho = so_cho ?? null;
                 _new.form = form ?? null;
                 _new.driver = driver ?? null;
                 _new.price = (Double?)price ?? null;

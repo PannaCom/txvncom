@@ -290,6 +290,23 @@ function notifysucc(msg) {
     }
 }
 
+var addUrlParam = function (search, key, val) {
+    var newParam = key + '=' + val,
+        params = '?' + newParam;
+
+    // If the "search" string exists, then build params from it
+    if (search) {
+        // Try to replace an existance instance
+        params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam);
+
+        // If nothing was replaced, then add the new param to the end
+        if (params === search) {
+            params += '&' + newParam;
+        }
+    }
+    return params;
+};
+
 function getsearchOption(s, i) {
     var url = "";
     if (s === "giaxe") {
@@ -318,3 +335,16 @@ function getsearchOption(s, i) {
     //console.log(url);
     window.location.href = url;
 }
+
+function daydiff(first, second) {
+    return Math.abs((second - first) / (1000 * 60 * 60 * 24));
+}
+
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[1] - 1, mdy[0]);
+}
+
+
+
+/*alert(daydiff(parseDate($('#first').val()), parseDate($('#second').val())));*/

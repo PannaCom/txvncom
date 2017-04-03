@@ -185,6 +185,53 @@
         });
     }
 
+    /**
+     * Fix error between range datetime picker https://github.com/xdan/datetimepicker/issues/82
+     *
+     */
+    
+    if ($('#date_go').length && $('#date_to').length) {
+        jQuery(function () {
+        //var d = new Date();
+        //var s = d.toLocaleString();
+        $('#date_go').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'vi',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            format: 'd/m/Y H:i',            
+            mask: false,
+            step: 5,
+            minDate: 0,         
+            onShow: function (ct) {
+                this.setOptions({
+                    maxDate: $('#date_to').val() ? getDate($('#date_to').val()) : false,
+                    formatDate: 'd/m/Y',
+                })
+            },
+            timepicker: true
+        });
+
+        $('#date_to').datetimepicker({
+            dayOfWeekStart: 1,
+            lang: 'vi',
+            disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],
+            format: 'd/m/Y H:i',
+            mask: false,
+            step: 5,           
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: $('#date_go').val() ? getDate($('#date_go').val()) : false,
+                    formatDate: 'd/m/Y',
+                })
+            },
+            timepicker: true
+        });
+
+        });
+    }
+
+    
+
     if ($("#owl-demo").length) {
         var owl = $("#owl-demo");
 
@@ -299,6 +346,17 @@
 
 })
 
+function getDate(datum) { fn = datum.split(" "); fn0 = fn[0].split("/"); fn1 = fn[1].split(":"); return fn0[0] + '/' + fn0[1] + '/' + fn0[2]; }
+
+/**
+ * and add the following function:
+ * function getDate(datum) { fn = datum.split("-"); return fn[0] + '/' + fn[1] + '/' + fn[2]; }
+ * for german time (d.m.Y) use this function
+ * function getDate(datum) { fn = datum.split("."); return fn[2] + '/' + fn[1] + '/' + fn[0]; }
+ * 
+ */
+
+
 /**if ($('#booking').length) {
     var length_booking = $('#booking > tbody > tr').length - 1;
     var row_hidden = [];
@@ -331,48 +389,65 @@
 
 function timkiemtaixe(e) {
     e.preventDefault();
+    //console.log(parseDate(getDate($('#date_to').val())));
+    //console.log(parseDate(getDate($('#date_go').val())));
+    //console.log(daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))));
     if (document.getElementById('place_from').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
-        $('#place_from').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_from').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm đi';
+        //var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
+        //$('#place_from').parent('.field_row').append(msb).fadeIn('300');
+        $('#place_from').popover({ placement: 'bottom', content: msb });
+        $('#place_from').popover('show');
         document.getElementById('place_from').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_from').siblings('.alert').alert('close');
+            $('#place_from').popover('hide')
+        }, 600);
     }
 
     if (document.getElementById('place_to').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
-        $('#place_to').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_to').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm tới';
+        //var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
+        //$('#place_to').parent('.field_row').append(msb).fadeIn('300');
+        $('#place_to').popover({ placement: 'bottom', content: msb });
+        $('#place_to').popover('show');
         document.getElementById('place_to').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_to').popover('hide')
+        }, 600);
     }
 
 
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
-        $('#place_from').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_from').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm tới';
+        $('#place_from').popover({ placement: 'bottom', content: msb });
+        $('#place_from').popover('show');
         document.getElementById('place_from').focus();
         return false;
     }
-    if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đến');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
-        $('#place_to').parent('.field_row').append(msb).fadeIn('300');
+    else {
         setTimeout(function () {
-            $('#place_to').siblings('.alert').alert('close');
-        }, 1500);
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_from').popover('hide')
+        }, 600);
+    }
+
+    if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
+        var msb = 'Vui lòng nhập điểm tới';
+        $('#place_to').popover({ placement: 'bottom', content: msb });
+        $('#place_to').popover('show');
         document.getElementById('place_to').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_to').popover('hide')
+        }, 600);
     }
 
     if (document.getElementById('place_from').value === document.getElementById('place_to').value && document.getElementById('place_from').value !== "" && document.getElementById('place_to').value !== "") {
@@ -381,12 +456,37 @@ function timkiemtaixe(e) {
         return false;
     }
 
-    //if (document.getElementById('Loaixe_socho').value === "") {
-    //    alert('Vui lòng chọn loại xe');
-    //    document.getElementById('Loaixe_socho').focus();
+    if ($('#date_go').val() === "") {
+        var msb = 'Vui lòng nhập ngày đi';
+        
+        $('#date_go').popover({ placement: 'bottom', content: msb });
+        $('#date_go').popover('show');
+        //document.getElementById('date_go').focus();
+        return false;
+    } else {
+        setTimeout(function () {
+            $('#date_go').popover('hide')
+        }, 600);
+    }
+
+    if ($('#date_to').val() === "") {
+        var msb = 'Vui lòng nhập ngày đến';
+
+        $('#date_to').popover({ placement: 'bottom', content: msb });
+        $('#date_to').popover('show');
+        //document.getElementById('date_to').focus();
+        return false;
+    } 
+
+    //if (daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))) === 0) {
+    //    console.log(daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))));
+    //    var msb = 'Ngày đến phải lớn ngày đi ít nhất 1 ngày trở lên';
+
+    //    $('#date_to').popover({ placement: 'bottom', content: msb });
+    //    $('#date_to').popover('show');
+    //    //document.getElementById('date_to').focus();
     //    return false;
-    //}
-       
+    //} 
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -406,7 +506,7 @@ function timkiemtaixe(e) {
         if (status == 'OK') {
             directionsDisplay.setDirections(response);
             //console.log(response);
-            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "");
+            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "").replace(",",".");
             //console.log(khoangcach);
 
             var url = "/Home/TimTaiXe";
@@ -414,6 +514,9 @@ function timkiemtaixe(e) {
             url += "&from=" + document.getElementById('place_from').value + "&to=" + document.getElementById('place_to').value;
             url += "&loaixe=" + document.getElementById('Loaixe_socho').value + "&kc=" + khoangcach;
             url += "&nhaxe=" + document.getElementById('nhaxe').value;
+            url += "&date_go=" + document.getElementById('date_go').value;
+            url += "&date_to=" + document.getElementById('date_to').value;
+            url += "&type_go=" + document.getElementById('type_go').value;
             window.location.href = url;
             //alert(khoangcach);
 
@@ -426,48 +529,59 @@ function timkiemtaixe(e) {
 
 function timkiemtaixe2(e) {
     e.preventDefault();
+
     if (document.getElementById('place_from').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
-        $('#place_from').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_from').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm đi';
+        $('#place_from').popover({ placement: 'bottom', content: msb });
+        $('#place_from').popover('show');
         document.getElementById('place_from').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_from').popover('hide')
+        }, 600);
     }
 
     if (document.getElementById('place_to').value === "") {
         //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
-        $('#place_to').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_to').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm đến';
+        $('#place_to').popover({ placement: 'bottom', content: msb });
+        $('#place_to').popover('show');
         document.getElementById('place_to').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_to').popover('hide')
+        }, 600);
     }
 
 
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đi');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đi</div>';
-        $('#place_from').parent('.field_row').append(msb).fadeIn('300');
-        setTimeout(function () {
-            $('#place_from').siblings('.alert').alert('close');
-        }, 1500);
+        var msb = 'Vui lòng nhập điểm đi';
+        $('#place_from').popover({ placement: 'bottom', content: msb });
+        $('#place_from').popover('show');
         document.getElementById('place_from').focus();
         return false;
-    }
-    if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-        //notifywarn('Vui lòng nhập địa chỉ đến');
-        var msb = '<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Vui lòng nhập điểm đến</div>';
-        $('#place_to').parent('.field_row').append(msb).fadeIn('300');
+    } else {
         setTimeout(function () {
-            $('#place_to').siblings('.alert').alert('close');
-        }, 1500);
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_from').popover('hide')
+        }, 600);
+    }
+
+    if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
+        var msb = 'Vui lòng nhập điểm đến';
+        $('#place_to').popover({ placement: 'bottom', content: msb });
+        $('#place_to').popover('show');
         document.getElementById('place_to').focus();
         return false;
+    } else {
+        setTimeout(function () {
+            //$('#place_to').siblings('.alert').alert('close');
+            $('#place_to').popover('hide')
+        }, 600);
     }
 
     if (document.getElementById('place_from').value === document.getElementById('place_to').value && document.getElementById('place_from').value !== "" && document.getElementById('place_to').value !== "") {
@@ -476,12 +590,37 @@ function timkiemtaixe2(e) {
         return false;
     }
 
-    //if (document.getElementById('Loaixe_socho').value === "") {
-    //    alert('Vui lòng chọn loại xe');
-    //    document.getElementById('Loaixe_socho').focus();
-    //    return false;
-    //}
+    if ($('#date_go').val() === "") {
+        var msb = 'Vui lòng nhập ngày đi';
 
+        $('#date_go').popover({ placement: 'bottom', content: msb });
+        $('#date_go').popover('show');
+        //document.getElementById('date_go').focus();
+        return false;
+    } else {
+        setTimeout(function () {
+            $('#date_go').popover('hide')
+        }, 600);
+    }
+
+    if ($('#date_to').val() === "") {
+        var msb = 'Vui lòng nhập ngày đến';
+
+        $('#date_to').popover({ placement: 'bottom', content: msb });
+        $('#date_to').popover('show');
+        //document.getElementById('date_to').focus();
+        return false;
+    } 
+
+    //if (daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))) === 0) {
+    //    console.log(daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))));
+    //    var msb = 'Ngày đến phải lớn ngày đi ít nhất 1 ngày trở lên';
+
+    //    $('#date_to').popover({ placement: 'bottom', content: msb });
+    //    $('#date_to').popover('show');
+    //    //document.getElementById('date_to').focus();
+    //    return false;
+    //} 
 
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
@@ -501,13 +640,16 @@ function timkiemtaixe2(e) {
         if (status == 'OK') {
             directionsDisplay.setDirections(response);
             //console.log(response);
-            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "");
+            var khoangcach = response.routes[0].legs[0].distance.text.replace(/km/g, "").replace(/m/g, "").replace(",",".");
             //console.log(khoangcach);
 
             var url = "/Home/TimTaiXe";
             url += "?lat1=" + document.getElementById('lat1').value + "&lng1=" + document.getElementById('lng1').value + "&lat2=" + document.getElementById('lat2').value + "&lng2=" + document.getElementById('lng2').value;
             url += "&from=" + document.getElementById('place_from').value + "&to=" + document.getElementById('place_to').value;
             url += "&loaixe=" + document.getElementById('Loaixe_socho').value + "&kc=" + khoangcach;
+            url += "&date_go=" + document.getElementById('date_go').value;
+            url += "&date_to=" + document.getElementById('date_to').value;
+            url += "&type_go=" + document.getElementById('type_go').value;
             window.location.href = url;
             //alert(khoangcach);
 
@@ -625,4 +767,93 @@ function booking() {
             document.getElementById("btnregister111").disabled = false;
         }
     }
+}
+
+function getdate_go() {
+    console.log(getDate($('#date_go').val()));
+}
+
+function func_datxenhanh(id, e) {
+    e.preventDefault();
+    if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
+        alert('Vui lòng nhập điểm đi.');
+        return false;
+
+    }
+    if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
+        alert('Vui lòng nhập điểm đến.');
+        return false;
+
+    }
+    if (id) {
+        $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
+            $('#modal-7 .modal-body').html(html);
+            $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
+        })
+    }
+
+}
+
+function saveBookingToDriver(id) {
+    document.getElementById('lon_from').value = document.getElementById('lng1').value;
+    document.getElementById('lat_from').value = document.getElementById('lat1').value;
+    document.getElementById('lon_to').value = document.getElementById('lng2').value;
+    document.getElementById('lat_to').value = document.getElementById('lat2').value;
+    document.getElementById('from_place').value = document.getElementById('place_from').value;
+    document.getElementById('to_place').value = document.getElementById('place_to').value;
+    document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
+    document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
+    document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
+    document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
+    document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_' + id).value;
+
+    var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
+    if (document.getElementById('customer_name').value === "") {
+        alert("Vui lòng nhập họ tên khách hàng.");
+        document.getElementById('customer_name').focus();
+        return false;
+    }
+    if (document.getElementById('customer_phone').value === "") {
+        alert("Vui lòng nhập số điện thoại khách hàng.");
+        document.getElementById('customer_phone').focus();
+        return false;
+    }
+    if (document.getElementById('from_date').value === "") {
+        alert("Vui lòng nhập ngày đến.");
+        document.getElementById('from_date').focus();
+        return false;
+    }
+    if (document.getElementById('to_date').value === "") {
+        alert("Vui lòng nhập ngày đi.");
+        document.getElementById('to_date').focus();
+        return false;
+    }
+    if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
+        alert("Ngày đi phải sau ngày đến");
+        document.getElementById('from_date').focus();
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
+        success: function (data) {
+            if (data == 1) {
+                $('#modal-7').modal('hide');
+
+                //reset value
+                document.getElementById('customer_name').value = "";
+                document.getElementById('customer_phone').value = "";
+                document.getElementById('from_date').value = "";
+                var d = new Date();
+                var s = d.toLocaleString();
+                $('#to_date').datetimepicker({ value: s, step: 10 });
+                //end value
+                setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
+                $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
+            }
+            //console.log(data);
+        }
+    });
 }

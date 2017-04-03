@@ -45,6 +45,8 @@
 
 @{
     string title = "";
+    int songay = 1;
+    int typego = 1;
     if (ViewBag.from != null)
     {
         title += " từ " + Html.Raw(ViewBag.from);
@@ -60,9 +62,31 @@
         title += " loại xe " + Html.Raw(ViewBag.loaixe) + " chỗ";
     }
 
-    if (ViewBag.kc_timkiem_view != null)
+    if (ViewBag.kc_timkiem != null)
     {
-        title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem_view) + " km giá một chiều (giá chưa bao gồm phí cầu đường).";
+        title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem) + " km";
+    }
+
+    if (ViewBag.date_go != null)
+    {
+        title += ", đi từ ngày " + ViewBag.date_go;
+    }
+
+    if (ViewBag.date_to != null)
+    {
+        title += " đến ngày " + ViewBag.date_to;
+    }
+
+    if (ViewBag.songaydi != null)
+    {
+        title += ", số ngày đi khoảng " + ViewBag.songaydi;
+        songay = ViewBag.songaydi;
+    }
+
+    if (ViewBag.type_go != null)
+    {
+        title += ", hình thức đi " + ViewBag.type_go + " chiều (giá chưa bao gồm phí cầu đường).";
+        typego = ViewBag.type_go;
     }
 
     ViewBag.title += title;
@@ -92,7 +116,7 @@
 }
 
 @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
-<input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem_view" />
+<input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem" />
 
 
 
@@ -144,12 +168,15 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-xs-12">
                                 @*<label class="control-label" for="place_from">Địa điểm đi</label>*@
-                                <div class="field_row">
-                                    <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
-                                    <i class="fa fa-map-marker" id="getmaplocation"></i>
-
+                                @*<div class="field_row">
+                                        <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Địa điểm từ">
+                                        <i class="fa fa-map-marker" id="getmaplocation"></i>
+                                    </div>*@
+                                <div class="input-group mb2 field_row">
+                                    <input type="text" class="form-control" name="place_from" id="place_from" placeholder="Điểm đi">
+                                    <span class="input-group-addon input_group_addon_tranform"><i class="fa fa-location-arrow" id="getmaplocation"></i></span>
                                 </div>
                                 <input type="hidden" name="lat1" id="lat1" />
                                 <input type="hidden" name="lng1" id="lng1" />
@@ -159,31 +186,71 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 @*<label class="control-label" for="place_to">Địa điểm đến</label>*@
-                                <div class="field_row">
-                                    <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
-                                    <i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i>
+                                @*<div class="field_row">
+                                        <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Địa điểm tới">
+                                        <i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i>
+                                    </div>*@
+
+                                <div class="input-group mb2 field_row">
+                                    <input type="text" class="form-control" name="place_to" id="place_to" placeholder="Điểm đến" onchange="showaddsearch();">
+                                    <span class="input-group-addon input_group_addon_tranform"><i id="movemaplocation" onclick="swapValues();" class="fa fa-exchange"></i></span>
+                                    <span class="input-group-btn"><button class="btn btn-primary" onclick="addsearch(event);"><i class="fa fa-plus"></i></button></span>
                                 </div>
                                 <input type="hidden" name="lat2" id="lat2" />
                                 <input type="hidden" name="lng2" id="lng2" />
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
-                                <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
-                                    <option value="">Tất cả loại xe</option>
-                                    @*<option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
-                                        <option value="5">Xe 5 chỗ (có cốp)</option>
-                                        <option value="7">Xe 7 chỗ</option>
-                                        <option value="8">Xe 8 chỗ</option>
-                                        <option value="16">Xe 16 chỗ</option>
-                                        <option value="29">Xe 29 chỗ</option>
-                                        <option value="30">Xe 30 chỗ</option>*@
-                                </select>
+                        <div id="addoptions" style="display: block;">
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
+                                    <select class="form-control" name="Loaixe_socho" id="Loaixe_socho">
+                                        <option value="">Tất cả loại xe</option>
+                                        @*<option value="4">Xe 4 chỗ (giá siêu rẻ, không cốp)</option>
+                                            <option value="5">Xe 5 chỗ (có cốp)</option>
+                                            <option value="7">Xe 7 chỗ</option>
+                                            <option value="8">Xe 8 chỗ</option>
+                                            <option value="16">Xe 16 chỗ</option>
+                                            <option value="29">Xe 29 chỗ</option>
+                                            <option value="30">Xe 30 chỗ</option>*@
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
+                                    <div class="input-group field_row">
+                                        <span class="input-group-addon span_col1">Từ ngày:&nbsp;&nbsp;</span>
+                                        <input type="text" class="form-control" name="date_go" id="date_go" placeholder="Ngày đi">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="input-group field_row">
+                                        <span class="input-group-addon span_col1">Đến ngày:</span>
+                                        <input type="text" class="form-control" name="date_to" id="date_to" placeholder="Ngày đến">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
+                                    <select class="form-control mb2" name="type_go" id="type_go">
+                                        <option value="" disabled>Chọn hình thức đi</option>
+                                        <option value="1">Đi 1 chiều</option>
+                                        <option value="2">Đi 2 chiều</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
                         @*<div class="form-group">
                                 <div class="col-sm-12">
                                     <label for="nhaxe" class="control-label">Nhà xe</label>
@@ -271,6 +338,21 @@
                                                 double d_gia = Convert.ToDouble(item.cp_price);
                                                 giaTaiXe *= kc_timkiem * d_gia;
                                             }
+                                            if (songay <= 1)
+                                            {
+                                                if (typego == 1)
+                                                {
+                                                    giaTaiXe = giaTaiXe * 100 / 100;
+                                                }
+                                                else if (typego == 2)
+                                                {
+                                                    giaTaiXe = giaTaiXe * 130 / 100;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                giaTaiXe = (giaTaiXe * songay) + ((int)item.cp_night * songay);
+                                            }
 
                                             <div class="row results_card">
                                                 @if (item.driver_type == 1)
@@ -291,89 +373,89 @@
                                                     </div>
                                                 }
                                                 @*@{Html.RenderAction("LoadDriverVertified", @item.id);}*@
-                                                @*<section class="col-xs-12 col-md-12 quote_section__promotion"><p>xxxxxx</p></section>*@
-                                                @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
+                                                    @*<section class="col-xs-12 col-md-12 quote_section__promotion"><p>xxxxxx</p></section>*@
+                                                    @{Html.RenderAction("LoadPromotionDriver", new { id = @item.id });}
 
-                                                <div class="col-xs-12 col-md-4 quote_section__price col-md-push-8">
-                                                    
-                                                    <h2 class="price_nhaxe">
-                                                        @if (i == 0)
-                                                        {
-                                                            <span class="best_price"><i class="fa fa-euro"></i>&nbsp;Giá tốt nhất</span>
-                                                        }
-                                                        @if (giaTaiXe != 1)
-                                                        {
-                                                            <text>
-                                                                <span id="total_money_driver_@item.id" class="currency">
-                                                                    @string.Format(info, "{0:#,##}", giaTaiXe)<small>đ</small>
-                                                                    <span class="visible-xs prime_smalll"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span>
-                                                                </span></text>
-                                                        }
+                                                    <div class="col-xs-12 col-md-4 quote_section__price col-md-push-8">
 
-                                                    </h2>
-                                                    
+                                                        <h2 class="price_nhaxe">
+                                                            @if (i == 0)
+                                                            {
+                                                                <span class="best_price"><i class="fa fa-euro"></i>&nbsp;Giá tốt nhất</span>
+                                                            }
+                                                            @if (giaTaiXe != 1)
+                                                            {
+                                                                <text>
+                                                                    <span id="total_money_driver_@item.id" class="currency">
+                                                                        @string.Format(info, "{0:#,##}", giaTaiXe)<small>đ</small>
+                                                                        <span class="visible-xs prime_smalll"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span>
+                                                                    </span></text>
+                                                            }
 
-                                                    <a href="@url_profile" class="btn btn-default btn-block hidden-xs">Xem chi tiết</a>
-                                                    @*<a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>*@
-                                                    <a href="#" class="btn btn-primary dat_xe btn-block hidden-xs" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+                                                        </h2>
+
+
+                                                        <a href="@url_profile" class="btn btn-default btn-block hidden-xs">Xem chi tiết</a>
+                                                        @*<a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>*@
+                                                        <a href="#" class="btn btn-primary dat_xe btn-block hidden-xs" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-md-8 quotes-section col-md-pull-4">
+
+                                                        <section class="col-xs-12 col-md-12 section_detail">
+                                                            <h4 class="nhaxe_name">
+                                                                <a href="@url_profile" class="profile_page">
+                                                                    @if (item.driver_type == 0)
+                                                                    {<text>Tài xế</text>}
+                                                                    else
+                                                                    {<text>Nhà xe</text>} @item.name
+                                                                </a>
+                                                            </h4>
+
+
+                                                            @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
+                                                            @if (item.address != null && item.address != "")
+                                                            {
+                                                                <text><h4 class="nhaxe_diachi hidden-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
+                                                            }
+                                                        </section>
+
+
+
+                                                        <section class="col-xs-12 col-md-6 section_detail">
+
+                                                            @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
+                                                            <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
+                                                        </section>
+
+                                                        <section class="col-xs-12 col-md-6 section_detail">
+                                                            @if (item.address != null && item.address != "")
+                                                            {
+                                                                <text><h6 class="nhaxe_diachi visible-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h6></text>
+                                                            }
+                                                            <p>
+                                                                <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Xe <b>@item.car_size</b> chỗ</span>
+                                                            </p>
+                                                            <p><span id="price_driver_@item.id" class="hidden-xs"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span></p>
+
+                                                            @{Html.RenderAction("LoadViewDriver", new { id = item.id });}
+
+                                                            <a href="#" class="btn btn-primary dat_xe visible-xs" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+
+                                                        </section>
+
+                                                    </div>
+
+
+
+                                                    @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
+
+
+
 
                                                 </div>
-
-                                                <div class="col-xs-12 col-md-8 quotes-section col-md-pull-4">
-
-                                                    <section class="col-xs-12 col-md-12 section_detail">
-                                                        <h4 class="nhaxe_name">
-                                                            <a href="@url_profile" class="profile_page">
-                                                                @if (item.driver_type == 0)
-                                                                {<text>Tài xế</text>}
-                                                                else
-                                                                {<text>Nhà xe</text>} @item.name
-                                                            </a>
-                                                        </h4>
-
-
-                                                        @{Html.RenderAction("TotalDanhGiaRieng", new { id = @item.id });}
-                                                        @if (item.address != null && item.address != "")
-                                                        {
-                                                            <text><h4 class="nhaxe_diachi hidden-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h4></text>
-                                                        }
-                                                    </section>
-
-
-
-                                                    <section class="col-xs-12 col-md-6 section_detail">
-
-                                                        @{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}
-                                                        <p id="car_type_made_model_@item.id"><i class="fa fa-cab"></i>&nbsp;@item.car_made @item.car_model @item.car_years</p>
-                                                    </section>
-
-                                                    <section class="col-xs-12 col-md-6 section_detail">
-                                                        @if (item.address != null && item.address != "")
-                                                        {
-                                                            <text><h6 class="nhaxe_diachi visible-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h6></text>
-                                                        }
-                                                        <p>
-                                                            <span id="car_size_driver_@item.id"><i class="fa fa-bus"></i>&nbsp;Xe <b>@item.car_size</b> chỗ</span>
-                                                        </p>
-                                                        <p><span id="price_driver_@item.id" class="hidden-xs"><i class="fa fa-dollar"></i>&nbsp;<b>@string.Format(info, "{0:#,##}", item.cp_price)</b>&nbsp;Đồng/1 km</span></p>
-
-                                                        @{Html.RenderAction("LoadViewDriver", new { id = item.id });}
-
-                                                        <a href="#" class="btn btn-primary dat_xe visible-xs" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
-
-                                                    </section>
-
-                                                </div>
-
-                                                
-
-                                                @{Html.RenderAction("LoadImageDriver", new { id = @item.id });}
-                                                
-
-
-
-                                            </div>
-                                            i++;
+                                                    i++;
 
 
 
@@ -476,326 +558,102 @@
         </div>
     </div>
 
-    @if (ViewBag.to != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#place_to').val('@Html.Raw(ViewBag.to)');
-            })
-        </script>
-    }
+    <script>
+var datenow = '@DateTime.Now.ToString("dd/MM/yyyy HH:mm")';
+$(document).ready(function () {
+@if (ViewBag.to != null)
+{
+    <text>$('#place_to').val('@Html.Raw(ViewBag.to)');</text>
+}
+@if (ViewBag.from != null)
+{
+    <text>$('#place_from').val('@Html.Raw(ViewBag.from)');</text>
+}
+@if (ViewBag.loaixe != null)
+{
+    <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
+}
+@if (ViewBag.lat1 != null)
+{
+    <text>$('#lat1').val('@Html.Raw(ViewBag.lat1)');</text>
+}
+@if (ViewBag.lng1 != null)
+{
+    <text>$('#lng1').val('@Html.Raw(ViewBag.lng1)');</text>
+}
+@if (ViewBag.lat2 != null)
+{
+    <text>$('#lat2').val('@Html.Raw(ViewBag.lat2)');</text>
+}
 
-    @if (ViewBag.from != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#place_from').val('@Html.Raw(ViewBag.from)');
-            })
-        </script>
-    }
+@if (ViewBag.lng2 != null)
+{
+    <text>$('#lng2').val('@Html.Raw(ViewBag.lng2)');</text>
+}
 
+    setTimeout(function () {
     @if (ViewBag.loaixe != null)
     {
-        <script>
-            $(document).ready(function () {
-                $('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');
-            })
-        </script>
+        <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
     }
+    }, 1000)
 
-    @if (ViewBag.lat1 != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#lat1').val('@Html.Raw(ViewBag.lat1)');
-            })
-        </script>
-    }
+    $('.bxslider').bxSlider({
+        infiniteLoop: false,
+        slideMargin: 10,
+        minSlides: 1,
+        slideWidth: 250,
+        controls: false
+    });
 
-    @if (ViewBag.lng1 != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#lng1').val('@Html.Raw(ViewBag.lng1)');
-            })
-        </script>
-    }
+    $('.album_driver').flexslider({
+        animation: Modernizr.touch ? "slide" : "fade",
+        animationSpeed: Modernizr.touch ? 400 : 1000,
+        controlNav: false,
+        directionNav: true,
+        draggable: true,
+    });
 
-    @if (ViewBag.lat2 != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#lat2').val('@Html.Raw(ViewBag.lat2)');
-            })
-        </script>
-    }
 
-    @if (ViewBag.lng2 != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $('#lng2').val('@Html.Raw(ViewBag.lng2)');
-            })
-        </script>
-    }
+})
 
-    @*@if (ViewBag.nhaxe != null)
+        function addsearch(e) {
+            e.preventDefault();
+            $('#addoptions').slideToggle('300');
+        }
+
+        function showaddsearch() {
+            $('#addoptions').slideDown('300');
+        }
+
+    </script>
+
+
+    <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places&region=vn&language=vi" type="text/javascript"></script>
+    
+    @Scripts.Render("~/Scripts/main")
+    <script>
+
+        @if (ViewBag.date_go != null)
+	    {
+		    <text>$('#date_go').datetimepicker({ 'value': '@ViewBag.date_go' });</text>
+        }
+        else
         {
-            <script>
-                $(document).ready(function () {
-                    $('#nhaxe').val('@Html.Raw(ViewBag.nhaxe)');
-                })
-            </script>
-        }*@
+            <text>$('#date_go').datetimepicker({ 'value': datenow });</text>
+        }
 
-    @section scripts {
-        @*<script>
-                if (location.protocol != 'https:') {
-                    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
-                }
-            </script>*@
-        @*<script src="~/Content/slick/slick.min.js"></script>*@
-        <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places&region=vn&language=vi" type="text/javascript"></script>
-        @*<script src="~/Scripts/script2.js"></script>*@
-        @Scripts.Render("~/Scripts/main")
-        <script>
-            $(document).ready(function () {
-                //$('#gia_select').on('change', function () {
-                //    if ($(this).val() !== "") {
-                //        var url_2 = document.location.pathname + addUrlParam(document.location.search, 'gia_select', $(this).val());
-                //        window.location.href = url_2;
-                //    }
-                //})
-
-                ////Loaixe_socho
-                //$.ajax({
-                //    url: "/Home/getCarSize",
-                //    cache: false
-                //}).done(function (html) {
-                //    $('#Loaixe_socho').append(html);
-                //});
-            })
-
-            var addUrlParam = function (search, key, val) {
-                var newParam = key + '=' + val,
-                    params = '?' + newParam;
-
-                // If the "search" string exists, then build params from it
-                if (search) {
-                    // Try to replace an existance instance
-                    params = search.replace(new RegExp('([?&])' + key + '[^&]*'), '$1' + newParam);
-
-                    // If nothing was replaced, then add the new param to the end
-                    if (params === search) {
-                        params += '&' + newParam;
-                    }
-                }
-                return params;
-            };
-
-        </script>
-
-        @*//dat xe nhanh*@
-        <script>
-            function func_datxenhanh(id,e) {
-                e.preventDefault();
-                if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
-                    alert('Vui lòng nhập điểm đi.');
-                    return false;
-
-                }
-                if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
-                    alert('Vui lòng nhập điểm đến.');
-                    return false;
-
-                }
-                if (id) {
-                    $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
-                        $('#modal-7 .modal-body').html(html);
-                        $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
-                    })
-                }
-
-            }
-
-            function saveBookingToDriver(id) {
-                document.getElementById('lon_from').value = document.getElementById('lng1').value;
-                document.getElementById('lat_from').value = document.getElementById('lat1').value;
-                document.getElementById('lon_to').value = document.getElementById('lng2').value;
-                document.getElementById('lat_to').value = document.getElementById('lat2').value;
-                document.getElementById('from_place').value = document.getElementById('place_from').value;
-                document.getElementById('to_place').value = document.getElementById('place_to').value;
-                document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
-                document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
-                document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
-                document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
-                document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_' + id).value;
-
-                var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
-                if (document.getElementById('customer_name').value === "") {
-                    alert("Vui lòng nhập họ tên khách hàng.");
-                    document.getElementById('customer_name').focus();
-                    return false;
-                }
-                if (document.getElementById('customer_phone').value === "") {
-                    alert("Vui lòng nhập số điện thoại khách hàng.");
-                    document.getElementById('customer_phone').focus();
-                    return false;
-                }
-                if (document.getElementById('from_date').value === "") {
-                    alert("Vui lòng nhập ngày đến.");
-                    document.getElementById('from_date').focus();
-                    return false;
-                }
-                if (document.getElementById('to_date').value === "") {
-                    alert("Vui lòng nhập ngày đi.");
-                    document.getElementById('to_date').focus();
-                    return false;
-                }
-                if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
-                    alert("Ngày đi phải sau ngày đến");
-                    document.getElementById('from_date').focus();
-                    return false;
-                }
-
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
-                    success: function (data) {
-                        if (data == 1) {
-                            $('#modal-7').modal('hide');
-
-                            //reset value
-                            document.getElementById('customer_name').value = "";
-                            document.getElementById('customer_phone').value = "";
-                            document.getElementById('from_date').value = "";
-                            var d = new Date();
-                            var s = d.toLocaleString();
-                            $('#to_date').datetimepicker({ value: s, step: 10 });
-                            //end value
-                            setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
-                            $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
-                        }
-                        //console.log(data);
-                    }
-                });
-            }
-
-            //$(document).ready(function(){
-            //    $('.multiple-items').slick({
-            //        infinite: true,
-            //        slidesToShow: 1,
-            //        slidesToScroll: 1
-            //    });
-            //});
-
-            $(document).ready(function () {
-
-                setTimeout(function () {
-                    @if (ViewBag.loaixe != null)
-                {
-                    <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
-                }
-                }, 1000)
-
-                $('.bxslider').bxSlider({
-                    infiniteLoop: false,
-                    slideMargin: 10,
-                    minSlides: 1,
-                    slideWidth: 250,
-                    controls: false
-                });
-
-                //$('.profile_page').hover(function () {
-                //    $(this).siblings('a').css('display', 'inline-block');
-                //}, function () {
-                //    $(this).siblings('a').css('display', 'none');
-                //});
-
-                @*var _state = true;
-                @if (ViewBag.gia_select != null)
-            {
-                <text>
-                var gia = "@ViewBag.gia_select";
-                if (gia === '1') {
-                    _state = true;
-                } else {
-                    _state = false;
-                }
-                </text>
-            }
-
-                var _nhaxe = true;
-                @if (ViewBag.nhaxe != null)
-	        {
-		        <text>
-                var nx = '@ViewBag.nhaxe';
-                if (nx === '0') {
-                    _nhaxe = false;
-                }
-                </text>
-	        }*@
-
-                //$('input[name="gia_select"]').bootstrapSwitch({
-                //    size: 'mini',
-                //    onText: 'Tăng dần',
-                //    offText: 'Giảm dần',
-                //    state: _state
-                //});
-                //$('input[name="nhaxe"]').bootstrapSwitch({
-                //    size: 'mini',
-                //    onText: 'Nhà xe',
-                //    offText: 'Tài xế',
-                //    state: _nhaxe
-                //});
-
-                //$('input[name="gia_select"]').on('switchChange.bootstrapSwitch', function (event, state) {
-                //    console.log(state); // true | false
-                //    var url = "";
-                //    if (state == false) {
-                //        url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 2);
-                //    } else {
-                //        url = document.location.pathname + addUrlParam(document.location.search, 'gia_select', 1);
-                //    }
-                //    window.location.href = url;
-                //});
-
-                //$('input[name="nhaxe"]').on('switchChange.bootstrapSwitch', function (event, state) {
-                //    console.log(state); // true | false
-                //    var url = "";
-                //    if (state == true) {
-                //        url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 1);
-                //    } else {
-                //        url = document.location.pathname + addUrlParam(document.location.search, 'nhaxe', 0);
-                //    }
-                //    window.location.href = url;
-                //});
-
-                $('.album_driver').flexslider({
-                    animation: Modernizr.touch ? "slide" : "fade",
-                    animationSpeed: Modernizr.touch ? 400 : 1000,
-                    controlNav: false,
-                    directionNav: true,
-                    draggable: true,
-                });
-
-                //save url tim kiem lam sau
-                //$.ajax({
-                    
-                //})
+    @if (ViewBag.date_to != null)
+        {
+            <text>$('#date_to').datetimepicker({ 'value': '@ViewBag.date_to' });</text>
+        }
+    setTimeout(function () {
+        $('#type_go').val('@typego');
+    }, 1000)
 
 
-                //$('.quotes').affix({
-                //    offset: {
-                //        top: 100,
-                //    }
-                //})
-                
+    </script>
+    
 
-
-            });
-
-        </script>
-    }
+}

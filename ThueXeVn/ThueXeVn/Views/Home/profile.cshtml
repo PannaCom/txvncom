@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-md-9">
                             <div id="fb_page">
-                                <div class="fb-comments" data-href="@url" data-numposts="5"></div>
+                                <div class="fb-comments" data-href="@url" data-numposts="5" data-width="100%"></div>
                             </div>
                         </div>
                     </div>
@@ -410,13 +410,22 @@
                 type: "POST",
                 url: url,
                 data: $("#addcomment").serialize(), // serializes the form's elements.
+                beforeSend: function() {
+                    $('#btnaddComment').html('Đang gửi bình luận...').addClass('disabled');
+                },
                 success: function (data) {
                     if (data !== "") {
-                        alert('Đánh giá và nhận xét của bạn đã được gửi thành công.');
-                        $('#cus_cm_id').val(data);
-                        $('#btnaddComment').addClass('disabled');
-                        $('.comment_driver').append('<div class="alert alert-success">Đánh giá và nhận xét của bạn đã được gửi thành công.</div>');
+                        notifysucc('Cám ơn bạn đã gửi ý kiến đánh giá tới hệ thống thuexevn.com.');
+                        $('#cus_cm_id').val(data);                       
                     }
+                }, 
+                complete: function() {
+                    $('#btnaddComment').html('Gửi bình luận').removeClass('disabled');
+                },
+                dataType: 'json',
+                error: function(xhr) { // if error occured
+                    notifywarn("Error occured.please try again");
+                    $('#btnaddComment').html('Gửi bình luận').removeClass('disabled');
                 }
             });
         }

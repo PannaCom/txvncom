@@ -2542,10 +2542,10 @@ ul.img-product-n > li > a > img {
 
 
     #bookingFormFrm .field_row {
-        position: relative;
+        position: relative;color: #333;
     }
 
-        #bookingFormFrm .field_row i {
+        /*#bookingFormFrm .field_row i {
             position: absolute;
             right: 0;
             top: 0;
@@ -2558,7 +2558,7 @@ ul.img-product-n > li > a > img {
     #bookingFormFrm label {
         line-height: 2.6em;
         font-weight: 400;
-    }
+    }*/
 
 .border_radius_none {
     border-radius: 0;
@@ -3151,4 +3151,15 @@ ol.progressBar[data-steps="4"] li {
             font-size: 1.1vw;
     color: #717171;
     }
+
+.span_col1 {
+    background: #fff;
+    font-weight: 600;
+}
+
+.input_group_addon_tranform {
+    background: white;
+    color: #3eabe9;
+    border-left: 0!important;
+}
 
