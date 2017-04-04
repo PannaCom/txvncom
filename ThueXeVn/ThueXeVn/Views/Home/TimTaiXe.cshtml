@@ -67,9 +67,15 @@
         title += " khoảng cách khoảng " + Html.Raw(ViewBag.kc_timkiem) + " km";
     }
 
+    if (ViewBag.type_go != null)
+    {
+        title += ", đi " + ViewBag.type_go + " chiều (giá chưa bao gồm phí cầu đường)";
+        typego = ViewBag.type_go;
+    }
+
     if (ViewBag.date_go != null)
     {
-        title += ", đi từ ngày " + ViewBag.date_go;
+        title += ", từ ngày " + ViewBag.date_go;
     }
 
     if (ViewBag.date_to != null)
@@ -85,17 +91,10 @@
         }
         else
         {
-            title += ", số ngày đi khoảng " + ViewBag.songaydi;
+            title += ", số ngày đi khoảng " + ViewBag.songaydi + " ngày.";
         }
-
         songay = ViewBag.songaydi;
-    }
-
-    if (ViewBag.type_go != null)
-    {
-        title += ", hình thức đi " + ViewBag.type_go + " chiều (giá chưa bao gồm phí cầu đường).";
-        typego = ViewBag.type_go;
-    }
+    }    
 
     ViewBag.title += title;
     ViewBag.des += title;
@@ -124,9 +123,6 @@
 }
 
 @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
-
-
-
 
 <section id="search_page_timtaixe">
     <div class="container">
@@ -158,8 +154,8 @@
 
             <div class="col-md-12 col-xs-12 booking-progress-bar section_sp">
                 <ul class="search_options">
-                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-sort-amount-asc"></i>&nbsp;Giá tiền</a></li>
-                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-sort-amount-desc"></i>&nbsp;Giá tiền</a></li>
+                    <li class="@if(@giaxe == "1"){<text>active</text>}" data-sort="fsdfsdfsd" data-sort-name="sdgwetw4t" onclick="getsearchOption('giaxe', '1');"><a href="#"><i class="fa fa-long-arrow-up"></i>&nbsp;Giá tiền</a></li>
+                    <li class="@if(@giaxe == "2"){<text>active</text>}" data-sort="456346436" data-sort-name="45435436" onclick="getsearchOption('giaxe', '2');"><a href=" #"><i class="fa fa-long-arrow-down"></i>&nbsp;Giá tiền</a></li>
                     <li class="@if(@nhaxe == "0"){<text>active</text>}" data-sort="fdhdfhdf" data-sort-name="dsfsdgsdg" onclick="getsearchOption('nhaxe', '0');"><a href=" #"><i class="fa fa-car"></i>&nbsp;Tài xế</a></li>
                     <li class="@if(@nhaxe == "1"){<text>active</text>}" data-sort="436346436" data-sort-name="gsdgsdg" onclick="getsearchOption('nhaxe', '1');"><a href=" #"><i class="fa fa-train"></i>&nbsp;Nhà xe</a></li>
                 </ul>
@@ -229,6 +225,17 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
+                                    @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
+                                    <select class="form-control mb2" name="type_go" id="type_go">
+                                        <option value="" disabled>Chọn hình thức đi</option>
+                                        <option value="1">Đi 1 chiều</option>
+                                        <option value="2">Đi 2 chiều</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
                                     @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
                                     <div class="input-group field_row">
                                         <span class="input-group-addon span_col1">Từ ngày:&nbsp;&nbsp;</span>
@@ -248,16 +255,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
-                                    <select class="form-control mb2" name="type_go" id="type_go">
-                                        <option value="" disabled>Chọn hình thức đi</option>
-                                        <option value="1">Đi 1 chiều</option>
-                                        <option value="2">Đi 2 chiều</option>
-                                    </select>
-                                </div>
-                            </div>
+                            
                         </div>
                         @*<div class="form-group">
                                 <div class="col-sm-12">
@@ -478,11 +476,6 @@
 
 
 
-
-
-
-
-
                                                 </div>
                                                             i++;
 
@@ -490,7 +483,7 @@
 
                                         }
 
-                                        @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select, nhaxe = ViewBag.nhaxe }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                                        @Html.PagedListPager(Model, page => Url.Action("TimTaiXe", "Home", new { pg = page, lat1 = ViewBag.lat1, lng1 = ViewBag.lng1, lat2 = ViewBag.lat2, lng2 = ViewBag.lng2, from = ViewBag.from, to = ViewBag.to, loaixe = ViewBag.loaixe, kc = ViewBag.kc_timkiem, gia_select = ViewBag.gia_select, nhaxe = ViewBag.nhaxe, date_go = ViewBag.date_go, date_to = ViewBag.date_to, type_go = ViewBag.type_go }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
 
                                     }
                                     else
@@ -556,23 +549,7 @@
 
                 <div class="modal-body">
 
-                    Content is loading...
-                    @*<form id="frmShareLink">
-                            <div class="col-md-12 col-xs-12">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" id="inputShareLink" name="inputShareLink">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-default" id="btnShareLink"><i class="fa fa-copy"></i></button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>*@
+                    Content is loading...                    
 
                 </div>
 

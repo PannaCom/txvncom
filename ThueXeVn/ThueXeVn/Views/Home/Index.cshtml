@@ -171,6 +171,14 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="col-md-6 col-xs-12">
+                                @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
+                                <select class="form-control mb2" name="type_go" id="type_go">
+                                    <option value="" disabled>Chọn hình thức đi</option>
+                                    <option value="1">Đi 1 chiều</option>
+                                    <option value="2">Đi 2 chiều</option>
+                                </select>
+                            </div>
                             <div class="col-md-3 col-xs-12">
                                 @*<label for="Loaixe_socho" class="control-label">Loại xe</label>*@
                                 <div class="input-group mb2 field_row">
@@ -184,14 +192,7 @@
                                     <input type="text" class="form-control" name="date_to" id="date_to" placeholder="Ngày đến">
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xs-12">
-                                @*<label for="nhaxe" class="control-label">Nhà xe</label>*@
-                                <select class="form-control mb2" name="type_go" id="type_go">
-                                    <option value="" disabled>Chọn hình thức đi</option>
-                                    <option value="1">Đi 1 chiều</option>
-                                    <option value="2">Đi 2 chiều</option>
-                                </select>
-                            </div>
+                           
                         </div>
 
                         @*<div class="form-group">

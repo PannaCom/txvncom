@@ -1020,7 +1020,14 @@ namespace ThueXeVn.Controllers
                 DateTime _dt_date_to = Config.ConvertToDatetime(date_to);
                 var songaydi = Config.dateDiff(_dt_date_go, _dt_date_to);
                 ViewBag.songaydi = songaydi;
-            }           
+            }
+
+            if (!string.IsNullOrEmpty(date_go) && string.IsNullOrEmpty(date_to))
+            {
+                ViewBag.date_go = date_go;
+                ViewBag.date_to = null;
+                ViewBag.songaydi = 1;
+            }
 
             if (type_go != null)
             {

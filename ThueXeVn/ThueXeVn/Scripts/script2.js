@@ -80,7 +80,6 @@
     // end 
 
     /*===========HOME===========*/
-
     if ($('#datetimepicker').length) {
         $('#datetimepicker').datetimepicker({
             dayOfWeekStart: 1,
@@ -458,7 +457,7 @@ function timkiemtaixe(e) {
 
     if ($('#date_go').val() === "") {
         var msb = 'Vui lòng nhập ngày đi';
-        
+
         $('#date_go').popover({ placement: 'bottom', content: msb });
         $('#date_go').popover('show');
         //document.getElementById('date_go').focus();
@@ -469,14 +468,16 @@ function timkiemtaixe(e) {
         }, 600);
     }
 
-    if ($('#date_to').val() === "") {
-        var msb = 'Vui lòng nhập ngày đến';
+    if (document.getElementById('type_go').value === '2') {
+        if ($('#date_to').val() === "") {
+            var msb = 'Vui lòng nhập ngày đến';
 
-        $('#date_to').popover({ placement: 'bottom', content: msb });
-        $('#date_to').popover('show');
-        //document.getElementById('date_to').focus();
-        return false;
-    } 
+            $('#date_to').popover({ placement: 'bottom', content: msb });
+            $('#date_to').popover('show');
+            //document.getElementById('date_to').focus();
+            return false;
+        }
+    }    
 
     //if (daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))) === 0) {
     //    console.log(daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))));
@@ -603,14 +604,16 @@ function timkiemtaixe2(e) {
         }, 600);
     }
 
-    if ($('#date_to').val() === "") {
-        var msb = 'Vui lòng nhập ngày đến';
+    if (document.getElementById('type_go').value === '2') {
+        if ($('#date_to').val() === "") {
+            var msb = 'Vui lòng nhập ngày đến';
 
-        $('#date_to').popover({ placement: 'bottom', content: msb });
-        $('#date_to').popover('show');
-        //document.getElementById('date_to').focus();
-        return false;
-    } 
+            $('#date_to').popover({ placement: 'bottom', content: msb });
+            $('#date_to').popover('show');
+            //document.getElementById('date_to').focus();
+            return false;
+        }
+    }
 
     //if (daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))) === 0) {
     //    console.log(daydiff(parseDate(getDate($('#date_to').val())), parseDate(getDate($('#date_go').val()))));
