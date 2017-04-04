@@ -1,8 +1,17 @@
 ﻿@if (Model != "")
 {
-    <img style="width: 100%; height: 120px; margin-top: 5px;" src="@Model" />
+    <li data-thumb="@Model">
+        <div style="position: relative;">
+            <img class="item_img img-responsive" src="@Model" style="width: 100%; height: 120px;" />
+        </div>
+    </li>
 }
 else
 {
-    <i class="fa fa-car fa-5x"></i>
+    <li data-thumb="/Content/fontend/img/logo.png">
+        <div style="position: relative;">
+            <img class="img-responsive" src="/Content/fontend/img/logo.png" style="width: 100%; height: 120px;" />
+        </div>
+    </li>
+    @*<img style="width: 100%; height: 120px; margin-top: 5px;" src="/Content/fontend/img/logo.png" />*@
 }

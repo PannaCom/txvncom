@@ -126,8 +126,10 @@ namespace ThueXeVn.Controllers
             {
                 return HttpNotFound();
             }
+            
             ViewBag.menuleft = Config.getProjectMenu(id);
-            ViewBag.content = "<h1>" + news.title + "</h1><span itemprop=\"datePublished\" style=\"color:green;\">" + news.datetime.Value + "</span>" + news.fullcontent;
+            ViewBag.title_h1 = "<h1>" + news.title + "</h1><span itemprop=\"datePublished\" style=\"color:green;\">" + news.datetime.Value + "</span>";
+            ViewBag.content = news.fullcontent;
             ViewBag.des = news.des;
             ViewBag.image = Config.domain + news.image;
             ViewBag.url = Config.domain + "tin/" + Config.unicodeToNoMark(news.title) + "-" + id;

@@ -223,4 +223,25 @@ namespace ThueXeVn.Models
 
     }
 
+    public class driver_car_price_vm
+    {
+        public long id { get; set; }
+        public Nullable<int> cp_car_type { get; set; }
+        public Nullable<int> cp_price { get; set; }
+        public Nullable<int> cp_night { get; set; }
+        public Nullable<int> cp_multiple { get; set; }
+        public Nullable<int> cp_multiple2 { get; set; }
+        public Nullable<long> driver_id { get; set; }
+        public string driver_name { get; set; }
+    }
+
+    public class driver_images_vm
+    {
+        public long id { get; set; }
+        public Nullable<long> driver_id { get; set; }
+        public string img_url { get; set; }
+        public string made { get; set; }
+        public string model { get; set; }
+    }
+
 }

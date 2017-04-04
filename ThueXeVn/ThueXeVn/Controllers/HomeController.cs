@@ -1353,10 +1353,32 @@ namespace ThueXeVn.Controllers
 
         }
 
-        public ActionResult LoadImageDriver(long? id)
+        public ActionResult LoadImageDriver(long? id, string made, string model)
         {
-            var data = db.driver_images.Where(x => x.driver_id == id).Select(x => x).ToList();
-            return PartialView("_LoadImageDriver", data);
+            var data = db.driver_images.Where(x => x.driver_id == id).Select(x=>x).ToList();
+            var datashow = new List<driver_images_vm>() { };
+            if (data != null && data.Count > 0)
+	        {
+                datashow = data.Select(x => new driver_images_vm()
+                {
+                    id = x.id,
+                    driver_id = x.driver_id,
+                    img_url = x.img_url,
+                    made = made,
+                    model = model
+                }).ToList();
+            }
+            else
+            {
+                datashow.Add(new driver_images_vm()
+                {
+                    id = 0,
+                    made = made,
+                    model = model
+                });
+            }
+
+            return PartialView("_LoadImageDriver", datashow);
         }
 
         public ActionResult profile(long? id, string taixe)

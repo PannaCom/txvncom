@@ -17,8 +17,14 @@
         <div class="row">
             <!-- Aside -->
             <aside class="mt50" style="margin-top:5px;">
+
                 <!-- Widget: Text -->
                 <div class="col-sm-9" style="background-color:white;color:black;border-radius:25px;min-height:567px;border-right:1px solid #808080;">
+                                   
+                    @Html.Raw(ViewBag.title_h1)
+                    <div class="article_des">
+                        <strong>@Html.Raw(ViewBag.des)</strong>
+                    </div>    
                     @Html.Raw(ViewBag.content)
                     <div class="social-box">
                         <div class="fb-like" data-href="@ViewBag.url" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true" style="float:left;"></div>

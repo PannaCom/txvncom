@@ -1,0 +1,138 @@
+﻿@model ThueXeVn.Models.driver_car_price_vm
+@{
+    ViewBag.Title = "Sửa bảng giá tài xế";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title</h3>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+                <div class="col-md-6">
+                    @if (Model != null)
+                    {
+                        using (Html.BeginForm("admineditbanggia", "Admin", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "form_add_bg" }))
+                        {
+                            <h3>Sửa bảng giá xe @Model.cp_car_type chỗ - tài xế: @Model.driver_name</h3>
+                            <hr />
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="cp_id" id="cp_id" value="@Model.id" />
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="cp_car_type" class="control-label">Loại xe(số chỗ):</label>
+                                    @*<select class="form-control" name="cp_car_type" id="cp_car_type" required>
+                                            <option value="">Chọn loại xe</option>
+                                            <option value="4">Xe 4 chỗ</option>
+                                            <option value="7">Xe 7 chỗ</option>
+                                            <option value="16">Xe 16 chỗ</option>
+                                            <option value="29">Xe 29 chỗ</option>
+                                        </select>*@
+                                    <select class="form-control" name="cp_car_type" id="cp_car_type" required>
+                                        <option value="">Chọn loại xe</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="cp_price" class="control-label">Giá/1km 1 chiều</label>
+                                    <input type="number" class="form-control" name="cp_price" id="cp_price" required />
+                                    @*<p class="help-block">Tỷ số nhân khi đặt xe ngày lễ (ví dụ: 110, 120, 130,... %)</p>*@
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="cp_multiple" class="control-label">Nhân ngày lễ</label>
+                                        <input type="number" class="form-control" name="cp_multiple" id="cp_multiple" placeholder="Tỷ số nhân khi đặt xe ngày lễ (ví dụ: 110, 120, 130,... %)" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label for="cp_multiple2" class="control-label">Nhân 1 chiều</label>
+                                        <input type="number" class="form-control" name="cp_multiple2" id="cp_multiple2" placeholder="Tỷ số nhân khi đặt xe một chiều (ví dụ: 110, 120, 130,... %)" />
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="cp_night" class="control-label">Phí lưu đêm</label>
+                                    <input type="number" class="form-control" name="cp_night" id="cp_night" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" id="dang_ky_btn">Cập nhật bảng giá</button>
+                                </div>
+                            </div>
+
+                        }
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#cp_price').val('@Model.cp_price');
+                                $('#cp_night').val('@Model.cp_night');
+                                @*$('#cp_multiple').val('@Model.cp_multiple');
+                                $('#cp_multiple2').val('@Model.cp_multiple2');*@
+                                setTimeout(function () {
+                                    $('#cp_car_type').val('@Model.cp_car_type');
+                                }, 1000)
+                            })
+                        </script>
+
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script>
+        $(document).ready(function () {
+            var validator = $("#form_add_bg").validate({
+                rules: {
+                    cp_car_type: "required",
+                    cp_price: "required"
+                },
+                messages: {
+                    cp_car_type: "Vui lòng chọn loại xe.",
+                    cp_price: "Vui lòng nhập giá/1km 1 chiều."
+                },
+                errorClass: 'error help-inline',
+                validClass: 'success',
+                errorElement: 'span',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).parents("div.form-group").addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+                }
+            });
+
+            //Loaixe_socho
+            $.ajax({
+                url: "/Home/getCarSize",
+                cache: false
+            }).done(function (html) {
+                $('#cp_car_type').append(html);
+            });
+        });
+    </script>
+}
+

@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text;
+using System.Data.Entity;
 
 namespace ThueXeVn.Controllers
 {
@@ -361,6 +362,92 @@ namespace ThueXeVn.Controllers
             resultString = Regex.Match(resultString, @"\d+").Value;
             resultString = resultString.Trim();
             return resultString;
+        }
+
+        public ActionResult adminbanggia(int? pg, string search)
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+
+            int pageSize = 25;
+            if (pg == null) pg = 1;
+            int pageNumber = (pg ?? 1);
+            ViewBag.pg = pg;
+            if (search == null) { search = ""; }
+
+            var data = (from s in db.driver_car_price
+                        join d in db.drivers on s.driver_id equals d.id
+                        select
+                            new driver_car_price_vm()
+                            {
+                                id = s.id,
+                                driver_name = d.name,
+                                driver_id = s.driver_id,
+                                cp_price = s.cp_price,
+                                cp_night = s.cp_night,
+                                cp_multiple2 = s.cp_multiple2,
+                                cp_multiple = s.cp_multiple,
+                                cp_car_type = s.cp_car_type
+                            }).ToList();
+                           
+            if (search != null && search != "")
+            {
+                search = search.Trim();
+                data = data.Where(x => x.driver_name.Contains(search)).ToList();
+                ViewBag.search = search;
+            }
+
+            return View(data.ToList().ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult admineditbanggia(long? id)
+        {
+            if (Config.getCookie("logged") == "") return RedirectToAction("Login", "Home");
+            if (id == null || id == 0)
+            {
+                return RedirectToAction("adminbanggia");
+            }
+            var banggia = (from s in db.driver_car_price
+                           where s.id == id
+                           join d in db.drivers on s.driver_id equals d.id
+                           select
+                           new driver_car_price_vm()
+                           {
+                               id = s.id,
+                               driver_name = d.name,
+                               driver_id = s.driver_id,
+                               cp_price = s.cp_price,
+                               cp_night = s.cp_night,
+                               cp_multiple2 = s.cp_multiple2,
+                               cp_multiple = s.cp_multiple,
+                               cp_car_type = s.cp_car_type
+                           }).FirstOrDefault();
+            return View(banggia);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult admineditbanggia(long? cp_id, driver_car_price_vm model)
+        {
+            try
+            {
+                var editprice = db.driver_car_price.Find(cp_id);
+                if (editprice != null)
+                {
+                    editprice.cp_price = model.cp_price ?? null;
+                    editprice.cp_night = model.cp_night ?? 0;
+                    db.Entry(editprice).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                //var sql = "update driver_car_price set cp_car_type = " + cp_car_type + ", cp_price = " + cp_price + " where id = " + cp_id;
+                //var updatebanggiaxe = db.Database.ExecuteSqlCommand(sql);
+                TempData["Updated"] = "Đã Cập nhật mới bảng giá.";
+            }
+            catch (Exception ex)
+            {
+                Config.SaveTolog(ex.ToString());
+                TempData["Error"] = "Vui lòng kiểm tra lại các trường.";
+            }
+            return RedirectToAction("adminbanggia");
         }
 
     }

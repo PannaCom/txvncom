@@ -1,38 +1,29 @@
-﻿@model List<ThueXeVn.Models.driver_images>
+﻿@model List<ThueXeVn.Models.driver_images_vm>
 
-@*@if (Model != null)
-{
-    if (Model.Count > 0)
-    {
-        <ul class="bxslider" id="captioned-gallery">
-            @foreach (var item in Model)
-            {
-                <li><img src="@item.img_url" /></li>
-            }
-        </ul>
-    }
-}*@
 
 @if (Model != null)
 {
     if (Model.Count > 0)
     {
-        <div class="col-xs-12 col-md-12 hidden-xs margintop10">
+        <div class="margintop10 text-center">
             <div class="flexslider sectionMarginTop album_driver" style="margin-bottom: 0; border: 0;">
                 <ul class="slides">
                     @foreach (var item in Model)
                     {
-                        <li data-thumb="@item.img_url">
-                            <div style="position: relative;">
-                                <img src="@item.img_url" class="item_img" style="height: 350px;" />
-                            </div>
-                        </li>
+                        { Html.RenderAction("LoadCarImage", new { made = @item.made, model = @item.model }); }
+                        if (item.id != 0)
+                        {
+                            <li data-thumb="@item.img_url">
+                                <div style="position: relative;">
+                                    <img src="@item.img_url" class="img-responsive" style="width: 100%; height: 120px;" />
+                                </div>
+                            </li>
+                        }
                     }
 
                 </ul>
             </div>
-        </div>
-        
+        </div>        
     }
 
 }
