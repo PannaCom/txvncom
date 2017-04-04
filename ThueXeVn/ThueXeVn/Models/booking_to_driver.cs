@@ -35,5 +35,6 @@ namespace ThueXeVn.Models
         public Nullable<System.DateTime> to_date { get; set; }
         public Nullable<byte> status { get; set; }
         public Nullable<int> car_size_driver { get; set; }
+        public string email_cus { get; set; }
     }
 }

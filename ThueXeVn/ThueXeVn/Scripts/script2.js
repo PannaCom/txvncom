@@ -773,21 +773,25 @@ function getdate_go() {
     console.log(getDate($('#date_go').val()));
 }
 
-function func_datxenhanh(id, e) {
+function func_datxenhanh(id, carsize, e) {
     e.preventDefault();
     if (document.getElementById('lat1').value === "" && document.getElementById('lng1').value === "") {
         alert('Vui lòng nhập điểm đi.');
         return false;
-
     }
     if (document.getElementById('lat2').value === "" && document.getElementById('lng2').value === "") {
         alert('Vui lòng nhập điểm đến.');
         return false;
-
     }
     if (id) {
-        $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + document.getElementById('place_from').value + "&diemden=" + document.getElementById('place_to').value + "&kcc=" + document.getElementById('kc_duongdi').value, function (html) {
-            $('#modal-7 .modal-body').html(html);
+        var diemdi = document.getElementById('place_from').value;
+        var diemden = document.getElementById('place_to').value;
+        var kcc = document.getElementById('kc_duongdi').value;
+        var type_go = document.getElementById('type_go').value;
+        var date_go = document.getElementById('date_go').value;
+        var date_to = document.getElementById('date_to').value;       
+        $.get('/Home/getModaldatxenhanh?driver_id=' + id + "&diemdi=" + diemdi + "&diemden=" + diemden + "&kcc=" + kcc + "&type_go=" + type_go + "&date_go=" + date_go + "&date_to=" + date_to + "&carsize=" + carsize, function (html) {
+            $('#modal-7 .modal-body').empty().html(html);
             $('#modal-7').modal('show', { backdrop: 'static', keyboard: false });
         })
     }
@@ -801,11 +805,10 @@ function saveBookingToDriver(id) {
     document.getElementById('lat_to').value = document.getElementById('lat2').value;
     document.getElementById('from_place').value = document.getElementById('place_from').value;
     document.getElementById('to_place').value = document.getElementById('place_to').value;
-    document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
-    document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
-    document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
+    //document.getElementById('car_type_made_model').value = $('#car_type_made_model_' + id).html();
+    //document.getElementById('price_driver').value = $('#price_driver_' + id).html().replace(',', '');
+    //document.getElementById('total_money').value = $('#total_money_driver_' + id).html().replace(',', '');
     document.getElementById('distance').value = document.getElementById('kc_duongdi').value;
-    document.getElementById('car_size_driver').value = document.getElementById('car_size_driver_' + id).value;
 
     var url = "/Home/saveBookingToDriver"; // the script where you handle the form input.
     if (document.getElementById('customer_name').value === "") {
@@ -828,11 +831,20 @@ function saveBookingToDriver(id) {
         document.getElementById('to_date').focus();
         return false;
     }
+    if (document.getElementById('email_cus').value === "") {
+        alert("Vui lòng nhập email.");
+        document.getElementById('email_cus').focus();
+        return false;
+    }
+    
     if (document.getElementById('from_date').value > document.getElementById('to_date').value) {
         alert("Ngày đi phải sau ngày đến");
         document.getElementById('from_date').focus();
         return false;
     }
+
+    document.getElementById("btn_bookingtodriver").innerHTML = "Đang đặt xe...";
+    document.getElementById("btn_bookingtodriver").disabled = true;
 
     $.ajax({
         type: "POST",
@@ -840,20 +852,14 @@ function saveBookingToDriver(id) {
         data: $("#form_dat_thue_xe").serialize(), // serializes the form's elements.
         success: function (data) {
             if (data == 1) {
-                $('#modal-7').modal('hide');
+                //document.getElementById("btn_bookingtodriver").innerHTML = "Đặt xe";
+                //document.getElementById("btn_bookingtodriver").disabled = false;
 
-                //reset value
-                document.getElementById('customer_name').value = "";
-                document.getElementById('customer_phone').value = "";
-                document.getElementById('from_date').value = "";
-                var d = new Date();
-                var s = d.toLocaleString();
-                $('#to_date').datetimepicker({ value: s, step: 10 });
-                //end value
-                setTimeout(function () { alert('Đã đặt xe thành công.'); }, 1000);
-                $('#dat_xe_nhanh_' + id).html('Đặt xe thành công');
+                $('#modal-7 .modal-body').empty().html("<p>Cám ơn đã đặt xe tại hệ thống thuexevn. Vui lòng chờ trong ít phút để chúng tôi xử lý yêu cầu của bạn.</p>");
+
+                ////reset value               
             }
-            //console.log(data);
+
         }
     });
 }

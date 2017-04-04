@@ -1197,45 +1197,49 @@ namespace ThueXeVn.Controllers
         }
 
         //getModaldatxenhanh
-        public string getModaldatxenhanh(long? driver_id, string diemdi, string diemden, string kcc)
+        public string getModaldatxenhanh(booking_to_driver_vm model)
         {
             string html = "";
-            var _taxedx = db.drivers.Find(driver_id);
+            var _taxedx = db.drivers.Find(model.driver_id);
             if (_taxedx != null)
             {
 
                 html += "<form class=\"form-horizontal\" method=\"post\" id=\"form_dat_thue_xe\" name=\"form_dat_thue_xe\" enctype=\"multipart/form-data\" style=\"color: #333;\">"
                    + "<div class=\"form-group\">"
                    + "<div class=\"col-md-12\">"
-                   + "<h4>Tài xế: " + _taxedx.name + "</h4>"
-                   + "<p><b>Đi từ: </b>" + diemdi + " <b>tới: </b>" + diemden + "</p>"
-                   + "<p>Khoảng cách khoảng: " + kcc + " km (giá chưa bao gồm VAT).</p>"
+                   + "<h4>Tài xế/nhà xe: " + _taxedx.name + "</h4>"
+                   + "<p><b>Đi từ: </b>" + model.diemdi + " <b>tới: </b>" + model.diemden + "</p>"
+                   + "<p>Khoảng cách khoảng: " + model.kcc + " km (giá chưa bao gồm VAT).</p>"
                    +"</div>"
-                   + "</div><hr/>"                 
-                   + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\"" + driver_id + "\" />"
+                   + "</div><hr/>"
+                   + "<input type=\"hidden\" name=\"driver_id\" id=\"driver_id\" value=\"" + model.driver_id + "\" />"
                    + "<input type=\"hidden\" name=\"driver_name\" id=\"driver_name\" value=\"" + _taxedx.name + "\" />"
                    + "<input type=\"hidden\" name=\"lon_from\" id=\"lon_from\" value=\"\" />"
                    + "<input type=\"hidden\" name=\"lat_from\" id=\"lat_from\" value=\"\" />"
                    + "<input type=\"hidden\" name=\"lon_to\" id=\"lon_to\" value=\"\" />"
                    + "<input type=\"hidden\" name=\"lat_to\" id=\"lat_to\" value=\"\" />"
-                   + "<input type=\"hidden\" name=\"from_place\" id=\"from_place\" value=\"\" />"
-                   + "<input type=\"hidden\" name=\"to_place\" id=\"to_place\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"from_place\" id=\"from_place\" value=\"" + model.diemdi + "\" />"
+                   + "<input type=\"hidden\" name=\"to_place\" id=\"to_place\" value=\"" + model.diemden + "\" />"
                    + "<input type=\"hidden\" name=\"car_type_made_model\" id=\"car_type_made_model\" value=\"\" />"
-                   + "<input type=\"hidden\" name=\"car_hire_type\" id=\"car_hire_type\" value=\"Một chiều\" />"
+                   + "<input type=\"hidden\" name=\"car_hire_type\" id=\"car_hire_type\" value=\"" + model.type_go  + "\" />"
                    + "<input type=\"hidden\" name=\"price_driver\" id=\"price_driver\" value=\"\" />"
                    + "<input type=\"hidden\" name=\"distance\" id=\"distance\" value=\"\" />"
                    + "<input type=\"hidden\" name=\"total_money\" id=\"total_money\" value=\"\" />"
-                   + "<input type=\"hidden\" name=\"car_size_driver\" id=\"car_size_driver\" value=\"\" />"
+                   + "<input type=\"hidden\" name=\"car_size_driver\" id=\"car_size_driver\" value=\"" + model.carsize + "\" />"
                    + "<div class=\"form-group\">"
-                   + "<div class=\"col-md-6\">"
+                   + "<div class=\"col-md-12\">"
                    + "<label class=\"control-label\">Họ tên khách: </label>"
                    + "<input name=\"customer_name\" id=\"customer_name\" class=\"form-control\" placeholder=\"Tên khách hàng\" />"
                    + "</div>"
-                   + "<div class=\"col-md-6\">"
+                   + "<div class=\"col-md-12\">"
                    + "<label class=\"control-label\">Số điện thoại: </label>"
                    + "<input name=\"customer_phone\" id=\"customer_phone\" class=\"form-control\" placeholder=\"Số điện thoại khách hàng\" />"
                    + "</div>"
+                   + "<div class=\"col-md-12\">"
+                   + "<label class=\"control-label\">Email: </label>"
+                   + "<input name=\"email_cus\" id=\"email_cus\" class=\"form-control\" placeholder=\"Email khách hàng\" />"
                    + "</div>"
+                   + "</div>"                   
                    + "<div class=\"form-group\">"
                    + "<div class=\"col-md-6\">"
                    + "<label class=\"control-label\">Từ ngày: </label>"
@@ -1252,19 +1256,37 @@ namespace ThueXeVn.Controllers
                 html += "<script>"
                 + "$('#from_date').datetimepicker({"
                 + "dayOfWeekStart: 1,"
-                + "lang: 'en',"
+                + "lang: 'vi',"
                 + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
-                + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
+                + "format: 'd/m/Y H:i',"            
+                + "mask: false,"
+                + "step: 5,"
+                + "value: '" + model.date_go + "',"
+                + "minDate: 0,"         
+                + "onShow: function (ct) {"
+                + "    this.setOptions({"
+                + "        maxDate: $('#date_to').val() ? getDate($('#date_to').val()) : false,"
+                + "        formatDate: 'd/m/Y',"
+                + "   })"
+                + "},"
+                + "timepicker: true"
                 + "});"
                 + "$('#to_date').datetimepicker({"
                 + "dayOfWeekStart: 1,"
-                + "lang: 'en',"
+                + "lang: 'vi',"
                 + "disabledDates: ['1986/01/08', '1986/01/09', '1986/01/10'],"
-                + "startDate: '@DateTime.Now.Year/@DateTime.Now.Month/@DateTime.Now.Date'"
-                + "});"
-                + "var d = new Date();"
-                + "var s = d.toLocaleString();"
-                + "$('#to_date').datetimepicker({ value: s, step: 10 });"                
+                + "format: 'd/m/Y H:i',"
+                + "mask: false,"
+                + "value: '" + model.date_to + "',"
+                + "step: 5,"           
+                + "onShow: function (ct) {"
+                + "    this.setOptions({"
+                + "        minDate: $('#date_go').val() ? getDate($('#date_go').val()) : false,"
+                + "       formatDate: 'd/m/Y',"
+                + "   })"
+                + "},"
+                + "timepicker: true"
+                + "});"                          
                 + "</script>";
             }
             return html;
@@ -1329,11 +1351,13 @@ namespace ThueXeVn.Controllers
     + "<tr style=\"background: #F4FE01;color: #333;\"> <td colspan=\"2\" style=\"padding: 18px;\"> <p>Hotline: 096.410.8688 (HN)</p> <p>Hà Nội: Tòa Nhà Kim Ánh, số 1 Ngõ 78 Duy Tân, Dịch Vọng, Cầu giấy, Hà Nội.</p> </td> </tr>"
     + "</table>";
 
+                result += "<p>Truy cập link sau đây để xem danh sách khách hàng đặt xe khác http://thuexevn.com/admin/khachdatxe</p>";
+                result += "<p>----------- Đây là email tự động vui lòng không trả lời lại email này. http://thuexevn.com</p>";
 
                 // gui thông tin vao email
                 try
                 {
-                    var sendmail = Config.Sendmail(WebConfigurationManager.AppSettings["emailroot"], WebConfigurationManager.AppSettings["passroot"], "thuexevn.com@gmail.com", DateTime.Now.ToString("dd-MM-yyyy HH:mm T") + "-Khách đặt xe tài xế", result);
+                    var sendmail = Config.Sendmail(WebConfigurationManager.AppSettings["emailroot"], WebConfigurationManager.AppSettings["passroot"], "thuexevn.com@gmail.com", DateTime.Now.ToString("dd/MM/yyyy HH:mm t") + "-Khách đặt xe tại http://thuexevn.com", result);
                     if (sendmail == true)
 	                {
 		                data = 1;

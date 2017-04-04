@@ -87,7 +87,7 @@
         {
             title += ", số ngày đi khoảng " + ViewBag.songaydi;
         }
-        
+
         songay = ViewBag.songaydi;
     }
 
@@ -124,7 +124,7 @@
 }
 
 @*<link href="~/Content/slick/slick.css" rel="stylesheet" />*@
-<input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem" />
+
 
 
 
@@ -405,7 +405,7 @@
 
                                                         <a href="@url_profile" class="btn btn-default btn-block hidden-xs">Xem chi tiết</a>
                                                         @*<a href="tel:0964108688" class="btn btn-danger btn-block"><i class="fa fa-phone"></i> Gọi ngay</a>*@
-                                                        <a href="#" class="btn btn-primary dat_xe btn-block hidden-xs" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, event);"><i class="fa fa-car"></i> Đặt xe</a>
+                                                        <a href="#" class="btn btn-primary dat_xe btn-block hidden-xs" id="dat_xe_nhanh_@item.id" onclick="func_datxenhanh(@item.id, @item.car_size, event);"><i class="fa fa-car"></i> Đặt xe</a>
 
                                                     </div>
 
@@ -436,7 +436,7 @@
                                                             @*@{Html.RenderAction("LoadCarImage", new { made = @item.car_made, model = @item.car_model });}*@
                                                             @{Html.RenderAction("LoadImageDriver", new { id = @item.id, made = @item.car_made, model = @item.car_model });}
 
-                                                            
+
                                                         </section>
 
                                                         <section class="col-xs-12 col-md-6 section_detail">
@@ -444,6 +444,7 @@
                                                             {
                                                                 <text><h6 class="nhaxe_diachi visible-xs"><i class="fa fa-map-marker"></i>&nbsp;@item.address</h6></text>
                                                             }
+                                                            
                                                             <p id="car_type_made_model_@item.id">
                                                                 <span>
                                                                     <i class="fa fa-cab"></i>
@@ -477,13 +478,13 @@
 
 
 
-                                                   
+
 
 
 
 
                                                 </div>
-                                                    i++;
+                                                            i++;
 
 
 
@@ -519,7 +520,7 @@
         </div>
     </section>
 
-
+<input id="kc_duongdi" type="hidden" value="@ViewBag.kc_timkiem" />
 
     <div id="map-canvas" style="display: none;">
         Bản đồ
@@ -537,16 +538,9 @@
                 <div class="modal-body">
 
                     Content is loading...
-                    <div class="form-group">
-
-                    </div>
 
                 </div>
-
-                @*<div class="modal-footer">
-                        <button type="button" class="btn btn-white" data-dismiss="modal">Đóng</button>
-
-                    </div>*@
+               
             </div>
         </div>
     </div>
@@ -587,63 +581,63 @@
     </div>
 
     <script>
-var datenow = '@DateTime.Now.ToString("dd/MM/yyyy HH:mm")';
-$(document).ready(function () {
-@if (ViewBag.to != null)
+        var datenow = '@DateTime.Now.ToString("dd/MM/yyyy HH:mm")';
+        $(document).ready(function () {
+            @if (ViewBag.to != null)
 {
     <text>$('#place_to').val('@Html.Raw(ViewBag.to)');</text>
 }
-@if (ViewBag.from != null)
+            @if (ViewBag.from != null)
 {
     <text>$('#place_from').val('@Html.Raw(ViewBag.from)');</text>
 }
-@if (ViewBag.loaixe != null)
+            @if (ViewBag.loaixe != null)
 {
     <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
 }
-@if (ViewBag.lat1 != null)
+            @if (ViewBag.lat1 != null)
 {
     <text>$('#lat1').val('@Html.Raw(ViewBag.lat1)');</text>
 }
-@if (ViewBag.lng1 != null)
+            @if (ViewBag.lng1 != null)
 {
     <text>$('#lng1').val('@Html.Raw(ViewBag.lng1)');</text>
 }
-@if (ViewBag.lat2 != null)
+            @if (ViewBag.lat2 != null)
 {
     <text>$('#lat2').val('@Html.Raw(ViewBag.lat2)');</text>
 }
 
-@if (ViewBag.lng2 != null)
+            @if (ViewBag.lng2 != null)
 {
     <text>$('#lng2').val('@Html.Raw(ViewBag.lng2)');</text>
 }
 
-    setTimeout(function () {
-    @if (ViewBag.loaixe != null)
+            setTimeout(function () {
+                @if (ViewBag.loaixe != null)
     {
         <text>$('#Loaixe_socho').val('@Html.Raw(ViewBag.loaixe)');</text>
     }
-    }, 1000)
+            }, 1000)
 
-    $('.bxslider').bxSlider({
-        infiniteLoop: false,
-        slideMargin: 10,
-        minSlides: 1,
-        slideWidth: 250,
-        controls: false
-    });
+            $('.bxslider').bxSlider({
+                infiniteLoop: false,
+                slideMargin: 10,
+                minSlides: 1,
+                slideWidth: 250,
+                controls: false
+            });
 
-    $('.album_driver').flexslider({
-        animation: Modernizr.touch ? "slide" : "fade",
-        animationSpeed: Modernizr.touch ? 400 : 1000,
-        controlNav: false,
-        directionNav: true,
-        draggable: true,
-    });
+            $('.album_driver').flexslider({
+                animation: Modernizr.touch ? "slide" : "fade",
+                animationSpeed: Modernizr.touch ? 400 : 1000,
+                controlNav: false,
+                directionNav: true,
+                draggable: true,
+            });
 
 
-})
+        })
 
         function addsearch(e) {
             e.preventDefault();
@@ -659,7 +653,7 @@ $(document).ready(function () {
 
     <script src="~/Content/bxslider/jquery.bxslider.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLPSKQ4QV4xGiQjnZDUecx-UEr3D0QePY&libraries=places&region=vn&language=vi" type="text/javascript"></script>
-    
+
     @Scripts.Render("~/Scripts/main")
     <script>
 
@@ -672,16 +666,14 @@ $(document).ready(function () {
             <text>$('#date_go').datetimepicker({ 'value': datenow });</text>
         }
 
-    @if (ViewBag.date_to != null)
+        @if (ViewBag.date_to != null)
         {
             <text>$('#date_to').datetimepicker({ 'value': '@ViewBag.date_to' });</text>
         }
-    setTimeout(function () {
-        $('#type_go').val('@typego');
-    }, 1000)
+        setTimeout(function () {
+            $('#type_go').val('@typego');
+        }, 1000)
 
 
     </script>
     
-
-}

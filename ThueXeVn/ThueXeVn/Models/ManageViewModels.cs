@@ -244,4 +244,16 @@ namespace ThueXeVn.Models
         public string model { get; set; }
     }
 
+    public class booking_to_driver_vm
+    {
+        public long? driver_id { get; set; }
+        public string diemdi { get; set; }
+        public string diemden { get; set; }
+        public string kcc { get; set; }
+        public int? type_go { get; set; }
+        public string date_go { get; set; }
+        public string date_to { get; set; }
+        public int? carsize { get; set; }
+    }
+
 }
