@@ -9,9 +9,35 @@
         title: 'Hoán vị địa điểm'
     });
 
+    
+
     var options = {
-        map: "#map-canvas"
+        bounds: true,
+        country: null,
+        map: "#map-canvas",
+        details: false,
+        detailsAttribute: "name",
+        detailsScope: null,
+        autoselect: true,
+        location: false,
+
+        mapOptions: {
+            zoom: 14,
+            scrollwheel: false,
+            mapTypeId: "roadmap"
+        },
+
+        markerOptions: {
+            draggable: false
+        },
+
+        maxZoom: 16,
+        types: [],
+        blur: false,
+        geocodeAfterResult: false,
+        restoreValueAfterBlur: false
     };
+
     $("#place_from").geocomplete(options)
   .bind("geocode:result", function (event, result) {
       $("#lat1").val(result.geometry.location.lat());
