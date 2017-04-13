@@ -66,6 +66,7 @@ namespace ThueXeVn.Controllers
                 newprice.driver_id = model.driver_id ?? null;
                 newprice.cp_price = model.cp_price ?? null;
                 newprice.cp_night = model.cp_night ?? 0;
+                newprice.cp_car_type = model.cp_car_type ?? null;
                 db.driver_car_price.Add(newprice);
                 db.SaveChanges();
                 //var sql = "INSERT INTO driver_car_price(cp_car_type,cp_price,driver_id) VALUES(" + cp_car_type + "," + cp_price + "," + id + ")";
@@ -102,6 +103,7 @@ namespace ThueXeVn.Controllers
                 {
                     editprice.cp_price = model.cp_price ?? null;
                     editprice.cp_night = model.cp_night ?? 0;
+                    editprice.cp_car_type = model.cp_car_type ?? null;
                     db.Entry(editprice).State = EntityState.Modified;
                     db.SaveChanges();
                 }
