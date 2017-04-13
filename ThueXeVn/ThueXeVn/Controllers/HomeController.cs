@@ -649,10 +649,9 @@ namespace ThueXeVn.Controllers
         {
             var d = Config.getCookie("taixelogged") != "" ? Config.getCookie("taixelogged").Split(',')[1] : "";
             var idtx = Convert.ToInt32(d);
-            string strtx = "";
-            var tx = (from s in db.drivers where s.id == idtx select s.name).FirstOrDefault();
-            if (tx != null) strtx = tx;            
-            return PartialView("_menuLoginTaiXe", strtx);
+            var tx = (from s in db.drivers where s.id == idtx select s).FirstOrDefault();
+
+            return PartialView("_menuLoginTaiXe", tx);
         }
 
         public ActionResult banggiaxedanang()

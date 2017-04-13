@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Bước 2: Lấy danh sách khách sạn, nhà hàng lân cận";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h3><i class="fa fa-list fa-2x fa-color-red"></i> @ViewBag.Title </h3>
+        </div>
+
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Error"])
+            </div>
+        }
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @using (Html.BeginForm("getnearbyrestaurent", "admin", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "getnearby" }))
+                {
+                    <div class="form-group">
+                        <label for="type" class="control-label">Lấy dữ liệu:</label>
+                        <select class="form-control" name="type" id="type">
+                            <option value="">-Chọn dữ liệu muốn lấy-</option>
+                            <option value="hotel">Dữ liệu khách sạn</option>
+                            <option value="restaurant">Dữ liệu nhà hàng</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" id="btngetdata"><i class="fa fa-map"></i> Lấy dữ liệu</button>
+                    </div>
+                }
+            </div>
+            @*<script>
+                function validate() {
+                    if (document.getElementById("type").value === "") {
+                        alert('Vui lòng chọn dữ liệu cần lấy.');
+                        document.getElementById("type").focus();
+                        return false;
+                    } else {
+                        return true;
+                    };
+                }
+            </script>*@
+        </div>
+
+        
+        
+    </div>
+
+</div>
+
+
+@section scripts {
+
+    <script>
+        $('#getnearby').on('submit', function () {
+            //e.preventDefault();
+            if (document.getElementById("type").value === "") {
+                alert('Vui lòng chọn dữ liệu cần lấy.');
+                document.getElementById("type").focus();
+                return false;
+            }
+            $('#btngetdata').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Đang lấy dữ liệu');
+            document.getElementById("btngetdata").disabled = true;
+           
+        })
+
+    </script>
+
+}

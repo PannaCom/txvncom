@@ -52,6 +52,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -67,6 +75,7 @@
     <Reference Include="System.Data">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Device" />
     <Reference Include="System.Drawing">
       <Private>True</Private>
     </Reference>
@@ -225,20 +234,24 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\bookingsController.cs" />
     <Compile Include="Controllers\calllogController.cs" />
     <Compile Include="Controllers\carmademodelController.cs" />
     <Compile Include="Controllers\codeController.cs" />
+    <Compile Include="Controllers\CongTacVienController.cs" />
     <Compile Include="Controllers\driversController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\listcarController.cs" />
+    <Compile Include="Controllers\ListCarPriceController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\newsController.cs" />
     <Compile Include="Controllers\NotifiesController.cs" />
     <Compile Include="Controllers\TaiXeBangGiaController.cs" />
     <Compile Include="Controllers\usersController.cs" />
+    <Compile Include="Controllers\XeBuytController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,6 +260,18 @@
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\booking.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\booking_ctv_tiepthi.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\booking_to_driver.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bus_all.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bus_keyword.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\call_driver_log.cs">
@@ -261,10 +286,49 @@
     <Compile Include="Models\car_made_model.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\car_price_da_nang.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\car_size.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\country.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\country_place_nearby.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ctv_tiepthi.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\driver.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\drivers_money.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_car_price.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_images.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_info.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_promotion.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_rate_comment.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_search.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\driver_view.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\find_bus.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -293,6 +357,12 @@
     <Compile Include="Models\notify.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\pl_car_price.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tai_xe_toan_cau.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ThueXe.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,19 +384,76 @@
     <Compile Include="Models\user.cs">
       <DependentUpon>ThueXe.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\value_config.cs">
+      <DependentUpon>ThueXe.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-material-design.css" />
+    <Content Include="Content\bootstrap-material-design.min.css" />
+    <Content Include="Content\bootstrap-rating.css" />
+    <Content Include="Content\bootstrap-rating.js" />
+    <Content Include="Content\bootstrap-rating.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bxslider\images\bx_loader.gif" />
+    <Content Include="Content\bxslider\images\controls.png" />
+    <Content Include="Content\bxslider\jquery.bxslider.css" />
+    <Content Include="Content\bxslider\jquery.bxslider.js" />
+    <Content Include="Content\bxslider\jquery.bxslider.min.js" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fontend\css\bootstrap-switch.css" />
+    <Content Include="Content\fontend\css\bootstrap-switch.min.css" />
+    <Content Include="Content\fontend\css\flexslider.css" />
+    <Content Include="Content\fontend\css\fonts.css" />
+    <Content Include="Content\fontend\css\fonts\flexslider-icon.svg" />
+    <Content Include="Content\fontend\css\fonts\icomoon.svg" />
+    <Content Include="Content\fontend\css\iconmoon.css" />
+    <Content Include="Content\fontend\css\jquery.datetimepicker.css" />
+    <Content Include="Content\fontend\js\jquery.flexslider-min.js" />
+    <Content Include="Content\fontend\js\jquery.flexslider.js" />
+    <Content Include="Content\fontend\css\responsive.css" />
+    <Content Include="Content\fontend\css\style.css" />
+    <Content Include="Content\fontend\css\stylemh.css" />
+    <Content Include="Content\fontend\img\bg.jpg" />
+    <Content Include="Content\fontend\img\bg2.jpg" />
+    <Content Include="Content\fontend\img\bg_home.jpg" />
+    <Content Include="Content\fontend\img\bg_home_1.jpg" />
+    <Content Include="Content\fontend\img\bg_home_mb.jpg" />
+    <Content Include="Content\fontend\img\bg_home_mb_1.jpg" />
+    <Content Include="Content\fontend\img\colorful_background.jpg" />
+    <Content Include="Content\fontend\img\logo.png" />
+    <Content Include="Content\fontend\img\vnd1.png" />
+    <Content Include="Content\fontend\img\vnd2.jpg" />
+    <Content Include="Content\fontend\img\xacthuctaikhoan-ok.png" />
+    <Content Include="Content\fontend\css\ajax-loader.gif" />
+    <Content Include="Content\fontend\css\owl.carousel.css" />
+    <Content Include="Content\fontend\css\owl.carousel.min.css" />
+    <Content Include="Content\fontend\css\owl.theme.default.css" />
+    <Content Include="Content\fontend\css\owl.theme.default.min.css" />
+    <Content Include="Content\fontend\css\owl.theme.green.css" />
+    <Content Include="Content\fontend\css\owl.theme.green.min.css" />
+    <Content Include="Content\fontend\css\owl.video.play.png" />
+    <Content Include="Content\fontend\js\bootstrap-switch.js" />
+    <Content Include="Content\fontend\js\bootstrap-switch.min.js" />
+    <Content Include="Content\fontend\js\main.js" />
+    <Content Include="Content\fontend\js\owl.carousel.js" />
+    <Content Include="Content\fontend\js\owl.carousel.min.js" />
+    <Content Include="Content\fontend\css\zoomify.css" />
+    <Content Include="Content\fontend\js\zoomify.js" />
+    <Content Include="Content\fontend\css\zoomify.min.css" />
+    <Content Include="Content\fontend\js\zoomify.min.js" />
     <Content Include="Content\Images\iphone-home-button-white-md.png" />
     <Content Include="Content\Images\logo-tmdt.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo_mv_e1.png" />
     <Content Include="Content\Images\Products\TextFile1.txt" />
+    <Content Include="Content\jquery.bxslider.min.js" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\jsTree\jstree.js" />
     <Content Include="Content\jsTree\jstree.min.js" />
@@ -340,7 +467,26 @@
     <Content Include="Content\jsTree\themes\default\style.css" />
     <Content Include="Content\jsTree\themes\default\style.min.css" />
     <Content Include="Content\jsTree\themes\default\throbber.gif" />
+    <Content Include="Content\login\css\styles.css" />
+    <Content Include="Content\login\img\bg2.png" />
+    <Content Include="Content\login\img\websieuthi1.png" />
+    <Content Include="Content\materialize\css\materialize.css" />
+    <Content Include="Content\materialize\css\materialize.min.css" />
+    <Content Include="Content\materialize\js\main.js" />
+    <Content Include="Content\materialize\js\materialize.js" />
+    <Content Include="Content\materialize\js\materialize.min.js" />
+    <Content Include="Content\materialize\js\ripples.js" />
+    <Content Include="Content\materialize\js\ripples.min.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\ripples.css" />
+    <Content Include="Content\ripples.min.css" />
+    <Content Include="Content\sld\flexslider.css" />
+    <Content Include="Content\sld\fonts\flexslider-icon.svg" />
+    <Content Include="Content\sld\images\bg_play_pause.png" />
+    <Content Include="Content\sld\jquery.flexslider-min.js" />
+    <Content Include="Content\sld\jquery.flexslider.js" />
+    <Content Include="Content\style1.css" />
+    <Content Include="Content\style2.css" />
     <Content Include="Content\stylemh.css" />
     <Content Include="Content\tags\examples.css" />
     <Content Include="Content\tags\jquery.tagit.css" />
@@ -349,6 +495,47 @@
     <Content Include="Content\tags\screenshot.png" />
     <Content Include="Content\tags\subpage.css" />
     <Content Include="Content\tags\tagit.ui-zendesk.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\Theme\1a\css\animate.css" />
     <Content Include="Content\Theme\1a\css\bootstrap.css" />
     <Content Include="Content\Theme\1a\css\bootstrap.min.css" />
@@ -906,6 +1093,9 @@
     <Content Include="Content\Theme\admin\vendor\morrisjs\morris.min.js" />
     <Content Include="Content\Theme\admin\vendor\raphael\raphael.js" />
     <Content Include="Content\Theme\admin\vendor\raphael\raphael.min.js" />
+    <Content Include="Content\toastr\toastr.css" />
+    <Content Include="Content\toastr\toastr.min.css" />
+    <Content Include="Content\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -993,6 +1183,50 @@
     <Content Include="Models\ThueXe.edmx.diagram">
       <DependentUpon>ThueXe.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\fontend\css\fonts\icomoon.eot" />
+    <Content Include="Content\fontend\css\fonts\icomoon.ttf" />
+    <Content Include="Content\fontend\css\fonts\icomoon.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="Content\materialize\js\ripples.min.js.map" />
+    <Content Include="Content\materialize\LICENSE" />
+    <Content Include="Content\materialize\README.md" />
+    <Content Include="Content\sld\css\base.less" />
+    <Content Include="Content\sld\css\font.less" />
+    <Content Include="Content\sld\css\mixins.less" />
+    <Content Include="Content\sld\css\resets.less" />
+    <Content Include="Content\sld\css\responsive.less" />
+    <Content Include="Content\sld\css\theme.less" />
+    <Content Include="Content\sld\css\variables.less" />
+    <Content Include="Content\sld\fonts\flexslider-icon.eot" />
+    <Content Include="Content\sld\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\sld\fonts\flexslider-icon.woff" />
+    <Content Include="Content\toastr\toastr.js.map" />
+    <Content Include="Content\bootstrap-material-design.css.map" />
+    <Content Include="Content\bootstrap-material-design.min.css.map" />
+    <Content Include="Content\ripples.css.map" />
+    <Content Include="Content\ripples.min.css.map" />
+    <Content Include="Content\fontend\css\fonts\flexslider-icon.eot" />
+    <Content Include="Content\fontend\css\fonts\flexslider-icon.ttf" />
+    <Content Include="Content\fontend\css\fonts\flexslider-icon.woff" />
     <None Include="Properties\PublishProfiles\ThueXe.pubxml" />
     <Content Include="Models\ThueXe.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1295,10 +1529,24 @@
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
+    <Content Include="Scripts\jquery.datetimepicker.min.js.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.0.js" />
+    <Content Include="Scripts\jquery-ui-1.12.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery-ui.css" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.counterup.js" />
     <Content Include="Scripts\jquery.counterup.min.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
+    <Content Include="Scripts\jquery.datetimepicker.min.js" />
+    <Content Include="Scripts\jquery.geocomplete.js" />
+    <Content Include="Scripts\jquery.geocomplete.min.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1309,6 +1557,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\script2.js" />
     <Content Include="Scripts\tag-it.js" />
     <Content Include="Scripts\tag\css\jquery.tagit.css" />
     <Content Include="Scripts\tag\css\tagit.ui-zendesk.css" />
@@ -1321,6 +1570,7 @@
     <Content Include="Scripts\tag\_static\screenshot.png" />
     <Content Include="Scripts\tag\_static\subpage.css" />
     <Content Include="Scripts\waypoints.min.js" />
+    <Content Include="Views\TaiXeBangGia\New Text Document.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1420,6 +1670,78 @@
     <Content Include="Views\Home\XeTaxiNoiBai.cshtml" />
     <Content Include="Views\List\bangke.cshtml" />
     <Content Include="Views\List\Index.cshtml" />
+    <Content Include="Views\Admin\danhsachctv.cshtml" />
+    <Content Include="Views\Admin\khachdatxe.cshtml" />
+    <Content Include="Views\Admin\SendSMS.cshtml" />
+    <Content Include="Views\Admin\taixetoancau.cshtml" />
+    <Content Include="Views\Admin\_CountNumberShares.cshtml" />
+    <Content Include="Views\CongTacVien\danhsachdatxe.cshtml" />
+    <Content Include="Views\CongTacVien\Index.cshtml" />
+    <Content Include="Views\calllog\_taixegoi.cshtml" />
+    <Content Include="Views\calllog\callcustomer.cshtml" />
+    <Content Include="Views\drivers\_checkInitmoney.cshtml" />
+    <Content Include="Views\drivers\_LoadStatusListOnline.cshtml" />
+    <Content Include="Views\Home\_banggiaxe1.cshtml" />
+    <Content Include="Views\Home\_banggiaxedn1.cshtml" />
+    <Content Include="Views\Home\_banggiaxedn2.cshtml" />
+    <Content Include="Views\Home\_LoadAlbumDriver.cshtml" />
+    <Content Include="Views\Home\_LoadBangGiaDriver.cshtml" />
+    <Content Include="Views\Home\_LoadCarImage.cshtml" />
+    <Content Include="Views\Home\_LoadCommentDriver.cshtml" />
+    <Content Include="Views\Home\_LoadDesDriver.cshtml" />
+    <Content Include="Views\Home\_LoadDriverVertified.cshtml" />
+    <Content Include="Views\Home\_Loadhotdeal.cshtml" />
+    <Content Include="Views\Home\_LoadImageDriver.cshtml" />
+    <Content Include="Views\Home\banggiaxedanang.cshtml" />
+    <Content Include="Views\Home\ContactUS.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\DangKyCongTacVien.cshtml" />
+    <Content Include="Views\Home\Dangkyubergrab.cshtml" />
+    <Content Include="Views\Home\DangNhapCongTacVien.cshtml" />
+    <Content Include="Views\Home\_LoadPromotionDriver.cshtml" />
+    <Content Include="Views\Home\_LoadViewDriver.cshtml" />
+    <Content Include="Views\Home\_TotalDanhGia.cshtml" />
+    <Content Include="Views\Home\_TotalDanhGiaRieng.cshtml" />
+    <Content Include="Views\Home\UpdatePass.cshtml" />
+    <Content Include="Views\Home\LoginTaiXe.cshtml" />
+    <Content Include="Views\Home\profile.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Home\TimTaiXe.cshtml" />
+    <Content Include="Views\ListCarPrice\Create.cshtml" />
+    <Content Include="Views\ListCarPrice\Delete.cshtml" />
+    <Content Include="Views\ListCarPrice\Details.cshtml" />
+    <Content Include="Views\ListCarPrice\Edit.cshtml" />
+    <Content Include="Views\ListCarPrice\Index.cshtml" />
+    <Content Include="Views\List\Delete.cshtml" />
+    <Content Include="Views\List\Edit.cshtml" />
+    <Content Include="Views\Shared\_fbchatmessager.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdminCTV.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdminTX.cshtml" />
+    <Content Include="Views\Shared\_LayoutProfile.cshtml" />
+    <Content Include="Views\Shared\_mainMenu.cshtml" />
+    <Content Include="Views\Shared\_MenuAdminCTVPartial.cshtml" />
+    <Content Include="Views\Shared\_MenuAdminTX.cshtml" />
+    <Content Include="Views\TaiXeBangGia\Addbanggia.cshtml" />
+    <Content Include="Views\TaiXeBangGia\Delete.cshtml" />
+    <Content Include="Views\TaiXeBangGia\driverEdit.cshtml" />
+    <Content Include="Views\TaiXeBangGia\driverPromotion.cshtml" />
+    <Content Include="Views\TaiXeBangGia\Edit.cshtml" />
+    <Content Include="Views\TaiXeBangGia\Index.cshtml" />
+    <Content Include="Views\TaiXeBangGia\khachdatxe.cshtml" />
+    <Content Include="Views\TaiXeBangGia\themanhnhaxe.cshtml" />
+    <Content Include="Views\XeBuyt\Bus.cshtml" />
+    <Content Include="Views\XeBuyt\Create.cshtml" />
+    <Content Include="Views\XeBuyt\Delete.cshtml" />
+    <Content Include="Views\XeBuyt\Details.cshtml" />
+    <Content Include="Views\XeBuyt\Edit.cshtml" />
+    <Content Include="Views\XeBuyt\Index.cshtml" />
+    <Content Include="Views\XeBuyt\List.cshtml" />
+    <Content Include="Views\XeBuyt\TimBus.cshtml" />
+    <Content Include="Views\Admin\adminbanggia.cshtml" />
+    <Content Include="Views\Admin\admineditbanggia.cshtml" />
+    <Content Include="Views\Admin\getnearbyrestaurent.cshtml" />
+    <Content Include="Views\Admin\getlonglatquanhuyen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
