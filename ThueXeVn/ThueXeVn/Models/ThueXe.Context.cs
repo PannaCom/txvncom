@@ -61,7 +61,8 @@ namespace ThueXeVn.Models
         public virtual DbSet<driver_info> driver_info { get; set; }
         public virtual DbSet<driver_car_price> driver_car_price { get; set; }
         public virtual DbSet<booking_to_driver> booking_to_driver { get; set; }
-        public virtual DbSet<country> countries { get; set; }
         public virtual DbSet<country_place_nearby> country_place_nearby { get; set; }
+        public virtual DbSet<country> countries { get; set; }
+        public virtual DbSet<country_config> country_config { get; set; }
     }
 }
