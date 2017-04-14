@@ -602,6 +602,8 @@ namespace ThueXeVn.Controllers
                     db.country_config.Add(newconfig);
                     await db.SaveChangesAsync();
                 }
+                ViewBag.next = "ok";
+                ViewBag.type = type;
 
             }
             catch (Exception ex)

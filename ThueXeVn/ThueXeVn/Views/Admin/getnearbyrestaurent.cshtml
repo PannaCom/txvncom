@@ -57,6 +57,8 @@
                     </div>
                 }
             </div>
+
+            <div id="time"></div>
             @*<script>
                 function validate() {
                     if (document.getElementById("type").value === "") {
@@ -91,6 +93,40 @@
             document.getElementById("btngetdata").disabled = true;
            
         })
+
+         @if (ViewBag.next == "ok")
+        {
+            <text>startTime();</text>
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function startTime() {
+            // add a zero in front of numbers<10
+
+            var time = document.getElementById("time");
+            var counter = 10;
+            time.innerHTML = "Hệ thống sẽ tự động lấy dữ liệu @ViewBag.type sau: <b>" + counter.toString() + "</b> giây còn lại.";
+            var id;
+               
+
+            id = setInterval(function() {
+                counter--;
+                if (counter < 0) {                
+                    var url = window.location.href;
+                    window.location.href = url;
+                    clearInterval(id);
+                } else {
+                    time.innerHTML = "Hệ thống sẽ tự động lấy dữ liệu @ViewBag.type sau: <b>" + counter.toString() + "</b> giây còn lại.";
+                }
+            }, 1000);
+
+        }
 
     </script>
 
